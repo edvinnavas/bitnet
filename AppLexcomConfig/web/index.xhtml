@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">    
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:APP LEXCOM - CONFIGURACIÓN:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <h:form id="form1">
+            <link href="css/style.css" rel="stylesheet" type="text/css"/>
+            <p:growl id="mensaje1" showDetail="true"/>
+            <p:outputLabel value="Asesoría Jurídica LEXCOM" style="font-size:40px; font-weight:bold; color:maroon;"/>
+            <p:panel header="Autenticación (Ingrese usuario y contraseña)">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Ambiente" style="font-size:12px; font-weight:bold;"/>
+                    <p:selectOneMenu id="somAmbiente" value="#{Index.ambiente}" style="font-size:12px; font-weight:bold; width:207px;">
+                        <f:selectItems value="#{Index.lista_ambientes}"/>
+                        <p:ajax event="valueChange" listener="#{Index.cambiar_ambiente}" update="somName"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Usuario" style="font-size:12px; font-weight:bold;"/>
+                    <p:selectOneMenu id="somName" value="#{Index.usuario}" style="font-size:12px; font-weight:bold; width:207px;">
+                        <f:selectItems value="#{Index.lista_usuarios}"/>
+                        <p:ajax event="valueChange" listener="#{Index.validar_reinicio_usuario}" update="lbReinicio"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Contraseña" style="font-size:12px; font-weight:bold;"/>
+                    <p:password id="pswContrasena" value="#{Index.contrasena}" style="font-size:12px; font-weight:bold; width:200px;"/>
+                    <p:outputLabel value="Nueva Contraseña" style="font-size:12px; font-weight:bold;" rendered="#{Index.newRender}"/>
+                    <p:password id="NpswContrasena" value="#{Index.nes_contrasena}" style="font-size:12px; font-weight:bold; width:200px;" rendered="#{Index.newRender}"/>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton id="btnCambio" update="mensaje1" value="Cambio Contraseña" icon="ui-icon-check" action="#{Index.loginCambio}" style="font-size:12px; font-weight:bold;" rendered="#{Index.newRender}"/>
+                            <p:commandButton id="btnRegistrar" update="mensaje1" value="Registrar" icon="ui-icon-check" action="#{Index.login}" style="font-size:12px; font-weight:bold;" rendered="#{Index.commonRender}"/>
+                        </div>
+                    </f:facet>
+                </p:panelGrid>
+                <p:outputLabel id="lbReinicio" value="#{Index.mensaje_reinicio}"/>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

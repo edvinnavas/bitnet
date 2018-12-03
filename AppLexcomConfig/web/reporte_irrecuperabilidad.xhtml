@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>.:LEXCOM REPORTES:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formReporteIrrecuperabilidad">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel id="panelReporteIrrecuperabilidad" header="Reporte de cartera irrecuperable" style="width:60%; font-size:10px; font-weight:bold;">
+                    <h:panelGrid columns="2" style="width:100%;">
+                        <p:commandButton id="btnGenerar" value="Generar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{Reporte_Irrecuperabilidad.generar_reporte}" styleClass="ui-priority-primary" icon="ui-icon-arrowthick-1-s">
+                            <p:fileDownload value="#{Reporte_Irrecuperabilidad.file}"/>
+                        </p:commandButton>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

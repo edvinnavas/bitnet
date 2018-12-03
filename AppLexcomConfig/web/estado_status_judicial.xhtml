@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>.:LEXCOM:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formEstadoStatusJudicial">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel id="panelEstadoStatusJudicial" header="Asignación Estado-Status Judicial" style="font-size:10px; font-weight:bold;">
+                    <p:panelGrid id="gridEstadoStatusJudicial" columns="1">
+                        <p:outputLabel value="Estado"/>
+                        <p:selectOneMenu id="somEstado" disabled="#{EstadoStatusJudicial.somEstado}" value="#{EstadoStatusJudicial.estado_d}" style="width: 553px;">
+                            <f:selectItems value="#{EstadoStatusJudicial.lst_estados}"/>
+                            <p:ajax event="valueChange" listener="#{EstadoStatusJudicial.cargar_status}" update="pckStatus"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Status"/>
+                        <p:pickList id="pckStatus" disabled="#{EstadoStatusJudicial.pckStatus}" value="#{EstadoStatusJudicial.status_d}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+                        <f:facet name="footer">
+                            <div align="right">
+                                <p:commandButton id="btnGuardar" disabled="#{EstadoStatusJudicial.btnGuardar}" value="Guardar" actionListener="#{EstadoStatusJudicial.guardar}" update="formMenu:mensaje2"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>.:LEXCOM REPORTES:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListCodigoContactabilidad">
+                <p:panel id="panelCodigoContactabilidad">
+                    <p:dataTable 
+                        id="tblCodigoContactabilidad"
+                        var="coc"
+                        widgetVar="dtblWidgetCoc"
+                        value="#{Codigo_Contactabilidad.lst_codigo_contactabilidad}"
+                        selectionMode="single"
+                        selection="#{Codigo_Contactabilidad.selectedCodigo_Contactabilidad}"
+                        rowKey="#{coc.codigo_contactabilidad}"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+                        <f:facet name="header">
+                            <h:outputText value="LISTADO DE CODIGOS DE RESULTADO"/>
+                        </f:facet>
+                        
+                        <p:ajax event="rowDblselect" listener="#{Codigo_Contactabilidad.carga_info_modificar}" update="DialogCrearCodigoContactabilidad, formMenu:mensaje2" global="false"/>
+                        
+                        <p:column headerText="Id" sortBy="#{coc.codigo_contactabilidad}" filterBy="#{coc.codigo_contactabilidad}" filterMatchMode="contains">
+                            <h:outputText value="#{coc.codigo_contactabilidad}"/>
+                        </p:column>
+                        <p:column headerText="Código" sortBy="#{coc.codigo}" filterBy="#{coc.codigo}" filterMatchMode="contains">
+                            <h:outputText value="#{coc.codigo}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{coc.nombre}" filterBy="#{coc.nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{coc.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{coc.estado}" filterBy="#{coc.estado}" filterMatchMode="contains">
+                            <h:outputText value="#{coc.estado}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
+                            <p:dataExporter id="dataexpExcel" type="xls" target="tblCodigoContactabilidad" fileName="CodigoResultado"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCrear" actionListener="#{Codigo_Contactabilidad.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearCodigoContactabilidad" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnModificar" actionListener="#{Codigo_Contactabilidad.carga_info_modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="DialogCrearCodigoContactabilidad, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnEliminar" actionListener="#{Codigo_Contactabilidad.carga_info_eliminar}" ajax="true" icon="ui-icon-plus" value="Eliminar" update="DialogCrearCodigoContactabilidad, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnActivar" actionListener="#{Codigo_Contactabilidad.carga_info_activar}" ajax="true" icon="ui-icon-plus" value="Activar" update="DialogCrearCodigoContactabilidad, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnVer" actionListener="#{Codigo_Contactabilidad.carga_info_ver}" ajax="true" icon="ui-icon-plus" value="Ver" update="DialogCrearCodigoContactabilidad, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+            
+            <p:dialog id="DialogCrearCodigoContactabilidad" header="CODIGO DE RESULTADO" widgetVar="dlg1" modal="true" resizable="true" appendTo="@(body)" closeOnEscape="true" style="font-size:10px; font-weight:bold;">
+                <h:form id="FormCrearCodigoContactabilidad">
+                    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="2" style="width:100%;">
+                        <p:outputLabel value="Código"/>
+                        <p:outputLabel value="Nombre"/>
+                        <p:inputText id="txtNombre" disabled="#{Codigo_Contactabilidad.txtCodigo}" value="#{Codigo_Contactabilidad.codigo_d}" style="width:200px;"/>
+                        <p:inputText id="txtNit" disabled="#{Codigo_Contactabilidad.txtNombre}" value="#{Codigo_Contactabilidad.nombre_d}" style="width:200px;"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1" style="width:100%;">
+                        <p:outputLabel value="Descripción"/>
+                        <p:inputTextarea id="itaDescripcion" disabled="#{Codigo_Contactabilidad.itaDescripcion}" value="#{Codigo_Contactabilidad.descripcion_d}" rows="5" autoResize="false" style="width:98%;"/>
+                    </p:panelGrid>
+                    <div align="right">
+                        <p:commandButton id="btnAceptar" disabled="#{Codigo_Contactabilidad.btnAceptar}" ajax="true" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('dlg1').hide()" update="formMenu:mensaje2, formListCodigoContactabilidad" actionListener="#{Codigo_Contactabilidad.aceptar}">
+                            <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" disabled="#{Codigo_Contactabilidad.btnCancelar}" ajax="true" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg1').hide()"/>
+                        
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>
