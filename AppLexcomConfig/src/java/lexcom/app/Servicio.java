@@ -771,16 +771,16 @@ public class Servicio implements Serializable {
         return port.usuarioEliminar(usuarioSys, idUsuario, poolConexion);
     }
 
-    public String usuarioInsertar(java.lang.Integer usuarioSys, java.lang.String nombreCompletoD, java.lang.String nombreD, java.lang.String contrasenaD, java.lang.String recontrasenaD, java.lang.String descripcionD, java.lang.String gestorD, java.lang.String procuradorD, java.lang.String asistenteD, java.lang.String digitadorD, java.lang.String investigadorD, java.lang.Integer tipoUsuarioD, java.lang.Integer reinicio, java.lang.Integer rol, java.lang.String poolConexion) {
+    public String usuarioInsertar(java.lang.Integer usuarioSys, java.lang.String nombreCompletoD, java.lang.String nombreD, java.lang.String contrasenaD, java.lang.String recontrasenaD, java.lang.String descripcionD, java.lang.String gestorD, java.lang.String procuradorD, java.lang.String asistenteD, java.lang.String digitadorD, java.lang.String investigadorD, java.lang.Integer tipoUsuarioD, java.lang.Integer reinicio, java.lang.Integer rol, java.util.List<java.lang.String> usuarioCorporacion, java.lang.String poolConexion) {
         lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
-        return port.usuarioInsertar(usuarioSys, nombreCompletoD, nombreD, contrasenaD, recontrasenaD, descripcionD, gestorD, procuradorD, asistenteD, digitadorD, investigadorD, tipoUsuarioD, reinicio, rol, poolConexion);
+        return port.usuarioInsertar(usuarioSys, nombreCompletoD, nombreD, contrasenaD, recontrasenaD, descripcionD, gestorD, procuradorD, asistenteD, digitadorD, investigadorD, tipoUsuarioD, reinicio, rol, usuarioCorporacion, poolConexion);
     }
 
-    public String usuarioModificar(java.lang.Integer usuarioSys, java.lang.Integer idUsuario, java.lang.String nombreCompletoD, java.lang.String nombreD, java.lang.String contrasenaD, java.lang.String descripcionD, java.lang.String gestorD, java.lang.String procuradorD, java.lang.String asistenteD, java.lang.String digitadorD, java.lang.String investigadorD, java.lang.Integer tipoUsuarioD, java.lang.Integer reinicio, java.lang.Integer rol, java.lang.String poolConexion) {
+    public String usuarioModificar(java.lang.Integer usuarioSys, java.lang.Integer idUsuario, java.lang.String nombreCompletoD, java.lang.String nombreD, java.lang.String contrasenaD, java.lang.String descripcionD, java.lang.String gestorD, java.lang.String procuradorD, java.lang.String asistenteD, java.lang.String digitadorD, java.lang.String investigadorD, java.lang.Integer tipoUsuarioD, java.lang.Integer reinicio, java.lang.Integer rol, java.util.List<java.lang.String> usuarioCorporacion, java.lang.String poolConexion) {
         lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
-        return port.usuarioModificar(usuarioSys, idUsuario, nombreCompletoD, nombreD, contrasenaD, descripcionD, gestorD, procuradorD, asistenteD, digitadorD, investigadorD, tipoUsuarioD, reinicio, rol, poolConexion);
+        return port.usuarioModificar(usuarioSys, idUsuario, nombreCompletoD, nombreD, contrasenaD, descripcionD, gestorD, procuradorD, asistenteD, digitadorD, investigadorD, tipoUsuarioD, reinicio, rol, usuarioCorporacion, poolConexion);
     }
     
 }

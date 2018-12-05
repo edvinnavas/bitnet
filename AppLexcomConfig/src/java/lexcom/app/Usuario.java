@@ -59,6 +59,7 @@ public class Usuario implements Serializable {
     private Boolean btnAceptar;
     private Boolean btnCancelar;
     private Boolean somRol;
+    private Boolean pkCorporaciones;
     
     private List<String> lst_corporaciones_disponibles;
     private List<String> lst_corporaciones_asignadas;
@@ -233,8 +234,25 @@ public class Usuario implements Serializable {
             this.btnAceptar = false;
             this.btnCancelar = false;
             this.somRol = false;
+            this.pkCorporaciones = false;
+
+            String cadenasql = "select c.nombre from cooperacion c where c.estado = 'VIGENTE'";
+            Servicio servicio = new Servicio();
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
+            Integer filas = resultado.size();
+            Integer columnas = resultado.get(0).getItem().size();
+            String[][] vector_result = new String[resultado.size()][columnas];
+            for (Integer i = 0; i < resultado.size(); i++) {
+                for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                    vector_result[i][j] = resultado.get(i).getItem().get(j);
+                }
+            }
 
             this.lst_corporaciones_disponibles = new ArrayList<>();
+            for (Integer i = 1; i < filas; i++) {
+                this.lst_corporaciones_disponibles.add(vector_result[i][0]);
+            }
+            
             this.lst_corporaciones_asignadas = new ArrayList<>();
             this.lst_corporaciones = new DualListModel<>(this.lst_corporaciones_disponibles, this.lst_corporaciones_asignadas);
 
@@ -321,7 +339,7 @@ public class Usuario implements Serializable {
                         + "from "
                         + "cooperacion c "
                         + "where "
-                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                        + "c.cooperacion in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
                 servicio = new Servicio();
                 resultado = servicio.reporte(cadenasql, this.ambiente);
                 filas = resultado.size();
@@ -354,6 +372,7 @@ public class Usuario implements Serializable {
                 this.somRol = false;
                 this.btnAceptar = false;
                 this.btnCancelar = false;
+                this.pkCorporaciones = false;
                 
                 this.opcion = "MODIFICAR";
 
@@ -441,7 +460,7 @@ public class Usuario implements Serializable {
                         + "from "
                         + "cooperacion c "
                         + "where "
-                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                        + "c.cooperacion in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
                 servicio = new Servicio();
                 resultado = servicio.reporte(cadenasql, this.ambiente);
                 filas = resultado.size();
@@ -474,6 +493,7 @@ public class Usuario implements Serializable {
                 this.somRol = true;
                 this.btnAceptar = false;
                 this.btnCancelar = false;
+                this.pkCorporaciones = true;
 
                 this.opcion = "ELIMINAR";
 
@@ -561,7 +581,7 @@ public class Usuario implements Serializable {
                         + "from "
                         + "cooperacion c "
                         + "where "
-                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                        + "c.cooperacion in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
                 servicio = new Servicio();
                 resultado = servicio.reporte(cadenasql, this.ambiente);
                 filas = resultado.size();
@@ -594,6 +614,7 @@ public class Usuario implements Serializable {
                 this.somRol = true;
                 this.btnAceptar = false;
                 this.btnCancelar = false;
+                this.pkCorporaciones = true;
 
                 this.opcion = "ACTIVAR";
 
@@ -681,7 +702,7 @@ public class Usuario implements Serializable {
                         + "from "
                         + "cooperacion c "
                         + "where "
-                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                        + "c.cooperacion in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
                 servicio = new Servicio();
                 resultado = servicio.reporte(cadenasql, this.ambiente);
                 filas = resultado.size();
@@ -714,6 +735,7 @@ public class Usuario implements Serializable {
                 this.somRol = true;
                 this.btnAceptar = true;
                 this.btnCancelar = false;
+                this.pkCorporaciones = true;
 
                 this.opcion = "VER";
 
@@ -783,6 +805,7 @@ public class Usuario implements Serializable {
                                 this.tipo_usuario_d,
                                 1,
                                 this.rol,
+                                this.lst_corporaciones.getTarget(),
                                 this.ambiente);
                         this.constructor();
                         RequestContext.getCurrentInstance().execute("PF('dtblWidgetUsu').clearFilters();");
@@ -826,6 +849,7 @@ public class Usuario implements Serializable {
                                 this.tipo_usuario_d,
                                 this.reinicio,
                                 this.rol,
+                                this.lst_corporaciones.getTarget(),
                                 this.ambiente);
                         this.constructor();
                         RequestContext.getCurrentInstance().execute("PF('dtblWidgetUsu').clearFilters();");
@@ -1198,6 +1222,14 @@ public class Usuario implements Serializable {
 
     public void setLst_corporaciones_asignadas(List<String> lst_corporaciones_asignadas) {
         this.lst_corporaciones_asignadas = lst_corporaciones_asignadas;
+    }
+
+    public Boolean getPkCorporaciones() {
+        return pkCorporaciones;
+    }
+
+    public void setPkCorporaciones(Boolean pkCorporaciones) {
+        this.pkCorporaciones = pkCorporaciones;
     }
     
 }

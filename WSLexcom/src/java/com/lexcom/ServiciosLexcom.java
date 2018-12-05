@@ -4362,6 +4362,7 @@ public class ServiciosLexcom implements Serializable {
      * @param tipo_usuario_d
      * @param reinicio
      * @param rol
+     * @param usuario_corporacion
      * @param poolConexion
      * @return
      */
@@ -4381,6 +4382,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "tipo_usuario_d") Integer tipo_usuario_d,
             @WebParam(name = "reinicio") Integer reinicio,
             @WebParam(name = "rol") Integer rol,
+            @WebParam(name = "usuario_corporacion") String[] usuario_corporacion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
         Driver driver = new Driver();
@@ -4439,6 +4441,27 @@ public class ServiciosLexcom implements Serializable {
             }
             rs.close();
             stmt.close();
+            
+            for(Integer i=0; i < usuario_corporacion.length; i++) {
+                cadenasql = "select c.cooperacion from cooperacion c where c.nombre='" + usuario_corporacion[i] + "'";
+                System.out.println(cadenasql);
+                Integer id_corporacion = 0;
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(cadenasql);
+                while(rs.next()) {
+                    id_corporacion = rs.getInt(1);
+                }
+                rs.close();
+                stmt.close();
+                
+                cadenasql = "insert into usuario_corporacion (usuario, corporacion) values ("
+                        + usuario_temp + "," 
+                        + id_corporacion + ")";
+                stmt = conn.createStatement();
+                System.out.println(cadenasql);
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
 
             //Inserta el evento en la bitacora de eventos del sistema.
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
@@ -4489,6 +4512,7 @@ public class ServiciosLexcom implements Serializable {
      * @param tipo_usuario_d
      * @param reinicio
      * @param rol
+     * @param usuario_corporacion
      * @param poolConexion
      * @return
      */
@@ -4508,6 +4532,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "tipo_usuario_d") Integer tipo_usuario_d,
             @WebParam(name = "reinicio") Integer reinicio,
             @WebParam(name = "rol") Integer rol,
+            @WebParam(name = "usuario_corporacion") String[] usuario_corporacion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
         Driver driver = new Driver();
@@ -4536,6 +4561,30 @@ public class ServiciosLexcom implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
+            
+            cadenasql = "delete from usuario_corporacion where usuario=" + id_usuario;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+            
+            for(Integer i=0; i < usuario_corporacion.length; i++) {
+                cadenasql = "select c.cooperacion from cooperacion c where c.nombre='" + usuario_corporacion[i] + "'";
+                Integer id_corporacion = 0;
+                stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(cadenasql);
+                while(rs.next()) {
+                    id_corporacion = rs.getInt(1);
+                }
+                rs.close();
+                stmt.close();
+                
+                cadenasql = "insert into usuario_corporacion (usuario, corporacion) values ("
+                        + id_usuario + "," 
+                        + id_corporacion + ")";
+                stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
 
             //Inserta el evento en la bitacora de eventos del sistema.
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("

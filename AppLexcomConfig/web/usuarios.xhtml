@@ -62,7 +62,7 @@
                         </p:column>
                     </p:dataTable>
                     <f:facet name="footer">
-                        <p:commandButton id="btnExcel" value="Excel" ajax="true" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
+                        <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
                             <p:dataExporter id="dataexpExcel" type="xls" target="tblUsuarios" fileName="Usuarios"/>
                         </p:commandButton>
                         <p:commandButton id="btnCrear" actionListener="#{Usuario.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearUsuario,formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
@@ -133,7 +133,7 @@
                         <p:tab id="tabUsuarioCorporacion" title="Corporaciones">
                             <p:panelGrid columns="1">
                                 <p:outputLabel value="Corporaciones"/>
-                                <p:pickList id="pickList" value="#{Usuario.lst_corporaciones}" var="corporaciones" itemLabel="#{corporaciones}" itemValue="#{corporaciones}"/>
+                                <p:pickList id="pkCorporaciones" disabled="#{Usuario.pkCorporaciones}" value="#{Usuario.lst_corporaciones}" var="corporaciones" itemLabel="#{corporaciones}" itemValue="#{corporaciones}"/>
                             </p:panelGrid>
                         </p:tab>
                     </p:tabView>
