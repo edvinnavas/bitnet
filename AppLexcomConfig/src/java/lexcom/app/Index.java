@@ -54,7 +54,7 @@ public class Index implements Serializable {
                 this.mensaje_reinicio = "-";
             }
         } catch (Exception ex) {
-            System.out.println("ERROR => APP-Reportes-Index(validar_reinicio_usuario): " + ex.toString());
+            System.out.println("ERROR => AppLexcomConfig-Index(validar_reinicio_usuario): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mensaje del sistema...", ex.toString()));
         }
     }
@@ -83,7 +83,7 @@ public class Index implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mensaje del sistema...", "Usuario o contraseña incorrectos!"));
             }
         } catch (Exception ex) {
-            System.out.println("ERROR => APP-Reportes-Index(login): " + ex.toString());
+            System.out.println("ERROR => AppLexcomConfig-Index(login): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mensaje del sistema...", ex.toString()));
         }
 
@@ -118,7 +118,7 @@ public class Index implements Serializable {
                 }
             }
         } catch (Exception ex) {
-            System.out.println("ERROR => APP-Reportes-Index(loginCambio): " + ex.toString());
+            System.out.println("ERROR => AppLexcomConfig-Index(loginCambio): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mensaje del sistema...", ex.toString()));
         }
 
@@ -131,7 +131,7 @@ public class Index implements Serializable {
             String lista_usuarios_sql = "select u.nombre, u.nombre from usuario u where u.estado = 'VIGENTE'";
             this.Lista_usuarios = drive.lista_SelectItem_simple(lista_usuarios_sql, this.ambiente);
         } catch(Exception ex) {
-            System.out.println("ERROR => APP-Reportes-Index(cambiar_ambiente): " + ex.toString());
+            System.out.println("ERROR => AppLexcomConfig-Index(cambiar_ambiente): " + ex.toString());
             System.out.println(ex.toString());
         }
     }

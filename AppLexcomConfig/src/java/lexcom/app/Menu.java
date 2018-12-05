@@ -31,11 +31,11 @@ public class Menu implements Serializable {
             }
         } catch(Exception ex) {
             try {
-                System.out.println("ERROR => APP-Reportes-Menu(init): " + ex.toString());
+                System.out.println("ERROR => AppLexcomConfig-Menu(init): " + ex.toString());
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
             } catch(Exception ex1) {
-                System.out.println("ERROR => APP-Reportes-Menu(init): " + ex.toString());
+                System.out.println("ERROR => AppLexcomConfig-Menu(init - redirect): " + ex1.toString());
             }
         }
     }
@@ -45,7 +45,7 @@ public class Menu implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
             FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
         } catch(Exception ex) {
-            System.out.println("ERROR => APP-Reportes-Menu(Salir): " + ex.toString());
+            System.out.println("ERROR => AppLexcomConfig-Menu(Salir): " + ex.toString());
         }
     }
 

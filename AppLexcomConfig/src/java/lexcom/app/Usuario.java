@@ -66,7 +66,6 @@ public class Usuario implements Serializable {
 
     @PostConstruct
     public void init() {
-        Driver drive = new Driver();
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             this.usuario = session.getAttribute("id_usuario").toString();
@@ -122,6 +121,7 @@ public class Usuario implements Serializable {
                 lst_usuario.add(usu);
             }
 
+            Driver drive = new Driver();
             String lista_rol_sql = "select r.rol, r.nombre from rol r";
             this.lst_rol = drive.lista_SelectItem_simple(lista_rol_sql, this.ambiente);
 
@@ -132,12 +132,12 @@ public class Usuario implements Serializable {
             this.lst_corporaciones_asignadas = new ArrayList<>();
             this.lst_corporaciones = new DualListModel<>(this.lst_corporaciones_disponibles, this.lst_corporaciones_asignadas);
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", ex.toString()));
+            System.out.println("ERROR => AppLexcomConfig-Usuario(init): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     public void constructor() {
-        Driver drive = new Driver();
         try {
             String cadenasql = "select "
                     + "u.usuario, "
@@ -189,100 +189,40 @@ public class Usuario implements Serializable {
                 lst_usuario.add(usu);
             }
 
+            Driver drive = new Driver();
             String lista_rol_sql = "select rol, nombre from rol";
             this.lst_rol = drive.lista_SelectItem_simple(lista_rol_sql, this.ambiente);
 
             String lista_cartera_sql = "select c.cartera, c.nombre from cartera c where c.estado='VIGENTE'";
             this.lst_cartera = drive.lista_SelectItem_simple(lista_cartera_sql, this.ambiente);
-
+            
+            this.lst_corporaciones_disponibles = new ArrayList<>();
+            this.lst_corporaciones_asignadas = new ArrayList<>();
+            this.lst_corporaciones = new DualListModel<>(this.lst_corporaciones_disponibles, this.lst_corporaciones_asignadas);
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", ex.toString()));
+            System.out.println("ERROR => AppLexcomConfig-Usuario(constructor): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     public void carga_info_insertar() {
-        this.nombre_completo_d = "";
-        this.nombre_d = "";
-        this.contrasena_d = "";
-        this.recontrasena_d = "";
-        this.descripcion_d = "";
-        this.gestor_d = "NO";
-        this.procurador_d = "NO";
-        this.asistente_d = "NO";
-        this.digitador_d = "NO";
-        this.investigador_d = "NO";
-        this.tipo_usuario_d = 0;
-        this.rol = 0;
-        this.txtNombreCompleto = false;
-        this.txtUsuario = false;
-        this.txtContrasena = false;
-        this.txtReContrasena = false;
-        this.somTipoUsuario = false;
-        this.sorGestor = false;
-        this.sorProcurador = false;
-        this.sorAsistente = false;
-        this.sorDigitador = false;
-        this.sorInvestigador = false;
-        this.itaDescripcion = false;
-        this.btnAceptar = false;
-        this.btnCancelar = false;
-        this.somRol = false;
-
-        this.opcion = "INSERTAR";
-
-        RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
-    }
-
-    public void carga_info_modificar() {
-        if (this.selectedUsuario != null) {
-            String cadenasql = "select "
-                    + "u.nombre_completo, "
-                    + "u.nombre, "
-                    + "u.contrasena, "
-                    + "u.descripcion, "
-                    + "u.gestor, "
-                    + "u.procurador, "
-                    + "u.asistente, "
-                    + "u.digitador, "
-                    + "u.investigador, "
-                    + "u.tipo_usuario, "
-                    + "u.reinicio, "
-                    + "u.rol "
-                    + "from "
-                    + "usuario u "
-                    + "where "
-                    + "u.usuario = " + this.selectedUsuario.getUsuario();
-            Servicio servicio = new Servicio();
-            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
-            Integer filas = resultado.size();
-            Integer columnas = resultado.get(0).getItem().size();
-            String[][] vector_result = new String[resultado.size()][columnas];
-            for (Integer i = 0; i < resultado.size(); i++) {
-                for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                    vector_result[i][j] = resultado.get(i).getItem().get(j);
-                }
-            }
-
-            for (Integer i = 1; i < filas; i++) {
-                this.nombre_completo_d = vector_result[i][0];
-                this.nombre_d = vector_result[i][1];
-                this.contrasena_d = vector_result[i][2];
-                this.recontrasena_d = vector_result[i][2];
-                this.descripcion_d = vector_result[i][3];
-                this.gestor_d = vector_result[i][4];
-                this.procurador_d = vector_result[i][5];
-                this.asistente_d = vector_result[i][6];
-                this.digitador_d = vector_result[i][7];
-                this.investigador_d = vector_result[i][8];
-                this.tipo_usuario_d = Integer.parseInt(vector_result[i][9]);
-                this.reinicio = Integer.parseInt(vector_result[i][10]);
-                this.rol = Integer.parseInt(vector_result[i][11]);
-            }
-
+        try {
+            this.nombre_completo_d = "";
+            this.nombre_d = "";
+            this.contrasena_d = "";
+            this.recontrasena_d = "";
+            this.descripcion_d = "";
+            this.gestor_d = "NO";
+            this.procurador_d = "NO";
+            this.asistente_d = "NO";
+            this.digitador_d = "NO";
+            this.investigador_d = "NO";
+            this.tipo_usuario_d = 0;
+            this.rol = 0;
             this.txtNombreCompleto = false;
             this.txtUsuario = false;
-            this.txtContrasena = true;
-            this.txtReContrasena = true;
+            this.txtContrasena = false;
+            this.txtReContrasena = false;
             this.somTipoUsuario = false;
             this.sorGestor = false;
             this.sorProcurador = false;
@@ -290,239 +230,521 @@ public class Usuario implements Serializable {
             this.sorDigitador = false;
             this.sorInvestigador = false;
             this.itaDescripcion = false;
-            this.somRol = false;
             this.btnAceptar = false;
             this.btnCancelar = false;
+            this.somRol = false;
 
-            this.opcion = "MODIFICAR";
+            this.lst_corporaciones_disponibles = new ArrayList<>();
+            this.lst_corporaciones_asignadas = new ArrayList<>();
+            this.lst_corporaciones = new DualListModel<>(this.lst_corporaciones_disponibles, this.lst_corporaciones_asignadas);
+
+            this.opcion = "INSERTAR";
 
             RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
+        } catch (Exception ex) {
+            System.out.println("ERROR => AppLexcomConfig-Usuario(carga_info_insertar): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
+        }
+    }
+
+    public void carga_info_modificar() {
+        try {
+            if (this.selectedUsuario != null) {
+                String cadenasql = "select "
+                        + "u.nombre_completo, "
+                        + "u.nombre, "
+                        + "u.contrasena, "
+                        + "u.descripcion, "
+                        + "u.gestor, "
+                        + "u.procurador, "
+                        + "u.asistente, "
+                        + "u.digitador, "
+                        + "u.investigador, "
+                        + "u.tipo_usuario, "
+                        + "u.reinicio, "
+                        + "u.rol "
+                        + "from "
+                        + "usuario u "
+                        + "where "
+                        + "u.usuario = " + this.selectedUsuario.getUsuario();
+                Servicio servicio = new Servicio();
+                java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
+                Integer filas = resultado.size();
+                Integer columnas = resultado.get(0).getItem().size();
+                String[][] vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                for (Integer i = 1; i < filas; i++) {
+                    this.nombre_completo_d = vector_result[i][0];
+                    this.nombre_d = vector_result[i][1];
+                    this.contrasena_d = vector_result[i][2];
+                    this.recontrasena_d = vector_result[i][2];
+                    this.descripcion_d = vector_result[i][3];
+                    this.gestor_d = vector_result[i][4];
+                    this.procurador_d = vector_result[i][5];
+                    this.asistente_d = vector_result[i][6];
+                    this.digitador_d = vector_result[i][7];
+                    this.investigador_d = vector_result[i][8];
+                    this.tipo_usuario_d = Integer.parseInt(vector_result[i][9]);
+                    this.reinicio = Integer.parseInt(vector_result[i][10]);
+                    this.rol = Integer.parseInt(vector_result[i][11]);
+                }
+
+                cadenasql = "select "
+                        + "c.nombre "
+                        + "from "
+                        + "cooperacion c "
+                        + "where "
+                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                servicio = new Servicio();
+                resultado = servicio.reporte(cadenasql, this.ambiente);
+                filas = resultado.size();
+                columnas = resultado.get(0).getItem().size();
+                vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                this.lst_corporaciones_disponibles = new ArrayList<>();
+                for (Integer i = 1; i < filas; i++) {
+                    this.lst_corporaciones_disponibles.add(vector_result[i][0]);
+                }
+
+                cadenasql = "select "
+                        + "c.nombre "
+                        + "from "
+                        + "cooperacion c "
+                        + "where "
+                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                servicio = new Servicio();
+                resultado = servicio.reporte(cadenasql, this.ambiente);
+                filas = resultado.size();
+                columnas = resultado.get(0).getItem().size();
+                vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                this.lst_corporaciones_asignadas = new ArrayList<>();
+                for (Integer i = 1; i < filas; i++) {
+                    this.lst_corporaciones_asignadas.add(vector_result[i][0]);
+                }
+
+                this.lst_corporaciones = new DualListModel<>(this.lst_corporaciones_disponibles, this.lst_corporaciones_asignadas);
+
+                this.txtNombreCompleto = false;
+                this.txtUsuario = false;
+                this.txtContrasena = true;
+                this.txtReContrasena = true;
+                this.somTipoUsuario = false;
+                this.sorGestor = false;
+                this.sorProcurador = false;
+                this.sorAsistente = false;
+                this.sorDigitador = false;
+                this.sorInvestigador = false;
+                this.itaDescripcion = false;
+                this.somRol = false;
+                this.btnAceptar = false;
+                this.btnCancelar = false;
+                
+                this.opcion = "MODIFICAR";
+
+                RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
+            }
+        } catch (Exception ex) {
+            System.out.println("ERROR => AppLexcomConfig-Usuario(carga_info_modificar): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     public void carga_info_eliminar() {
-        if (this.selectedUsuario != null) {
-            String cadenasql = "select "
-                    + "u.nombre_completo, "
-                    + "u.nombre, "
-                    + "u.contrasena, "
-                    + "u.descripcion, "
-                    + "u.gestor, "
-                    + "u.procurador, "
-                    + "u.asistente, "
-                    + "u.digitador, "
-                    + "u.investigador, "
-                    + "u.tipo_usuario, "
-                    + "u.reinicio, "
-                    + "u.rol "
-                    + "from "
-                    + "usuario u "
-                    + "where "
-                    + "u.usuario = " + this.selectedUsuario.getUsuario();
-            Servicio servicio = new Servicio();
-            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
-            Integer filas = resultado.size();
-            Integer columnas = resultado.get(0).getItem().size();
-            String[][] vector_result = new String[resultado.size()][columnas];
-            for (Integer i = 0; i < resultado.size(); i++) {
-                for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                    vector_result[i][j] = resultado.get(i).getItem().get(j);
+        try {
+            if (this.selectedUsuario != null) {
+                String cadenasql = "select "
+                        + "u.nombre_completo, "
+                        + "u.nombre, "
+                        + "u.contrasena, "
+                        + "u.descripcion, "
+                        + "u.gestor, "
+                        + "u.procurador, "
+                        + "u.asistente, "
+                        + "u.digitador, "
+                        + "u.investigador, "
+                        + "u.tipo_usuario, "
+                        + "u.reinicio, "
+                        + "u.rol "
+                        + "from "
+                        + "usuario u "
+                        + "where "
+                        + "u.usuario = " + this.selectedUsuario.getUsuario();
+                Servicio servicio = new Servicio();
+                java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
+                Integer filas = resultado.size();
+                Integer columnas = resultado.get(0).getItem().size();
+                String[][] vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
                 }
+
+                for (Integer i = 1; i < filas; i++) {
+                    this.nombre_completo_d = vector_result[i][0];
+                    this.nombre_d = vector_result[i][1];
+                    this.contrasena_d = vector_result[i][2];
+                    this.recontrasena_d = vector_result[i][2];
+                    this.descripcion_d = vector_result[i][3];
+                    this.gestor_d = vector_result[i][4];
+                    this.procurador_d = vector_result[i][5];
+                    this.asistente_d = vector_result[i][6];
+                    this.digitador_d = vector_result[i][7];
+                    this.investigador_d = vector_result[i][8];
+                    this.tipo_usuario_d = Integer.parseInt(vector_result[i][9]);
+                    this.reinicio = Integer.parseInt(vector_result[i][10]);
+                    this.rol = Integer.parseInt(vector_result[i][11]);
+                }
+                
+                cadenasql = "select "
+                        + "c.nombre "
+                        + "from "
+                        + "cooperacion c "
+                        + "where "
+                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                servicio = new Servicio();
+                resultado = servicio.reporte(cadenasql, this.ambiente);
+                filas = resultado.size();
+                columnas = resultado.get(0).getItem().size();
+                vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                this.lst_corporaciones_disponibles = new ArrayList<>();
+                for (Integer i = 1; i < filas; i++) {
+                    this.lst_corporaciones_disponibles.add(vector_result[i][0]);
+                }
+
+                cadenasql = "select "
+                        + "c.nombre "
+                        + "from "
+                        + "cooperacion c "
+                        + "where "
+                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                servicio = new Servicio();
+                resultado = servicio.reporte(cadenasql, this.ambiente);
+                filas = resultado.size();
+                columnas = resultado.get(0).getItem().size();
+                vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                this.lst_corporaciones_asignadas = new ArrayList<>();
+                for (Integer i = 1; i < filas; i++) {
+                    this.lst_corporaciones_asignadas.add(vector_result[i][0]);
+                }
+
+                this.lst_corporaciones = new DualListModel<>(this.lst_corporaciones_disponibles, this.lst_corporaciones_asignadas);
+
+                this.txtNombreCompleto = true;
+                this.txtUsuario = true;
+                this.txtContrasena = true;
+                this.txtReContrasena = true;
+                this.somTipoUsuario = true;
+                this.sorGestor = true;
+                this.sorProcurador = true;
+                this.sorAsistente = true;
+                this.sorDigitador = true;
+                this.sorInvestigador = true;
+                this.itaDescripcion = true;
+                this.somRol = true;
+                this.btnAceptar = false;
+                this.btnCancelar = false;
+
+                this.opcion = "ELIMINAR";
+
+                RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
             }
-
-            for (Integer i = 1; i < filas; i++) {
-                this.nombre_completo_d = vector_result[i][0];
-                this.nombre_d = vector_result[i][1];
-                this.contrasena_d = vector_result[i][2];
-                this.recontrasena_d = vector_result[i][2];
-                this.descripcion_d = vector_result[i][3];
-                this.gestor_d = vector_result[i][4];
-                this.procurador_d = vector_result[i][5];
-                this.asistente_d = vector_result[i][6];
-                this.digitador_d = vector_result[i][7];
-                this.investigador_d = vector_result[i][8];
-                this.tipo_usuario_d = Integer.parseInt(vector_result[i][9]);
-                this.reinicio = Integer.parseInt(vector_result[i][10]);
-                this.rol = Integer.parseInt(vector_result[i][11]);
-            }
-
-            this.txtNombreCompleto = true;
-            this.txtUsuario = true;
-            this.txtContrasena = true;
-            this.txtReContrasena = true;
-            this.somTipoUsuario = true;
-            this.sorGestor = true;
-            this.sorProcurador = true;
-            this.sorAsistente = true;
-            this.sorDigitador = true;
-            this.sorInvestigador = true;
-            this.itaDescripcion = true;
-            this.somRol = true;
-            this.btnAceptar = false;
-            this.btnCancelar = false;
-
-            this.opcion = "ELIMINAR";
-
-            RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
-        }
-    }
-
-    public void reiniciar_contrasena() {
-        String resultado;
-        if (this.selectedUsuario != null) {
-            Driver driver = new Driver();
-            Servicio servicio = new Servicio();
-            Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-            resultado = servicio.reiniciarContrasena(id_usuario, this.selectedUsuario.getUsuario(), this.selectedUsuario.getContrasena(), this.selectedUsuario.getNombre(), this.ambiente);
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
+        } catch (Exception ex) {
+            System.out.println("ERROR => AppLexcomConfig-Usuario(carga_info_eliminar): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     public void carga_info_activar() {
-        if (this.selectedUsuario != null) {
-            String cadenasql = "select "
-                    + "u.nombre_completo, "
-                    + "u.nombre, "
-                    + "u.contrasena, "
-                    + "u.descripcion, "
-                    + "u.gestor, "
-                    + "u.procurador, "
-                    + "u.asistente, "
-                    + "u.digitador, "
-                    + "u.investigador, "
-                    + "u.tipo_usuario, "
-                    + "u.reinicio, "
-                    + "u.rol "
-                    + "from "
-                    + "usuario u "
-                    + "where "
-                    + "u.usuario = " + this.selectedUsuario.getUsuario();
-            Servicio servicio = new Servicio();
-            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
-            Integer filas = resultado.size();
-            Integer columnas = resultado.get(0).getItem().size();
-            String[][] vector_result = new String[resultado.size()][columnas];
-            for (Integer i = 0; i < resultado.size(); i++) {
-                for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                    vector_result[i][j] = resultado.get(i).getItem().get(j);
+        try {
+            if (this.selectedUsuario != null) {
+                String cadenasql = "select "
+                        + "u.nombre_completo, "
+                        + "u.nombre, "
+                        + "u.contrasena, "
+                        + "u.descripcion, "
+                        + "u.gestor, "
+                        + "u.procurador, "
+                        + "u.asistente, "
+                        + "u.digitador, "
+                        + "u.investigador, "
+                        + "u.tipo_usuario, "
+                        + "u.reinicio, "
+                        + "u.rol "
+                        + "from "
+                        + "usuario u "
+                        + "where "
+                        + "u.usuario = " + this.selectedUsuario.getUsuario();
+                Servicio servicio = new Servicio();
+                java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
+                Integer filas = resultado.size();
+                Integer columnas = resultado.get(0).getItem().size();
+                String[][] vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
                 }
+
+                for (Integer i = 1; i < filas; i++) {
+                    this.nombre_completo_d = vector_result[i][0];
+                    this.nombre_d = vector_result[i][1];
+                    this.contrasena_d = vector_result[i][2];
+                    this.recontrasena_d = vector_result[i][2];
+                    this.descripcion_d = vector_result[i][3];
+                    this.gestor_d = vector_result[i][4];
+                    this.procurador_d = vector_result[i][5];
+                    this.asistente_d = vector_result[i][6];
+                    this.digitador_d = vector_result[i][7];
+                    this.investigador_d = vector_result[i][8];
+                    this.tipo_usuario_d = Integer.parseInt(vector_result[i][9]);
+                    this.reinicio = Integer.parseInt(vector_result[i][10]);
+                    this.rol = Integer.parseInt(vector_result[i][11]);
+                }
+                
+                cadenasql = "select "
+                        + "c.nombre "
+                        + "from "
+                        + "cooperacion c "
+                        + "where "
+                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                servicio = new Servicio();
+                resultado = servicio.reporte(cadenasql, this.ambiente);
+                filas = resultado.size();
+                columnas = resultado.get(0).getItem().size();
+                vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                this.lst_corporaciones_disponibles = new ArrayList<>();
+                for (Integer i = 1; i < filas; i++) {
+                    this.lst_corporaciones_disponibles.add(vector_result[i][0]);
+                }
+
+                cadenasql = "select "
+                        + "c.nombre "
+                        + "from "
+                        + "cooperacion c "
+                        + "where "
+                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                servicio = new Servicio();
+                resultado = servicio.reporte(cadenasql, this.ambiente);
+                filas = resultado.size();
+                columnas = resultado.get(0).getItem().size();
+                vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                this.lst_corporaciones_asignadas = new ArrayList<>();
+                for (Integer i = 1; i < filas; i++) {
+                    this.lst_corporaciones_asignadas.add(vector_result[i][0]);
+                }
+
+                this.lst_corporaciones = new DualListModel<>(this.lst_corporaciones_disponibles, this.lst_corporaciones_asignadas);
+
+                this.txtNombreCompleto = true;
+                this.txtUsuario = true;
+                this.txtContrasena = true;
+                this.txtReContrasena = true;
+                this.somTipoUsuario = true;
+                this.sorGestor = true;
+                this.sorProcurador = true;
+                this.sorAsistente = true;
+                this.sorDigitador = true;
+                this.sorInvestigador = true;
+                this.itaDescripcion = true;
+                this.somRol = true;
+                this.btnAceptar = false;
+                this.btnCancelar = false;
+
+                this.opcion = "ACTIVAR";
+
+                RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
             }
-
-            for (Integer i = 1; i < filas; i++) {
-                this.nombre_completo_d = vector_result[i][0];
-                this.nombre_d = vector_result[i][1];
-                this.contrasena_d = vector_result[i][2];
-                this.recontrasena_d = vector_result[i][2];
-                this.descripcion_d = vector_result[i][3];
-                this.gestor_d = vector_result[i][4];
-                this.procurador_d = vector_result[i][5];
-                this.asistente_d = vector_result[i][6];
-                this.digitador_d = vector_result[i][7];
-                this.investigador_d = vector_result[i][8];
-                this.tipo_usuario_d = Integer.parseInt(vector_result[i][9]);
-                this.reinicio = Integer.parseInt(vector_result[i][10]);
-                this.rol = Integer.parseInt(vector_result[i][11]);
-            }
-
-            this.txtNombreCompleto = true;
-            this.txtUsuario = true;
-            this.txtContrasena = true;
-            this.txtReContrasena = true;
-            this.somTipoUsuario = true;
-            this.sorGestor = true;
-            this.sorProcurador = true;
-            this.sorAsistente = true;
-            this.sorDigitador = true;
-            this.sorInvestigador = true;
-            this.itaDescripcion = true;
-            this.somRol = true;
-            this.btnAceptar = false;
-            this.btnCancelar = false;
-
-            this.opcion = "ACTIVAR";
-
-            RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
+        } catch (Exception ex) {
+            System.out.println("ERROR => AppLexcomConfig-Usuario(carga_info_activar): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     public void carga_info_ver() {
-        if (this.selectedUsuario != null) {
-            String cadenasql = "select "
-                    + "u.nombre_completo, "
-                    + "u.nombre, "
-                    + "u.contrasena, "
-                    + "u.descripcion, "
-                    + "u.gestor, "
-                    + "u.procurador, "
-                    + "u.asistente, "
-                    + "u.digitador, "
-                    + "u.investigador, "
-                    + "u.tipo_usuario, "
-                    + "u.reinicio, "
-                    + "u.rol "
-                    + "from "
-                    + "usuario u "
-                    + "where "
-                    + "u.usuario = " + this.selectedUsuario.getUsuario();
-            Servicio servicio = new Servicio();
-            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
-            Integer filas = resultado.size();
-            Integer columnas = resultado.get(0).getItem().size();
-            String[][] vector_result = new String[resultado.size()][columnas];
-            for (Integer i = 0; i < resultado.size(); i++) {
-                for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                    vector_result[i][j] = resultado.get(i).getItem().get(j);
+        try {
+            if (this.selectedUsuario != null) {
+                String cadenasql = "select "
+                        + "u.nombre_completo, "
+                        + "u.nombre, "
+                        + "u.contrasena, "
+                        + "u.descripcion, "
+                        + "u.gestor, "
+                        + "u.procurador, "
+                        + "u.asistente, "
+                        + "u.digitador, "
+                        + "u.investigador, "
+                        + "u.tipo_usuario, "
+                        + "u.reinicio, "
+                        + "u.rol "
+                        + "from "
+                        + "usuario u "
+                        + "where "
+                        + "u.usuario = " + this.selectedUsuario.getUsuario();
+                Servicio servicio = new Servicio();
+                java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
+                Integer filas = resultado.size();
+                Integer columnas = resultado.get(0).getItem().size();
+                String[][] vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
                 }
+
+                for (Integer i = 1; i < filas; i++) {
+                    this.nombre_completo_d = vector_result[i][0];
+                    this.nombre_d = vector_result[i][1];
+                    this.contrasena_d = vector_result[i][2];
+                    this.recontrasena_d = vector_result[i][2];
+                    this.descripcion_d = vector_result[i][3];
+                    this.gestor_d = vector_result[i][4];
+                    this.procurador_d = vector_result[i][5];
+                    this.asistente_d = vector_result[i][6];
+                    this.digitador_d = vector_result[i][7];
+                    this.investigador_d = vector_result[i][8];
+                    this.tipo_usuario_d = Integer.parseInt(vector_result[i][9]);
+                    this.reinicio = Integer.parseInt(vector_result[i][10]);
+                    this.rol = Integer.parseInt(vector_result[i][11]);
+                }
+                
+                cadenasql = "select "
+                        + "c.nombre "
+                        + "from "
+                        + "cooperacion c "
+                        + "where "
+                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                servicio = new Servicio();
+                resultado = servicio.reporte(cadenasql, this.ambiente);
+                filas = resultado.size();
+                columnas = resultado.get(0).getItem().size();
+                vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                this.lst_corporaciones_disponibles = new ArrayList<>();
+                for (Integer i = 1; i < filas; i++) {
+                    this.lst_corporaciones_disponibles.add(vector_result[i][0]);
+                }
+
+                cadenasql = "select "
+                        + "c.nombre "
+                        + "from "
+                        + "cooperacion c "
+                        + "where "
+                        + "c.cooperacion not in (select uc.corporacion from usuario_corporacion uc where uc.usuario=" + this.selectedUsuario.getUsuario() + ")";
+                servicio = new Servicio();
+                resultado = servicio.reporte(cadenasql, this.ambiente);
+                filas = resultado.size();
+                columnas = resultado.get(0).getItem().size();
+                vector_result = new String[resultado.size()][columnas];
+                for (Integer i = 0; i < resultado.size(); i++) {
+                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    }
+                }
+
+                this.lst_corporaciones_asignadas = new ArrayList<>();
+                for (Integer i = 1; i < filas; i++) {
+                    this.lst_corporaciones_asignadas.add(vector_result[i][0]);
+                }
+
+                this.lst_corporaciones = new DualListModel<>(this.lst_corporaciones_disponibles, this.lst_corporaciones_asignadas);
+
+                this.txtNombreCompleto = true;
+                this.txtUsuario = true;
+                this.txtContrasena = true;
+                this.txtReContrasena = true;
+                this.somTipoUsuario = true;
+                this.sorGestor = true;
+                this.sorProcurador = true;
+                this.sorAsistente = true;
+                this.sorDigitador = true;
+                this.sorInvestigador = true;
+                this.itaDescripcion = true;
+                this.somRol = true;
+                this.btnAceptar = true;
+                this.btnCancelar = false;
+
+                this.opcion = "VER";
+
+                RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
             }
-
-            for (Integer i = 1; i < filas; i++) {
-                this.nombre_completo_d = vector_result[i][0];
-                this.nombre_d = vector_result[i][1];
-                this.contrasena_d = vector_result[i][2];
-                this.recontrasena_d = vector_result[i][2];
-                this.descripcion_d = vector_result[i][3];
-                this.gestor_d = vector_result[i][4];
-                this.procurador_d = vector_result[i][5];
-                this.asistente_d = vector_result[i][6];
-                this.digitador_d = vector_result[i][7];
-                this.investigador_d = vector_result[i][8];
-                this.tipo_usuario_d = Integer.parseInt(vector_result[i][9]);
-                this.reinicio = Integer.parseInt(vector_result[i][10]);
-                this.rol = Integer.parseInt(vector_result[i][11]);
-            }
-
-            this.txtNombreCompleto = true;
-            this.txtUsuario = true;
-            this.txtContrasena = true;
-            this.txtReContrasena = true;
-            this.somTipoUsuario = true;
-            this.sorGestor = true;
-            this.sorProcurador = true;
-            this.sorAsistente = true;
-            this.sorDigitador = true;
-            this.sorInvestigador = true;
-            this.itaDescripcion = true;
-            this.somRol = true;
-            this.btnAceptar = true;
-            this.btnCancelar = false;
-
-            this.opcion = "VER";
-
-            RequestContext.getCurrentInstance().execute("PF('dlg1').show();");
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
+        } catch (Exception ex) {
+            System.out.println("ERROR => AppLexcomConfig-Usuario(carga_info_ver): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
+    public void reiniciar_contrasena() {
+        try {
+            if (this.selectedUsuario != null) {
+                Driver driver = new Driver();
+                Servicio servicio = new Servicio();
+                Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
+                String resultado = servicio.reiniciarContrasena(id_usuario, this.selectedUsuario.getUsuario(), this.selectedUsuario.getContrasena(), this.selectedUsuario.getNombre(), this.ambiente);
+
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Dede seleccionar un usuario del listado."));
+            }
+        } catch (Exception ex) {
+            System.out.println("ERROR => AppLexcomConfig-Usuario(reiniciar_contrasena): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
+        }
+    }
+    
     public void aceptar() {
         if (this.opcion.equals("INSERTAR")) {
             this.insertar();
@@ -539,8 +761,6 @@ public class Usuario implements Serializable {
     }
 
     private void insertar() {
-        String resultado = "";
-
         try {
             if (!this.nombre_completo_d.equals("")) {
                 if (!this.nombre_d.equals("")) {
@@ -548,7 +768,7 @@ public class Usuario implements Serializable {
                         Driver driver = new Driver();
                         Servicio servicio = new Servicio();
                         Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-                        resultado = servicio.usuarioInsertar(
+                        String resultado = servicio.usuarioInsertar(
                                 id_usuario,
                                 this.nombre_completo_d,
                                 this.nombre_d,
@@ -569,22 +789,21 @@ public class Usuario implements Serializable {
 
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
                     } else {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Las contraseñas no coinciden verifique."));
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Las contraseñas no coinciden verifique."));
                     }
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Debe ingresar el usuario que utilizar para acceder al sistema."));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe ingresar el usuario que utilizar para acceder al sistema."));
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Debe ingresar el nombre del usuario."));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe ingresar el nombre del usuario."));
             }
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Mensaje del sistema...", ex.toString()));
+            System.out.println("ERROR => AppLexcomConfig-Usuario(insertar): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     private void modificar() {
-        String resultado = "";
-
         try {
             if (!this.nombre_completo_d.equals("")) {
                 if (!this.nombre_d.equals("")) {
@@ -592,7 +811,7 @@ public class Usuario implements Serializable {
                         Driver driver = new Driver();
                         Servicio servicio = new Servicio();
                         Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-                        resultado = servicio.usuarioModificar(
+                        String resultado = servicio.usuarioModificar(
                                 id_usuario,
                                 this.selectedUsuario.getUsuario(),
                                 this.nombre_completo_d,
@@ -613,27 +832,26 @@ public class Usuario implements Serializable {
 
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
                     } else {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Las contraseñas no coinciden verifique."));
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Las contraseñas no coinciden verifique."));
                     }
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Debe ingresar el usuario que va utilizar para acceder al sistema."));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe ingresar el usuario que va utilizar para acceder al sistema."));
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Debe ingresar el nombre del usuario."));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe ingresar el nombre del usuario."));
             }
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Mensaje del sistema...", ex.toString()));
+            System.out.println("ERROR => AppLexcomConfig-Usuario(modificar): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     private void eliminar() {
-        String resultado = "";
-
         try {
             Driver driver = new Driver();
             Servicio servicio = new Servicio();
             Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-            resultado = servicio.usuarioEliminar(
+            String resultado = servicio.usuarioEliminar(
                     id_usuario,
                     this.selectedUsuario.getUsuario(),
                     this.ambiente);
@@ -642,18 +860,17 @@ public class Usuario implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Mensaje del sistema...", ex.toString()));
+            System.out.println("ERROR => AppLexcomConfig-Usuario(eliminar): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     private void activar() {
-        String resultado = "";
-
         try {
             Driver driver = new Driver();
             Servicio servicio = new Servicio();
             Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-            resultado = servicio.usuarioActivar(
+            String resultado = servicio.usuarioActivar(
                     id_usuario,
                     this.selectedUsuario.getUsuario(),
                     this.ambiente);
@@ -662,17 +879,20 @@ public class Usuario implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Mensaje del sistema...", ex.toString()));
+            System.out.println("ERROR => AppLexcomConfig-Usuario(activar): " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
 
     public String reinicio_convert(int value) {
         String retorno;
+        
         if (value == 0) {
             retorno = "";
         } else {
             retorno = "Reiniciada";
         }
+        
         return retorno;
     }
 
