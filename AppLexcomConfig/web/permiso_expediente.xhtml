@@ -1,62 +1,70 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <ui:composition>
-        <h:form id="formListPermisoExpediente">
-            <link href="css/style.css" rel="stylesheet" type="text/css"/>
-            <p:panel id="panelPermisoExpediente">
-                <p:dataTable 
-                    id="tblPermisos"
-                    var="per"
-                    widgetVar="vPermisos"
-                    value="#{Permiso_Expediente.lst_permiso_expediente}"
-                    rowKey="#{per.id_usuario}"
-                    selectionMode="single"
-                    selection="#{Permiso_Expediente.sel_permiso_expediente}"
-                    editable="true" 
-                    editMode="cell"
-                    reflow="true"
-                    paginator="true"
-                    rows="10"
-                    rowsPerPageTemplate="10,100,500"
-                    paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                    style="font-size:10px; font-weight:bold;">
-                    
-                    <f:facet name="header">
-                        <h:outputText value="PERMISOS-USUARIOS EXPEDIENTES"/>
-                    </f:facet>
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListPermisoExpediente">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel id="panelPermisoExpediente">
+                    <p:dataTable 
+                        id="tblPermisos"
+                        var="per"
+                        widgetVar="vPermisos"
+                        value="#{Permiso_Expediente.lst_permiso_expediente}"
+                        rowKey="#{per.id_usuario}"
+                        selectionMode="single"
+                        selection="#{Permiso_Expediente.sel_permiso_expediente}"
+                        editable="true" 
+                        editMode="cell"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
 
-                    <p:column headerText="Id-Usuario" sortBy="#{per.id_usuario}" filterBy="#{per.id_usuario}" filterMatchMode="contains">
-                        <h:outputText value="#{per.id_usuario}"/>
-                    </p:column>
-                    <p:column headerText="Usuario" sortBy="#{per.usuario}" filterBy="#{per.usuario}" filterMatchMode="contains">
-                        <h:outputText value="#{per.usuario}"/>
-                    </p:column>
-                    <p:column headerText="Menu" sortBy="#{per.menu}" filterBy="#{per.menu}" filterMatchMode="contains">
-                        <h:outputText value="#{per.menu}"/>
-                    </p:column>
-                    <p:column headerText="Permiso">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{per.permiso}"/></f:facet>
-                            <f:facet name="input">
-                                <p:selectOneMenu value="#{per.permiso}" style="width:100%">
-                                    <f:selectItem itemLabel="SI" itemValue="SI"/>
-                                    <f:selectItem itemLabel="NO" itemValue="NO"/>
-                                </p:selectOneMenu>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                </p:dataTable>
-                <f:facet name="footer">
-                    <div align="right">
-                        <p:commandButton id="btnGuardar" actionListener="#{Permiso_Expediente.guardar_permisos}" ajax="true" icon="ui-icon-plus" value="Modificar" update="formMenu:mensaje2,tblPermisos" style="font-size:10px; font-weight:bold;"/> 
-                    </div>
-                </f:facet>
-            </p:panel>
-        </h:form>
-    </ui:composition>
+                        <f:facet name="header">
+                            <h:outputText value="PERMISOS-USUARIOS EXPEDIENTES"/>
+                        </f:facet>
+
+                        <p:column headerText="Id-Usuario" sortBy="#{per.id_usuario}" filterBy="#{per.id_usuario}" filterMatchMode="contains">
+                            <h:outputText value="#{per.id_usuario}"/>
+                        </p:column>
+                        <p:column headerText="Usuario" sortBy="#{per.usuario}" filterBy="#{per.usuario}" filterMatchMode="contains">
+                            <h:outputText value="#{per.usuario}"/>
+                        </p:column>
+                        <p:column headerText="Menu" sortBy="#{per.menu}" filterBy="#{per.menu}" filterMatchMode="contains">
+                            <h:outputText value="#{per.menu}"/>
+                        </p:column>
+                        <p:column headerText="Permiso">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{per.permiso}"/></f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu value="#{per.permiso}" style="width:100%">
+                                        <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                        <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton id="btnGuardar" actionListener="#{Permiso_Expediente.guardar_permisos}" ajax="true" icon="ui-icon-plus" value="Modificar" update="formMenu:mensaje2,tblPermisos" style="font-size:10px; font-weight:bold;"/> 
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
 </html>

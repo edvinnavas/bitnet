@@ -1,15 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    <ui:composition>
-        <p:dialog id="DialogGestionAdmon" header="Gestión administrativa" widgetVar="var_admon" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:9px; font-weight:bold; color:black;">
-            <h:form id="FormGestionAdmon">
-                
-            </h:form>
-        </p:dialog>
-    </ui:composition>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogGestionAdmon" header="Gestión administrativa" widgetVar="var_admon" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:9px; font-weight:bold; color:black;">
+                <h:form id="FormGestionAdmon">
+
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
 </html>

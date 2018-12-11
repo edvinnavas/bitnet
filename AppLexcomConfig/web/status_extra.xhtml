@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -7,8 +7,8 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <f:facet name="first">
-            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            <title>.:LEXCOM REPORTES:.</title>
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
         </f:facet>
     </h:head>
     <h:body>
@@ -32,9 +32,9 @@
                         <f:facet name="header">
                             <h:outputText value="LISTADO DE STATUS EXTRAJUDICIALES"/>
                         </f:facet>
-                        
+
                         <p:ajax event="rowDblselect" listener="#{EstatusExtra.carga_info_modificar}" update="DialogCrearStatus, formMenu:mensaje2" global="false"/>
-                        
+
                         <p:column headerText="Id" sortBy="#{est.estatus}" filterBy="#{est.estatus}" filterMatchMode="contains">
                             <h:outputText value="#{est.estatus}"/>
                         </p:column>
@@ -73,7 +73,7 @@
                             <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
                         </p:commandButton>
                         <p:commandButton id="btnCancelar" disabled="#{EstatusExtra.btnCancelar}" ajax="true" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg1').hide()"/>
-                        
+
                         <p:confirmDialog global="true">
                             <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                             <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>

@@ -1,46 +1,54 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    <ui:composition>
-        <p:dialog id="DialogGestionCobros" header="Gestión de cobros" widgetVar="var_cobros" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:9px; font-weight:bold; color:black;">
-            <h:form id="FormGestionCobros">
-                <p:panel id="panelGestionCobros">
-                    <p:tabView id="tabview1" widgetVar="VTabWiew">
-                        <p:tab title="Gestión">
-                            <p:panelGrid style="width:100%;">
-                                <p:row>
-                                    <p:column colspan="1">
-                                        <p:outputLabel value="Tipo de gestión"/>
-                                    </p:column>
-                                    <p:column colspan="1">
-                                        <p:selectOneMenu id="somTipoGestion" value="#{Gestion_Cobros.tipo_gestion}" required="true" style="width:158px;">
-                                            <f:selectItems value="#{Gestion_Cobros.lst_tipo_gestion}"/>
-                                        </p:selectOneMenu>
-                                    </p:column>
-                                    <p:column colspan="1">
-                                        <p:outputLabel value="Contacto"/>
-                                    </p:column>
-                                    <p:column colspan="1">
-                                        <p:selectOneMenu id="somContacto" value="#{Gestion_Cobros.contacto}" required="true" style="width:158px;">
-                                            <f:selectItem itemLabel="SI" itemValue="SI"/>
-                                            <f:selectItem itemLabel="NO" itemValue="NO"/>
-                                        </p:selectOneMenu>
-                                    </p:column>
-                                </p:row>
-                            </p:panelGrid>
-                        </p:tab>
-                        <p:tab title="Proxima gestión">
-                            <p:panelGrid style="width:100%;">
-                                
-                            </p:panelGrid>
-                        </p:tab>
-                    </p:tabView>
-                </p:panel>
-            </h:form>
-        </p:dialog>
-    </ui:composition>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogGestionCobros" header="Gestión de cobros" widgetVar="var_cobros" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:9px; font-weight:bold; color:black;">
+                <h:form id="FormGestionCobros">
+                    <p:panel id="panelGestionCobros">
+                        <p:tabView id="tabview1" widgetVar="VTabWiew">
+                            <p:tab title="Gestión">
+                                <p:panelGrid style="width:100%;">
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Tipo de gestión"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="somTipoGestion" value="#{Gestion_Cobros.tipo_gestion}" required="true" style="width:158px;">
+                                                <f:selectItems value="#{Gestion_Cobros.lst_tipo_gestion}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Contacto"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="somContacto" value="#{Gestion_Cobros.contacto}" required="true" style="width:158px;">
+                                                <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                                <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:tab>
+                            <p:tab title="Proxima gestión">
+                                <p:panelGrid style="width:100%;">
+
+                                </p:panelGrid>
+                            </p:tab>
+                        </p:tabView>
+                    </p:panel>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
 </html>
