@@ -3,6 +3,7 @@ package lexcom.app;
 import java.io.Serializable;
 
 public class Garantia_List implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     
     private Integer garantia;

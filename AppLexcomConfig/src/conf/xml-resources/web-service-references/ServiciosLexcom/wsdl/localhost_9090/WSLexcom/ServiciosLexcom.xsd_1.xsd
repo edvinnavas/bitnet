@@ -294,6 +294,22 @@
 
 <xs:element name="Guardar_Expediente_JudicialResponse" type="tns:Guardar_Expediente_JudicialResponse"/>
 
+<xs:element name="Intencion_Pago_Activar" type="tns:Intencion_Pago_Activar"/>
+
+<xs:element name="Intencion_Pago_ActivarResponse" type="tns:Intencion_Pago_ActivarResponse"/>
+
+<xs:element name="Intencion_Pago_Eliminar" type="tns:Intencion_Pago_Eliminar"/>
+
+<xs:element name="Intencion_Pago_EliminarResponse" type="tns:Intencion_Pago_EliminarResponse"/>
+
+<xs:element name="Intencion_Pago_Insertar" type="tns:Intencion_Pago_Insertar"/>
+
+<xs:element name="Intencion_Pago_InsertarResponse" type="tns:Intencion_Pago_InsertarResponse"/>
+
+<xs:element name="Intencion_Pago_Modificar" type="tns:Intencion_Pago_Modificar"/>
+
+<xs:element name="Intencion_Pago_ModificarResponse" type="tns:Intencion_Pago_ModificarResponse"/>
+
 <xs:element name="Juicio_Eliminar" type="tns:Juicio_Eliminar"/>
 
 <xs:element name="Juicio_EliminarResponse" type="tns:Juicio_EliminarResponse"/>
@@ -377,6 +393,22 @@
 <xs:element name="Promesa_Pago_Modificar" type="tns:Promesa_Pago_Modificar"/>
 
 <xs:element name="Promesa_Pago_ModificarResponse" type="tns:Promesa_Pago_ModificarResponse"/>
+
+<xs:element name="Razon_Deuda_Activar" type="tns:Razon_Deuda_Activar"/>
+
+<xs:element name="Razon_Deuda_ActivarResponse" type="tns:Razon_Deuda_ActivarResponse"/>
+
+<xs:element name="Razon_Deuda_Eliminar" type="tns:Razon_Deuda_Eliminar"/>
+
+<xs:element name="Razon_Deuda_EliminarResponse" type="tns:Razon_Deuda_EliminarResponse"/>
+
+<xs:element name="Razon_Deuda_Insertar" type="tns:Razon_Deuda_Insertar"/>
+
+<xs:element name="Razon_Deuda_InsertarResponse" type="tns:Razon_Deuda_InsertarResponse"/>
+
+<xs:element name="Razon_Deuda_Modificar" type="tns:Razon_Deuda_Modificar"/>
+
+<xs:element name="Razon_Deuda_ModificarResponse" type="tns:Razon_Deuda_ModificarResponse"/>
 
 <xs:element name="Referencia_Eliminar" type="tns:Referencia_Eliminar"/>
 
@@ -727,6 +759,20 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="Razon_Deuda_Activar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_razon_deuda" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Razon_Deuda_ActivarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="Estado_Status_Extra_Permite">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -816,20 +862,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Carga_Masiva_Medidas_Precautorias">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="archivo" type="xs:string" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Carga_Masiva_Medidas_PrecautoriasResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="Constantes_Modificar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -839,6 +871,20 @@
 </xs:complexType>
 
 <xs:complexType name="Constantes_ModificarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Carga_Masiva_Medidas_Precautorias">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="archivo" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Carga_Masiva_Medidas_PrecautoriasResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -1049,6 +1095,22 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="Intencion_Pago_Modificar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_intencion_pago" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre_d" type="xs:string" minOccurs="0"/>
+<xs:element name="descripcion_d" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Intencion_Pago_ModificarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="StatusExtra_Activar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -1233,6 +1295,20 @@
 </xs:complexType>
 
 <xs:complexType name="Banco_InsertarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Intencion_Pago_Activar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_intencion_pago" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Intencion_Pago_ActivarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -1745,6 +1821,21 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="Intencion_Pago_Insertar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre_d" type="xs:string" minOccurs="0"/>
+<xs:element name="descripcion_d" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Intencion_Pago_InsertarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="StatusExtra_Insertar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -1845,6 +1936,20 @@
 </xs:complexType>
 
 <xs:complexType name="StatusExtra_EliminarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Intencion_Pago_Eliminar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_intencion_pago" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Intencion_Pago_EliminarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -2458,6 +2563,22 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="Razon_Deuda_Modificar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_razon_deuda" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre_d" type="xs:string" minOccurs="0"/>
+<xs:element name="descripcion_d" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Razon_Deuda_ModificarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="Rotacion_Automatica">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -2602,6 +2723,21 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="Razon_Deuda_Insertar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre_d" type="xs:string" minOccurs="0"/>
+<xs:element name="descripcion_d" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Razon_Deuda_InsertarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="Juicio_Eliminar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -2711,6 +2847,20 @@
 </xs:complexType>
 
 <xs:complexType name="SqlTransaccionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Razon_Deuda_Eliminar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_razon_deuda" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Razon_Deuda_EliminarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>

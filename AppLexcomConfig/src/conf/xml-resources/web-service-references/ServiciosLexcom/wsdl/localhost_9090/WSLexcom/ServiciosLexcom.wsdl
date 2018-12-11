@@ -7,6 +7,12 @@
 <xsd:import namespace="http://jaxb.dev.java.net/array" schemaLocation="http://localhost:9090/WSLexcom/ServiciosLexcom?xsd=2"/>
 </xsd:schema>
 </types>
+<message name="Reporte">
+<part name="parameters" element="tns:Reporte"/>
+</message>
+<message name="ReporteResponse">
+<part name="parameters" element="tns:ReporteResponse"/>
+</message>
 <message name="Logueo">
 <part name="parameters" element="tns:Logueo"/>
 </message>
@@ -18,12 +24,6 @@
 </message>
 <message name="Logueo_cambioResponse">
 <part name="parameters" element="tns:Logueo_cambioResponse"/>
-</message>
-<message name="Reporte">
-<part name="parameters" element="tns:Reporte"/>
-</message>
-<message name="ReporteResponse">
-<part name="parameters" element="tns:ReporteResponse"/>
 </message>
 <message name="SqlTransaccion">
 <part name="parameters" element="tns:SqlTransaccion"/>
@@ -289,11 +289,35 @@
 <message name="Cartera_ActivarResponse">
 <part name="parameters" element="tns:Cartera_ActivarResponse"/>
 </message>
-<message name="Carga_Masiva_Medidas_Precautorias">
-<part name="parameters" element="tns:Carga_Masiva_Medidas_Precautorias"/>
+<message name="Razon_Deuda_Eliminar">
+<part name="parameters" element="tns:Razon_Deuda_Eliminar"/>
 </message>
-<message name="Carga_Masiva_Medidas_PrecautoriasResponse">
-<part name="parameters" element="tns:Carga_Masiva_Medidas_PrecautoriasResponse"/>
+<message name="Razon_Deuda_EliminarResponse">
+<part name="parameters" element="tns:Razon_Deuda_EliminarResponse"/>
+</message>
+<message name="Razon_Deuda_Modificar">
+<part name="parameters" element="tns:Razon_Deuda_Modificar"/>
+</message>
+<message name="Razon_Deuda_ModificarResponse">
+<part name="parameters" element="tns:Razon_Deuda_ModificarResponse"/>
+</message>
+<message name="Razon_Deuda_Activar">
+<part name="parameters" element="tns:Razon_Deuda_Activar"/>
+</message>
+<message name="Razon_Deuda_ActivarResponse">
+<part name="parameters" element="tns:Razon_Deuda_ActivarResponse"/>
+</message>
+<message name="Razon_Deuda_Insertar">
+<part name="parameters" element="tns:Razon_Deuda_Insertar"/>
+</message>
+<message name="Razon_Deuda_InsertarResponse">
+<part name="parameters" element="tns:Razon_Deuda_InsertarResponse"/>
+</message>
+<message name="Intencion_Pago_Eliminar">
+<part name="parameters" element="tns:Intencion_Pago_Eliminar"/>
+</message>
+<message name="Intencion_Pago_EliminarResponse">
+<part name="parameters" element="tns:Intencion_Pago_EliminarResponse"/>
 </message>
 <message name="Rotacion_Automatica">
 <part name="parameters" element="tns:Rotacion_Automatica"/>
@@ -727,6 +751,12 @@
 <message name="Guardar_Expediente_ExtrajudicialResponse">
 <part name="parameters" element="tns:Guardar_Expediente_ExtrajudicialResponse"/>
 </message>
+<message name="Guardar_Expediente_Judicial">
+<part name="parameters" element="tns:Guardar_Expediente_Judicial"/>
+</message>
+<message name="Guardar_Expediente_JudicialResponse">
+<part name="parameters" element="tns:Guardar_Expediente_JudicialResponse"/>
+</message>
 <message name="Cartera_Modificar">
 <part name="parameters" element="tns:Cartera_Modificar"/>
 </message>
@@ -738,12 +768,6 @@
 </message>
 <message name="Permiso_ExpedienteResponse">
 <part name="parameters" element="tns:Permiso_ExpedienteResponse"/>
-</message>
-<message name="Guardar_Expediente_Judicial">
-<part name="parameters" element="tns:Guardar_Expediente_Judicial"/>
-</message>
-<message name="Guardar_Expediente_JudicialResponse">
-<part name="parameters" element="tns:Guardar_Expediente_JudicialResponse"/>
 </message>
 <message name="Convenio_Insertar">
 <part name="parameters" element="tns:Convenio_Insertar"/>
@@ -775,6 +799,30 @@
 <message name="Convenio_Detalle_ModificarResponse">
 <part name="parameters" element="tns:Convenio_Detalle_ModificarResponse"/>
 </message>
+<message name="Intencion_Pago_Activar">
+<part name="parameters" element="tns:Intencion_Pago_Activar"/>
+</message>
+<message name="Intencion_Pago_ActivarResponse">
+<part name="parameters" element="tns:Intencion_Pago_ActivarResponse"/>
+</message>
+<message name="Intencion_Pago_Insertar">
+<part name="parameters" element="tns:Intencion_Pago_Insertar"/>
+</message>
+<message name="Intencion_Pago_InsertarResponse">
+<part name="parameters" element="tns:Intencion_Pago_InsertarResponse"/>
+</message>
+<message name="Intencion_Pago_Modificar">
+<part name="parameters" element="tns:Intencion_Pago_Modificar"/>
+</message>
+<message name="Intencion_Pago_ModificarResponse">
+<part name="parameters" element="tns:Intencion_Pago_ModificarResponse"/>
+</message>
+<message name="Carga_Masiva_Medidas_Precautorias">
+<part name="parameters" element="tns:Carga_Masiva_Medidas_Precautorias"/>
+</message>
+<message name="Carga_Masiva_Medidas_PrecautoriasResponse">
+<part name="parameters" element="tns:Carga_Masiva_Medidas_PrecautoriasResponse"/>
+</message>
 <message name="Convenio_Detalle_Modificar_Estado">
 <part name="parameters" element="tns:Convenio_Detalle_Modificar_Estado"/>
 </message>
@@ -782,6 +830,10 @@
 <part name="parameters" element="tns:Convenio_Detalle_Modificar_EstadoResponse"/>
 </message>
 <portType name="ServiciosLexcom">
+<operation name="Reporte">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/ReporteRequest" message="tns:Reporte"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/ReporteResponse" message="tns:ReporteResponse"/>
+</operation>
 <operation name="Logueo">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/LogueoRequest" message="tns:Logueo"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/LogueoResponse" message="tns:LogueoResponse"/>
@@ -789,10 +841,6 @@
 <operation name="Logueo_cambio">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Logueo_cambioRequest" message="tns:Logueo_cambio"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Logueo_cambioResponse" message="tns:Logueo_cambioResponse"/>
-</operation>
-<operation name="Reporte">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/ReporteRequest" message="tns:Reporte"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/ReporteResponse" message="tns:ReporteResponse"/>
 </operation>
 <operation name="SqlTransaccion">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/SqlTransaccionRequest" message="tns:SqlTransaccion"/>
@@ -970,9 +1018,25 @@
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ActivarRequest" message="tns:Cartera_Activar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ActivarResponse" message="tns:Cartera_ActivarResponse"/>
 </operation>
-<operation name="Carga_Masiva_Medidas_Precautorias">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Medidas_PrecautoriasRequest" message="tns:Carga_Masiva_Medidas_Precautorias"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Medidas_PrecautoriasResponse" message="tns:Carga_Masiva_Medidas_PrecautoriasResponse"/>
+<operation name="Razon_Deuda_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_EliminarRequest" message="tns:Razon_Deuda_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_EliminarResponse" message="tns:Razon_Deuda_EliminarResponse"/>
+</operation>
+<operation name="Razon_Deuda_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ModificarRequest" message="tns:Razon_Deuda_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ModificarResponse" message="tns:Razon_Deuda_ModificarResponse"/>
+</operation>
+<operation name="Razon_Deuda_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ActivarRequest" message="tns:Razon_Deuda_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ActivarResponse" message="tns:Razon_Deuda_ActivarResponse"/>
+</operation>
+<operation name="Razon_Deuda_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_InsertarRequest" message="tns:Razon_Deuda_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_InsertarResponse" message="tns:Razon_Deuda_InsertarResponse"/>
+</operation>
+<operation name="Intencion_Pago_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_EliminarRequest" message="tns:Intencion_Pago_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_EliminarResponse" message="tns:Intencion_Pago_EliminarResponse"/>
 </operation>
 <operation name="Rotacion_Automatica">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Rotacion_AutomaticaRequest" message="tns:Rotacion_Automatica"/>
@@ -1262,6 +1326,10 @@
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_ExtrajudicialRequest" message="tns:Guardar_Expediente_Extrajudicial"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_ExtrajudicialResponse" message="tns:Guardar_Expediente_ExtrajudicialResponse"/>
 </operation>
+<operation name="Guardar_Expediente_Judicial">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_JudicialRequest" message="tns:Guardar_Expediente_Judicial"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_JudicialResponse" message="tns:Guardar_Expediente_JudicialResponse"/>
+</operation>
 <operation name="Cartera_Modificar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ModificarRequest" message="tns:Cartera_Modificar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ModificarResponse" message="tns:Cartera_ModificarResponse"/>
@@ -1269,10 +1337,6 @@
 <operation name="Permiso_Expediente">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Permiso_ExpedienteRequest" message="tns:Permiso_Expediente"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Permiso_ExpedienteResponse" message="tns:Permiso_ExpedienteResponse"/>
-</operation>
-<operation name="Guardar_Expediente_Judicial">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_JudicialRequest" message="tns:Guardar_Expediente_Judicial"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_JudicialResponse" message="tns:Guardar_Expediente_JudicialResponse"/>
 </operation>
 <operation name="Convenio_Insertar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_InsertarRequest" message="tns:Convenio_Insertar"/>
@@ -1294,6 +1358,22 @@
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_ModificarRequest" message="tns:Convenio_Detalle_Modificar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_ModificarResponse" message="tns:Convenio_Detalle_ModificarResponse"/>
 </operation>
+<operation name="Intencion_Pago_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ActivarRequest" message="tns:Intencion_Pago_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ActivarResponse" message="tns:Intencion_Pago_ActivarResponse"/>
+</operation>
+<operation name="Intencion_Pago_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_InsertarRequest" message="tns:Intencion_Pago_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_InsertarResponse" message="tns:Intencion_Pago_InsertarResponse"/>
+</operation>
+<operation name="Intencion_Pago_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ModificarRequest" message="tns:Intencion_Pago_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ModificarResponse" message="tns:Intencion_Pago_ModificarResponse"/>
+</operation>
+<operation name="Carga_Masiva_Medidas_Precautorias">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Medidas_PrecautoriasRequest" message="tns:Carga_Masiva_Medidas_Precautorias"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Medidas_PrecautoriasResponse" message="tns:Carga_Masiva_Medidas_PrecautoriasResponse"/>
+</operation>
 <operation name="Convenio_Detalle_Modificar_Estado">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_Modificar_EstadoRequest" message="tns:Convenio_Detalle_Modificar_Estado"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_Modificar_EstadoResponse" message="tns:Convenio_Detalle_Modificar_EstadoResponse"/>
@@ -1301,6 +1381,15 @@
 </portType>
 <binding name="ServiciosLexcomPortBinding" type="tns:ServiciosLexcom">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="Reporte">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="Logueo">
 <soap:operation soapAction=""/>
 <input>
@@ -1311,15 +1400,6 @@
 </output>
 </operation>
 <operation name="Logueo_cambio">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Reporte">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1724,7 +1804,43 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Carga_Masiva_Medidas_Precautorias">
+<operation name="Razon_Deuda_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Razon_Deuda_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Razon_Deuda_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Razon_Deuda_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Intencion_Pago_Eliminar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2381,6 +2497,15 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="Guardar_Expediente_Judicial">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="Cartera_Modificar">
 <soap:operation soapAction=""/>
 <input>
@@ -2391,15 +2516,6 @@
 </output>
 </operation>
 <operation name="Permiso_Expediente">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Guardar_Expediente_Judicial">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2445,6 +2561,42 @@
 </output>
 </operation>
 <operation name="Convenio_Detalle_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Intencion_Pago_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Intencion_Pago_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Intencion_Pago_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Carga_Masiva_Medidas_Precautorias">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

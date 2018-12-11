@@ -14096,5 +14096,509 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
+    
+    /**
+     *
+     * @param usuario_sys
+     * @param nombre_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Intencion_Pago_Insertar")
+    public String Intencion_Pago_Insertar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
 
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            String cadenasql = "insert into intencion_pago (nombre,estado,descripcion) values ('"
+                    + nombre_d + "','"
+                    + "VIGENTE" + "','"
+                    + descripcion_d + "')";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
+                    + "144" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Intención pago registrada en el sistema.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Insertar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Insertar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+
+    /**
+     *
+     * @param usuario_sys
+     * @param id_intencion_pago
+     * @param nombre_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Intencion_Pago_Modificar")
+    public String Intencion_Pago_Modificar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_intencion_pago") Integer id_intencion_pago,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            String cadenasql = "update intencion_pago set "
+                    + "nombre='" + nombre_d + "', "
+                    + "descripcion='" + descripcion_d + "' "
+                    + "where intencion_pago=" + id_intencion_pago;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "Id_IntencionPago: " + id_intencion_pago + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
+                    + "145" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Intención pago modificado en el sistema.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Modificar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Modificar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+
+    /**
+     *
+     * @param usuario_sys
+     * @param id_intencion_pago
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Intencion_Pago_Eliminar")
+    public String Intencion_Pago_Eliminar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_intencion_pago") Integer id_intencion_pago,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            String cadenasql = "update intencion_pago set "
+                    + "estado='" + "ELIMINADO" + "' "
+                    + "where intencion_pago=" + id_intencion_pago;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "IntensiónPago: " + id_intencion_pago + "',"
+                    + "146" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Intención de pago eliminado en el sistema.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Eliminar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Eliminar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+
+    /**
+     *
+     * @param usuario_sys
+     * @param id_intencion_pago
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Intencion_Pago_Activar")
+    public String Intencion_Pago_Activar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_intencion_pago") Integer id_intencion_pago,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            String cadenasql = "update intencion_pago set "
+                    + "estado='" + "VIGENTE" + "' "
+                    + "where intencion_pago=" + id_intencion_pago;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "IntenciónPago: " + id_intencion_pago + "',"
+                    + "147" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Intención pago activado en el sistema.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Activar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Activar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
+    /**
+     *
+     * @param usuario_sys
+     * @param nombre_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Razon_Deuda_Insertar")
+    public String Razon_Deuda_Insertar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            String cadenasql = "insert into razon_deuda (nombre,estado,descripcion) values ('"
+                    + nombre_d + "','"
+                    + "VIGENTE" + "','"
+                    + descripcion_d + "')";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
+                    + "148" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Razón deuda registrada en el sistema.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Insertar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Insertar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+
+    /**
+     *
+     * @param usuario_sys
+     * @param id_razon_deuda
+     * @param nombre_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Razon_Deuda_Modificar")
+    public String Razon_Deuda_Modificar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_razon_deuda") Integer id_razon_deuda,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            String cadenasql = "update razon_deuda set "
+                    + "nombre='" + nombre_d + "', "
+                    + "descripcion='" + descripcion_d + "' "
+                    + "where razon_deuda=" + id_razon_deuda;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "Id_RazonDeuda: " + id_razon_deuda + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
+                    + "149" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Razon deuda modificada en el sistema.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Modificar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Modificar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+
+    /**
+     *
+     * @param usuario_sys
+     * @param id_razon_deuda
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Razon_Deuda_Eliminar")
+    public String Razon_Deuda_Eliminar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_razon_deuda") Integer id_razon_deuda,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            String cadenasql = "update razon_deuda set "
+                    + "estado='" + "ELIMINADO" + "' "
+                    + "where razon_deuda=" + id_razon_deuda;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "RazónDeuda: " + id_razon_deuda + "',"
+                    + "150" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Razón deuda eliminado en el sistema.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Eliminar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Eliminar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+
+    /**
+     *
+     * @param usuario_sys
+     * @param id_razon_deuda
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Razon_Deuda_Activar")
+    public String Razon_Deuda_Activar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_razon_deuda") Integer id_razon_deuda,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            String cadenasql = "update razon_deuda set "
+                    + "estado='" + "VIGENTE" + "' "
+                    + "where razon_deuda=" + id_razon_deuda;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "IntenciónPago: " + id_razon_deuda + "',"
+                    + "151" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Razón deuda activado en el sistema.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Activar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Activar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
 }

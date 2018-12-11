@@ -782,5 +782,53 @@ public class Servicio implements Serializable {
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
         return port.usuarioModificar(usuarioSys, idUsuario, nombreCompletoD, nombreD, contrasenaD, descripcionD, gestorD, procuradorD, asistenteD, digitadorD, investigadorD, tipoUsuarioD, reinicio, rol, usuarioCorporacion, poolConexion);
     }
+
+    public String intencionPagoInsertar(java.lang.Integer usuarioSys, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.intencionPagoInsertar(usuarioSys, nombreD, descripcionD, poolConexion);
+    }
+
+    public String intencionPagoModificar(java.lang.Integer usuarioSys, java.lang.Integer idIntencionPago, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.intencionPagoModificar(usuarioSys, idIntencionPago, nombreD, descripcionD, poolConexion);
+    }
+
+    public String intencionPagoEliminar(java.lang.Integer usuarioSys, java.lang.Integer idIntencionPago, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.intencionPagoEliminar(usuarioSys, idIntencionPago, poolConexion);
+    }
+
+    public String intencionPagoActivar(java.lang.Integer usuarioSys, java.lang.Integer idIntencionPago, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.intencionPagoActivar(usuarioSys, idIntencionPago, poolConexion);
+    }
+
+    public String razonDeudaInsertar(java.lang.Integer usuarioSys, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.razonDeudaInsertar(usuarioSys, nombreD, descripcionD, poolConexion);
+    }
+
+    public String razonDeudaModificar(java.lang.Integer usuarioSys, java.lang.Integer idRazonDeuda, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.razonDeudaModificar(usuarioSys, idRazonDeuda, nombreD, descripcionD, poolConexion);
+    }
+
+    public String razonDeudaEliminar(java.lang.Integer usuarioSys, java.lang.Integer idRazonDeuda, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.razonDeudaEliminar(usuarioSys, idRazonDeuda, poolConexion);
+    }
+
+    public String razonDeudaActivar(java.lang.Integer usuarioSys, java.lang.Integer idRazonDeuda, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.razonDeudaActivar(usuarioSys, idRazonDeuda, poolConexion);
+    }
     
 }
