@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp codebase="file:/C:/Users/enavas/NetBeansProjects/bitnet/LEXCOM/dist/" href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>LEXCOM</title>
+        <vendor>BITNET Guatemala</vendor>
+        <homepage href=""/>
+        <description>Aplicacción de Gestion.</description>
+        <description kind="short">LEXCOM</description>
+        
+        
+    </information>
+    <update check="always"/>
+    <security>
+<all-permissions/>
+</security>
+    <resources>
+        <j2se java-vm-args="-Xms128m -Xmx2048m -Xss2048m" version="1.7+"/>
+        <jar href="LEXCOM.jar" main="true"/>
+        
+        
+    <jar href="lib/DateChooser.jar"/>
+<jar href="lib/groovy-all.jar"/>
+<jar href="lib/mysql-connector-java-5.1.40-bin.jar"/>
+<jar href="lib/jxl-2.6.jar"/>
+</resources>
+    <application-desc main-class="com.lexcom.LEXCOM">
+        
+    </application-desc>
+</jnlp>
