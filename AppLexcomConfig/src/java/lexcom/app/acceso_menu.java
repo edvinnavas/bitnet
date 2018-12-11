@@ -246,6 +246,12 @@ public class acceso_menu implements Serializable {
                     case "Permisos Expediente":
                         Permisos_Expediente = listucha.get(i).getVer();
                         break;
+                    case "Intencion Pago":
+                        Intencion_Pago = listucha.get(i).getVer();
+                        break;
+                    case "Razon Deuda":
+                        Razon_Deuda = listucha.get(i).getVer();
+                        break;
                     default:
                         System.out.println("Not in 10, 20 or 30");
                 }
@@ -317,5 +323,7 @@ public class acceso_menu implements Serializable {
     public String Reporte_eventos;
     public String Cartera;
     public String Permisos_Expediente;
+    public String Intencion_Pago;
+    public String Razon_Deuda;
 
 }

@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 public class acceso_get implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     acceso_menu s = new acceso_menu();
 
     @PostConstruct
@@ -31,6 +32,7 @@ public class acceso_get implements Serializable {
         menu = menu.replaceAll("í", "i");
         menu = menu.replaceAll("ó", "o");
         menu = menu.replaceAll("ú", "u");
+
         try {
             Field[] f = acceso_menu.class.getDeclaredFields();
             int strIndex = 0;

@@ -47,7 +47,7 @@
                     </p:dataTable>
                     <f:facet name="footer">
                         <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
-                            <p:dataExporter id="dataexpExcel" type="xls" target="tblCarteras" fileName="Carteras"/>
+                            <p:dataExporter id="dataexpExcel" type="xls" target="tblCartera" fileName="Carteras"/>
                         </p:commandButton>
                         <p:commandButton id="btnCrear" actionListener="#{Cartera.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearCartera" style="font-size:10px; font-weight:bold;"/>
                         <p:commandButton id="btnModificar" actionListener="#{Cartera.carga_info_modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="DialogCrearCartera, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
