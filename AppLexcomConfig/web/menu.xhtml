@@ -58,7 +58,7 @@
                             <p:menuitem id="mnuTipoCodigoResultado" value="Tipos Codigo Resultado" update="@all" action="#{Menu.setPagina_seleccionada('tipos_codigos_resultado')}" ajax="false" actionListener="#{Tipo_Codigo_Resultado.constructor}" style="font-size:12px; font-weight:bold;" rendered="#{accese_get.getpermiso('Tipos Codigo Resultado')}"/>
                             <p:menuitem id="mnuCartera" value="Cartera" update="@all" action="#{Menu.setPagina_seleccionada('cartera')}" ajax="false" actionListener="#{Cartera.constructor}" style="font-size:12px; font-weight:bold;" rendered="#{accese_get.getpermiso('Cartera')}"/>
                         </p:submenu>
-                        <p:submenu label="Generar archivos de carga" style="font-size:12px; font-weight:bold;" rendered="false">
+                        <p:submenu label="Generar archivos de carga" style="font-size:12px; font-weight:bold;">
                             <p:menuitem id="mnuArchivoRotacionCarteraAutomatico" value="Archivo rotación de cartera automático" update="@all" action="#{Menu.setPagina_seleccionada('archivo_rotacion_cartera_automatico')}" ajax="false" actionListener="#{Archivo_Rotacion_Cartera_Automatico.constructor}" style="font-size:12px; font-weight:bold;" rendered="#{accese_get.getpermiso('Archivo rotación de cartera automático')}"/>
                         </p:submenu>
                         <p:submenu label="Carga de archivos masiva" style="font-size:12px; font-weight:bold;" rendered="false">
