@@ -34,7 +34,7 @@ public class Gestion_Pendiente_Cobros {
             Integer sestado_extra,
             Integer estatus_extra,
             Integer intencion_pago,
-            Integer razon_pago) {
+            Integer razon_deuda) {
         
         try {
             conn.setAutoCommit(false);
@@ -112,7 +112,7 @@ public class Gestion_Pendiente_Cobros {
                     + "sestado_extra='" + sestado_extra + "', "
                     + "estatus_extra='" + estatus_extra + "', "
                     + "intencion_pago='" + intencion_pago + "', "
-                    + "razon_deuda='" + razon_pago + "' "
+                    + "razon_deuda='" + razon_deuda + "' "
                     + "where deudor=" + deudor.toString();
             stmt = this.conn.createStatement();
             stmt.executeUpdate(cadenasql);

@@ -480,6 +480,7 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                         com.lexcom.driver.EstadoExtra DEstadoExtra = new com.lexcom.driver.EstadoExtra(this.conn, this.usuario);
                         com.lexcom.driver.StatusExtra DStatusExtra = new com.lexcom.driver.StatusExtra(this.conn, this.usuario);
                         com.lexcom.driver.Intencion_Pago DIntencion_Pago = new com.lexcom.driver.Intencion_Pago(this.conn, this.usuario);
+                        com.lexcom.driver.Razon_Deuda DRazon_Deuda = new com.lexcom.driver.Razon_Deuda(this.conn, this.usuario);
                         
                         com.lexcom.driver.Expediente DExpediente = new com.lexcom.driver.Expediente(this.conn, this.usuario);
                         DExpediente.insertar_btn_gestion(
@@ -503,7 +504,7 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                                 DEstadoExtra.obtener_indice(this.cbxEstadoExtrajudicial.getSelectedItem().toString()),
                                 DStatusExtra.obtener_indice(this.cbxStatusExtrajudicial.getSelectedItem().toString()),
                                 DIntencion_Pago.obtener_indice(this.cbxIntencionPago.getSelectedItem().toString()),
-                                DIntencion_Pago.obtener_indice(this.cbxRazonDeuda.getSelectedItem().toString()));
+                                DRazon_Deuda.obtener_indice(this.cbxRazonDeuda.getSelectedItem().toString()));
                         
 
                         this.dispose();

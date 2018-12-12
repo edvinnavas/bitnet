@@ -159,114 +159,8 @@ public class Datos_Expediente extends javax.swing.JInternalFrame {
         Integer fila_posicion = jTable1.getSelectedRow();
 
         if (fila_posicion != -1) {
-            Expediente a = new Expediente(conn, usuario);
-            a.addWindowListener(new WindowListener() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    if (es_asignacion) {
-                        buscar_asignacion();
-                    }
-                }
-                @Override
-                public void windowIconified(WindowEvent e) {
-                }
-                @Override
-                public void windowDeiconified(WindowEvent e) {
-                }
-                @Override
-                public void windowActivated(WindowEvent e) {
-                }
-                @Override
-                public void windowDeactivated(WindowEvent e) {
-                }
-                @Override
-                public void windowOpened(WindowEvent e) {
-                }
-                @Override
-                public void windowClosing(WindowEvent e) {
-                }
-            });
-            a.cargar(Integer.parseInt(jTable1.getValueAt(fila_posicion, 0).toString()));
-            Dimension ventana = a.getSize();
-            Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-            a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-            a.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un elemento de la tabla.");
-        }
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(!this.txtTextoBuscar.getText().equals("")) {
-            buscar();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtTextoBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextoBuscarKeyReleased
-        if (evt.getKeyCode()==40) {
-            if(!this.txtTextoBuscar.getText().equals("")) {
-                if(this.jTable1.getRowCount()>0) {
-                    this.jTable1.requestFocus();
-                    this.jTable1.setRowSelectionInterval(0, 0);
-                }
-            }
-        }
-        if (evt.getKeyCode()==10) {
-            if(!this.txtTextoBuscar.getText().equals("")) {
-                if(this.es_asignacion == null) {
-                    this.es_asignacion = false;
-                }
-                if(!this.es_asignacion) {
-                    buscar();
-                }
-            }
-        }
-    }//GEN-LAST:event_txtTextoBuscarKeyReleased
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (evt.getClickCount() == 2) {
-            Integer fila_posicion = this.jTable1.rowAtPoint(evt.getPoint());
-            if (fila_posicion != -1) {
-                Expediente a = new Expediente(conn, usuario);
-                a.addWindowListener(new WindowListener() {
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        if(es_asignacion) {
-                            buscar_asignacion();
-                        }
-                    }
-                    @Override
-                    public void windowIconified(WindowEvent e) {
-                    }
-                    @Override
-                    public void windowDeiconified(WindowEvent e) {
-                    }
-                    @Override
-                    public void windowActivated(WindowEvent e) {
-                    }
-                    @Override
-                    public void windowDeactivated(WindowEvent e) {
-                    }
-                    @Override
-                    public void windowOpened(WindowEvent e) {
-                    }
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                    }
-                });
-                a.cargar(Integer.parseInt(jTable1.getValueAt(fila_posicion, 0).toString()));
-                Dimension ventana = a.getSize();
-                Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-                a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-                a.setVisible(true);
-            }
-        }
-    }//GEN-LAST:event_jTable1MouseClicked
-
-    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
-        if (evt.getKeyCode() == 10) {
-            Integer fila_posicion = this.jTable1.getSelectedRow();
-            if (fila_posicion != -1) {
+            com.lexcom.driver.Usuario DUsuario = new com.lexcom.driver.Usuario(conn, usuario);
+            if (DUsuario.validar_corporacion(usuario, Integer.parseInt(jTable1.getValueAt(fila_posicion, 0).toString()))) {
                 Expediente a = new Expediente(conn, usuario);
                 a.addWindowListener(new WindowListener() {
 
@@ -306,6 +200,141 @@ public class Datos_Expediente extends javax.swing.JInternalFrame {
                 Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
                 a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
                 a.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "La corporación del actor asignado el expediente no puede ser consultado por el usuario.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un elemento de la tabla.");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(!this.txtTextoBuscar.getText().equals("")) {
+            buscar();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtTextoBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextoBuscarKeyReleased
+        if (evt.getKeyCode()==40) {
+            if(!this.txtTextoBuscar.getText().equals("")) {
+                if(this.jTable1.getRowCount()>0) {
+                    this.jTable1.requestFocus();
+                    this.jTable1.setRowSelectionInterval(0, 0);
+                }
+            }
+        }
+        if (evt.getKeyCode()==10) {
+            if(!this.txtTextoBuscar.getText().equals("")) {
+                if(this.es_asignacion == null) {
+                    this.es_asignacion = false;
+                }
+                if(!this.es_asignacion) {
+                    buscar();
+                }
+            }
+        }
+    }//GEN-LAST:event_txtTextoBuscarKeyReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if (evt.getClickCount() == 2) {
+            Integer fila_posicion = this.jTable1.rowAtPoint(evt.getPoint());
+            if (fila_posicion != -1) {
+                com.lexcom.driver.Usuario DUsuario = new com.lexcom.driver.Usuario(conn, usuario);
+                if (DUsuario.validar_corporacion(usuario, Integer.parseInt(jTable1.getValueAt(fila_posicion, 0).toString()))) {
+                    Expediente a = new Expediente(conn, usuario);
+                    a.addWindowListener(new WindowListener() {
+
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            if (es_asignacion) {
+                                buscar_asignacion();
+                            }
+                        }
+
+                        @Override
+                        public void windowIconified(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowDeiconified(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowActivated(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowDeactivated(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowOpened(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowClosing(WindowEvent e) {
+                        }
+                    });
+                    a.cargar(Integer.parseInt(jTable1.getValueAt(fila_posicion, 0).toString()));
+                    Dimension ventana = a.getSize();
+                    Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                    a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+                    a.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "La corporación del actor asignado el expediente no puede ser consultado por el usuario.");
+                }
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+        if (evt.getKeyCode() == 10) {
+            Integer fila_posicion = this.jTable1.getSelectedRow();
+            if (fila_posicion != -1) {
+                com.lexcom.driver.Usuario DUsuario = new com.lexcom.driver.Usuario(conn, usuario);
+                if (DUsuario.validar_corporacion(usuario, Integer.parseInt(jTable1.getValueAt(fila_posicion, 0).toString()))) {
+                    Expediente a = new Expediente(conn, usuario);
+                    a.addWindowListener(new WindowListener() {
+
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            if (es_asignacion) {
+                                buscar_asignacion();
+                            }
+                        }
+
+                        @Override
+                        public void windowIconified(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowDeiconified(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowActivated(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowDeactivated(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowOpened(WindowEvent e) {
+                        }
+
+                        @Override
+                        public void windowClosing(WindowEvent e) {
+                        }
+                    });
+                    a.cargar(Integer.parseInt(jTable1.getValueAt(fila_posicion, 0).toString()));
+                    Dimension ventana = a.getSize();
+                    Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                    a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+                    a.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "La corporación del actor asignado el expediente no puede ser consultado por el usuario.");
+                }
             }
         }
     }//GEN-LAST:event_jTable1KeyPressed

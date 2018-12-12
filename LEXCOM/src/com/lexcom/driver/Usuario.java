@@ -383,4 +383,33 @@ public class Usuario {
         return lista_cbx;
     }
     
+    public Boolean validar_corporacion(Integer usuario, Integer deudor) {
+        Boolean resultado = false;
+        
+        try {
+            String cadenasql = "select a.cooperacion from deudor d left join actor a on (d.actor=a.actor) left join cooperacion c on (a.cooperacion=c.cooperacion) where d.deudor=" + deudor;
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(cadenasql);
+            Integer corporacion = 0;
+            while(rs.next()) {
+                corporacion = rs.getInt(1);
+            }
+            rs.close();
+            stmt.close();
+            
+            cadenasql = "select uc.* from usuario_corporacion uc where uc.usuario=" + usuario + " and uc.corporacion=" + corporacion;
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(cadenasql);
+            while(rs.next()) {
+                resultado = true;
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception ex) {
+            resultado = false;
+        }
+
+        return resultado;
+    }
+    
 }
