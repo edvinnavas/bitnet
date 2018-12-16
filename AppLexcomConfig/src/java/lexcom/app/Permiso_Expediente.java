@@ -19,7 +19,6 @@ public class Permiso_Expediente implements Serializable {
 
     private String usuario;
     private String ambiente;
-    private String opcion;
 
     private Permiso_Expediente_List sel_permiso_expediente;
     private List<Permiso_Expediente_List> lst_permiso_expediente;
@@ -144,14 +143,6 @@ public class Permiso_Expediente implements Serializable {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    public String getOpcion() {
-        return opcion;
-    }
-
-    public void setOpcion(String opcion) {
-        this.opcion = opcion;
     }
 
     public Permiso_Expediente_List getSel_permiso_expediente() {

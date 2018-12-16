@@ -830,5 +830,11 @@ public class Servicio implements Serializable {
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
         return port.razonDeudaActivar(usuarioSys, idRazonDeuda, poolConexion);
     }
+
+    public String tipoCodigoResultadoContacto(java.lang.Integer usuarioSys, java.util.List<java.lang.String> lstTipoCodigoResultadoContacto, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.tipoCodigoResultadoContacto(usuarioSys, lstTipoCodigoResultadoContacto, poolConexion);
+    }
     
 }

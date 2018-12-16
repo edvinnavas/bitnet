@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListTipoCodigoResultadoContacto">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel id="panelTipoCodigoResultadoContacto">
+                    <p:dataTable 
+                        id="tblTipoCodigoResultadoContacto"
+                        var="tcrc"
+                        widgetVar="vContacto"
+                        value="#{Tipo_Codigo_Resultado_Contacto.lst_tipo_codigo_resultado_contacto}"
+                        rowKey="#{tcrc.indice}"
+                        selectionMode="single"
+                        selection="#{Tipo_Codigo_Resultado_Contacto.sel_tipo_codigo_resultado_contacto}"
+                        editable="true" 
+                        editMode="cell"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+
+                        <f:facet name="header">
+                            <h:outputText value="TIPO CODIGO RESULTADO - CODIGO RESULTADO - CONTACTO"/>
+                        </f:facet>
+
+                        <p:column headerText="Tipo Código de Resultado" sortBy="#{tcrc.tipo_codigo_resultado_nombre}" filterBy="#{tcrc.tipo_codigo_resultado_nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{tcrc.tipo_codigo_resultado_nombre}"/>
+                        </p:column>
+                        <p:column headerText="Código de Resultado" sortBy="#{tcrc.codigo_resultado_nombre}" filterBy="#{tcrc.codigo_resultado_nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{tcrc.codigo_resultado_nombre}"/>
+                        </p:column>
+                        <p:column headerText="Contacto">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{tcrc.contacto}"/></f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu value="#{tcrc.contacto}" style="width:100%">
+                                        <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                        <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton id="btnGuardar" actionListener="#{Tipo_Codigo_Resultado_Contacto.guardar_contacto}" ajax="true" icon="ui-icon-plus" value="Modificar" update="formMenu:mensaje2,tblTipoCodigoResultadoContacto" style="font-size:10px; font-weight:bold;"/> 
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
