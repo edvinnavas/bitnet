@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedienteExtrajudicial" header="Expediente-Extrajudicial" widgetVar="var_exp_extra" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedienteExtrajudicial">
+                    <link href="css/expediente_extrajudicial.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Extrajudicial.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedienteExtrajudicial">
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Situación extrajudicial"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Estado"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somEstadoExtrajudicial" disabled="#{Expediente_Extrajudicial.somestadoextrajudicial}" value="#{Expediente_Extrajudicial.estado_extrajudicial}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Extrajudicial.lst_estado_extrajudicial}"/>
+                                    <p:ajax event="change" listener="#{Expediente_Extrajudicial.cambio_estado_extrajudicial}" update="somStatusExtrajudicial"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Status"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somStatusExtrajudicial" disabled="#{Expediente_Extrajudicial.somstatusextrajudicial}" value="#{Expediente_Extrajudicial.status_extrajudicial}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Extrajudicial.lst_estatus_extrajudicial}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:spacer height="0"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Información del deudor"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Teléfono casa"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtTelefonoCasa" value="#{Expediente_Extrajudicial.telefono_casa}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Teléfono celular"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtTelefonoCelular" value="#{Expediente_Extrajudicial.telefono_celular}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Correo electrónico"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtCorreoElectronico" value="#{Expediente_Extrajudicial.correo_electronico}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Lugar de trabajo"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtLugarTrabajo" value="#{Expediente_Extrajudicial.lugar_trabajo}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Contacto trabajo"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtContactoTrabajo" value="#{Expediente_Extrajudicial.contacto_trabajo}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Teléfono trabajo"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtTelefonoTrabajo" value="#{Expediente_Extrajudicial.telefono_trabajo}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="DPI"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtDpi" value="#{Expediente_Extrajudicial.dpi}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="NIT"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtNit" value="#{Expediente_Extrajudicial.nit}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Intención de pago"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somIntensionPago" disabled="#{Expediente_Extrajudicial.somintensionpago}" value="#{Expediente_Extrajudicial.intencion_pago}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Extrajudicial.lst_intension_pago}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Dirección"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6">
+                                <p:inputTextarea id="areDireccion" value="#{Expediente_Extrajudicial.direccion}" required="true" autoResize="false" rows="3" styleClass="AnchoInputTextArea_1" style="width:1000px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Convenio pactado"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6">
+                                <p:inputTextarea id="areConvenioPactado" value="#{Expediente_Extrajudicial.convenio_pactado}" required="true" autoResize="false" rows="3" readonly="true" styleClass="AnchoInputTextArea_1" style="width:1000px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Notas"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6">
+                                <p:inputTextarea id="areNotas" value="#{Expediente_Extrajudicial.notas}" required="true" autoResize="false" rows="3" styleClass="AnchoInputTextArea_1" style="width:1000px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="6">
+                                    <div align="right">
+                                        <p:commandButton id="btnGuardarExtrajudicial" value="Guardar" icon="fa fa-save" update=":formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Extrajudicial.guardar_expediente_extrajudicial}" oncomplete="PF('var_exp_extra').hide()"/>
+                                    </div>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

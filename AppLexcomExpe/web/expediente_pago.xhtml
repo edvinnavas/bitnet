@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedientePago" header="Expediente-Pago" widgetVar="var_exp_pago" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedientePago">
+                    <link href="css/expediente_pago.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Pago.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedientePago">
+                        <p:row>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Pago del expediente."/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:commandButton id="btnAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_Pago.cargar_pago_agregar}" update="DialogPago,:FormPago"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:commandButton id="btnEliminar" value="Eliminar" icon="fa fa-minus-circle" actionListener="#{Expediente_Pago.eliminar_gestion_pago}" update=":FormExpedientePago:tblPago,:formExpedienteBusqueda:mensaje2">
+                                    <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                    <p:dataTable
+                        id="tblPago"
+                        var="pag"
+                        widgetVar="TblWidPag"
+                        value="#{Expediente_Pago.lst_pago}"
+                        selectionMode="single"
+                        selection="#{Expediente_Pago.pago_sel}"
+                        rowKey="#{pag.indice}"
+                        reflow="true"
+                        scrollable="true"
+                        paginator="true"
+                        rows="3"
+                        rowsPerPageTemplate="3"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="width:981px;">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{Expediente_Pago.lb_numero_pagos}"/>
+                        </f:facet>
+
+                        <p:ajax id="dblModificarPago" event="rowDblselect" update="DialogPago,:FormPago" listener="#{Expediente_Pago.cargar_pago_modificar}" global="false"/>
+
+                        <p:column headerText="Id" sortBy="#{pag.indice}" filterBy="#{pag.indice}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pag.indice}"/>
+                        </p:column>
+                        <p:column headerText="Banco" sortBy="#{pag.banco}" filterBy="#{pag.banco}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pag.banco}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" sortBy="#{pag.fecha}" filterBy="#{pag.fecha}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pag.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Monto" sortBy="#{pag.monto}" filterBy="#{pag.monto}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pag.monto}">
+                                <f:convertNumber type="currency" currencySymbol="Q"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="No Boleta" sortBy="#{pag.no_boleta}" filterBy="#{pag.no_boleta}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pag.no_boleta}"/>
+                        </p:column>
+                        <p:column headerText="Fecha registro" sortBy="#{pag.fecha_registro}" filterBy="#{pag.fecha_registro}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pag.fecha_registro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog id="DialogPago" header="Pago" widgetVar="var_pago" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormPago">
+                    <link href="css/expediente_pago.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="Banco"/>
+                        <p:selectOneMenu id="somBancoPago" value="#{Expediente_Pago.banco}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                            <f:selectItems value="#{Expediente_Pago.lst_banco}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Fecha"/>
+                        <p:calendar id="calFechaPago" value="#{Expediente_Pago.fecha}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1"/>
+                        <p:outputLabel value="No. boleta"/>
+                        <p:inputText id="txtNoBoletaPago" value="#{Expediente_Pago.noboleta}" required="true" styleClass="AnchoInputText_1"/>
+                        <p:outputLabel value="Monto"/>                                                              
+                        <p:spinner id="spnMontoPago" value="#{Expediente_Pago.monto}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1"/>
+                    </p:panelGrid>
+                    <link href="css/expediente_pago.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="Descripcion"/>                    
+                        <p:inputTextarea id="areDescripcionPago" value="#{Expediente_Pago.descripcion}" required="true" rows="5" style="width:562px !important;"/>
+                        <f:facet name="footer">
+                            <div align="right">
+                                <p:commandButton id="btnGuardar" value="Guardar" icon="fa fa-save" actionListener="#{Expediente_Pago.gestion_pago}" update=":FormExpedientePago:tblPago,:formExpedienteBusqueda:mensaje2" oncomplete="PF('var_pago').hide();"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

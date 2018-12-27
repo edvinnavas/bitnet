@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedienteJudicial" header="Expediente-Judicial" widgetVar="var_exp_judic" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedienteJudicial">
+                    <link href="css/expediente_judicial.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Judicial.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedienteJudicial">
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Situación judicial"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Estado"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somEstadoJudicial" disabled="#{Expediente_Judicial.somestadojudicial}" value="#{Expediente_Judicial.estado_judicial}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Judicial.lst_estado_judicial}"/>
+                                    <p:ajax event="change" listener="#{Expediente_Judicial.cambio_estado_judicial}" update="somStatusJudicial"/>
+                                </p:selectOneMenu>    
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Status"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somStatusJudicial" disabled="#{Expediente_Judicial.somstatusjudicial}" value="#{Expediente_Judicial.status_judicial}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Judicial.lst_estatus_judicial}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:spacer height="0"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Juicio"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Procurador"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somProcurador" value="#{Expediente_Judicial.procurador}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Judicial.lst_procurador}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Fecha Juicio"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:calendar id="calFechaJuicio" value="#{Expediente_Judicial.fecha_juicio}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Juzgado"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somJuzgado" value="#{Expediente_Judicial.juzgado}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Judicial.lst_juzgado}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="No. Juicio"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtNoJuicio" value="#{Expediente_Judicial.no_juicio}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Notificador"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:spinner id="spnNotificador" value="#{Expediente_Judicial.notificador}" required="true" styleClass="AnchoSpinner_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Abogado deudor"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtAbogadoDeudor" value="#{Expediente_Judicial.abogado_deudor}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Sumario"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtSumario" value="#{Expediente_Judicial.sumario}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Memorial"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:calendar id="calMemorial" value="#{Expediente_Judicial.memorial}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Notificado"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somNotificado" value="#{Expediente_Judicial.notificado}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                    <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                    <f:selectItem itemLabel="D INCORRECTA" itemValue="D INCORRECTA"/>
+                                    <f:selectItem itemLabel="NADIE ATIENDE" itemValue="NADIE ATIENDE"/>
+                                    <f:selectItem itemLabel="NO VIVE LUGAR" itemValue="NO VIVE LUGAR"/>
+                                    <f:selectItem itemLabel="IMPOSIBLE" itemValue="IMPOSIBLE"/>
+                                    <f:selectItem itemLabel="FUERA PAIS" itemValue="FUERA PAIS"/>
+                                    <f:selectItem itemLabel="FALLECIDO" itemValue="FALLECIDO"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Fecha Notif."/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:calendar id="calFechaNotif" value="#{Expediente_Judicial.fecha_notif}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Monto demanda"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:spinner id="spnMontoDemanda" value="#{Expediente_Judicial.monto_demanda}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:spacer height="0"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Procuración"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6">
+                                <p:inputTextarea id="areProcuracion" value="#{Expediente_Judicial.procuracion}" required="true" autoResize="false" rows="3" styleClass="AnchoInputTextArea_1" style="width:965px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Situación caso"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6">
+                                <p:inputTextarea id="areSituacionCaso" value="#{Expediente_Judicial.situacion_caso}" required="true" autoResize="false" rows="3" styleClass="AnchoInputTextArea_1" style="width:965px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Razón Notificación"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6">
+                                <p:inputTextarea id="areRazonNotificacion" value="#{Expediente_Judicial.razon_notificacion}" required="true" autoResize="false" rows="3" styleClass="AnchoInputTextArea_1" style="width:965px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="6">
+                                    <div align="right">
+                                        <p:commandButton id="btnGuardarExtrajudicial" value="Guardar" icon="fa fa-save" update=":formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Judicial.guardar_expediente_judicial}" oncomplete="PF('var_exp_judic').hide()"/>
+                                    </div>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

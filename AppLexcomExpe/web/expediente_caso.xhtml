@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedienteCaso" header="Expediente-Caso" widgetVar="var_exp_caso" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedienteCaso">
+                    <link href="css/expediente_caso.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Caso.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedienteCaso">
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Datos Personales"/>
+                            </p:column>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Pagos y Convenio de Pago"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Nombre deudor"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtNombreDeudor" value="#{Expediente_Caso.nombre_deudor}" required="true" readonly="true" styleClass="AnchoInputText_1" style="width:395px !important;"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Pagos"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtPagos" value="#{Expediente_Caso.pagos}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertNumber type="currency" currencySymbol="Q" />
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Actor"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtActor" value="#{Expediente_Caso.actor}" required="true" readonly="true" styleClass="AnchoInputText_1" style="width:395px !important;"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Aumentos"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtAumento" value="#{Expediente_Caso.aumentos}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertNumber type="currency" currencySymbol="Q" />
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="3" styleClass="ui-widget-header">
+                                <p:outputLabel value="Expediente"/>
+                            </p:column>
+                            <p:column colspan="3" styleClass="ui-widget-header">
+                                <p:outputLabel value="Caso"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Descuentos"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtDescuentos" value="#{Expediente_Caso.descuentos}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertNumber type="currency" currencySymbol="Q" />
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Caso"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtCaso" value="#{Expediente_Caso.caso}" required="true" readonly="true" styleClass="AnchoInputText_3"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Fecha recepción"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="calFechaRecepcion" value="#{Expediente_Caso.fecha_recepcion}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:inputText>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Saldo"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:spinner id="spnSaldo" value="#{Expediente_Caso.saldo}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="No. Cuenta"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtNoCuenta" value="#{Expediente_Caso.no_cuenta}" required="true" readonly="true" styleClass="AnchoInputText_3"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Monto inicial"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtMontoInicial" value="#{Expediente_Caso.monto_inicial}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertNumber type="currency" currencySymbol="Q"/>
+                                </p:inputText>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Fecha U. Pago"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtFechaUPago" value="#{Expediente_Caso.fecha_u_pago}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Otro No. Cuenta"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtOtroNoCuenta" value="#{Expediente_Caso.otro_no_cuenta}" required="true" readonly="true" styleClass="AnchoInputText_3"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Moneda"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="txtMoneda" value="#{Expediente_Caso.moneda}" required="true" readonly="true" styleClass="AnchoInputText_2"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Monto U. Pago"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtMontoUPago" value="#{Expediente_Caso.monto_u_pago}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertNumber type="currency" currencySymbol="Q" />
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Garantía"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somGarantia" value="#{Expediente_Caso.garantia}" required="true" styleClass="AnchoSelectOneMenu_2" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Caso.lst_garantia}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Gestor"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:inputText id="somGestor" value="#{Expediente_Caso.gestor}" required="true" readonly="true" styleClass="AnchoInputText_2"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Próximo pago"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:selectBooleanCheckbox id="chkProximoPago" value="#{Expediente_Caso.opcion_proximo_pago}" disabled="true" styleClass="AnchoInputText_2"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Cargado"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somCargado" value="#{Expediente_Caso.cargado}" required="true" styleClass="AnchoSelectOneMenu_2" autoWidth="false">
+                                    <f:selectItem itemLabel="CARGADO" itemValue="CARGADO"/>
+                                    <f:selectItem itemLabel="DESCARGADO" itemValue="DESCARGADO"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Anticipo"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somAnticipo" value="#{Expediente_Caso.anticipo}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false" style="width:83px !important;">
+                                    <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                    <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Fecha P. Pago"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtFechaPPago" value="#{Expediente_Caso.fecha_p_pago}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Fiador"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somFiadro" value="#{Expediente_Caso.fiador}" required="true" styleClass="AnchoSelectOneMenu_2" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Caso.lst_fiador}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:spacer height="0"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:outputLabel value="Monto P. Pago"/>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:inputText id="txtMontoPPago" value="#{Expediente_Caso.monto_p_pago}" required="true" readonly="true" styleClass="AnchoInputText_2">
+                                    <f:convertNumber type="currency" currencySymbol="Q" />
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="12" styleClass="ui-widget-header">
+                                <p:outputLabel value="Investigación"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="12">
+                                <h:panelGrid columns="8">
+                                    <p:outputLabel value="PDF"/>
+                                    <p:selectBooleanCheckbox id="chkPdf" widgetVar="v_chkpdf" value="#{Expediente_Caso.inv_pdf}"/>
+                                    <p:outputLabel value="INV"/>
+                                    <p:selectBooleanCheckbox id="chkInv" widgetVar="v_chkinv" value="#{Expediente_Caso.inv_inv}"/>
+                                    <p:outputLabel value="MAY"/>
+                                    <p:selectBooleanCheckbox id="chkMay" widgetVar="v_chkmay" value="#{Expediente_Caso.inv_may}"/>
+                                    <p:outputLabel value="NIT"/>
+                                    <p:selectBooleanCheckbox id="chkNit" widgetVar="v_chknit" value="#{Expediente_Caso.inv_nit}"/>
+                                </h:panelGrid>
+                            </p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="12">
+                                    <div align="right">
+                                        <p:commandButton id="btnGuardarCaso" value="Guardar" icon="fa fa-save" update=":formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Caso.guardar_expediente_caso}" oncomplete="PF('var_exp_caso').hide()"/>
+                                    </div>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

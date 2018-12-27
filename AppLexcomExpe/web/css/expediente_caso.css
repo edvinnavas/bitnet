@@ -1,0 +1,22 @@
+.AnchoInputText_1 {
+    width:385px !important;
+}
+.AnchoInputText_2 {
+    width:100px !important;
+}
+.AnchoInputText_3 {
+    width:150px !important;
+}
+.AnchoSelectOneMenu_1 {
+    width:83px !important;
+}
+.AnchoSelectOneMenu_2 {
+    width:133px !important;
+}
+li.ui-selectonemenu-item {
+    font-size:12px !important;
+    color:maroon !important;
+}
+.AnchoSpinner input {
+    width:84px !important;
+}

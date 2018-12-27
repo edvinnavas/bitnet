@@ -1,0 +1,1259 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <p:panel id="panelExpedienteBusqueda" header="Expedientes" visible="#{Expediente_Deudor.redender_exp_busqueda}">
+            <h:form id="formExpedienteBusqueda" style="font-size:12px; font-weight:bold;">
+                <p:growl id="mensaje2" showDetail="true"/>
+                <h:panelGrid id="pnlgParametroBusqueda" columns="5" title="Busqueda">
+                    <p:outputLabel value="Parametro"/>
+                    <p:inputText id="txtParametro" value="#{Expediente_Deudor.patron}" style="width: 400px;"/>
+                    <p:commandButton id="btnBuscar" ajax="true" value="Buscar" update="tblExpediente" actionListener="#{Expediente_Deudor.buscar}"/>
+                    <p:commandButton id="btnLimpiar" ajax="true" value="Limpiar" update="tblExpediente,pnlgParametroBusqueda" actionListener="#{Expediente_Deudor.limpiar}"/>
+                    <p:commandButton id="btnGestionar" ajax="true" value="Gestionar" update=":formExpedienteBusqueda:mensaje2,panelExpedienteDeudor,panelExpedienteBusqueda" actionListener="#{Expediente_Deudor.mostrar_expediente}"/>
+                </h:panelGrid>
+                <p:dataTable
+                    id="tblExpediente"
+                    var="exp"
+                    widgetVar="var_exp"
+                    value="#{Expediente_Deudor.lst_expediente}"
+                    selectionMode="single"
+                    selection="#{Expediente_Deudor.sel_expediente}"
+                    rowKey="#{exp.id_deudor}"
+                    reflow="true"
+                    scrollable="true"
+                    scrollWidth="50%"
+                    paginator="true"
+                    rows="10"
+                    rowsPerPageTemplate="10,100,500"
+                    paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+                    <f:facet name="header">
+                        <h:outputText value="Listado de expedientes"/>
+                    </f:facet>
+
+                    <p:ajax id="dblgestionar" event="rowDblselect" update=":formExpedienteBusqueda:mensaje2,panelExpedienteDeudor,panelExpedienteBusqueda" listener="#{Expediente_Deudor.mostrar_expediente}" global="false"/>
+
+                    <p:column headerText="Cargado" sortBy="#{exp.cargado}" filterBy="#{exp.cargado}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.cargado}"/>
+                    </p:column>
+                    <p:column headerText="Actor" sortBy="#{exp.actor}" filterBy="#{exp.actor}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.actor}"/>
+                    </p:column>
+                    <p:column headerText="Garantía" sortBy="#{exp.garantia}" filterBy="#{exp.garantia}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.garantia}"/>
+                    </p:column>
+                    <p:column headerText="Gestor" sortBy="#{exp.gestor}" filterBy="#{exp.gestor}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.gestor}"/>
+                    </p:column>
+                    <p:column headerText="Caso" sortBy="#{exp.caso}" filterBy="#{exp.caso}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.caso}"/>
+                    </p:column>
+                    <p:column headerText="No. Cuenta" sortBy="#{exp.cuenta}" filterBy="#{exp.cuenta}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.cuenta}"/>
+                    </p:column>
+                    <p:column headerText="Nombre Deudor" sortBy="#{exp.nombre}" filterBy="#{exp.nombre}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Monto Inicial" sortBy="#{exp.monto_inicial}" filterBy="#{exp.monto_inicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.monto_inicial}">
+                            <f:convertNumber type="currency" currencySymbol="Q"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="No. Juicio" sortBy="#{exp.no_juicio}" filterBy="#{exp.no_juicio}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.no_juicio}"/>
+                    </p:column>
+                    <p:column headerText="Estado Extrajudicial" sortBy="#{exp.estado_extrajudicial}" filterBy="#{exp.estado_extrajudicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.estado_extrajudicial}"/>
+                    </p:column>
+                    <p:column headerText="Status Extrajudicial" sortBy="#{exp.status_extrajudicial}" filterBy="#{exp.status_extrajudicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.status_extrajudicial}"/>
+                    </p:column>
+                    <p:column headerText="Estado Judicial" sortBy="#{exp.estado_judicial}" filterBy="#{exp.estado_judicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.estado_judicial}"/>
+                    </p:column>
+                    <p:column headerText="Status Judicial" sortBy="#{exp.status_judicial}" filterBy="#{exp.status_judicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.status_judicial}"/>
+                    </p:column>
+                    <p:column headerText="Otro No. Cuenta" sortBy="#{exp.cargado}" filterBy="#{exp.cargado}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.cargado}"/>
+                    </p:column>
+                </p:dataTable>
+
+                <p:blockUI widgetVar="blocker1" block="panelExpedienteBusqueda" trigger="btnBuscar">
+                    <h:panelGrid columns="1">
+                        <img src="imagenes/ajax-loader.gif" alt=""/>
+                    </h:panelGrid>
+                </p:blockUI>
+            </h:form>
+        </p:panel>
+
+        <p:panel id="panelExpedienteDeudor" header="Expedientes" visible="#{Expediente_Deudor.redender_exp_deudor}">
+            <h:form id="FormExpedienteDeudor">
+                <p:growl id="mensaje3" showDetail="true"/>
+                <link href="css/exp.css" rel="stylesheet" type="text/css"/>
+                <p:tabView id="tabview1" widgetVar="VTabWiew1">
+                    <p:ajax event="tabChange" listener="#{Expediente_Deudor.onTabChange_1}" update="tabview1,:FormExpedienteDeudor:mensaje3"/>
+                    <p:tab id="tabCaso" title="Caso">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Datos Personales"/>
+                                </p:column>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Pagos y Convenio de Pago"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Nombre deudor"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtNombreDeudor" value="#{Expediente_Deudor.nombre_deudor}" required="true" style="width:99%;" readonly="true"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Pagos"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtPagos" value="#{Expediente_Deudor.pagos}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertNumber type="currency" currencySymbol="Q" />
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Actor"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtActor" value="#{Expediente_Deudor.actor}" required="true" style="width:99%;" readonly="true"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Aumentos"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtAumento" value="#{Expediente_Deudor.aumentos}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertNumber type="currency" currencySymbol="Q" />
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="3" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Expediente"/>
+                                </p:column>
+                                <p:column colspan="3" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Caso"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Descuentos"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtDescuentos" value="#{Expediente_Deudor.descuentos}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertNumber type="currency" currencySymbol="Q" />
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Caso"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtCaso" value="#{Expediente_Deudor.caso}" required="true" style="width:99%;" readonly="true"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Fecha recepción"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="calFechaRecepcion" value="#{Expediente_Deudor.fecha_recepcion}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </p:inputText>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Saldo"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:spinner id="spnSaldo" value="#{Expediente_Deudor.saldo}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="No. Cuenta"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtNoCuenta" value="#{Expediente_Deudor.no_cuenta}" required="true" style="width:99%;" readonly="true"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Monto inicial"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtMontoInicial" value="#{Expediente_Deudor.monto_inicial}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertNumber type="currency" currencySymbol="Q"/>
+                                    </p:inputText>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Fecha U. Pago"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtFechaUPago" value="#{Expediente_Deudor.fecha_u_pago}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Otro No. Cuenta"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtOtroNoCuenta" value="#{Expediente_Deudor.otro_no_cuenta}" required="true" style="width:99%;" readonly="true"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Moneda"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtMoneda" value="#{Expediente_Deudor.moneda}" required="true" style="width:98%;" readonly="true"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Monto U. Pago"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtMontoUPago" value="#{Expediente_Deudor.monto_u_pago}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertNumber type="currency" currencySymbol="Q" />
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Garantía"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somGarantia" value="#{Expediente_Deudor.garantia}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_garantia}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Gestor"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="somGestor" value="#{Expediente_Deudor.gestor}" required="true" style="width:98%;" readonly="true"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Próximo pago"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:selectBooleanCheckbox id="chkProximoPago" value="#{Expediente_Deudor.opcion_proximo_pago}" disabled="true"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Cargado"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somCargado" value="#{Expediente_Deudor.cargado}" required="true" style="width:100%;">
+                                        <f:selectItem itemLabel="CARGADO" itemValue="CARGADO"/>
+                                        <f:selectItem itemLabel="DESCARGADO" itemValue="DESCARGADO"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Anticipo"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somAnticipo" value="#{Expediente_Deudor.anticipo}" required="true" style="width:100%;">
+                                        <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                        <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Fecha P. Pago"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtFechaPPago" value="#{Expediente_Deudor.fecha_p_pago}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Fiador"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somFiadro" value="#{Expediente_Deudor.fiador}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_fiador}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="3">
+                                    <p:spacer height="0"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="Monto P. Pago"/>
+                                </p:column>
+                                <p:column colspan="4">
+                                    <p:inputText id="txtMontoPPago" value="#{Expediente_Deudor.monto_p_pago}" required="true" style="width:98%;" readonly="true">
+                                        <f:convertNumber type="currency" currencySymbol="Q" />
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="12" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Investigación"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="12">
+                                    <h:panelGrid columns="8">
+                                        <p:outputLabel value="PDF"/>
+                                        <p:selectBooleanCheckbox id="chkPdf" widgetVar="v_chkpdf" value="#{Expediente_Deudor.inv_pdf}"/>
+                                        <p:outputLabel value="INV"/>
+                                        <p:selectBooleanCheckbox id="chkInv" widgetVar="v_chkinv" value="#{Expediente_Deudor.inv_inv}"/>
+                                        <p:outputLabel value="MAY"/>
+                                        <p:selectBooleanCheckbox id="chkMay" widgetVar="v_chkmay" value="#{Expediente_Deudor.inv_may}"/>
+                                        <p:outputLabel value="NIT"/>
+                                        <p:selectBooleanCheckbox id="chkNit" widgetVar="v_chknit" value="#{Expediente_Deudor.inv_nit}"/>
+                                    </h:panelGrid>
+                                </p:column>
+                            </p:row>
+                            <f:facet name="footer">
+                                <p:row>
+                                    <p:column colspan="12">
+                                        <div align="right">
+                                            <p:commandButton id="btnGuardarCaso" value="Guardar caso" update=":FormExpedienteDeudor:mensaje3,tabview1" actionListener="#{Expediente_Deudor.guardar_expediente_caso}"/>
+                                        </div>
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabExtrajudicial" title="Extrajudicial">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Situación extrajudicial"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Estado"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somEstadoExtrajudicial" value="#{Expediente_Deudor.estado_extrajudicial}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_estado_extrajudicial}"/>
+                                        <p:ajax event="change" listener="#{Expediente_Deudor.cambio_estado_extrajudicial}" update="somStatusExtrajudicial"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Status"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somStatusExtrajudicial" value="#{Expediente_Deudor.status_extrajudicial}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_estatus_extrajudicial}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:spacer height="0"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Información del deudor"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Teléfono casa"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtTelefonoCasa" value="#{Expediente_Deudor.telefono_casa}" required="true" style="width:98%;"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Teléfono celular"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtTelefonoCelular" value="#{Expediente_Deudor.telefono_celular}" required="true" style="width:98%;"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Correo electrónico"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtCorreoElectronico" value="#{Expediente_Deudor.correo_electronico}" required="true" style="width:98%;"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Lugar de trabajo"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtLugarTrabajo" value="#{Expediente_Deudor.lugar_trabajo}" required="true" style="width:98%;"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Contacto trabajo"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtContactoTrabajo" value="#{Expediente_Deudor.contacto_trabajo}" required="true" style="width:98%;"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Teléfono trabajo"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtTelefonoTrabajo" value="#{Expediente_Deudor.telefono_trabajo}" required="true" style="width:98%;"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="DPI"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtDpi" value="#{Expediente_Deudor.dpi}" required="true" style="width:98%;"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="NIT"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtNit" value="#{Expediente_Deudor.nit}" required="true" style="width:98%;"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Intensión de pago"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somIntensionPago" value="#{Expediente_Deudor.intencion_pago}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_intension_pago}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Dirección"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6">
+                                    <p:inputTextarea id="areDireccion" value="#{Expediente_Deudor.direccion}" required="true" style="width:99%;" autoResize="false" rows="3"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Convenio pactado"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6">
+                                    <p:inputTextarea id="areConvenioPactado" value="#{Expediente_Deudor.convenio_pactado}" required="true" style="width:99%;" autoResize="false" rows="3" readonly="true"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Notas"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6">
+                                    <p:inputTextarea id="areNotas" value="#{Expediente_Deudor.notas}" required="true" style="width:99%;" autoResize="false" rows="3"/>
+                                </p:column>
+                            </p:row>
+                            <f:facet name="footer">
+                                <p:row>
+                                    <p:column colspan="6">
+                                        <div align="right">
+                                            <p:commandButton id="btnGuardarExtrajudicial" value="Guardar Extrajudicial" update=":FormExpedienteDeudor:mensaje3,tabview1" actionListener="#{Expediente_Deudor.guardar_expediente_extrajudicial}"/>
+                                        </div>
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabJudicial" title="Judicial">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Situación judicial"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Estado"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somEstadoJudicial" value="#{Expediente_Deudor.estado_judicial}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_estado_judicial}"/>
+                                        <p:ajax event="change" listener="#{Expediente_Deudor.cambio_estado_judicial}" update="somStatusJudicial"/>
+                                    </p:selectOneMenu>    
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Status"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somStatusJudicial" value="#{Expediente_Deudor.status_judicial}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_estatus_judicial}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:spacer height="0"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Juicio"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Procurador"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somProcurador" value="#{Expediente_Deudor.procurador}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_procurador}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Fecha Juicio"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:calendar id="calFechaJuicio" value="#{Expediente_Deudor.fecha_juicio}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar1"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Juzgado"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somJuzgado" value="#{Expediente_Deudor.juzgado}" required="true" style="width:100%;">
+                                        <f:selectItems value="#{Expediente_Deudor.lst_juzgado}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="No. Juicio"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtNoJuicio" value="#{Expediente_Deudor.no_juicio}" required="true" style="width:98%;"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Notificador"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:spinner id="spnNotificador" value="#{Expediente_Deudor.notificador}" required="true" styleClass="AnchoSpinner"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Abogado deudor"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtAbogadoDeudor" value="#{Expediente_Deudor.abogado_deudor}" required="true" style="width:98%;"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Sumario"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="txtSumario" value="#{Expediente_Deudor.sumario}" required="true" style="width:98%;"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Memorial"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:calendar id="calMemorial" value="#{Expediente_Deudor.memorial}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar1"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Notificado"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectOneMenu id="somNotificado" value="#{Expediente_Deudor.notificado}" required="true" style="width:100%;">
+                                        <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                        <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                        <f:selectItem itemLabel="D INCORRECTA" itemValue="D INCORRECTA"/>
+                                        <f:selectItem itemLabel="NADIE ATIENDE" itemValue="NADIE ATIENDE"/>
+                                        <f:selectItem itemLabel="NO VIVE LUGAR" itemValue="NO VIVE LUGAR"/>
+                                        <f:selectItem itemLabel="IMPOSIBLE" itemValue="IMPOSIBLE"/>
+                                        <f:selectItem itemLabel="FUERA PAIS" itemValue="FUERA PAIS"/>
+                                        <f:selectItem itemLabel="FALLECIDO" itemValue="FALLECIDO"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Fecha Notif."/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:calendar id="calFechaNotif" value="#{Expediente_Deudor.fecha_notif}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar1"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:outputLabel value="Monto demanda"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:spinner id="spnMontoDemanda" value="#{Expediente_Deudor.monto_demanda}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:spacer height="0"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Procuración"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6">
+                                    <p:inputTextarea id="areProcuracion" value="#{Expediente_Deudor.procuracion}" required="true" style="width:99%;" autoResize="false" rows="3"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Situación caso"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6">
+                                    <p:inputTextarea id="areSituacionCaso" value="#{Expediente_Deudor.situacion_caso}" required="true" style="width:99%;" autoResize="false" rows="3"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6" styleClass="ui-widget-header">
+                                    <p:outputLabel value="Razón Notificación"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="6">
+                                    <p:inputTextarea id="areRazonNotificacion" value="#{Expediente_Deudor.razon_notificacion}" required="true" style="width:99%;" autoResize="false" rows="3"/>
+                                </p:column>
+                            </p:row>
+                            <f:facet name="footer">
+                                <p:row>
+                                    <p:column colspan="6">
+                                        <div align="right">
+                                            <p:commandButton id="btnGuardarJudicial" value="Guardar Judicial" update=":FormExpedienteDeudor:mensaje3,tabview1" actionListener="#{Expediente_Deudor.guardar_expediente_judicial}"/>
+                                        </div>
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabPagos" title="Pagos">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnPagoInsertar" value="Insertar" update="DialogPago" actionListener="#{Pago.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblPago"
+                                        var="pag"
+                                        widgetVar="TblWidPag"
+                                        value="#{Expediente_Deudor.lst_pagos}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.pago_sel}"
+                                        rowKey="#{pag.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Historial - Pagos"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{pag.indice}" filterBy="#{pag.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{pag.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha Pago" sortBy="#{pag.fecha}" filterBy="#{pag.fecha}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{pag.fecha}"/>
+                                        </p:column>
+                                        <p:column headerText="Monto" sortBy="#{pag.monto}" filterBy="#{pag.monto}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{pag.monto}"/>
+                                        </p:column>
+                                        <p:column headerText="No. Boleta" sortBy="#{pag.no_boleta}" filterBy="#{pag.no_boleta}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{pag.no_boleta}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha Registro" sortBy="#{pag.fecha_registro}" filterBy="#{pag.fecha_registro}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{pag.fecha_registro}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabRecordatorios" title="Recordatorios">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnRecordatorioInsertar" value="Insertar" update="DialogRecordatorio" actionListener="#{Recordatorio.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblRecordatorio"
+                                        var="rec"
+                                        widgetVar="TblWidRec"
+                                        value="#{Expediente_Deudor.lst_recordatorios}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.recordatorio_sel}"
+                                        rowKey="#{rec.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Historial - Recordatorios"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{rec.indice}" filterBy="#{rec.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{rec.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha Ingreso" sortBy="#{rec.fecha_ingreso}" filterBy="#{rec.fecha_ingreso}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{rec.fecha_ingreso}"/>
+                                        </p:column>
+                                        <p:column headerText="Alerta" sortBy="#{rec.alerta}" filterBy="#{rec.alerta}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{rec.alerta}"/>
+                                        </p:column>
+                                        <p:column headerText="Estado Promesa" sortBy="#{rec.estado_promesa}" filterBy="#{rec.estado_promesa}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{rec.estado_promesa}"/>
+                                        </p:column>
+                                        <p:column headerText="Monto" sortBy="#{rec.monto}" filterBy="#{rec.monto}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{rec.monto}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabJuicio" title="Juicio">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnJuicioInsertar" value="Insertar" update="DialogJuicio" actionListener="#{Juicio.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblJuicio"
+                                        var="jui"
+                                        widgetVar="TblWidJui"
+                                        value="#{Expediente_Deudor.lst_juicios}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.juicio_sel}"
+                                        rowKey="#{jui.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Historial - Juicios"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{jui.indice}" filterBy="#{jui.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jui.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Juzgado" sortBy="#{jui.jugzado}" filterBy="#{jui.jugzado}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jui.jugzado}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha" sortBy="#{jui.fecha}" filterBy="#{jui.fecha}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jui.fecha}"/>
+                                        </p:column>
+                                        <p:column headerText="No. Juicio" sortBy="#{jui.no_juicio}" filterBy="#{jui.no_juicio}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jui.no_juicio}"/>
+                                        </p:column>
+                                        <p:column headerText="Monto" sortBy="#{jui.monto}" filterBy="#{jui.monto}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jui.monto}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabDescuentos" title="Descuentos">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnDescuentoInsertar" value="Insertar" update="DialogDescuento" actionListener="#{Descuento.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblDescuentos"
+                                        var="des"
+                                        widgetVar="TblWidDes"
+                                        value="#{Expediente_Deudor.lst_descuentos}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.descuento_sel}"
+                                        rowKey="#{des.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Historial - Descuentos"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{des.indice}" filterBy="#{des.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{des.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Tipo Descuento" sortBy="#{des.tipo_descuento}" filterBy="#{des.tipo_descuento}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{des.tipo_descuento}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha" sortBy="#{des.fecha}" filterBy="#{des.fecha}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{des.fecha}"/>
+                                        </p:column>
+                                        <p:column headerText="Monto" sortBy="#{des.monto}" filterBy="#{des.monto}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{des.monto}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabAumentos" title="Aumentos">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnAumentoInsertar" value="Insertar" update="DialogAumento" actionListener="#{Aumento.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblAumentos"
+                                        var="aum"
+                                        widgetVar="TblWidAum"
+                                        value="#{Expediente_Deudor.lst_aumentos}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.aumento_sel}"
+                                        rowKey="#{aum.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Historial - Aumentos"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{aum.indice}" filterBy="#{aum.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{aum.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Tipo Aumento" sortBy="#{aum.tipo_aumento}" filterBy="#{aum.tipo_aumento}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{aum.tipo_aumento}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha" sortBy="#{aum.fecha}" filterBy="#{aum.fecha}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{aum.fecha}"/>
+                                        </p:column>
+                                        <p:column headerText="Monto" sortBy="#{aum.monto}" filterBy="#{aum.monto}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{aum.monto}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabFiadores" title="Fiadores">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnFiadorInsertar" value="Insertar" update="DialogFiador" actionListener="#{Fiador.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblFiadores"
+                                        var="fia"
+                                        widgetVar="TblWidFia"
+                                        value="#{Expediente_Deudor.lst_fiadores}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.fiador_sel}"
+                                        rowKey="#{fia.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Listado - Fiadores"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{fia.indice}" filterBy="#{fia.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{fia.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="DPI" sortBy="#{fia.dpi}" filterBy="#{fia.dpi}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{fia.dpi}"/>
+                                        </p:column>
+                                        <p:column headerText="NIT" sortBy="#{fia.nit}" filterBy="#{fia.nit}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{fia.nit}"/>
+                                        </p:column>
+                                        <p:column headerText="Nombre Fiador" sortBy="#{fia.nombre}" filterBy="#{fia.nombre}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{fia.nombre}"/>
+                                        </p:column>
+                                        <p:column headerText="Teléfono" sortBy="#{fia.telefono}" filterBy="#{fia.telefono}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{fia.telefono}"/>
+                                        </p:column>
+                                        <p:column headerText="Dirección" sortBy="#{fia.direccion}" filterBy="#{fia.direccion}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{fia.direccion}"/>
+                                        </p:column>
+                                        <p:column headerText="Zona" sortBy="#{fia.zona}" filterBy="#{fia.zona}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{fia.zona}"/>
+                                        </p:column>
+                                        <p:column headerText="Correo Electrónico" sortBy="#{fia.correo_electronico}" filterBy="#{fia.correo_electronico}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{fia.correo_electronico}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabReferencias" title="Referencias">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnReferenciaInsertar" value="Insertar" update="DialogReferencia" actionListener="#{Referencia.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblReferencia"
+                                        var="ref"
+                                        widgetVar="TblWidRef"
+                                        value="#{Expediente_Deudor.lst_referencias}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.referencia_sel}"
+                                        rowKey="#{ref.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Listado - Referencias"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{ref.indice}" filterBy="#{ref.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{ref.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="DPI" sortBy="#{ref.dpi}" filterBy="#{ref.dpi}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{ref.dpi}"/>
+                                        </p:column>
+                                        <p:column headerText="NIT" sortBy="#{ref.nit}" filterBy="#{ref.nit}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{ref.nit}"/>
+                                        </p:column>
+                                        <p:column headerText="Nombre Fiador" sortBy="#{ref.nombre}" filterBy="#{ref.nombre}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{ref.nombre}"/>
+                                        </p:column>
+                                        <p:column headerText="Teléfono" sortBy="#{ref.telefono}" filterBy="#{ref.telefono}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{ref.telefono}"/>
+                                        </p:column>
+                                        <p:column headerText="Dirección" sortBy="#{ref.direccion}" filterBy="#{ref.direccion}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{ref.direccion}"/>
+                                        </p:column>
+                                        <p:column headerText="Zona" sortBy="#{ref.zona}" filterBy="#{ref.zona}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{ref.zona}"/>
+                                        </p:column>
+                                        <p:column headerText="Correo Electrónico" sortBy="#{ref.correo_electronico}" filterBy="#{ref.correo_electronico}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{ref.correo_electronico}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabDigitalizados" title="Digitalizados">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblDigitalizacion"
+                                        var="dig"
+                                        widgetVar="TblWidDig"
+                                        value="#{Expediente_Deudor.lst_digitalizaciones}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.digitalizacion_sel}"
+                                        rowKey="#{dig.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Listado - Documentos Digitalizados"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{dig.indice}" filterBy="#{dig.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{dig.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Nombre Documento" sortBy="#{dig.nombre}" filterBy="#{dig.nombre}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{dig.nombre}"/>
+                                        </p:column>
+                                        <p:column headerText="Path Documento" sortBy="#{dig.path}" filterBy="#{dig.path}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{dig.path}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabConvenios" title="Convenios">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnConvenioInsertar" value="Insertar" update="DialogConvenio" actionListener="#{Convenio.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblConvenios"
+                                        var="con"
+                                        widgetVar="TblWidCon"
+                                        value="#{Expediente_Deudor.lst_convenios}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.convenio_sel}"
+                                        rowKey="#{con.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Historial - Convenios"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{con.indice}" filterBy="#{con.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{con.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha Creación" sortBy="#{con.fecha_creacion}" filterBy="#{con.fecha_creacion}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{con.fecha_creacion}"/>
+                                        </p:column>
+                                        <p:column headerText="Estado" sortBy="#{con.estado}" filterBy="#{con.estado}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{con.estado}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha Pago" sortBy="#{con.fecha_pago}" filterBy="#{con.fecha_pago}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{con.fecha_pago}"/>
+                                        </p:column>
+                                        <p:column headerText="Total Deuda" sortBy="#{con.total_deudo}" filterBy="#{con.total_deudo}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{con.total_deudo}"/>
+                                        </p:column>
+                                        <p:column headerText="No. Cuotas" sortBy="#{con.no_cuotas}" filterBy="#{con.no_cuotas}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{con.no_cuotas}"/>
+                                        </p:column>
+                                        <p:column headerText="Frecuencia" sortBy="#{con.frecuencia}" filterBy="#{con.frecuencia}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{con.frecuencia}"/>
+                                        </p:column>
+                                        <p:column headerText="Cuota" sortBy="#{con.cuota}" filterBy="#{con.cuota}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{con.cuota}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                </p:tabView>
+                <p:tabView id="tabview2" widgetVar="VTabWiew2">
+                    <p:ajax event="tabChange" listener="#{Expediente_Deudor.onTabChange_2}" update="tabview2,:FormExpedienteDeudor:mensaje3"/>
+                    <p:tab id="tabCobros" title="Cobros">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <div align="right">
+                                        <p:commandButton id="btnCobrosInsertar" value="Insertar" update="DialogGestionCobros" actionListener="#{Gestion_Cobros.insertar_gestion}"/>
+                                    </div>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblCobros"
+                                        var="cob"
+                                        widgetVar="TblWidCob"
+                                        value="#{Expediente_Deudor.lst_cobros}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.cobro_sel}"
+                                        rowKey="#{cob.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{Expediente_Deudor.lb_numero_gestiones_cobros}"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{cob.indice}" filterBy="#{cob.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{cob.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha" sortBy="#{cob.fecha}" filterBy="#{cob.fecha}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{cob.fecha}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Hora" sortBy="#{cob.hora}" filterBy="#{cob.hora}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{cob.hora}"/>
+                                        </p:column>
+                                        <p:column headerText="Gestor" sortBy="#{cob.usuario}" filterBy="#{cob.usuario}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{cob.usuario}"/>
+                                        </p:column>
+                                        <p:column headerText="Codigo Resultado" sortBy="#{cob.codigo}" filterBy="#{cob.codigo}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{cob.codigo}"/>
+                                        </p:column>
+                                        <p:column headerText="Contacto" sortBy="#{cob.contacto}" filterBy="#{cob.contacto}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{cob.contacto}"/>
+                                        </p:column>
+                                        <p:column headerText="Observación" sortBy="#{cob.observacion}" filterBy="#{cob.observacion}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{cob.observacion}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabAdmon" title="Admón">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnAdmonInsertar" value="Insertar" update="DialogGestionAdmon" actionListener="#{Gestion_Admon.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblAdmon"
+                                        var="adm"
+                                        widgetVar="TblWidAdm"
+                                        value="#{Expediente_Deudor.lst_admom}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.admon_sel}"
+                                        rowKey="#{adm.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Historial - Gestiones administrativas"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{adm.indice}" filterBy="#{adm.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{adm.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha" sortBy="#{adm.fecha}" filterBy="#{adm.fecha}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{adm.fecha}"/>
+                                        </p:column>
+                                        <p:column headerText="Hora" sortBy="#{adm.hora}" filterBy="#{adm.hora}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{adm.hora}"/>
+                                        </p:column>
+                                        <p:column headerText="Gestor" sortBy="#{adm.usuario}" filterBy="#{adm.usuario}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{adm.usuario}"/>
+                                        </p:column>
+                                        <p:column headerText="Codigo Resultado" sortBy="#{adm.codigo}" filterBy="#{adm.codigo}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{adm.codigo}"/>
+                                        </p:column>
+                                        <p:column headerText="Observación" sortBy="#{adm.observacion}" filterBy="#{adm.observacion}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{adm.observacion}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab id="tabJuridico" title="Jurídico">
+                        <p:panelGrid style="width:100%;">
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:commandButton id="btnJuridicaInsertar" value="Insertar" update="DialogGestionJuridica" actionListener="#{Gestion_Juridico.insertar_gestion}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:dataTable
+                                        id="tblJuridico"
+                                        var="jur"
+                                        widgetVar="TblWidJur"
+                                        value="#{Expediente_Deudor.lst_juridico}"
+                                        selectionMode="single"
+                                        selection="#{Expediente_Deudor.juridico_sel}"
+                                        rowKey="#{jur.indice}"
+                                        reflow="true"
+                                        paginator="true"
+                                        rows="10"
+                                        rowsPerPageTemplate="10,100,500"
+                                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                        scrollable="true" 
+                                        scrollWidth="98%">
+                                        <f:facet name="header">
+                                            <h:outputText value="Historial - Gestiones jurídica"/>
+                                        </f:facet>
+                                        <p:column headerText="Id" sortBy="#{jur.indice}" filterBy="#{jur.indice}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jur.indice}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha" sortBy="#{jur.fecha}" filterBy="#{jur.fecha}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jur.fecha}"/>
+                                        </p:column>
+                                        <p:column headerText="Hora" sortBy="#{jur.hora}" filterBy="#{jur.hora}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jur.hora}"/>
+                                        </p:column>
+                                        <p:column headerText="Gestor" sortBy="#{jur.usuario}" filterBy="#{jur.usuario}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jur.usuario}"/>
+                                        </p:column>
+                                        <p:column headerText="Codigo Resultado" sortBy="#{jur.codigo}" filterBy="#{jur.codigo}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jur.codigo}"/>
+                                        </p:column>
+                                        <p:column headerText="Observación" sortBy="#{jur.observacion}" filterBy="#{jur.observacion}" filterMatchMode="contains" width="200">
+                                            <h:outputText value="#{jur.observacion}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:tab>
+                </p:tabView>
+
+                <p:blockUI widgetVar="blocker2" block="tabview1" trigger="tabview1">
+                    <h:panelGrid columns="1">
+                        <img src="imagenes/ajax-loader.gif" alt=""/>
+                    </h:panelGrid>
+                </p:blockUI>
+
+                <p:blockUI widgetVar="blocker3" block="tabview2" trigger="tabview2">
+                    <h:panelGrid columns="1">
+                        <img src="imagenes/ajax-loader.gif" alt=""/>
+                    </h:panelGrid>
+                </p:blockUI>
+
+            </h:form>
+        </p:panel>
+
+        <ui:include src="gestion_cobros.xhtml"/>
+        <ui:include src="gestion_admon.xhtml"/>
+        <ui:include src="gestion_juridica.xhtml"/>
+        <ui:include src="pagos.xhtml"/>
+        <ui:include src="recordatorios.xhtml"/>
+        <ui:include src="juicios.xhtml"/>
+        <ui:include src="descuentos.xhtml"/>
+        <ui:include src="aumentos.xhtml"/>
+        <ui:include src="fiadores.xhtml"/>
+        <ui:include src="referencias.xhtml"/>
+        <ui:include src="convenios.xhtml"/>
+
+    </h:body>
+</html>

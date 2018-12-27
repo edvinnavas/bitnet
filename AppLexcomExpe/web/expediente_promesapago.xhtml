@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedientePromesaPago" header="Expediente-Promesa Pago" widgetVar="var_exp_promesapago" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedientePromesaPago">
+                    <link href="css/expediente_promesapago.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_PromesaPago.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedientePromesaPago">
+                        <p:row>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Promesas pago del expediente."/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:commandButton id="btnAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_PromesaPago.cargar_promesapago_agregar}" update="DialogPromesaPago,:FormPromesaPago,:formExpedienteBusqueda:mensaje2"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:commandButton id="btnEliminar" value="Cambiar Estado" icon="fa fa-exchange" actionListener="#{Expediente_PromesaPago.cargar_promesapago_modificar_estado}" update="DialogPromesaPago,:FormPromesaPago,:formExpedienteBusqueda:mensaje2"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:dataTable
+                        id="tblPromesaPago"
+                        var="pp"
+                        widgetVar="TblWidProP"
+                        value="#{Expediente_PromesaPago.lst_promesapago}"
+                        selectionMode="single"
+                        selection="#{Expediente_PromesaPago.promesapago_sel}"
+                        rowKey="#{pp.correlativo}"
+                        reflow="true"
+                        scrollable="true"
+                        paginator="true"
+                        rows="5"
+                        rowsPerPageTemplate="5"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="width:981px;">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{Expediente_PromesaPago.lb_numero_promesapagos}"/>
+                        </f:facet>
+
+                        <p:ajax id="dblModificarPromesaPago" event="rowDblselect" update="DialogPromesaPago,:FormPromesaPago,:formExpedienteBusqueda:mensaje2" listener="#{Expediente_PromesaPago.cargar_promesapago_modificar}" global="false"/>
+
+                        <p:column headerText="Id" sortBy="#{pp.indice}" filterBy="#{pp.indice}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pp.indice}"/>
+                        </p:column>
+                        <p:column headerText="No convenio" sortBy="#{pp.no_convenio}" filterBy="#{pp.no_convenio}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pp.no_convenio}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" sortBy="#{pp.fecha}" filterBy="#{pp.fecha}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pp.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Hora" sortBy="#{pp.hora}" filterBy="#{pp.hora}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pp.hora}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{pp.estado}" filterBy="#{pp.estado}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pp.estado}"/>
+                        </p:column>
+                        <p:column headerText="Monto" sortBy="#{pp.monto}" filterBy="#{pp.monto}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{pp.monto}">
+                                <f:convertNumber type="currency" currencySymbol="Q"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog id="DialogPromesaPago" header="Promesa de pago" widgetVar="var_promesapago" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormPromesaPago">
+                    <link href="css/expediente_promesapago.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Estado promesa de pago"/>
+                        <p:selectOneMenu id="somEstadoPromesa" disabled="#{Expediente_PromesaPago.somEstadoPromesa}" value="#{Expediente_PromesaPago.estado_promesa}" required="true" styleClass="AnchoSelectOneMenuPro_1" autoWidth="false">
+                            <f:selectItems value="#{Expediente_PromesaPago.lst_estado_promesa}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Fecha de pago"/>
+                        <p:calendar id="calFechaPago" disabled="#{Expediente_PromesaPago.calFechaPago}" value="#{Expediente_PromesaPago.fecha_pago}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendarPro_1"/>
+                        <p:outputLabel value="Hora pago"/>
+                        <p:spinner id="spnHoraPago" readonly="#{Expediente_PromesaPago.spnHoraPago}" value="#{Expediente_PromesaPago.hora_pago}" required="true" min="0" max="23" styleClass="AnchoSpinnerPro_1"/>
+                        <p:outputLabel value="Minuto pago"/>
+                        <p:spinner id="spnMinutoPago" readonly="#{Expediente_PromesaPago.spnMinutoPago}" value="#{Expediente_PromesaPago.minuto_pago}" required="true" min="0" max="59" styleClass="AnchoSpinnerPro_1"/>
+                        <p:outputLabel value="Segundo pago"/>
+                        <p:spinner id="spnSegundoPago" readonly="#{Expediente_PromesaPago.spnSegundoPago}" value="#{Expediente_PromesaPago.segundo_pago}" required="true" min="0" max="59" styleClass="AnchoSpinnerPro_1"/>
+                        <p:outputLabel value="Monto"/>
+                        <p:spinner id="spnMonto" readonly="#{Expediente_PromesaPago.spnMonto}" value="#{Expediente_PromesaPago.monto}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1"/>
+                        <p:outputLabel value="Observación"/>                    
+                        <p:inputTextarea id="areObservacionPromesa" readonly="#{Expediente_PromesaPago.areObservacionPromesa}" value="#{Expediente_PromesaPago.observacion}" required="true" rows="3" style="width:200px !important;"/>
+                        <f:facet name="footer">
+                            <div align="right">
+                                <p:commandButton id="btnGuardar" disabled="#{Expediente_PromesaPago.btnGuardar}" value="Guardar" icon="fa fa-save" actionListener="#{Expediente_PromesaPago.gestion_promesapago}" update=":FormExpedientePromesaPago:tblPromesaPago,:formExpedienteBusqueda:mensaje2" oncomplete="PF('var_promesapago').hide();"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

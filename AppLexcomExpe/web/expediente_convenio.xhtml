@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedienteConvenio" header="Expediente-Convenio" widgetVar="var_exp_convenio" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedienteConvenio">
+                    <link href="css/expediente_convenio.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Convenio.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedienteConvenio">
+                        <p:row>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Convenio del expediente."/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:commandButton id="btnAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_Convenio.cargar_convenio_agregar}" update="DialogConvenio,:FormConvenio,:formExpedienteBusqueda:mensaje2"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:commandButton id="btnModificarEstado" value="Cambiar Estado" icon="fa fa-exchange" actionListener="#{Expediente_Convenio.cargar_convenio_modificar_estado}" update="DialogConvenio,:FormConvenio,:formExpedienteBusqueda:mensaje2"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:dataTable
+                        id="tblConvenio"
+                        var="con"
+                        widgetVar="TblWidCon"
+                        value="#{Expediente_Convenio.lst_convenio}"
+                        selectionMode="single"
+                        selection="#{Expediente_Convenio.convenio_sel}"
+                        rowKey="#{con.indice}"
+                        reflow="true"
+                        scrollable="true"
+                        paginator="true"
+                        rows="5"
+                        rowsPerPageTemplate="5"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="width:981px;">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{Expediente_Convenio.lb_numero_convenio}"/>
+                        </f:facet>
+
+                        <p:ajax id="dblModificarConvenio" event="rowDblselect" update="DialogConvenio,:FormConvenio,:formExpedienteBusqueda:mensaje2" listener="#{Expediente_Convenio.cargar_convenio_modificar}" global="false"/>
+
+                        <p:column headerText="No. convenio" sortBy="#{con.indice}" filterBy="#{con.indice}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{con.indice}"/>
+                        </p:column>
+                        <p:column headerText="Fecha creación" sortBy="#{con.fecha_creacion}" filterBy="#{con.fecha_creacion}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{con.fecha_creacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{con.estado}" filterBy="#{con.estado}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{con.estado}"/>
+                        </p:column>
+                        <p:column headerText="Fecha pago" sortBy="#{con.fecha_pago}" filterBy="#{con.fecha_pago}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{con.fecha_pago}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Total deuda" sortBy="#{con.total_deuda}" filterBy="#{con.total_deuda}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{con.total_deuda}">
+                                <f:convertNumber type="currency" currencySymbol="Q"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="No cuotas" sortBy="#{con.no_cuotas}" filterBy="#{con.no_cuotas}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{con.no_cuotas}"/>
+                        </p:column>
+                        <p:column headerText="Frecuencia" sortBy="#{con.frecuencia}" filterBy="#{con.frecuencia}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{con.frecuencia}"/>
+                        </p:column>
+                        <p:column headerText="Cuota" sortBy="#{con.cuota}" filterBy="#{con.cuota}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{con.cuota}">
+                                <f:convertNumber type="currency" currencySymbol="Q"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog id="DialogConvenio" header="Convenio" widgetVar="var_convenio" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormConvenio">
+                    <link href="css/expediente_convenio.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="Tipo convenio"/>
+                        <p:selectOneMenu id="somTipoConvenio" disabled="#{Expediente_Convenio.somTipoConvenio}" value="#{Expediente_Convenio.tipo_convenio}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                            <f:selectItems value="#{Expediente_Convenio.lst_tipo_convenio}"/>
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Estado convenio"/>
+                        <p:selectOneMenu id="somEstadoConvenio" disabled="#{Expediente_Convenio.somEstadoConvenio}" value="#{Expediente_Convenio.estado_convenio}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                            <f:selectItems value="#{Expediente_Convenio.lst_estado_convenio}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Saldo deudor"/>
+                        <p:spinner id="spnSaldoDeudor" readonly="#{Expediente_Convenio.spnSaldoDeudor}" value="#{Expediente_Convenio.saldo}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1">
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:spinner>
+                        <p:outputLabel value="Interes"/>
+                        <p:spinner id="spnInteres" readonly="#{Expediente_Convenio.spnInteres}" value="#{Expediente_Convenio.interes}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1">
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:spinner>
+                        <p:outputLabel value="Mora"/>
+                        <p:spinner id="spnMora" readonly="#{Expediente_Convenio.spnMora}" value="#{Expediente_Convenio.mora}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1">
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:spinner>
+                        <p:outputLabel value="Gastos y otros"/>
+                        <p:spinner id="spnGastosOtros" readonly="#{Expediente_Convenio.spnGastosOtros}" value="#{Expediente_Convenio.gasto_otros}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1">
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:spinner>
+                        <p:outputLabel value="Rebaja de intereses"/>
+                        <p:spinner id="spnRebajaIntereses" readonly="#{Expediente_Convenio.spnRebajaIntereses}" value="#{Expediente_Convenio.rebaja_interes}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1">
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:spinner>
+                        <p:outputLabel value="Sub-Total"/>
+                        <p:inputText id="txtSubTotal" value="#{Expediente_Convenio.subtotal_pagar}" required="true" readonly="true" styleClass="AnchoInputTextCon_1">
+                            <f:convertNumber type="currency" currencySymbol="Q" />
+                        </p:inputText>
+                        <p:outputLabel value="Costas"/>
+                        <p:spinner id="spnCostas" readonly="#{Expediente_Convenio.spnCostas}" value="#{Expediente_Convenio.costas}" required="true" min="0.00" max="100.00" stepFactor="0.01" styleClass="AnchoSpinner_1">
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:spinner>
+                        <p:outputLabel value="Monto costas"/>
+                        <p:inputText id="txtMontoCostas" value="#{Expediente_Convenio.monto_costas}" required="true" readonly="true" styleClass="AnchoInputTextCon_1">
+                            <f:convertNumber type="currency" currencySymbol="Q" />
+                        </p:inputText>
+                        <p:outputLabel value="Total"/>
+                        <p:inputText id="txtTotal" value="#{Expediente_Convenio.total}" required="true" readonly="true" styleClass="AnchoInputTextCon_1">
+                            <f:convertNumber type="currency" currencySymbol="Q" />
+                        </p:inputText>
+                        <p:outputLabel value="Cuota inicial"/>
+                        <p:spinner id="spnCuotaInicial" readonly="#{Expediente_Convenio.spnCuotaInicial}" value="#{Expediente_Convenio.cuota_inicial}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1">
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:spinner>
+                        <p:outputLabel value="Total a pagar"/>
+                        <p:inputText id="txtTotalPagar" value="#{Expediente_Convenio.total_pagar}" required="true" readonly="true" styleClass="AnchoInputTextCon_1">
+                            <f:convertNumber type="currency" currencySymbol="Q" />
+                        </p:inputText>
+                        <p:outputLabel value="No. cuotas"/>
+                        <p:spinner id="spnNoCuotas" readonly="#{Expediente_Convenio.spnNoCuotas}" value="#{Expediente_Convenio.numero_cuotas}" required="true" min="1" styleClass="AnchoSpinner_1">
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:spinner>
+                        <p:outputLabel value="Frecuencia"/>
+                        <p:selectOneMenu id="somFrecuencia" disabled="#{Expediente_Convenio.somFrecuencia}" value="#{Expediente_Convenio.frecuencia}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                            <f:selectItems value="#{Expediente_Convenio.lst_frecuencia}"/>
+                            <p:ajax event="valueChange" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Fecha pago inicial"/>
+                        <p:calendar id="calFechaPagoInicial" disabled="#{Expediente_Convenio.calFechaPagoInicial}" value="#{Expediente_Convenio.fecha_pago_inicial}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1">
+                            <p:ajax event="dateSelect" listener="#{Expediente_Convenio.calcula_valores_modificar}" update=":FormConvenio"/>
+                        </p:calendar>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="Observación"/>                    
+                        <p:inputTextarea id="areObservacionConvenio" readonly="#{Expediente_Convenio.areObservacionConvenio}" value="#{Expediente_Convenio.observacion}" required="true" rows="3" style="width:682px !important;"/>
+                        <f:facet name="footer">
+                            <div align="right">
+                                <p:commandButton id="btnGuardar" disabled="#{Expediente_Convenio.btnGuardar}" value="Guardar" icon="fa fa-save" actionListener="#{Expediente_Convenio.gestion_convenio}" update=":FormExpedienteConvenio:tblConvenio,:formExpedienteBusqueda:mensaje2" oncomplete="PF('var_convenio').hide();"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

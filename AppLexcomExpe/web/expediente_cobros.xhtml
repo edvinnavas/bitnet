@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedienteCobros" header="Expediente-Cobros" widgetVar="var_exp_cobros" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedienteCobros">
+                    <link href="css/expediente_cobros.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Cobros.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedienteCobros">
+                        <p:row>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Estado-Status Extrajudicial"/>
+                            </p:column>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Estado-Status Judicial"/>
+                            </p:column>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Intención de pago"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Estado"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somEstadoExtrajudicial" disabled="#{Expediente_Cobros.somestadoextrajudicial}" value="#{Expediente_Cobros.estado_extrajudicial}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Cobros.lst_estado_extrajudicial}"/>
+                                    <p:ajax event="change" listener="#{Expediente_Cobros.cambio_estado_extrajudicial}" update="somStatusExtrajudicial"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Estado"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somEstadoJudicial" disabled="#{Expediente_Cobros.somestadojudicial}" value="#{Expediente_Cobros.estado_judicial}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Cobros.lst_estado_judicial}"/>
+                                    <p:ajax event="change" listener="#{Expediente_Cobros.cambio_estado_judicial}" update="somStatusJudicial"/>
+                                </p:selectOneMenu>    
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Intención de pago"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somIntensionPago" disabled="#{Expediente_Cobros.somintensionpago}" value="#{Expediente_Cobros.intencion_pago}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Cobros.lst_intension_pago}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Status"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somStatusExtrajudicial" disabled="#{Expediente_Cobros.somstatusextrajudicial}" value="#{Expediente_Cobros.status_extrajudicial}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Cobros.lst_estatus_extrajudicial}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Status"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somStatusJudicial" disabled="#{Expediente_Cobros.somstatusjudicial}" value="#{Expediente_Cobros.status_judicial}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Cobros.lst_estatus_judicial}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:spacer height="0"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Gestión de cobro."/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Tipo de gestión"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somTipoGestion" value="#{Expediente_Cobros.tipo_gestion}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Cobros.lst_tipo_gestion}"/>
+                                    <p:ajax event="change" listener="#{Expediente_Cobros.cambio_gestion_contacto}" update="somCodigoResultado"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Contacto"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somContacto" value="#{Expediente_Cobros.gestion_contacto}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                    <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                    <p:ajax event="change" listener="#{Expediente_Cobros.cambio_gestion_contacto}" update="somCodigoResultado"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Código resultado"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somCodigoResultado" value="#{Expediente_Cobros.codigo_resultado}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Cobros.lst_codigo_resultado}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <p:outputLabel value="Descripción de la gestión de cobro."/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6">
+                                <p:inputTextarea id="areDescripcionGestion" value="#{Expediente_Cobros.descripcion_gestion}" required="true" autoResize="false" rows="3" styleClass="AnchoInputTextArea_1" style="width: 950px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="6" styleClass="ui-widget-header">
+                                <div align="right">
+                                    <p:commandButton id="btnIntertarGestion" value="Insertar" icon="fa fa-plus-circle" update=":FormExpedienteCobros:tblCobros,:formExpedienteBusqueda:mensaje2,:FormExpedienteCobros:pnlgExpedienteCobros" actionListener="#{Expediente_Cobros.insertar_gestion_cobros}"/>
+                                </div>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:dataTable
+                        id="tblCobros"
+                        var="cob"
+                        widgetVar="TblWidCob"
+                        value="#{Expediente_Cobros.lst_cobros}"
+                        selectionMode="single"
+                        selection="#{Expediente_Cobros.cobro_sel}"
+                        rowKey="#{cob.indice}"
+                        reflow="true"
+                        scrollable="true"
+                        paginator="true"
+                        rows="3"
+                        rowsPerPageTemplate="3"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="width:981px;">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{Expediente_Cobros.lb_numero_gestiones_cobros}"/>
+                        </f:facet>
+
+                        <p:column headerText="Id" sortBy="#{cob.indice}" filterBy="#{cob.indice}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{cob.indice}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" sortBy="#{cob.fecha}" filterBy="#{cob.fecha}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{cob.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Hora" sortBy="#{cob.hora}" filterBy="#{cob.hora}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{cob.hora}"/>
+                        </p:column>
+                        <p:column headerText="Gestor" sortBy="#{cob.usuario}" filterBy="#{cob.usuario}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{cob.usuario}"/>
+                        </p:column>
+                        <p:column headerText="Codigo Resultado" sortBy="#{cob.codigo}" filterBy="#{cob.codigo}" filterMatchMode="contains" width="100">
+                            <h:outputText value="#{cob.codigo}"/>
+                        </p:column>
+                        <p:column headerText="Contacto" sortBy="#{cob.contacto}" filterBy="#{cob.contacto}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{cob.contacto}"/>
+                        </p:column>
+                        <p:column headerText="Observación" sortBy="#{cob.observacion}" filterBy="#{cob.observacion}" filterMatchMode="contains" width="300">
+                            <h:outputText value="#{cob.observacion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

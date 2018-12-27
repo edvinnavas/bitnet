@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedienteJuridico" header="Expediente-Jurídico" widgetVar="var_exp_juridico" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedienteJuridico">
+                    <link href="css/expediente_juridico.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Juridico.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedienteJuridico">
+                        <p:row>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Descripción de la gestión jurídica."/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:inputTextarea id="areDescripcionGestion" value="#{Expediente_Juridico.descripcion_gestion}" required="true" autoResize="false" rows="3" styleClass="AnchoInputTextArea_1" style="width: 950px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1" styleClass="ui-widget-header">
+                                <div align="right">
+                                    <p:commandButton id="btnIntertarGestion" value="Insertar" icon="fa fa-plus-circle" update=":FormExpedienteJuridico:tblJuridico,:formExpedienteBusqueda:mensaje2,:FormExpedienteJuridico:pnlgExpedienteJuridico" actionListener="#{Expediente_Juridico.insertar_gestion_juridico}"/>
+                                </div>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:dataTable
+                        id="tblJuridico"
+                        var="jur"
+                        widgetVar="TblWidJur"
+                        value="#{Expediente_Juridico.lst_juridico}"
+                        selectionMode="single"
+                        selection="#{Expediente_Juridico.juridico_sel}"
+                        rowKey="#{jur.indice}"
+                        reflow="true"
+                        scrollable="true"
+                        paginator="true"
+                        rows="3"
+                        rowsPerPageTemplate="3"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="width:981px;">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{Expediente_Juridico.lb_numero_gestiones_juridico}"/>
+                        </f:facet>
+
+                        <p:column headerText="Id" sortBy="#{jur.indice}" filterBy="#{jur.indice}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jur.indice}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" sortBy="#{jur.fecha}" filterBy="#{jur.fecha}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jur.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Hora" sortBy="#{jur.hora}" filterBy="#{jur.hora}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jur.hora}"/>
+                        </p:column>
+                        <p:column headerText="Gestor" sortBy="#{jur.usuario}" filterBy="#{jur.usuario}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jur.usuario}"/>
+                        </p:column>
+                        <p:column headerText="Observación" sortBy="#{jur.observacion}" filterBy="#{jur.observacion}" filterMatchMode="contains" width="300">
+                            <h:outputText value="#{jur.observacion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

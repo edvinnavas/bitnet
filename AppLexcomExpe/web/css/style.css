@@ -1,0 +1,44 @@
+/* Opciones para el controlador SELECTONEMENU (ComboBox) */
+li.ui-selectonemenu-item {
+    font-size:12px;
+    font-weight:bold;
+    color:maroon;
+}
+/* .ui-selectonemenu {
+    width: 90% !important;
+}
+.ui-selectonemenu-label {
+    width: 92% !important;
+} */
+
+/* Opciones para el controlador GROWL (MessageBox) */
+.ui-growl {
+    font-size:12px;
+    font-weight:bold;
+    color:maroon;
+}
+.ui-growl-message {
+    font-size:12px;
+    font-weight:bold;
+    color:maroon;
+}
+
+/* Opciones de ancho del controlador CALENDAR */
+/* .AnchoCalendar input {
+    width: 200px !important;
+}
+.AnchoCalendar1 input {
+    width: 150px !important;
+} */
+
+/* Opciones de ancho del controlador SPINNER */
+/* .ui-spinner-input {
+    width: 59px !important;
+}
+.AnchoSpinner input {
+    width: 135px !important;
+}
+
+.foo td {
+    vertical-align: top;
+} */

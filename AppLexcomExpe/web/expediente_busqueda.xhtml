@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <p:panel id="panelExpedienteBusqueda" header="#{Expediente_Busqueda.titulo_panel}" style="font-size:12px; font-weight:bold;">
+            <h:form id="formExpedienteBusqueda">
+                <link href="css/expediente_busqueda.css" rel="stylesheet" type="text/css"/>
+                <p:growl id="mensaje2" showDetail="true"/>
+                <h:panelGrid id="pnlgParametroBusqueda" columns="4">
+                    <p:outputLabel value="Parametro"/>
+                    <p:inputText id="txtParametro" value="#{Expediente_Busqueda.patron}" styleClass="AnchoInputText_1" style="width:400px !important;"/>
+                    <p:commandButton id="btnBuscar" value="Buscar" icon="fa fa-search-plus" update="tblExpediente" actionListener="#{Expediente_Busqueda.buscar}"/>
+                    <p:commandButton id="btnLimpiar" value="Limpiar" icon="fa fa-times-circle" update="tblExpediente,txtParametro" actionListener="#{Expediente_Busqueda.limpiar}"/>
+                </h:panelGrid>
+                <h:panelGrid id="pnlgGestiones" columns="11">
+                    <p:commandButton id="btnCaso" value="Caso" icon="fa fa-play" update="DialogExpedienteCaso,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Caso.Cargar_Expediente_Caso(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnExtrajudicial" value="Extrajudicial" icon="fa fa-play" update="DialogExpedienteExtrajudicial,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Extrajudicial.Cargar_Expediente_Extrajudicial(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnJudicial" value="Judicial" icon="fa fa-play" update="DialogExpedienteJudicial,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Judicial.Cargar_Expediente_Judicial(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnGestionCobros" value="Cobros" icon="fa fa-play" update="DialogExpedienteCobros,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Cobros.Cargar_Expediente_Cobros(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnGestionAdmon" value="Admon" icon="fa fa-play" update="DialogExpedienteAdmon,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Admon.Cargar_Expediente_Admon(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnGestionJuridico" value="Jurídico" icon="fa fa-play" update="DialogExpedienteJuridico,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Juridico.Cargar_Expediente_Juridico(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnPagos" value="Pagos" icon="fa fa-play" update="DialogExpedientePago,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Pago.Cargar_Expediente_Pago(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnJuicios" value="Juicio" icon="fa fa-play" update="DialogExpedienteJuicio,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Juicio.Cargar_Expediente_Juicio(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnConvenios" value="Convenios" icon="fa fa-play" update="DialogExpedienteConvenio,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Convenio.Cargar_Expediente_Convenio(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton id="btnPromesaPago" value="Promesas de pago" icon="fa fa-play" update="DialogExpedientePromesaPago,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_PromesaPago.Cargar_Expediente_PromesaPago(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
+                    <p:commandButton value="Doc. Digitalizados"  icon="fa fa-play" actionListener="#{Expediente_Busqueda.Cargar_Carpeta_Digitalizacion()}" />
+
+                </h:panelGrid>
+                <p:dataTable
+                    id="tblExpediente"
+                    var="exp"
+                    widgetVar="var_exp"
+                    value="#{Expediente_Busqueda.lst_expediente}"
+                    selectionMode="single"
+                    selection="#{Expediente_Busqueda.sel_expediente}"
+                    rowKey="#{exp.id_deudor}"
+                    reflow="true"
+                    scrollable="true"
+                    paginator="true"
+                    rows="10"
+                    rowsPerPageTemplate="10,100,500"
+                    paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+                    <f:facet name="header">
+                        <h:outputText value="Listado de expedientes"/>
+                    </f:facet>
+
+                    <p:ajax id="dblgestionar" event="rowDblselect" update="DialogExpedienteCobros,:formExpedienteBusqueda:mensaje2" listener="#{Expediente_Cobros.Cargar_Expediente_Cobros(Expediente_Busqueda.sel_expediente.id_deudor)}" global="false"/>
+
+                    <p:column headerText="Cargado" sortBy="#{exp.cargado}" filterBy="#{exp.cargado}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.cargado}"/>
+                    </p:column>
+                    <p:column headerText="Actor" sortBy="#{exp.actor}" filterBy="#{exp.actor}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.actor}"/>
+                    </p:column>
+                    <p:column headerText="Garantía" sortBy="#{exp.garantia}" filterBy="#{exp.garantia}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.garantia}"/>
+                    </p:column>
+                    <p:column headerText="Gestor" sortBy="#{exp.gestor}" filterBy="#{exp.gestor}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.gestor}"/>
+                    </p:column>
+                    <p:column headerText="Caso" sortBy="#{exp.caso}" filterBy="#{exp.caso}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.caso}"/>
+                    </p:column>
+                    <p:column headerText="No. Cuenta" sortBy="#{exp.cuenta}" filterBy="#{exp.cuenta}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.cuenta}"/>
+                    </p:column>
+                    <p:column headerText="Nombre Deudor" sortBy="#{exp.nombre}" filterBy="#{exp.nombre}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Monto Inicial" sortBy="#{exp.monto_inicial}" filterBy="#{exp.monto_inicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.monto_inicial}">
+                            <f:convertNumber type="currency" currencySymbol="Q"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="No. Juicio" sortBy="#{exp.no_juicio}" filterBy="#{exp.no_juicio}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.no_juicio}"/>
+                    </p:column>
+                    <p:column headerText="Estado Extrajudicial" sortBy="#{exp.estado_extrajudicial}" filterBy="#{exp.estado_extrajudicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.estado_extrajudicial}"/>
+                    </p:column>
+                    <p:column headerText="Status Extrajudicial" sortBy="#{exp.status_extrajudicial}" filterBy="#{exp.status_extrajudicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.status_extrajudicial}"/>
+                    </p:column>
+                    <p:column headerText="Estado Judicial" sortBy="#{exp.estado_judicial}" filterBy="#{exp.estado_judicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.estado_judicial}"/>
+                    </p:column>
+                    <p:column headerText="Status Judicial" sortBy="#{exp.status_judicial}" filterBy="#{exp.status_judicial}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.status_judicial}"/>
+                    </p:column>
+                    <p:column headerText="Otro No. Cuenta" sortBy="#{exp.otro_no_cuenta}" filterBy="#{exp.otro_no_cuenta}" filterMatchMode="contains" width="200">
+                        <h:outputText value="#{exp.otro_no_cuenta}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:blockUI widgetVar="blocker1" block="panelExpedienteBusqueda" trigger="btnBuscar">
+                    <h:panelGrid columns="1">
+                        <img src="imagenes/ajax-loader.gif" alt=""/>
+                    </h:panelGrid>
+                </p:blockUI>
+            </h:form>
+        </p:panel>
+
+        <ui:include src="expediente_caso.xhtml"/>
+        <ui:include src="expediente_extrajudicial.xhtml"/>
+        <ui:include src="expediente_judicial.xhtml"/>
+        <ui:include src="expediente_cobros.xhtml"/>
+        <ui:include src="expediente_admon.xhtml"/>
+        <ui:include src="expediente_juridico.xhtml"/>
+        <ui:include src="expediente_pago.xhtml"/>
+        <ui:include src="expediente_juicio.xhtml"/>
+        <ui:include src="expediente_convenio.xhtml"/>
+        <ui:include src="expediente_promesapago.xhtml"/>
+
+    </h:body>
+</html>

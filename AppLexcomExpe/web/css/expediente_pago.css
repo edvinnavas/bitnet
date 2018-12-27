@@ -1,0 +1,19 @@
+.AnchoInputText_1 {
+    width:200px !important;
+}
+.AnchoInputTextArea_1 {
+    width:200px !important;
+}
+.AnchoSelectOneMenu_1 {
+    width:183px !important;
+}
+li.ui-selectonemenu-item {
+    font-size:12px !important;
+    color:maroon !important;
+}
+.AnchoCalendar_1 input {
+    width:200px !important;
+}
+.AnchoSpinner_1 input {
+    width:183px !important;
+}

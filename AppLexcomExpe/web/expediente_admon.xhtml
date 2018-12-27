@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedienteAdmon" header="Expediente-Admon" widgetVar="var_exp_admon" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedienteAdmon">
+                    <link href="css/expediente_admon.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Admon.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedienteAdmon">
+                        <p:row>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Descripción de la gestión administrativa."/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:inputTextarea id="areDescripcionGestion" value="#{Expediente_Admon.descripcion_gestion}" required="true" autoResize="false" rows="3" styleClass="AnchoInputTextArea_1" style="width: 950px !important;"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1" styleClass="ui-widget-header">
+                                <div align="right">
+                                    <p:commandButton id="btnIntertarGestion" value="Insertar" icon="fa fa-plus-circle" update=":FormExpedienteAdmon:tblAdmon,:formExpedienteBusqueda:mensaje2,:FormExpedienteAdmon:pnlgExpedienteAdmon" actionListener="#{Expediente_Admon.insertar_gestion_admon}"/>
+                                </div>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:dataTable
+                        id="tblAdmon"
+                        var="adm"
+                        widgetVar="TblWidAdm"
+                        value="#{Expediente_Admon.lst_admon}"
+                        selectionMode="single"
+                        selection="#{Expediente_Admon.admon_sel}"
+                        rowKey="#{adm.indice}"
+                        reflow="true"
+                        scrollable="true"
+                        paginator="true"
+                        rows="3"
+                        rowsPerPageTemplate="3"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="width:981px;">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{Expediente_Admon.lb_numero_gestiones_admon}"/>
+                        </f:facet>
+
+                        <p:column headerText="Id" sortBy="#{adm.indice}" filterBy="#{adm.indice}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{adm.indice}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" sortBy="#{adm.fecha}" filterBy="#{adm.fecha}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{adm.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Hora" sortBy="#{adm.hora}" filterBy="#{adm.hora}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{adm.hora}"/>
+                        </p:column>
+                        <p:column headerText="Gestor" sortBy="#{adm.usuario}" filterBy="#{adm.usuario}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{adm.usuario}"/>
+                        </p:column>
+                        <p:column headerText="Observación" sortBy="#{adm.observacion}" filterBy="#{adm.observacion}" filterMatchMode="contains" width="300">
+                            <h:outputText value="#{adm.observacion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

@@ -15,7 +15,9 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name = "Actor")
 @ViewScoped
 public class Actor implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     private String usuario;
     private String ambiente;
     private String opcion;

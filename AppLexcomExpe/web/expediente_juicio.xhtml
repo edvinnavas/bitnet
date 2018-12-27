@@ -1,0 +1,391 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dialog id="DialogExpedienteJuicio" header="Expediente-Juicio" widgetVar="var_exp_juicio" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormExpedienteJuicio">
+                    <link href="css/expediente_juicio.css" rel="stylesheet" type="text/css"/>
+                    <p:outputLabel value="#{Expediente_Juicio.titulo_deudor}" style="font-size:16px; font-weight:bold; color:maroon;"/>
+                    <p:panelGrid id="pnlgExpedienteJuicio">
+                        <p:row>
+                            <p:column colspan="2" styleClass="ui-widget-header">
+                                <p:outputLabel value="Expediente - Juicio del deudor."/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:dataTable
+                        id="tblJuicio"
+                        var="jui"
+                        widgetVar="TblWidPag"
+                        value="#{Expediente_Juicio.lst_juicio}"
+                        selectionMode="single"
+                        selection="#{Expediente_Juicio.juicio_sel}"
+                        rowKey="#{jui.indice}"
+                        reflow="true"
+                        scrollable="true"
+                        paginator="true"
+                        rows="3"
+                        rowsPerPageTemplate="3"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="width:981px;">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{Expediente_Juicio.lb_numero_juicios}"/>
+                        </f:facet>
+
+                        <p:ajax id="dblModificarJuicio" event="rowDblselect" update="DialogJuicio,:FormJuicio" listener="#{Expediente_Juicio.cargar_juicio_modificar}" global="false"/>
+
+                        <p:column headerText="Id" sortBy="#{jui.indice}" filterBy="#{jui.indice}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jui.indice}"/>
+                        </p:column>
+                        <p:column headerText="Juzgado" sortBy="#{jui.juzgado}" filterBy="#{jui.juzgado}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jui.juzgado}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" sortBy="#{jui.fecha}" filterBy="#{jui.fecha}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jui.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="No Juicio" sortBy="#{jui.no_juicio}" filterBy="#{jui.no_juicio}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jui.no_juicio}"/>
+                        </p:column>
+                        <p:column headerText="Monto" sortBy="#{jui.monto}" filterBy="#{jui.monto}" filterMatchMode="contains" width="50">
+                            <h:outputText value="#{jui.monto}">
+                                <f:convertNumber type="currency" currencySymbol="Q"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog id="DialogJuicio" header="Juicio" widgetVar="var_juicio" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:12px; font-weight:normal; color:black;">
+                <h:form id="FormJuicio">
+                    <link href="css/expediente_juicio.css" rel="stylesheet" type="text/css"/>
+                    <p:tabView id="tabview1" widgetVar="VTabWiew1" activeIndex="0">
+                        <p:tab id="tabJuicio" title="Juicio">
+                            <p:panelGrid columns="4">
+                                <p:outputLabel value="Juzgado"/>
+                                <p:selectOneMenu id="somJuzgado" value="#{Expediente_Juicio.juzgado}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Juicio.lst_juzgado}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Fecha"/>
+                                <p:calendar id="calFechaJuicio" value="#{Expediente_Juicio.fecha}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1"/>
+                                <p:outputLabel value="No. Juicio"/>
+                                <p:inputText id="txtNoJuicio" value="#{Expediente_Juicio.no_juicio}" required="true" styleClass="AnchoInputText_1"/>
+                                <p:outputLabel value="Monto"/>
+                                <p:spinner id="spnMonto" value="#{Expediente_Juicio.monto}" required="true" min="0.00" prefix="Q" stepFactor="0.01" styleClass="AnchoSpinner_1"/>
+                                <p:outputLabel value="Procurador"/>
+                                <p:selectOneMenu id="somProcurador" value="#{Expediente_Juicio.procurador}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Juicio.lst_procurador}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Notificador"/>
+                                <p:spinner id="spnNotificador" value="#{Expediente_Juicio.notificador}" required="true" min="0" styleClass="AnchoSpinner_1"/>
+                                <p:outputLabel value="Abogado deudor"/>
+                                <p:inputText id="txtAbogadoDeudor" value="#{Expediente_Juicio.abogado_deudor}" required="true" styleClass="AnchoInputText_1"/>
+                                <p:outputLabel value="Sumario"/>
+                                <p:inputText id="txtSumario" value="#{Expediente_Juicio.sumario}" required="true" styleClass="AnchoInputText_1"/>
+                                <p:outputLabel value="Memorial"/>
+                                <p:calendar id="calMemorial" value="#{Expediente_Juicio.memorial}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1"/>
+                                <p:outputLabel value="Fecha admisión"/>
+                                <p:calendar id="calFechaAdminision" value="#{Expediente_Juicio.fecha_admision_demanda}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1"/>
+                                <p:outputLabel value="Notificado"/>
+                                <p:selectOneMenu id="somNotificado" value="#{Expediente_Juicio.deudor_notificado}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                    <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Fecha notificación"/>
+                                <p:calendar id="calFechaNotificacion" value="#{Expediente_Juicio.fecha_notificacion}" required="true" pattern="dd/MM/yyyy" styleClass="AnchoCalendar_1"/>
+                                <p:outputLabel value="Depositario"/>
+                                <p:inputText id="txtDepositario" value="#{Expediente_Juicio.depositario}" required="true" styleClass="AnchoInputText_1"/>
+                                <p:outputLabel value="Tiempo estimado"/>
+                                <p:inputText id="txtTiempoEstimado" value="#{Expediente_Juicio.tiempo_estimado}" required="true" styleClass="AnchoInputText_1"/>
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="tabMedidasPrecautorias" title="Medidas precautorias">
+                            <p:tabView id="tabview2" widgetVar="VTabWiew2" activeIndex="0">
+                                <p:tab id="tabArraigo" title="Arraigo">
+                                    <p:dataTable id="tblArraigo" var="me1" value="#{Expediente_Juicio.lst_juicio_arraigo}" editable="true" editMode="cell" selectionMode="single" selection="#{Expediente_Juicio.sel_arraigo}" rowKey="#{me1.juicio}" style="width:500px;">
+                                        <p:column headerText="Medida">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me1.arraigo}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectOneMenu value="#{me1.arraigo}" required="true">
+                                                        <f:selectItems value="#{Expediente_Juicio.lst_arraigo}"/>
+                                                    </p:selectOneMenu>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Fecha">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me1.fecha}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar value="#{me1.fecha}" required="true" pattern="dd/MM/yyyy"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <f:facet name="footer">
+                                            <div align="right">
+                                                <p:commandButton id="btnArraigoAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_Juicio.agregar_arraigo}" update="tblArraigo"/>
+                                                <p:commandButton id="btnArraigoEliminar" value="Eliminar" icon="fa fa-minus-circle" actionListener="#{Expediente_Juicio.eliminar_arraigo}" update="tblArraigo"/>
+                                            </div>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:tab>
+                                <p:tab id="tabBanco" title="Banco">
+                                    <p:dataTable id="tblBanco" var="me2" value="#{Expediente_Juicio.lst_juicio_banco}" editable="true" editMode="cell" selectionMode="single" selection="#{Expediente_Juicio.sel_banco}" rowKey="#{me2.juicio}" style="width:500px;">
+                                        <p:column headerText="Medida">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me2.banco}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectOneMenu value="#{me2.banco}" required="true">
+                                                        <f:selectItems value="#{Expediente_Juicio.lst_banco}"/>
+                                                    </p:selectOneMenu>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Fecha">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me2.fecha}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar value="#{me2.fecha}" required="true" pattern="dd/MM/yyyy"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <f:facet name="footer">
+                                            <div align="right">
+                                                <p:commandButton id="btnBancoAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_Juicio.agregar_banco}" update="tblBanco"/>
+                                                <p:commandButton id="btnBancoEliminar" value="Eliminar" icon="fa fa-minus-circle" actionListener="#{Expediente_Juicio.eliminar_banco}" update="tblBanco"/>
+                                            </div>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:tab>
+                                <p:tab id="tabFinca" title="Finca">
+                                    <p:dataTable id="tblFinca" var="me3" value="#{Expediente_Juicio.lst_juicio_finca}" editable="true" editMode="cell" selectionMode="single" selection="#{Expediente_Juicio.sel_finca}" rowKey="#{me3.juicio}" style="width:500px;">
+                                        <p:column headerText="Medida">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me3.tramite}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectOneMenu value="#{me3.tramite}" required="true">
+                                                        <f:selectItems value="#{Expediente_Juicio.lst_finca}"/>
+                                                    </p:selectOneMenu>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Finca">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me3.finca}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputTextarea value="#{me3.finca}" required="true" rows="3"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Letra">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me3.letra}"/>                                                
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputTextarea value="#{me3.letra}" required="true" rows="3"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Fecha">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me3.fecha}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar value="#{me3.fecha}" required="true" pattern="dd/MM/yyyy"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <f:facet name="footer">
+                                            <div align="right">
+                                                <p:commandButton id="btnFincaAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_Juicio.agregar_finca}" update="tblFinca"/>
+                                                <p:commandButton id="btnFincaEliminar" value="Eliminar" icon="fa fa-minus-circle" actionListener="#{Expediente_Juicio.eliminar_finca}" update="tblFinca"/>
+                                            </div>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:tab>
+                                <p:tab id="tabSalario" title="Salario">
+                                    <p:dataTable id="tblSalario" var="me4" value="#{Expediente_Juicio.lst_juicio_salario}" editable="true" editMode="cell" selectionMode="single" selection="#{Expediente_Juicio.sel_salario}" rowKey="#{me4.juicio}" style="width:500px;">
+                                        <p:column headerText="Medida">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me4.salario}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectOneMenu value="#{me4.salario}" required="true">
+                                                        <f:selectItems value="#{Expediente_Juicio.lst_salario}"/>
+                                                    </p:selectOneMenu>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Empresa">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me4.empresa}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputTextarea value="#{me4.empresa}" required="true" rows="3"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Fecha">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me4.fecha}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar value="#{me4.fecha}" required="true" pattern="dd/MM/yyyy"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <f:facet name="footer">
+                                            <div align="right">
+                                                <p:commandButton id="btnSalarioAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_Juicio.agregar_salario}" update="tblSalario"/>
+                                                <p:commandButton id="btnSalarioEliminar" value="Eliminar" icon="fa fa-minus-circle" actionListener="#{Expediente_Juicio.eliminar_salario}" update="tblSalario"/>
+                                            </div>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:tab>
+                                <p:tab id="tabVehiculo" title="Vehículo">
+                                    <p:dataTable id="tblVehiculo" var="me5" value="#{Expediente_Juicio.lst_juicio_vehiculo}" editable="true" editMode="cell" selectionMode="single" selection="#{Expediente_Juicio.sel_vehiculo}" rowKey="#{me5.juicio}" style="width:500px;">
+                                        <p:column headerText="Medida">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me5.medida}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectOneMenu value="#{me5.medida}" required="true">
+                                                        <f:selectItems value="#{Expediente_Juicio.lst_vehiculo}"/>
+                                                    </p:selectOneMenu>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Vehiculo">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me5.vehiculo}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputTextarea value="#{me5.vehiculo}" required="true" rows="3"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Fecha">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me5.fecha}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar value="#{me5.fecha}" required="true" pattern="dd/MM/yyyy"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <f:facet name="footer">
+                                            <div align="right">
+                                                <p:commandButton id="btnVehiculoAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_Juicio.agregar_vehiculo}" update="tblVehiculo"/>
+                                                <p:commandButton id="btnVehiculoEliminar" value="Eliminar" icon="fa fa-minus-circle" actionListener="#{Expediente_Juicio.eliminar_vehiculo}" update="tblVehiculo"/>
+                                            </div>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:tab>
+                                <p:tab id="tabOtros" title="Otros">
+                                    <p:dataTable id="tblOtros" var="me6" value="#{Expediente_Juicio.lst_juicio_otros}" editable="true" editMode="cell" selectionMode="single" selection="#{Expediente_Juicio.sel_otros}" rowKey="#{me6.juicio}" style="width:500px;">
+                                        <p:column headerText="Medida">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me6.medida}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectOneMenu value="#{me6.medida}" required="true">
+                                                        <f:selectItems value="#{Expediente_Juicio.lst_otros}"/>
+                                                    </p:selectOneMenu>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Otros">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me6.otros}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputTextarea value="#{me6.otros}" required="true" rows="3"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <p:column headerText="Fecha">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{me6.fecha}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar value="#{me6.fecha}" required="true" pattern="dd/MM/yyyy"/>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+                                        <f:facet name="footer">
+                                            <div align="right">
+                                                <p:commandButton id="btnOtrosAgregar" value="Agregar" icon="fa fa-plus-circle" actionListener="#{Expediente_Juicio.agregar_otros}" update="tblOtros"/>
+                                                <p:commandButton id="btnOtrosEliminar" value="Eliminar" icon="fa fa-minus-circle" actionListener="#{Expediente_Juicio.eliminar_otros}" update="tblOtros"/>
+                                            </div>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:tab>
+                            </p:tabView>
+                        </p:tab>
+                        <p:tab id="tabDescripcion" title="Descripción">
+                            <p:panelGrid columns="1">
+                                <p:outputLabel value="Descripción"/>
+                                <p:inputTextarea id="areDescripcion" value="#{Expediente_Juicio.descripcion}" required="true" rows="3" style="width:562px !important;"/>
+                                <p:outputLabel value="Procuración"/>
+                                <p:inputTextarea id="areProcuracion" value="#{Expediente_Juicio.procuracion}" required="true" rows="3" style="width:562px !important;"/>
+                                <p:outputLabel value="Razón notificación"/>
+                                <p:inputTextarea id="areRazonNotificacion" value="#{Expediente_Juicio.razon_notificacion}" required="true" rows="3" style="width:562px !important;"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <div align="right">
+                        <p:commandButton id="btnGuardar" value="Guardar" icon="fa fa-save" actionListener="#{Expediente_Juicio.modificar_gestion_juicio}" update=":FormExpedienteJuicio:tblJuicio,:formExpedienteBusqueda:mensaje2" oncomplete="PF('var_juicio').hide();"/>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

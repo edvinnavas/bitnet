@@ -1,0 +1,18 @@
+.AnchoSelectOneMenu_1 {
+    width: 182px !important;
+}
+.AnchoPassword_1 {
+    width: 200px !important;
+}
+li.ui-selectonemenu-item {
+    font-size: 12px !important;
+    color: maroon !important;
+}
+.ui-growl {
+    font-size: 12px !important;
+    color: maroon !important;
+}
+.ui-growl-message {
+    font-size: 12px !important;
+    color: maroon !important;
+}
