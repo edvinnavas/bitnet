@@ -33,8 +33,7 @@
                     <p:commandButton id="btnJuicios" value="Juicio" icon="fa fa-play" update="DialogExpedienteJuicio,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Juicio.Cargar_Expediente_Juicio(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
                     <p:commandButton id="btnConvenios" value="Convenios" icon="fa fa-play" update="DialogExpedienteConvenio,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_Convenio.Cargar_Expediente_Convenio(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
                     <p:commandButton id="btnPromesaPago" value="Promesas de pago" icon="fa fa-play" update="DialogExpedientePromesaPago,:formExpedienteBusqueda:mensaje2" actionListener="#{Expediente_PromesaPago.Cargar_Expediente_PromesaPago(Expediente_Busqueda.sel_expediente.id_deudor)}"/>
-                    <p:commandButton value="Doc. Digitalizados"  icon="fa fa-play" actionListener="#{Expediente_Busqueda.Cargar_Carpeta_Digitalizacion()}" />
-
+                    <p:commandButton value="Doc. Digitalizados"  icon="fa fa-play" actionListener="#{Expediente_Busqueda.Cargar_Carpeta_Digitalizacion()}"/>
                 </h:panelGrid>
                 <p:dataTable
                     id="tblExpediente"

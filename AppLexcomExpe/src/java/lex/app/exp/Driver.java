@@ -768,7 +768,7 @@ public class Driver implements Serializable {
         List<SelectItem> lst_ambientes = new ArrayList<>();
         
         try {
-            lst_ambientes.add(new SelectItem("LEXCOMJNDI", "Producción"));
+            // lst_ambientes.add(new SelectItem("LEXCOMJNDI", "Producción"));
             lst_ambientes.add(new SelectItem("LexcomJndiTEST", "Pruebas"));
         } catch (Exception ex) {
             lst_ambientes.add(new SelectItem("**ERROR**", "**ERROR**"));
