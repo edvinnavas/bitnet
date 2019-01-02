@@ -113,6 +113,19 @@
                             </p:column>
                         </p:row>
                         <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Razón deuda"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somRazonDeuda" disabled="#{Expediente_Extrajudicial.somrazondeuda}" value="#{Expediente_Extrajudicial.razon_deuda}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Extrajudicial.lst_razon_deuda}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column colspan="4">
+                                <p:spacer height="0"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
                             <p:column colspan="6" styleClass="ui-widget-header">
                                 <p:outputLabel value="Dirección"/>
                             </p:column>

@@ -1461,7 +1461,7 @@ public class Expediente_Deudor implements Serializable {
             Servicio servicio = new Servicio();
             Driver driver = new Driver();
             Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-            String resultado = servicio.guardarExpedienteExtrajudicial(id_usuario, this.deudor, this.estado_extrajudicial, this.status_extrajudicial, this.telefono_casa, this.telefono_celular, this.correo_electronico, this.lugar_trabajo, this.contacto_trabajo, this.telefono_trabajo,this.dpi, this.nit, this.intencion_pago,this.direccion, this.notas, this.ambiente);
+            String resultado = servicio.guardarExpedienteExtrajudicial(id_usuario, this.deudor, this.estado_extrajudicial, this.status_extrajudicial, this.telefono_casa, this.telefono_celular, this.correo_electronico, this.lugar_trabajo, this.contacto_trabajo, this.telefono_trabajo,this.dpi, this.nit, this.intencion_pago,this.direccion, this.notas, 1, this.ambiente);
             this.CargarTabExpediente();
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));

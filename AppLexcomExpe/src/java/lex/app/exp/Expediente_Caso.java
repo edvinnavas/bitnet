@@ -21,9 +21,9 @@ public class Expediente_Caso implements Serializable {
 
     private String usuario;
     private String ambiente;
-    
+
     private Integer deudor;
-    
+
     private String nombre_deudor;
     private String actor;
 
@@ -57,7 +57,7 @@ public class Expediente_Caso implements Serializable {
 
     private List<SelectItem> lst_garantia;
     private List<SelectItem> lst_fiador;
-    
+
     private String com_extrajudicial;
     private String com_judicial;
     private String titulo_deudor;
@@ -68,9 +68,7 @@ public class Expediente_Caso implements Serializable {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             this.usuario = session.getAttribute("id_usuario").toString();
             this.ambiente = session.getAttribute("ambiente").toString();
-            System.out.println("USUARIO : => LexcomExpediente-Expediente_Caso(init): " + this.usuario);
-            System.out.println("AMBIENTE: => LexcomExpediente-Expediente_Caso(init): " + this.ambiente);
-            
+
             Driver drive = new Driver();
             this.nombre_deudor = "Nombre del deudor";
             this.actor = "Nombre del actor";
@@ -104,9 +102,9 @@ public class Expediente_Caso implements Serializable {
             this.monto_p_pago = 0.00;
 
             String lista_garantia_sql = "select g.garantia, g.nombre from garantia g where g.estado='VIGENTE'";
-            this.lst_garantia = drive.lista_SelectItem_simple(lista_garantia_sql,this.ambiente);
+            this.lst_garantia = drive.lista_SelectItem_simple(lista_garantia_sql, this.ambiente);
             String lista_fiador_sql = "select f.nombre, f.nombre from fiador f where f.deudor=" + this.deudor;
-            this.lst_fiador = drive.lista_SelectItem_simple(lista_fiador_sql,this.ambiente);
+            this.lst_fiador = drive.lista_SelectItem_simple(lista_fiador_sql, this.ambiente);
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Caso(init): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
@@ -116,99 +114,104 @@ public class Expediente_Caso implements Serializable {
     public void Cargar_Expediente_Caso(Integer deudor) {
         try {
             this.deudor = deudor;
-            
+
             if (this.deudor != null) {
-                String cadenasql = "select "
-                        + "d.nombre, " // rs.getObject(0);
-                        + "a.nombre, " // rs.getObject(1);
-                        + "d.caso, " // rs.getObject(2);
-                        + "d.no_cuenta, " // rs.getObject(3);
-                        + "d.no_cuenta_otro, " // rs.getObject(4);
-                        + "d.garantia, " // rs.getObject(5);
-                        + "d.cargado, " // rs.getObject(6);
-                        + "d.anticipo, " // rs.getObject(7);
-                        + "d.fecha_recepcion, " // rs.getObject(8);
-                        + "d.monto_inicial, " // rs.getObject(9);
-                        + "d.moneda, " // rs.getObject(10);
-                        + "u.nombre, " // rs.getObject(11);
-                        + "d.pdf, " // rs.getObject(12);
-                        + "d.inv, " // rs.getObject(13);
-                        + "d.maycom, " // rs.getObject(14);
-                        + "d.nits, " // rs.getObject(15);
-                        + "d.saldo, " // rs.getObject(16);
-                        + "d.fecha_proximo_pago, " // rs.getObject(17);
-                        + "d.cuota_convenio, " // rs.getObject(18);
-                        + "d.opcion_proximo_pago, " // rs.getObject(19);
-                        + "(select ifnull(sum(p.monto),0.00) from pago p where p.deudor=" + this.deudor + ") pagos, " // rs.getObject(20);
-                        + "(select ifnull(sum(a.monto),0.00) from aumento a where a.deudor=" + this.deudor + ") aumento, " // rs.getObject(21);
-                        + "(select ifnull(sum(d.monto),0.00) from descuento d where d.deudor=" + this.deudor + ") descuentos, " // rs.getObject(22);
-                        + "(select ifnull(max(p.fecha),date('1900-01-01')) from pago p where p.deudor=" + this.deudor + ") fecha_u_pago, " // rs.getObject(23);
-                        + "ifnull((select ifnull(p.monto,0.00) from pago p where p.deudor=" + this.deudor + " and p.fecha=(select ifnull(max(p.fecha),date('1900-01-01')) from pago p where p.deudor=" + this.deudor + ")),0.00) monto_u_pago, " // rs.getObject(24);
-                        + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(25)
-                        + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial " // rs.getObject(26);
-                        + "from "
-                        + "deudor d "
-                        + "left join actor a on (d.actor=a.actor) "
-                        + "left join usuario u on (d.usuario=u.usuario) "
-                        + "left join juicio j on (d.deudor=j.deudor) "
-                        + "where "
-                        + "d.deudor=" + this.deudor;
+                Driver driver = new Driver();
+                Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
+                if (driver.validar_corporacion(id_usuario, this.deudor, ambiente)) {
+                    String cadenasql = "select "
+                            + "d.nombre, " // rs.getObject(0);
+                            + "a.nombre, " // rs.getObject(1);
+                            + "d.caso, " // rs.getObject(2);
+                            + "d.no_cuenta, " // rs.getObject(3);
+                            + "d.no_cuenta_otro, " // rs.getObject(4);
+                            + "d.garantia, " // rs.getObject(5);
+                            + "d.cargado, " // rs.getObject(6);
+                            + "d.anticipo, " // rs.getObject(7);
+                            + "d.fecha_recepcion, " // rs.getObject(8);
+                            + "d.monto_inicial, " // rs.getObject(9);
+                            + "d.moneda, " // rs.getObject(10);
+                            + "u.nombre, " // rs.getObject(11);
+                            + "d.pdf, " // rs.getObject(12);
+                            + "d.inv, " // rs.getObject(13);
+                            + "d.maycom, " // rs.getObject(14);
+                            + "d.nits, " // rs.getObject(15);
+                            + "d.saldo, " // rs.getObject(16);
+                            + "d.fecha_proximo_pago, " // rs.getObject(17);
+                            + "d.cuota_convenio, " // rs.getObject(18);
+                            + "d.opcion_proximo_pago, " // rs.getObject(19);
+                            + "(select ifnull(sum(p.monto),0.00) from pago p where p.deudor=" + this.deudor + ") pagos, " // rs.getObject(20);
+                            + "(select ifnull(sum(a.monto),0.00) from aumento a where a.deudor=" + this.deudor + ") aumento, " // rs.getObject(21);
+                            + "(select ifnull(sum(d.monto),0.00) from descuento d where d.deudor=" + this.deudor + ") descuentos, " // rs.getObject(22);
+                            + "(select ifnull(max(p.fecha),date('1900-01-01')) from pago p where p.deudor=" + this.deudor + ") fecha_u_pago, " // rs.getObject(23);
+                            + "ifnull((select ifnull(p.monto,0.00) from pago p where p.deudor=" + this.deudor + " and p.fecha=(select ifnull(max(p.fecha),date('1900-01-01')) from pago p where p.deudor=" + this.deudor + ")),0.00) monto_u_pago, " // rs.getObject(24);
+                            + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(25)
+                            + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial " // rs.getObject(26);
+                            + "from "
+                            + "deudor d "
+                            + "left join actor a on (d.actor=a.actor) "
+                            + "left join usuario u on (d.usuario=u.usuario) "
+                            + "left join juicio j on (d.deudor=j.deudor) "
+                            + "where "
+                            + "d.deudor=" + this.deudor;
 
-                Servicio servicio = new Servicio();
-                java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql,this.ambiente);
+                    Servicio servicio = new Servicio();
+                    java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
 
-                Integer filas = resultado.size();
-                Integer columnas = resultado.get(0).getItem().size();
-                String[][] vector_result = new String[resultado.size()][columnas];
-                for (Integer i = 0; i < resultado.size(); i++) {
-                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    Integer filas = resultado.size();
+                    Integer columnas = resultado.get(0).getItem().size();
+                    String[][] vector_result = new String[resultado.size()][columnas];
+                    for (Integer i = 0; i < resultado.size(); i++) {
+                        for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                            vector_result[i][j] = resultado.get(i).getItem().get(j);
+                        }
                     }
-                }
 
-                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-                for (Integer i = 1; i < filas; i++) {
-                    this.nombre_deudor = vector_result[i][0];
-                    this.actor = vector_result[i][1];
-                    this.caso = Integer.parseInt(vector_result[i][2]);
-                    this.no_cuenta = vector_result[i][3];
-                    this.otro_no_cuenta = vector_result[i][4];
-                    this.garantia = Integer.parseInt(vector_result[i][5]);
-                    this.cargado = vector_result[i][6];
-                    this.anticipo = vector_result[i][7];
-                    this.fecha_recepcion = formatDate.parse(vector_result[i][8]);
-                    this.monto_inicial = Double.parseDouble(vector_result[i][9]);
-                    this.Moneda = vector_result[i][10];
-                    this.gestor = vector_result[i][11];
-                    this.inv_pdf = vector_result[i][12].equals("SI");
-                    this.inv_inv = vector_result[i][13].equals("SI");
-                    this.inv_may = vector_result[i][14].equals("SI");
-                    this.inv_nit = vector_result[i][15].equals("SI");
-                    this.saldo = Double.parseDouble(vector_result[i][16]);
-                    this.fecha_p_pago = formatDate.parse(vector_result[i][17]);
-                    this.monto_p_pago = Double.parseDouble(vector_result[i][18]);
-                    this.opcion_proximo_pago = vector_result[i][19].equals("SI");
-                    this.pagos = Double.parseDouble(vector_result[i][20]);
-                    this.aumentos = Double.parseDouble(vector_result[i][21]);
-                    this.descuentos = Double.parseDouble(vector_result[i][22]);
-                    this.fecha_u_pago = formatDate.parse(vector_result[i][23]);
-                    this.monto_u_pago = Double.parseDouble(vector_result[i][24]);
-                    this.com_judicial = vector_result[i][25];
-                    this.com_extrajudicial = vector_result[i][26];
-                }
+                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    for (Integer i = 1; i < filas; i++) {
+                        this.nombre_deudor = vector_result[i][0];
+                        this.actor = vector_result[i][1];
+                        this.caso = Integer.parseInt(vector_result[i][2]);
+                        this.no_cuenta = vector_result[i][3];
+                        this.otro_no_cuenta = vector_result[i][4];
+                        this.garantia = Integer.parseInt(vector_result[i][5]);
+                        this.cargado = vector_result[i][6];
+                        this.anticipo = vector_result[i][7];
+                        this.fecha_recepcion = formatDate.parse(vector_result[i][8]);
+                        this.monto_inicial = Double.parseDouble(vector_result[i][9]);
+                        this.Moneda = vector_result[i][10];
+                        this.gestor = vector_result[i][11];
+                        this.inv_pdf = vector_result[i][12].equals("SI");
+                        this.inv_inv = vector_result[i][13].equals("SI");
+                        this.inv_may = vector_result[i][14].equals("SI");
+                        this.inv_nit = vector_result[i][15].equals("SI");
+                        this.saldo = Double.parseDouble(vector_result[i][16]);
+                        this.fecha_p_pago = formatDate.parse(vector_result[i][17]);
+                        this.monto_p_pago = Double.parseDouble(vector_result[i][18]);
+                        this.opcion_proximo_pago = vector_result[i][19].equals("SI");
+                        this.pagos = Double.parseDouble(vector_result[i][20]);
+                        this.aumentos = Double.parseDouble(vector_result[i][21]);
+                        this.descuentos = Double.parseDouble(vector_result[i][22]);
+                        this.fecha_u_pago = formatDate.parse(vector_result[i][23]);
+                        this.monto_u_pago = Double.parseDouble(vector_result[i][24]);
+                        this.com_judicial = vector_result[i][25];
+                        this.com_extrajudicial = vector_result[i][26];
+                    }
 
-                Driver drive = new Driver();
-                this.lst_fiador = drive.lista_SelectItem_simple("select f.fiador, f.nombre from fiador f where f.deudor=" + this.deudor,this.ambiente);
-                if (this.lst_fiador.isEmpty()) {
-                    this.lst_fiador.add(new SelectItem(0, "SIN FIADOR"));
-                    this.fiador = 0;
+                    this.lst_fiador = driver.lista_SelectItem_simple("select f.fiador, f.nombre from fiador f where f.deudor=" + this.deudor, this.ambiente);
+                    if (this.lst_fiador.isEmpty()) {
+                        this.lst_fiador.add(new SelectItem(0, "SIN FIADOR"));
+                        this.fiador = 0;
+                    } else {
+                        this.fiador = Integer.parseInt(this.lst_fiador.get(0).getValue().toString());
+                    }
+
+                    this.titulo_deudor = "CASO: " + this.caso + " JUDICIAL: " + this.com_judicial + " EXTRAJUDICIAL: " + this.com_extrajudicial + " TIEMPO: 00:00:00";
+
+                    RequestContext.getCurrentInstance().execute("PF('var_exp_caso').show();");
                 } else {
-                    this.fiador = Integer.parseInt(this.lst_fiador.get(0).getValue().toString());
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "La corporación del actor asignado el expediente no puede ser consultado por el usuario."));
                 }
-                
-                this.titulo_deudor = "CASO: " + this.caso + " JUDICIAL: " + this.com_judicial + " EXTRAJUDICIAL: " + this.com_extrajudicial + " TIEMPO: 00:00:00";
-
-                RequestContext.getCurrentInstance().execute("PF('var_exp_caso').show();");
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe seleccionar un expediente del listado."));
             }
@@ -244,7 +247,7 @@ public class Expediente_Caso implements Serializable {
             } else {
                 inv_nit_s = "NO";
             }
-            
+
             Driver driver = new Driver();
             Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
             Servicio servicio = new Servicio();
@@ -528,5 +531,5 @@ public class Expediente_Caso implements Serializable {
     public void setTitulo_deudor(String titulo_deudor) {
         this.titulo_deudor = titulo_deudor;
     }
-    
+
 }

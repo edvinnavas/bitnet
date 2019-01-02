@@ -35,8 +35,6 @@ public class Expediente_Busqueda implements Serializable {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             this.usuario = session.getAttribute("id_usuario").toString();
             this.ambiente = session.getAttribute("ambiente").toString();
-            System.out.println("USUARIO : => LexcomExpediente-Expediente_Busqueda(init): " + this.usuario);
-            System.out.println("AMBIENTE: => LexcomExpediente-Expediente_Busqueda(init): " + this.ambiente);
 
             this.titulo_panel = "Busqueda de expedientes - USUARIO: " + this.usuario;
             this.patron = "";
@@ -149,11 +147,16 @@ public class Expediente_Busqueda implements Serializable {
             if(this.sel_expediente != null) {
                 if (this.deudor != null) {
                     Driver driver = new Driver();
-                    Directorio = "http://192.168.2.1:" + "//" + driver.dar_path_actor(this.sel_expediente.getId_deudor(), this.ambiente) + "//" + driver.dar_caso_deudor(this.deudor, this.ambiente);
-                    //FacesContext.getCurrentInstance().getExternalContext().redirect("_blank");
-                    // FacesContext.getCurrentInstance().getExternalContext().redirect();
-                    RequestContext context = RequestContext.getCurrentInstance();
-                    context.execute("window.open('" + Directorio + "', '_newtab')");
+                    Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
+                    if (driver.validar_corporacion(id_usuario, this.deudor, ambiente)) {
+                        Directorio = "http://192.168.2.1:" + "//" + driver.dar_path_actor(this.sel_expediente.getId_deudor(), this.ambiente) + "//" + driver.dar_caso_deudor(this.deudor, this.ambiente);
+                        //FacesContext.getCurrentInstance().getExternalContext().redirect("_blank");
+                        // FacesContext.getCurrentInstance().getExternalContext().redirect();
+                        RequestContext context = RequestContext.getCurrentInstance();
+                        context.execute("window.open('" + Directorio + "', '_newtab')");
+                    } else {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "La corporación del actor asignado el expediente no puede ser consultado por el usuario."));
+                    }
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe seleccionar un expediente del listado."));
                 }

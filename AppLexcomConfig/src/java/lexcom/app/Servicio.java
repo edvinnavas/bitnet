@@ -417,12 +417,6 @@ public class Servicio implements Serializable {
         return port.gestionAdministracionInsertar(usuarioSys, deudor, usuario, codigoContactabiliad, descripcion, poolConexion);
     }
 
-    public String gestionCobrosInsertar(java.lang.Integer usuarioSys, java.lang.Integer deudor, java.lang.Integer usuario, java.lang.Integer codigoContactabiliad, java.lang.String descripcion, java.lang.String contacto, java.lang.Integer estadoExtrajudicial, java.lang.Integer estatusExtrajudicial, java.lang.Integer estadoJudicial, java.lang.Integer estatusJudicial, java.lang.Integer intencionPago, java.lang.String poolConexion) {
-        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
-        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
-        return port.gestionCobrosInsertar(usuarioSys, deudor, usuario, codigoContactabiliad, descripcion, contacto, estadoExtrajudicial, estatusExtrajudicial, estadoJudicial, estatusJudicial, intencionPago, poolConexion);
-    }
-
     public String gestionJuridicoInsertar(java.lang.Integer usuarioSys, java.lang.Integer deudor, java.lang.Integer usuario, java.lang.Integer codigoContactabiliad, java.lang.String descripcion, java.lang.String poolConexion) {
         lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
@@ -433,12 +427,6 @@ public class Servicio implements Serializable {
         lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
         return port.guardarExpedienteCaso(usuarioSys, deudor, garantia, cargado, anticipo, saldo, pdf, inv, maycom, nits, poolConexion);
-    }
-
-    public String guardarExpedienteExtrajudicial(java.lang.Integer usuarioSys, java.lang.Integer deudor, java.lang.Integer estadoExtra, java.lang.Integer statusExtra, java.lang.String telefonoCasa, java.lang.String telefonoCelular, java.lang.String correoElectronico, java.lang.String lugarTrabajo, java.lang.String contactoTrabajo, java.lang.String telefonoTrabajo, java.lang.String dpi, java.lang.String nit, java.lang.Integer intensionPago, java.lang.String direccion, java.lang.String notas, java.lang.String poolConexion) {
-        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
-        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
-        return port.guardarExpedienteExtrajudicial(usuarioSys, deudor, estadoExtra, statusExtra, telefonoCasa, telefonoCelular, correoElectronico, lugarTrabajo, contactoTrabajo, telefonoTrabajo, dpi, nit, intensionPago, direccion, notas, poolConexion);
     }
 
     public String guardarExpedienteJudicial(java.lang.Integer usuarioSys, java.lang.Integer deudor, java.lang.Integer estadoJudicial, java.lang.Integer statusExtra, java.lang.Integer procurador, javax.xml.datatype.XMLGregorianCalendar fechaJuicio, java.lang.Integer juzgado, java.lang.String noJuicio, java.lang.Integer notificador, java.lang.String abogadoDeudor, java.lang.String sumario, javax.xml.datatype.XMLGregorianCalendar memorial, java.lang.String deudorNotificado, javax.xml.datatype.XMLGregorianCalendar fechaNotificacion, java.lang.Double montoDemanda, java.lang.String procuracion, java.lang.String situacionCaso, java.lang.String razonNotificacion, java.lang.String poolConexion) {
@@ -835,6 +823,18 @@ public class Servicio implements Serializable {
         lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
         return port.tipoCodigoResultadoContacto(usuarioSys, lstTipoCodigoResultadoContacto, poolConexion);
+    }
+
+    public String gestionCobrosInsertar(java.lang.Integer usuarioSys, java.lang.Integer deudor, java.lang.Integer usuario, java.lang.Integer codigoContactabiliad, java.lang.String descripcion, java.lang.String contacto, java.lang.Integer estadoExtrajudicial, java.lang.Integer estatusExtrajudicial, java.lang.Integer estadoJudicial, java.lang.Integer estatusJudicial, java.lang.Integer intencionPago, java.lang.Integer razonDeuda, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.gestionCobrosInsertar(usuarioSys, deudor, usuario, codigoContactabiliad, descripcion, contacto, estadoExtrajudicial, estatusExtrajudicial, estadoJudicial, estatusJudicial, intencionPago, razonDeuda, poolConexion);
+    }
+
+    public String guardarExpedienteExtrajudicial(java.lang.Integer usuarioSys, java.lang.Integer deudor, java.lang.Integer estadoExtra, java.lang.Integer statusExtra, java.lang.String telefonoCasa, java.lang.String telefonoCelular, java.lang.String correoElectronico, java.lang.String lugarTrabajo, java.lang.String contactoTrabajo, java.lang.String telefonoTrabajo, java.lang.String dpi, java.lang.String nit, java.lang.Integer intensionPago, java.lang.String direccion, java.lang.String notas, java.lang.Integer razonDeuda, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.guardarExpedienteExtrajudicial(usuarioSys, deudor, estadoExtra, statusExtra, telefonoCasa, telefonoCelular, correoElectronico, lugarTrabajo, contactoTrabajo, telefonoTrabajo, dpi, nit, intensionPago, direccion, notas, razonDeuda, poolConexion);
     }
     
 }

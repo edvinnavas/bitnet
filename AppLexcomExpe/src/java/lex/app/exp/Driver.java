@@ -945,4 +945,48 @@ public class Driver implements Serializable {
         return resultado;
     }
     
+    public Boolean validar_corporacion(Integer usuario, Integer deudor, String ambiente) {
+        Boolean resul = false;
+        
+        try {
+            String cadenasql = "select a.cooperacion from deudor d left join actor a on (d.actor=a.actor) left join cooperacion c on (a.cooperacion=c.cooperacion) where d.deudor=" + deudor;
+            Servicio servicio = new Servicio();
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
+
+            Integer filas = resultado.size();
+            Integer columnas = resultado.get(0).getItem().size();
+            String[][] vector_result = new String[resultado.size()][columnas];
+            for (Integer i = 0; i < resultado.size(); i++) {
+                for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                    vector_result[i][j] = resultado.get(i).getItem().get(j);
+                }
+            }
+
+            Integer corporacion = 0;
+            for(Integer i = 1; i < filas; i++) {
+                corporacion = Integer.parseInt(vector_result[i][0]);
+            }
+            
+            cadenasql = "select uc.* from usuario_corporacion uc where uc.usuario=" + usuario + " and uc.corporacion=" + corporacion;
+            resultado = servicio.reporte(cadenasql, ambiente);
+
+            filas = resultado.size();
+            columnas = resultado.get(0).getItem().size();
+            vector_result = new String[resultado.size()][columnas];
+            for (Integer i = 0; i < resultado.size(); i++) {
+                for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                    vector_result[i][j] = resultado.get(i).getItem().get(j);
+                }
+            }
+
+            for(Integer i = 1; i < filas; i++) {
+                resul = true;
+            }
+        } catch (Exception ex) {
+            resul = false;
+        }
+
+        return resul;
+    }
+    
 }

@@ -21,103 +21,112 @@ public class Expediente_Cobros implements Serializable {
 
     private String usuario;
     private String ambiente;
-    
+
     private Integer deudor;
 
     private List<Cobro_List> lst_cobros;
     private Cobro_List cobro_sel;
     private String lb_numero_gestiones_cobros;
-    
+
     private Integer estado_extrajudicial;
     private Integer status_extrajudicial;
     private Integer estado_judicial;
     private Integer status_judicial;
     private Integer intencion_pago;
-    
+    private Integer razon_deuda;
+
     private Integer tipo_gestion;
     private String gestion_contacto;
     private Integer codigo_resultado;
     private String descripcion_gestion;
-    
+
     private String com_extrajudicial;
     private String com_judicial;
     private String titulo_deudor;
-    
+
     private List<SelectItem> lst_estado_extrajudicial;
     private List<SelectItem> lst_estatus_extrajudicial;
     private List<SelectItem> lst_estado_judicial;
     private List<SelectItem> lst_estatus_judicial;
     private List<SelectItem> lst_intension_pago;
+    private List<SelectItem> lst_razon_deuda;
     private List<SelectItem> lst_tipo_gestion;
     private List<SelectItem> lst_codigo_resultado;
-    
+
     private boolean somestadoextrajudicial;
     private boolean somstatusextrajudicial;
     private boolean somintensionpago;
+    private boolean somrazondeuda;
     private boolean somestadojudicial;
     private boolean somstatusjudicial;
-    
+
     @PostConstruct
     public void init() {
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             this.usuario = session.getAttribute("id_usuario").toString();
             this.ambiente = session.getAttribute("ambiente").toString();
-            System.out.println("USUARIO : => LexcomExpediente-Expediente_Caso(init): " + this.usuario);
-            System.out.println("AMBIENTE: => LexcomExpediente-Expediente_Caso(init): " + this.ambiente);
-            
+
             Driver drive = new Driver();
             this.lst_cobros = new ArrayList<>();
             this.cobro_sel = null;
             this.lb_numero_gestiones_cobros = "";
             this.gestion_contacto = "SI";
             this.codigo_resultado = 0;
-            
+
             String lista_estado_extra_sql = "select s.sestado_extra, s.nombre from sestado_extra s where s.estado='VIGENTE'";
             this.lst_estado_extrajudicial = drive.lista_SelectItem_simple(lista_estado_extra_sql, this.ambiente);
-            if(!this.lst_estado_extrajudicial.isEmpty()) {
+            if (!this.lst_estado_extrajudicial.isEmpty()) {
                 this.estado_extrajudicial = Integer.parseInt(this.lst_estado_extrajudicial.get(0).getValue().toString());
                 this.cambio_estado_extrajudicial();
             } else {
                 this.estado_extrajudicial = 0;
                 this.lst_estatus_extrajudicial = new ArrayList<>();
             }
-            
+
             String lista_estado_judicial_sql = "select s.sestado, s.nombre from sestado s where s.estado='VIGENTE'";
             this.lst_estado_judicial = drive.lista_SelectItem_simple(lista_estado_judicial_sql, this.ambiente);
-            if(!this.lst_estado_judicial.isEmpty()) {
+            if (!this.lst_estado_judicial.isEmpty()) {
                 this.estado_judicial = Integer.parseInt(this.lst_estado_judicial.get(0).getValue().toString());
                 this.cambio_estado_judicial();
             } else {
                 this.estado_judicial = 0;
                 this.lst_estatus_judicial = new ArrayList<>();
             }
-            
+
             String lista_intencion_pago_sql = "select i.intencion_pago, i.nombre from intencion_pago i where i.estado='VIGENTE'";
             this.lst_intension_pago = drive.lista_SelectItem_simple(lista_intencion_pago_sql, this.ambiente);
-            if(!this.lst_intension_pago.isEmpty()) {
+            if (!this.lst_intension_pago.isEmpty()) {
                 this.intencion_pago = Integer.parseInt(this.lst_intension_pago.get(0).getValue().toString());
             } else {
                 this.intencion_pago = 0;
             }
             
+            String lista_razon_deuda_sql = "select r.razon_deuda, r.nombre from razon_deuda r where r.estado='VIGENTE'";
+            this.lst_razon_deuda = drive.lista_SelectItem_simple(lista_razon_deuda_sql, this.ambiente);
+            if (!this.lst_razon_deuda.isEmpty()) {
+                this.razon_deuda = Integer.parseInt(this.lst_razon_deuda.get(0).getValue().toString());
+            } else {
+                this.razon_deuda = 0;
+            }
+
             String lista_tipo_gestion_sql = "select distinct tct.tipo_codigo_contactabilidad, tct.nombre from tipo_codigo_codigo tcc left join tipo_codigo_contactabilidad tct on (tcc.tipo_codigo_contactabilidad=tct.tipo_codigo_contactabilidad) order by tct.nombre";
             this.lst_tipo_gestion = drive.lista_SelectItem_simple(lista_tipo_gestion_sql, this.ambiente);
-            if(!this.lst_tipo_gestion.isEmpty()) {
+            if (!this.lst_tipo_gestion.isEmpty()) {
                 this.tipo_gestion = Integer.parseInt(this.lst_tipo_gestion.get(0).getValue().toString());
                 this.cambio_gestion_contacto();
             } else {
                 this.tipo_gestion = 0;
                 this.lst_codigo_resultado = new ArrayList<>();
             }
-            
+
             this.descripcion_gestion = "";
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Cobros(init): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void limpiar_expediente_cobros() {
         try {
             Driver drive = new Driver();
@@ -126,45 +135,53 @@ public class Expediente_Cobros implements Serializable {
             this.lb_numero_gestiones_cobros = "";
             this.gestion_contacto = "SI";
             this.codigo_resultado = 0;
-            
+
             String lista_estado_extra_sql = "select s.sestado_extra, s.nombre from sestado_extra s where s.estado='VIGENTE'";
             this.lst_estado_extrajudicial = drive.lista_SelectItem_simple(lista_estado_extra_sql, this.ambiente);
-            if(!this.lst_estado_extrajudicial.isEmpty()) {
+            if (!this.lst_estado_extrajudicial.isEmpty()) {
                 this.estado_extrajudicial = Integer.parseInt(this.lst_estado_extrajudicial.get(0).getValue().toString());
                 this.cambio_estado_extrajudicial();
             } else {
                 this.estado_extrajudicial = 0;
                 this.lst_estatus_extrajudicial = new ArrayList<>();
             }
-            
+
             String lista_estado_judicial_sql = "select s.sestado, s.nombre from sestado s where s.estado='VIGENTE'";
             this.lst_estado_judicial = drive.lista_SelectItem_simple(lista_estado_judicial_sql, this.ambiente);
-            if(!this.lst_estado_judicial.isEmpty()) {
+            if (!this.lst_estado_judicial.isEmpty()) {
                 this.estado_judicial = Integer.parseInt(this.lst_estado_judicial.get(0).getValue().toString());
                 this.cambio_estado_judicial();
             } else {
                 this.estado_judicial = 0;
                 this.lst_estatus_judicial = new ArrayList<>();
             }
-            
+
             String lista_intencion_pago_sql = "select i.intencion_pago, i.nombre from intencion_pago i where i.estado='VIGENTE'";
             this.lst_intension_pago = drive.lista_SelectItem_simple(lista_intencion_pago_sql, this.ambiente);
-            if(!this.lst_intension_pago.isEmpty()) {
+            if (!this.lst_intension_pago.isEmpty()) {
                 this.intencion_pago = Integer.parseInt(this.lst_intension_pago.get(0).getValue().toString());
             } else {
                 this.intencion_pago = 0;
             }
+
+            String lista_razon_deuda_sql = "select r.razon_deuda, r.nombre from razon_deuda r where r.estado='VIGENTE'";
+            this.lst_razon_deuda = drive.lista_SelectItem_simple(lista_razon_deuda_sql, this.ambiente);
+            if (!this.lst_razon_deuda.isEmpty()) {
+                this.razon_deuda = Integer.parseInt(this.lst_razon_deuda.get(0).getValue().toString());
+            } else {
+                this.razon_deuda = 0;
+            }
             
             String lista_tipo_gestion_sql = "select distinct tct.tipo_codigo_contactabilidad, tct.nombre from tipo_codigo_codigo tcc left join tipo_codigo_contactabilidad tct on (tcc.tipo_codigo_contactabilidad=tct.tipo_codigo_contactabilidad) order by tct.nombre";
             this.lst_tipo_gestion = drive.lista_SelectItem_simple(lista_tipo_gestion_sql, this.ambiente);
-            if(!this.lst_tipo_gestion.isEmpty()) {
+            if (!this.lst_tipo_gestion.isEmpty()) {
                 this.tipo_gestion = Integer.parseInt(this.lst_tipo_gestion.get(0).getValue().toString());
                 this.cambio_gestion_contacto();
             } else {
                 this.tipo_gestion = 0;
                 this.lst_codigo_resultado = new ArrayList<>();
             }
-            
+
             this.descripcion_gestion = "";
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Cobros(limpiar_expediente_cobros): " + ex.toString());
@@ -175,128 +192,138 @@ public class Expediente_Cobros implements Serializable {
     public void Cargar_Expediente_Cobros(Integer deudor) {
         try {
             this.deudor = deudor;
-            
+
             if (this.deudor != null) {
-                String cadenasql = "select "
-                        + "d.deudor_historial_cobros indice, "// rs.getObject(0)
-                        + "d.fecha fecha, "// rs.getObject(1)
-                        + "d.hora hora, "// rs.getObject(2)
-                        + "u.nombre usuario, "// rs.getObject(3)
-                        + "concat(c.codigo,'|',c.nombre) codigo, "// rs.getObject(4)
-                        + "d.contacto contacto, "// rs.getObject(5)
-                        + "d.descripcion observacion "// rs.getObject(6)
-                        + "from "
-                        + "deudor_historial_cobros d "
-                        + "left join usuario u on (d.usuario=u.usuario) "
-                        + "left join codigo_contactabilidad c on (d.codigo_contactabilidad=c.codigo_contactabilidad) "
-                        + "where "
-                        + "d.deudor=" + this.deudor + " "
-                        + "order by "
-                        + "d.fecha desc, "
-                        + "d.hora desc";
-
-                Servicio servicio = new Servicio();
-                java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
-
-                Integer filas = resultado.size();
-                Integer columnas = resultado.get(0).getItem().size();
-                String[][] vector_result = new String[resultado.size()][columnas];
-                for (Integer i = 0; i < resultado.size(); i++) {
-                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                        vector_result[i][j] = resultado.get(i).getItem().get(j);
-                    }
-                }
-
-                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-                this.lst_cobros = new ArrayList<>();
-                for (Integer i = 1; i < filas; i++) {
-                    Cobro_List nod = new Cobro_List(
-                            Integer.parseInt(vector_result[i][0]),
-                            formatDate.parse(vector_result[i][1]),
-                            vector_result[i][2],
-                            vector_result[i][3],
-                            vector_result[i][4],
-                            vector_result[i][5],
-                            vector_result[i][6]);
-                    this.lst_cobros.add(nod);
-                }
-
-                filas = filas - 1;
-                this.lb_numero_gestiones_cobros = "No. de gestiones: " + filas;
-
-                cadenasql = "select "
-                        + "d.sestado_extra, " // rs.getObject(0);
-                        + "d.estatus_extra, " // rs.getObject(1);
-                        + "d.sestado, " // rs.getObject(2);
-                        + "d.estatus, " // rs.getObject(3);
-                        + "d.intencion_pago, " // rs.getObject(4);
-                        + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial, " // rs.getObject(5);
-                        + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(6)
-                        + "d.caso " // rs.getObject(7)
-                        + "from "
-                        + "deudor d "
-                        + "where "
-                        + "d.deudor=" + this.deudor;
-
-                servicio = new Servicio();
-                resultado = servicio.reporte(cadenasql, this.ambiente);
-
-                filas = resultado.size();
-                columnas = resultado.get(0).getItem().size();
-                vector_result = new String[resultado.size()][columnas];
-                for (Integer i = 0; i < resultado.size(); i++) {
-                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                        vector_result[i][j] = resultado.get(i).getItem().get(j);
-                    }
-                }
-
-                Integer caso = 0;
-                for (Integer i = 1; i < filas; i++) {
-                    this.estado_extrajudicial = Integer.parseInt(vector_result[i][0]);
-                    this.cambio_estado_extrajudicial();
-                    this.status_extrajudicial = Integer.parseInt(vector_result[i][1]);
-                    this.estado_judicial = Integer.parseInt(vector_result[i][2]);
-                    this.cambio_estado_judicial();
-                    this.status_judicial = Integer.parseInt(vector_result[i][3]);
-                    this.intencion_pago = Integer.parseInt(vector_result[i][4]);
-                    this.com_extrajudicial = vector_result[i][5];
-                    this.com_judicial = vector_result[i][6];
-                    caso = Integer.parseInt(vector_result[i][7]);
-                }
-                
-                this.somestadoextrajudicial = true;
-                this.somstatusextrajudicial = true;
-                this.somintensionpago = true;
-                this.somestadojudicial = true;
-                this.somstatusjudicial = true;
-                
                 Driver driver = new Driver();
                 Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-                String esAsistente = driver.getString("select u.asistente from usuario u where u.usuario=" + id_usuario, this.ambiente);
-                String esGestor = driver.getString("select u.gestor from usuario u where u.usuario=" + id_usuario, this.ambiente);
-                String esProcurador = driver.getString("select u.procurador from usuario u where u.usuario=" + id_usuario, this.ambiente);
-                String esDigitador = driver.getString("select u.digitador from usuario u where u.usuario=" + id_usuario, this.ambiente);
-                
-                if(esAsistente.equals("SI")) {
-                    this.somestadoextrajudicial = false;
-                    this.somstatusextrajudicial = false;
-                    this.somintensionpago = false;
-                    this.somestadojudicial = false;
-                    this.somstatusjudicial = false;
-                } 
-                if(esGestor.equals("SI")) {
-                    this.somestadoextrajudicial = false;
-                    this.somstatusextrajudicial = false;
-                    this.somintensionpago = false;
-                }
-                if(esProcurador.equals("SI") || esDigitador.equals("SI")) {
-                    this.somestadojudicial = false;
-                    this.somstatusjudicial = false;
-                }
+                if (driver.validar_corporacion(id_usuario, this.deudor, ambiente)) {
+                    String cadenasql = "select "
+                            + "d.deudor_historial_cobros indice, "// rs.getObject(0)
+                            + "d.fecha fecha, "// rs.getObject(1)
+                            + "d.hora hora, "// rs.getObject(2)
+                            + "u.nombre usuario, "// rs.getObject(3)
+                            + "concat(c.codigo,'|',c.nombre) codigo, "// rs.getObject(4)
+                            + "d.contacto contacto, "// rs.getObject(5)
+                            + "d.descripcion observacion "// rs.getObject(6)
+                            + "from "
+                            + "deudor_historial_cobros d "
+                            + "left join usuario u on (d.usuario=u.usuario) "
+                            + "left join codigo_contactabilidad c on (d.codigo_contactabilidad=c.codigo_contactabilidad) "
+                            + "where "
+                            + "d.deudor=" + this.deudor + " "
+                            + "order by "
+                            + "d.fecha desc, "
+                            + "d.hora desc";
 
-                this.titulo_deudor = "CASO: " + caso + " JUDICIAL: " + this.com_judicial + " EXTRAJUDICIAL: " + this.com_extrajudicial + " TIEMPO: 00:00:00";
-                
-                RequestContext.getCurrentInstance().execute("PF('var_exp_cobros').show();");
+                    Servicio servicio = new Servicio();
+                    java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
+
+                    Integer filas = resultado.size();
+                    Integer columnas = resultado.get(0).getItem().size();
+                    String[][] vector_result = new String[resultado.size()][columnas];
+                    for (Integer i = 0; i < resultado.size(); i++) {
+                        for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                            vector_result[i][j] = resultado.get(i).getItem().get(j);
+                        }
+                    }
+
+                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    this.lst_cobros = new ArrayList<>();
+                    for (Integer i = 1; i < filas; i++) {
+                        Cobro_List nod = new Cobro_List(
+                                Integer.parseInt(vector_result[i][0]),
+                                formatDate.parse(vector_result[i][1]),
+                                vector_result[i][2],
+                                vector_result[i][3],
+                                vector_result[i][4],
+                                vector_result[i][5],
+                                vector_result[i][6]);
+                        this.lst_cobros.add(nod);
+                    }
+
+                    filas = filas - 1;
+                    this.lb_numero_gestiones_cobros = "No. de gestiones: " + filas;
+
+                    cadenasql = "select "
+                            + "d.sestado_extra, " // rs.getObject(0);
+                            + "d.estatus_extra, " // rs.getObject(1);
+                            + "d.sestado, " // rs.getObject(2);
+                            + "d.estatus, " // rs.getObject(3);
+                            + "d.intencion_pago, " // rs.getObject(4);
+                            + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial, " // rs.getObject(5);
+                            + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(6)
+                            + "d.caso, " // rs.getObject(7)
+                            + "d.razon_deuda " // rs.getObject(8)
+                            + "from "
+                            + "deudor d "
+                            + "where "
+                            + "d.deudor=" + this.deudor;
+
+                    servicio = new Servicio();
+                    resultado = servicio.reporte(cadenasql, this.ambiente);
+
+                    filas = resultado.size();
+                    columnas = resultado.get(0).getItem().size();
+                    vector_result = new String[resultado.size()][columnas];
+                    for (Integer i = 0; i < resultado.size(); i++) {
+                        for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                            vector_result[i][j] = resultado.get(i).getItem().get(j);
+                        }
+                    }
+
+                    Integer caso = 0;
+                    for (Integer i = 1; i < filas; i++) {
+                        this.estado_extrajudicial = Integer.parseInt(vector_result[i][0]);
+                        this.cambio_estado_extrajudicial();
+                        this.status_extrajudicial = Integer.parseInt(vector_result[i][1]);
+                        this.estado_judicial = Integer.parseInt(vector_result[i][2]);
+                        this.cambio_estado_judicial();
+                        this.status_judicial = Integer.parseInt(vector_result[i][3]);
+                        this.intencion_pago = Integer.parseInt(vector_result[i][4]);
+                        this.com_extrajudicial = vector_result[i][5];
+                        this.com_judicial = vector_result[i][6];
+                        caso = Integer.parseInt(vector_result[i][7]);
+                        this.razon_deuda = Integer.parseInt(vector_result[i][8]);
+                    }
+
+                    this.somestadoextrajudicial = true;
+                    this.somstatusextrajudicial = true;
+                    this.somintensionpago = true;
+                    this.somrazondeuda = true;
+                    this.somestadojudicial = true;
+                    this.somstatusjudicial = true;
+
+                    //Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
+                    String esAsistente = driver.getString("select u.asistente from usuario u where u.usuario=" + id_usuario, this.ambiente);
+                    String esGestor = driver.getString("select u.gestor from usuario u where u.usuario=" + id_usuario, this.ambiente);
+                    String esProcurador = driver.getString("select u.procurador from usuario u where u.usuario=" + id_usuario, this.ambiente);
+                    String esDigitador = driver.getString("select u.digitador from usuario u where u.usuario=" + id_usuario, this.ambiente);
+
+                    if (esAsistente.equals("SI")) {
+                        this.somestadoextrajudicial = false;
+                        this.somstatusextrajudicial = false;
+                        this.somintensionpago = false;
+                        this.somrazondeuda = false;
+                        this.somestadojudicial = false;
+                        this.somstatusjudicial = false;
+                    }
+                    if (esGestor.equals("SI")) {
+                        this.somestadoextrajudicial = false;
+                        this.somstatusextrajudicial = false;
+                        this.somintensionpago = false;
+                        this.somrazondeuda = false;
+                    }
+                    if (esProcurador.equals("SI") || esDigitador.equals("SI")) {
+                        this.somestadojudicial = false;
+                        this.somstatusjudicial = false;
+                    }
+
+                    this.titulo_deudor = "CASO: " + caso + " JUDICIAL: " + this.com_judicial + " EXTRAJUDICIAL: " + this.com_extrajudicial + " TIEMPO: 00:00:00";
+
+                    RequestContext.getCurrentInstance().execute("PF('var_exp_cobros').show();");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "La corporación del actor asignado el expediente no puede ser consultado por el usuario."));
+                }
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe seleccionar un expediente del listado."));
             }
@@ -305,7 +332,7 @@ public class Expediente_Cobros implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void Actualizar_Expediente_Cobros() {
         try {
             String cadenasql = "select "
@@ -363,7 +390,8 @@ public class Expediente_Cobros implements Serializable {
                     + "d.intencion_pago, " // rs.getObject(4);
                     + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial, " // rs.getObject(5);
                     + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(6)
-                    + "d.caso " // rs.getObject(7)
+                    + "d.caso, " // rs.getObject(7)
+                    + "d.razon_deuda " // rs.getObject(8)
                     + "from "
                     + "deudor d "
                     + "where "
@@ -393,11 +421,13 @@ public class Expediente_Cobros implements Serializable {
                 this.com_extrajudicial = vector_result[i][5];
                 this.com_judicial = vector_result[i][6];
                 caso = Integer.parseInt(vector_result[i][7]);
+                this.razon_deuda = Integer.parseInt(vector_result[i][8]);
             }
 
             this.somestadoextrajudicial = true;
             this.somstatusextrajudicial = true;
             this.somintensionpago = true;
+            this.somrazondeuda = true;
             this.somestadojudicial = true;
             this.somstatusjudicial = true;
 
@@ -412,6 +442,7 @@ public class Expediente_Cobros implements Serializable {
                 this.somestadoextrajudicial = false;
                 this.somstatusextrajudicial = false;
                 this.somintensionpago = false;
+                this.somrazondeuda = false;
                 this.somestadojudicial = false;
                 this.somstatusjudicial = false;
             }
@@ -419,6 +450,7 @@ public class Expediente_Cobros implements Serializable {
                 this.somestadoextrajudicial = false;
                 this.somstatusextrajudicial = false;
                 this.somintensionpago = false;
+                this.somrazondeuda = false;
             }
             if (esProcurador.equals("SI") || esDigitador.equals("SI")) {
                 this.somestadojudicial = false;
@@ -431,7 +463,7 @@ public class Expediente_Cobros implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void cambio_estado_extrajudicial() {
         try {
             String cadenasql = "select "
@@ -451,7 +483,7 @@ public class Expediente_Cobros implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void cambio_estado_judicial() {
         try {
             String cadenasql = "select "
@@ -471,7 +503,7 @@ public class Expediente_Cobros implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void cambio_gestion_contacto() {
         try {
             String cadenasql = "select "
@@ -500,11 +532,11 @@ public class Expediente_Cobros implements Serializable {
             Driver driver = new Driver();
             Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
             Servicio servicio = new Servicio();
-            String resultado = servicio.gestionCobrosInsertar(id_usuario, this.deudor, id_usuario, this.codigo_resultado, this.descripcion_gestion, this.gestion_contacto, this.estado_extrajudicial, this.status_extrajudicial, this.estado_judicial, this.status_judicial, this.intencion_pago, this.ambiente);
-            
+            String resultado = servicio.gestionCobrosInsertar(id_usuario, this.deudor, id_usuario, this.codigo_resultado, this.descripcion_gestion, this.gestion_contacto, this.estado_extrajudicial, this.status_extrajudicial, this.estado_judicial, this.status_judicial, this.intencion_pago, this.razon_deuda, this.ambiente);
+
             this.limpiar_expediente_cobros();
             this.Actualizar_Expediente_Cobros();
-            
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Cobros(insertar_gestion_cobros): " + ex.toString());
@@ -750,6 +782,30 @@ public class Expediente_Cobros implements Serializable {
 
     public void setSomstatusjudicial(boolean somstatusjudicial) {
         this.somstatusjudicial = somstatusjudicial;
+    }
+
+    public Integer getRazon_deuda() {
+        return razon_deuda;
+    }
+
+    public void setRazon_deuda(Integer razon_deuda) {
+        this.razon_deuda = razon_deuda;
+    }
+
+    public List<SelectItem> getLst_razon_deuda() {
+        return lst_razon_deuda;
+    }
+
+    public void setLst_razon_deuda(List<SelectItem> lst_razon_deuda) {
+        this.lst_razon_deuda = lst_razon_deuda;
+    }
+
+    public boolean isSomrazondeuda() {
+        return somrazondeuda;
+    }
+
+    public void setSomrazondeuda(boolean somrazondeuda) {
+        this.somrazondeuda = somrazondeuda;
     }
     
 }

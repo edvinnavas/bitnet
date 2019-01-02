@@ -25,7 +25,7 @@ public class Expediente_Judicial implements Serializable {
 
     private String usuario;
     private String ambiente;
-    
+
     private Integer deudor;
 
     private Integer estado_judicial;
@@ -51,11 +51,11 @@ public class Expediente_Judicial implements Serializable {
     private List<SelectItem> lst_estatus_judicial;
     private List<SelectItem> lst_procurador;
     private List<SelectItem> lst_juzgado;
-    
+
     private String com_extrajudicial;
     private String com_judicial;
     private String titulo_deudor;
-    
+
     private boolean somestadojudicial;
     private boolean somstatusjudicial;
 
@@ -65,9 +65,7 @@ public class Expediente_Judicial implements Serializable {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             this.usuario = session.getAttribute("id_usuario").toString();
             this.ambiente = session.getAttribute("ambiente").toString();
-            System.out.println("USUARIO : => LexcomExpediente-Expediente_Caso(init): " + this.usuario);
-            System.out.println("AMBIENTE: => LexcomExpediente-Expediente_Caso(init): " + this.ambiente);
-            
+
             Driver drive = new Driver();
             this.estado_judicial = 0;
             this.status_judicial = 0;
@@ -88,7 +86,7 @@ public class Expediente_Judicial implements Serializable {
             this.fecha_notif = new Date();
             this.monto_demanda = 0.00;
             this.com_judicial = "";
-            
+
             String lista_estado_judicial_sql = "select s.sestado, s.nombre from sestado s where s.estado='VIGENTE'";
             this.lst_estado_judicial = drive.lista_SelectItem_simple(lista_estado_judicial_sql, this.ambiente);
             this.lst_estatus_judicial = new ArrayList<>();
@@ -107,92 +105,96 @@ public class Expediente_Judicial implements Serializable {
             this.deudor = deudor;
 
             if (this.deudor != null) {
-                String cadenasql = "select "
-                        + "d.sestado, " // rs.getObject(0);
-                        + "d.estatus, " // rs.getObject(1);
-                        + "d.situacion_caso, " // rs.getObject(2);
-                        + "j.procuracion, " // rs.getObject(3);
-                        + "j.razon_notificacion, " // rs.getObject(4);
-                        + "j.procurador, " // rs.getObject(5);
-                        + "j.fecha, " // rs.getObject(6);
-                        + "j.juzgado, " // rs.getObject(7);
-                        + "j.no_juicio, " // rs.getObject(8);
-                        + "j.notificador, " // rs.getObject(9);
-                        + "j.abogado_deudor, " // rs.getObject(10);
-                        + "j.sumario, " // rs.getObject(11);
-                        + "j.memorial, " // rs.getObject(12);
-                        + "j.deudor_notificado, " // rs.getObject(13);
-                        + "j.fecha_notificacion, " // rs.getObject(14);
-                        + "j.monto, " // rs.getObject(15);
-                        + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(16)
-                        + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial, " // rs.getObject(17);
-                        + "d.caso " // rs.getObject(18)
-                        + "from "
-                        + "deudor d "
-                        + "left join actor a on (d.actor=a.actor) "
-                        + "left join usuario u on (d.usuario=u.usuario) "
-                        + "left join juicio j on (d.deudor=j.deudor) "
-                        + "where "
-                        + "d.deudor=" + this.deudor;
-
-                Servicio servicio = new Servicio();
-                java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
-
-                Integer filas = resultado.size();
-                Integer columnas = resultado.get(0).getItem().size();
-                String[][] vector_result = new String[resultado.size()][columnas];
-                for (Integer i = 0; i < resultado.size(); i++) {
-                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                        vector_result[i][j] = resultado.get(i).getItem().get(j);
-                    }
-                }
-
-                Integer caso = 0;
-                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-                for (Integer i = 1; i < filas; i++) {
-                    this.estado_judicial = Integer.parseInt(vector_result[i][0]);
-                    this.cambio_estado_judicial();
-                    this.status_judicial = Integer.parseInt(vector_result[i][1]);
-                    this.situacion_caso = vector_result[i][2];
-                    this.procuracion = vector_result[i][3];
-                    this.razon_notificacion = vector_result[i][4];
-                    this.procurador = Integer.parseInt(vector_result[i][5]);
-                    this.fecha_juicio = formatDate.parse(vector_result[i][6]);
-                    this.juzgado = Integer.parseInt(vector_result[i][7]);
-                    this.no_juicio = vector_result[i][8];
-                    this.notificador = Integer.parseInt(vector_result[i][9]);
-                    this.abogado_deudor = vector_result[i][10];
-                    this.sumario = vector_result[i][11];
-                    this.memorial = formatDate.parse(vector_result[i][12]);
-                    this.notificado = vector_result[i][13];
-                    this.fecha_notif = formatDate.parse(vector_result[i][14]);
-                    this.monto_demanda = Double.parseDouble(vector_result[i][15]);
-                    this.com_judicial = vector_result[i][16];
-                    this.com_extrajudicial = vector_result[i][17];
-                    caso = Integer.parseInt(vector_result[i][18]);
-                }
-                
-                this.somestadojudicial = true;
-                this.somstatusjudicial = true;
-                
                 Driver driver = new Driver();
                 Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-                String esAsistente = driver.getString("select u.asistente from usuario u where u.usuario=" + id_usuario, this.ambiente);
-                String esProcurador = driver.getString("select u.procurador from usuario u where u.usuario=" + id_usuario, this.ambiente);
-                String esDigitador = driver.getString("select u.digitador from usuario u where u.usuario=" + id_usuario, this.ambiente);
-                
-                if(esAsistente.equals("SI")) {
-                    this.somestadojudicial = false;
-                    this.somstatusjudicial = false;
-                } 
-                if(esProcurador.equals("SI") || esDigitador.equals("SI")) {
-                    this.somestadojudicial = false;
-                    this.somstatusjudicial = false;
-                }
-                
-                this.titulo_deudor = "CASO: " + caso + " JUDICIAL: " + this.com_judicial + " EXTRAJUDICIAL: " + this.com_extrajudicial + " TIEMPO: 00:00:00";
+                if (driver.validar_corporacion(id_usuario, this.deudor, ambiente)) {
+                    String cadenasql = "select "
+                            + "d.sestado, " // rs.getObject(0);
+                            + "d.estatus, " // rs.getObject(1);
+                            + "d.situacion_caso, " // rs.getObject(2);
+                            + "j.procuracion, " // rs.getObject(3);
+                            + "j.razon_notificacion, " // rs.getObject(4);
+                            + "j.procurador, " // rs.getObject(5);
+                            + "j.fecha, " // rs.getObject(6);
+                            + "j.juzgado, " // rs.getObject(7);
+                            + "j.no_juicio, " // rs.getObject(8);
+                            + "j.notificador, " // rs.getObject(9);
+                            + "j.abogado_deudor, " // rs.getObject(10);
+                            + "j.sumario, " // rs.getObject(11);
+                            + "j.memorial, " // rs.getObject(12);
+                            + "j.deudor_notificado, " // rs.getObject(13);
+                            + "j.fecha_notificacion, " // rs.getObject(14);
+                            + "j.monto, " // rs.getObject(15);
+                            + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(16)
+                            + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial, " // rs.getObject(17);
+                            + "d.caso " // rs.getObject(18)
+                            + "from "
+                            + "deudor d "
+                            + "left join actor a on (d.actor=a.actor) "
+                            + "left join usuario u on (d.usuario=u.usuario) "
+                            + "left join juicio j on (d.deudor=j.deudor) "
+                            + "where "
+                            + "d.deudor=" + this.deudor;
 
-                RequestContext.getCurrentInstance().execute("PF('var_exp_judic').show();");
+                    Servicio servicio = new Servicio();
+                    java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
+
+                    Integer filas = resultado.size();
+                    Integer columnas = resultado.get(0).getItem().size();
+                    String[][] vector_result = new String[resultado.size()][columnas];
+                    for (Integer i = 0; i < resultado.size(); i++) {
+                        for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                            vector_result[i][j] = resultado.get(i).getItem().get(j);
+                        }
+                    }
+
+                    Integer caso = 0;
+                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    for (Integer i = 1; i < filas; i++) {
+                        this.estado_judicial = Integer.parseInt(vector_result[i][0]);
+                        this.cambio_estado_judicial();
+                        this.status_judicial = Integer.parseInt(vector_result[i][1]);
+                        this.situacion_caso = vector_result[i][2];
+                        this.procuracion = vector_result[i][3];
+                        this.razon_notificacion = vector_result[i][4];
+                        this.procurador = Integer.parseInt(vector_result[i][5]);
+                        this.fecha_juicio = formatDate.parse(vector_result[i][6]);
+                        this.juzgado = Integer.parseInt(vector_result[i][7]);
+                        this.no_juicio = vector_result[i][8];
+                        this.notificador = Integer.parseInt(vector_result[i][9]);
+                        this.abogado_deudor = vector_result[i][10];
+                        this.sumario = vector_result[i][11];
+                        this.memorial = formatDate.parse(vector_result[i][12]);
+                        this.notificado = vector_result[i][13];
+                        this.fecha_notif = formatDate.parse(vector_result[i][14]);
+                        this.monto_demanda = Double.parseDouble(vector_result[i][15]);
+                        this.com_judicial = vector_result[i][16];
+                        this.com_extrajudicial = vector_result[i][17];
+                        caso = Integer.parseInt(vector_result[i][18]);
+                    }
+
+                    this.somestadojudicial = true;
+                    this.somstatusjudicial = true;
+
+                    String esAsistente = driver.getString("select u.asistente from usuario u where u.usuario=" + id_usuario, this.ambiente);
+                    String esProcurador = driver.getString("select u.procurador from usuario u where u.usuario=" + id_usuario, this.ambiente);
+                    String esDigitador = driver.getString("select u.digitador from usuario u where u.usuario=" + id_usuario, this.ambiente);
+
+                    if (esAsistente.equals("SI")) {
+                        this.somestadojudicial = false;
+                        this.somstatusjudicial = false;
+                    }
+                    if (esProcurador.equals("SI") || esDigitador.equals("SI")) {
+                        this.somestadojudicial = false;
+                        this.somstatusjudicial = false;
+                    }
+
+                    this.titulo_deudor = "CASO: " + caso + " JUDICIAL: " + this.com_judicial + " EXTRAJUDICIAL: " + this.com_extrajudicial + " TIEMPO: 00:00:00";
+
+                    RequestContext.getCurrentInstance().execute("PF('var_exp_judic').show();");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "La corporación del actor asignado el expediente no puede ser consultado por el usuario."));
+                }
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe seleccionar un expediente del listado."));
             }
@@ -201,7 +203,7 @@ public class Expediente_Judicial implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void cambio_estado_judicial() {
         try {
             String cadenasql = "select "
@@ -227,20 +229,20 @@ public class Expediente_Judicial implements Serializable {
             GregorianCalendar gregory1 = new GregorianCalendar();
             gregory1.set(this.fecha_juicio.getYear() + 1900, this.fecha_juicio.getMonth(), this.fecha_juicio.getDate());
             XMLGregorianCalendar gre_fecha_juicio = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory1);
-            
+
             GregorianCalendar gregory2 = new GregorianCalendar();
             gregory2.set(this.memorial.getYear() + 1900, this.memorial.getMonth(), this.memorial.getDate());
             XMLGregorianCalendar gre_memorial = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory2);
-            
+
             GregorianCalendar gregory3 = new GregorianCalendar();
             gregory3.set(this.fecha_notif.getYear() + 1900, this.fecha_notif.getMonth(), this.fecha_notif.getDate());
             XMLGregorianCalendar gre_fecha_notif = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
-            
+
             Servicio servicio = new Servicio();
             Driver driver = new Driver();
             Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
             String resultado = servicio.guardarExpedienteJudicial(id_usuario, this.deudor, this.estado_judicial, this.status_judicial, this.procurador, gre_fecha_juicio, this.juzgado, this.no_juicio, this.notificador, this.abogado_deudor, this.sumario, gre_memorial, this.notificado, gre_fecha_notif, this.monto_demanda, this.procuracion, this.situacion_caso, this.razon_notificacion, this.ambiente);
-            
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Judicial(guardar_expediente_judicial): " + ex.toString());
@@ -471,5 +473,5 @@ public class Expediente_Judicial implements Serializable {
     public void setSomstatusjudicial(boolean somstatusjudicial) {
         this.somstatusjudicial = somstatusjudicial;
     }
-    
+
 }

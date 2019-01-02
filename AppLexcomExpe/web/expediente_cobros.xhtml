@@ -74,8 +74,13 @@
                                     <f:selectItems value="#{Expediente_Cobros.lst_estatus_judicial}"/>
                                 </p:selectOneMenu>
                             </p:column>
-                            <p:column colspan="2">
-                                <p:spacer height="0"/>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Razón deuda"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <p:selectOneMenu id="somRazonDeuda" disabled="#{Expediente_Cobros.somrazondeuda}" value="#{Expediente_Cobros.razon_deuda}" required="true" styleClass="AnchoSelectOneMenu_1" autoWidth="false">
+                                    <f:selectItems value="#{Expediente_Cobros.lst_razon_deuda}"/>
+                                </p:selectOneMenu>
                             </p:column>
                         </p:row>
                         <p:row>

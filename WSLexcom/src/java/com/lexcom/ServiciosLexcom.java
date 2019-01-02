@@ -8242,6 +8242,7 @@ public class ServiciosLexcom implements Serializable {
      * @param estado_judicial
      * @param estatus_judicial
      * @param intencion_pago
+     * @param razon_deuda
      * @param poolConexion
      * @return
      */
@@ -8258,6 +8259,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "estado_judicial") Integer estado_judicial,
             @WebParam(name = "estatus_judicial") Integer estatus_judicial,
             @WebParam(name = "intencion_pago") Integer intencion_pago,
+            @WebParam(name = "razon_deuda") Integer razon_deuda,
             @WebParam(name = "poolConexion") String poolConexion) {
 
         Driver driver = new Driver();
@@ -8287,7 +8289,8 @@ public class ServiciosLexcom implements Serializable {
                     + "estatus=" + estatus_judicial + ", "
                     + "sestado_extra=" + estado_extrajudicial + ", "
                     + "estatus_extra=" + estatus_extrajudicial + ", "
-                    + "intencion_pago=" + intencion_pago + " "
+                    + "intencion_pago=" + intencion_pago + ", "
+                    + "razon_deuda=" + razon_deuda + " "
                     + "where deudor=" + deudor;
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
@@ -12551,6 +12554,7 @@ public class ServiciosLexcom implements Serializable {
      * @param intension_pago
      * @param direccion
      * @param notas
+     * @param razon_deuda
      * @param poolConexion
      * @return
      */
@@ -12571,6 +12575,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "intension_pago") Integer intension_pago,
             @WebParam(name = "direccion") String direccion,
             @WebParam(name = "notas") String notas,
+            @WebParam(name = "razon_deuda") Integer razon_deuda,
             @WebParam(name = "poolConexion") String poolConexion) {
 
         Driver driver = new Driver();
@@ -12647,7 +12652,8 @@ public class ServiciosLexcom implements Serializable {
                     + "nit='" + nit + "', "
                     + "intencion_pago=" + intension_pago + ", "
                     + "direccion='" + direccion + "', "
-                    + "descripcion='" + notas + "' "
+                    + "descripcion='" + notas + "', "
+                    + "razon_deuda=" + razon_deuda + " "
                     + "where "
                     + "deudor=" + deudor;
             stmt = conn.createStatement();
@@ -12722,7 +12728,7 @@ public class ServiciosLexcom implements Serializable {
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
                     + "CURRENT_TIME()" + ",'"
-                    + "Deudor: " + deudor + "|Estado Extrajudicial: " + estado_extra + "|Status Extrajudicial: " + status_extra + "|Teléfono casa: " + telefono_casa + "|Teléfono celular: " + telefono_celular + "|Correo electrónico: " + correo_electronico + "|Lugar de Trabajo: " + lugar_trabajo + "|Contacto Trabajo: " + contacto_trabajo + "|Teléfono Trabajo: " + telefono_trabajo + "|DPI: " + dpi + "|NIT: " + nit + "|Intensión pago: " + intension_pago + "|Dirección: " + direccion + "|Notas: " + notas + "',"
+                    + "Deudor: " + deudor + "|Estado Extrajudicial: " + estado_extra + "|Status Extrajudicial: " + status_extra + "|Teléfono casa: " + telefono_casa + "|Teléfono celular: " + telefono_celular + "|Correo electrónico: " + correo_electronico + "|Lugar de Trabajo: " + lugar_trabajo + "|Contacto Trabajo: " + contacto_trabajo + "|Teléfono Trabajo: " + telefono_trabajo + "|DPI: " + dpi + "|NIT: " + nit + "|Intensión pago: " + intension_pago + "|Dirección: " + direccion + "|Notas: " + notas + "|Razón deuda: " + razon_deuda + "',"
                     + "135" + ")";
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);

@@ -26,17 +26,17 @@ public class Expediente_Convenio implements Serializable {
 
     private String usuario;
     private String ambiente;
-    
+
     private Integer deudor;
 
     private List<Convenio_List> lst_convenio;
     private Convenio_List convenio_sel;
     private String lb_numero_convenio;
-    
+
     private String com_extrajudicial;
     private String com_judicial;
     private String titulo_deudor;
-    
+
     //Campos formulario Juicio
     private String tipo_convenio;
     private List<SelectItem> lst_tipo_convenio;
@@ -60,9 +60,9 @@ public class Expediente_Convenio implements Serializable {
     private List<SelectItem> lst_frecuencia;
     private Date fecha_pago_inicial;
     private String observacion;
-    
+
     private Integer opcion_gestion; // 1: INSERTAR  2: MODIFICAR
-    
+
     private Boolean somTipoConvenio;
     private Boolean somEstadoConvenio;
     private Boolean spnSaldoDeudor;
@@ -77,16 +77,14 @@ public class Expediente_Convenio implements Serializable {
     private Boolean calFechaPagoInicial;
     private Boolean areObservacionConvenio;
     private Boolean btnGuardar;
-    
+
     @PostConstruct
     public void init() {
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             this.usuario = session.getAttribute("id_usuario").toString();
             this.ambiente = session.getAttribute("ambiente").toString();
-            System.out.println("USUARIO : => LexcomExpediente-Expediente_Caso(init): " + this.usuario);
-            System.out.println("AMBIENTE: => LexcomExpediente-Expediente_Caso(init): " + this.ambiente);
-            
+
             this.lst_convenio = new ArrayList<>();
             this.convenio_sel = null;
             this.lb_numero_convenio = "";
@@ -98,7 +96,7 @@ public class Expediente_Convenio implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void limpiar_expediente_convenio() {
         try {
             this.lst_convenio = new ArrayList<>();
@@ -118,86 +116,92 @@ public class Expediente_Convenio implements Serializable {
             this.deudor = deudor;
 
             if (this.deudor != null) {
-                String cadenasql = "select "
-                        + "c.convenio, "// rs.getObject(0)
-                        + "c.fecha_creacion, "// rs.getObject(1)
-                        + "c.estado, "// rs.getObject(2)
-                        + "c.fecha_pago_inicial, "// rs.getObject(3)
-                        + "c.total_pagar, "// rs.getObject(4)
-                        + "c.numero_cuotas, "// rs.getObject(5)
-                        + "c.frecuencia, "// rs.getObject(6)
-                        + "c.monto_cuota "// rs.getObject(7)
-                        + "from "
-                        + "convenio c "
-                        + "left join deudor de on (c.deudor=de.deudor) "
-                        + "left join actor a on (de.actor=a.actor) "
-                        + "where "
-                        + "c.deudor=" + this.deudor + " "
-                        + "order by "
-                        + "c.estado, "
-                        + "c.fecha_creacion desc";
+                Driver driver = new Driver();
+                Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
+                if (driver.validar_corporacion(id_usuario, this.deudor, ambiente)) {
+                    String cadenasql = "select "
+                            + "c.convenio, "// rs.getObject(0)
+                            + "c.fecha_creacion, "// rs.getObject(1)
+                            + "c.estado, "// rs.getObject(2)
+                            + "c.fecha_pago_inicial, "// rs.getObject(3)
+                            + "c.total_pagar, "// rs.getObject(4)
+                            + "c.numero_cuotas, "// rs.getObject(5)
+                            + "c.frecuencia, "// rs.getObject(6)
+                            + "c.monto_cuota "// rs.getObject(7)
+                            + "from "
+                            + "convenio c "
+                            + "left join deudor de on (c.deudor=de.deudor) "
+                            + "left join actor a on (de.actor=a.actor) "
+                            + "where "
+                            + "c.deudor=" + this.deudor + " "
+                            + "order by "
+                            + "c.estado, "
+                            + "c.fecha_creacion desc";
 
-                Servicio servicio = new Servicio();
-                java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
+                    Servicio servicio = new Servicio();
+                    java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
 
-                Integer filas = resultado.size();
-                Integer columnas = resultado.get(0).getItem().size();
-                String[][] vector_result = new String[resultado.size()][columnas];
-                for (Integer i = 0; i < resultado.size(); i++) {
-                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    Integer filas = resultado.size();
+                    Integer columnas = resultado.get(0).getItem().size();
+                    String[][] vector_result = new String[resultado.size()][columnas];
+                    for (Integer i = 0; i < resultado.size(); i++) {
+                        for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                            vector_result[i][j] = resultado.get(i).getItem().get(j);
+                        }
                     }
-                }
 
-                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-                this.lst_convenio = new ArrayList<>();
-                for (Integer i = 1; i < filas; i++) {
-                    Convenio_List nod = new Convenio_List(
-                            Integer.parseInt(vector_result[i][0]),
-                            formatDate.parse(vector_result[i][1]),
-                            vector_result[i][2],
-                            formatDate.parse(vector_result[i][3]),
-                            Double.parseDouble(vector_result[i][4]),
-                            Integer.parseInt(vector_result[i][5]),
-                            vector_result[i][6],
-                            Double.parseDouble(vector_result[i][7]));
-                    this.lst_convenio.add(nod);
-                }
-
-                filas = filas - 1;
-                this.lb_numero_convenio = "No. de convenios: " + filas;
-
-                cadenasql = "select "
-                        + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial, " // rs.getObject(0);
-                        + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(1)
-                        + "d.caso " // rs.getObject(2)
-                        + "from "
-                        + "deudor d "
-                        + "where "
-                        + "d.deudor=" + this.deudor;
-
-                servicio = new Servicio();
-                resultado = servicio.reporte(cadenasql, this.ambiente);
-
-                filas = resultado.size();
-                columnas = resultado.get(0).getItem().size();
-                vector_result = new String[resultado.size()][columnas];
-                for (Integer i = 0; i < resultado.size(); i++) {
-                    for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
-                        vector_result[i][j] = resultado.get(i).getItem().get(j);
+                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    this.lst_convenio = new ArrayList<>();
+                    for (Integer i = 1; i < filas; i++) {
+                        Convenio_List nod = new Convenio_List(
+                                Integer.parseInt(vector_result[i][0]),
+                                formatDate.parse(vector_result[i][1]),
+                                vector_result[i][2],
+                                formatDate.parse(vector_result[i][3]),
+                                Double.parseDouble(vector_result[i][4]),
+                                Integer.parseInt(vector_result[i][5]),
+                                vector_result[i][6],
+                                Double.parseDouble(vector_result[i][7]));
+                        this.lst_convenio.add(nod);
                     }
+
+                    filas = filas - 1;
+                    this.lb_numero_convenio = "No. de convenios: " + filas;
+
+                    cadenasql = "select "
+                            + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado_extra, d.estatus_extra) in (select e.sestado_extra, e.estatus_extra from estado_status_extrajudicial e) and d.deudor=" + this.deudor + ") validar_extrajudicial, " // rs.getObject(0);
+                            + "(select if(count(*)=0,'INCORRECTO','CORRECTO') from deudor d where (d.sestado, d.estatus) in (select e.sestado, e.estatus from estado_status_judicial e) and d.deudor=" + this.deudor + ") validar_judicial, " // rs.getObject(1)
+                            + "d.caso " // rs.getObject(2)
+                            + "from "
+                            + "deudor d "
+                            + "where "
+                            + "d.deudor=" + this.deudor;
+
+                    servicio = new Servicio();
+                    resultado = servicio.reporte(cadenasql, this.ambiente);
+
+                    filas = resultado.size();
+                    columnas = resultado.get(0).getItem().size();
+                    vector_result = new String[resultado.size()][columnas];
+                    for (Integer i = 0; i < resultado.size(); i++) {
+                        for (Integer j = 0; j < resultado.get(i).getItem().size(); j++) {
+                            vector_result[i][j] = resultado.get(i).getItem().get(j);
+                        }
+                    }
+
+                    Integer caso = 0;
+                    for (Integer i = 1; i < filas; i++) {
+                        this.com_extrajudicial = vector_result[i][0];
+                        this.com_judicial = vector_result[i][1];
+                        caso = Integer.parseInt(vector_result[i][2]);
+                    }
+
+                    this.titulo_deudor = "CASO: " + caso + " JUDICIAL: " + this.com_judicial + " EXTRAJUDICIAL: " + this.com_extrajudicial + " TIEMPO: 00:00:00";
+
+                    RequestContext.getCurrentInstance().execute("PF('var_exp_convenio').show();");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "La corporación del actor asignado el expediente no puede ser consultado por el usuario."));
                 }
-
-                Integer caso = 0;
-                for (Integer i = 1; i < filas; i++) {
-                    this.com_extrajudicial = vector_result[i][0];
-                    this.com_judicial = vector_result[i][1];
-                    caso = Integer.parseInt(vector_result[i][2]);
-                }
-
-                this.titulo_deudor = "CASO: " + caso + " JUDICIAL: " + this.com_judicial + " EXTRAJUDICIAL: " + this.com_extrajudicial + " TIEMPO: 00:00:00";
-
-                RequestContext.getCurrentInstance().execute("PF('var_exp_convenio').show();");
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe seleccionar un expediente del listado."));
             }
@@ -206,27 +210,27 @@ public class Expediente_Convenio implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void Actualizar_Expediente_convenio() {
         try {
             String cadenasql = "select "
-                        + "c.convenio, "// rs.getObject(0)
-                        + "c.fecha_creacion, "// rs.getObject(1)
-                        + "c.estado, "// rs.getObject(2)
-                        + "c.fecha_pago_inicial, "// rs.getObject(3)
-                        + "c.total_pagar, "// rs.getObject(4)
-                        + "c.numero_cuotas, "// rs.getObject(5)
-                        + "c.frecuencia, "// rs.getObject(6)
-                        + "c.monto_cuota "// rs.getObject(7)
-                        + "from "
-                        + "convenio c "
-                        + "left join deudor de on (c.deudor=de.deudor) "
-                        + "left join actor a on (de.actor=a.actor) "
-                        + "where "
-                        + "c.deudor=" + this.deudor + " "
-                        + "order by "
-                        + "c.estado, "
-                        + "c.fecha_creacion desc";
+                    + "c.convenio, "// rs.getObject(0)
+                    + "c.fecha_creacion, "// rs.getObject(1)
+                    + "c.estado, "// rs.getObject(2)
+                    + "c.fecha_pago_inicial, "// rs.getObject(3)
+                    + "c.total_pagar, "// rs.getObject(4)
+                    + "c.numero_cuotas, "// rs.getObject(5)
+                    + "c.frecuencia, "// rs.getObject(6)
+                    + "c.monto_cuota "// rs.getObject(7)
+                    + "from "
+                    + "convenio c "
+                    + "left join deudor de on (c.deudor=de.deudor) "
+                    + "left join actor a on (de.actor=a.actor) "
+                    + "where "
+                    + "c.deudor=" + this.deudor + " "
+                    + "order by "
+                    + "c.estado, "
+                    + "c.fecha_creacion desc";
 
             Servicio servicio = new Servicio();
             java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
@@ -292,7 +296,7 @@ public class Expediente_Convenio implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void cargar_convenio_agregar() {
         try {
             String cadenasql = "select c.convenio from convenio c where c.deudor=" + this.deudor + " and c.estado in ('ACTIVO','NEGOCIACION')";
@@ -312,7 +316,7 @@ public class Expediente_Convenio implements Serializable {
             for (Integer i = 1; i < filas; i++) {
                 id_convenio = Integer.parseInt(vector_result[i][0]);
             }
-            
+
             cadenasql = "select d.saldo from deudor d where d.deudor=" + this.deudor;
             servicio = new Servicio();
             resultado = servicio.reporte(cadenasql, this.ambiente);
@@ -329,27 +333,27 @@ public class Expediente_Convenio implements Serializable {
             for (Integer i = 1; i < filas; i++) {
                 this.saldo = Double.parseDouble(vector_result[i][0]);
             }
-            
-            if(id_convenio == 0) {
+
+            if (id_convenio == 0) {
                 opcion_gestion = 1;
                 Driver drive = new Driver();
 
                 this.lst_tipo_convenio = drive.lista_tipo_convenio();
-                if(!this.lst_tipo_convenio.isEmpty()) {
+                if (!this.lst_tipo_convenio.isEmpty()) {
                     this.tipo_convenio = this.lst_tipo_convenio.get(0).getValue().toString();
                 } else {
                     this.tipo_convenio = "";
                 }
 
                 this.lst_estado_convenio = drive.lista_estado_convenio();
-                if(!this.lst_estado_convenio.isEmpty()) {
+                if (!this.lst_estado_convenio.isEmpty()) {
                     this.estado_convenio = this.lst_estado_convenio.get(0).getValue().toString();
                 } else {
                     this.estado_convenio = "";
                 }
 
                 this.lst_frecuencia = drive.lista_frecuencia_convenio();
-                if(!this.lst_frecuencia.isEmpty()) {
+                if (!this.lst_frecuencia.isEmpty()) {
                     this.frecuencia = this.lst_frecuencia.get(0).getValue().toString();
                 } else {
                     this.frecuencia = "";
@@ -369,10 +373,10 @@ public class Expediente_Convenio implements Serializable {
                 this.monto_cuota = 0.00;
                 this.fecha_pago_inicial = new Date();
                 this.observacion = "-";
-                
+
                 //CALCULA VALORES AUTOMATICOS.
                 this.calcula_valores_modificar();
-                
+
                 //DESHABILITA LOS CONTROLES
                 this.somTipoConvenio = false;
                 this.somEstadoConvenio = true;
@@ -393,39 +397,39 @@ public class Expediente_Convenio implements Serializable {
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "El deudor no puede tener mas de un convenio en estado ACTIVO o NEGOCIACIÓN."));
             }
-            
+
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Convenio(cargar_convenio_agregar): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void cargar_convenio_modificar() {
         try {
             opcion_gestion = 2;
             Driver drive = new Driver();
-            
+
             this.lst_tipo_convenio = drive.lista_tipo_convenio();
-            if(!this.lst_tipo_convenio.isEmpty()) {
+            if (!this.lst_tipo_convenio.isEmpty()) {
                 this.tipo_convenio = this.lst_tipo_convenio.get(0).getValue().toString();
             } else {
                 this.tipo_convenio = "";
             }
-            
+
             this.lst_estado_convenio = drive.lista_estado_convenio();
-            if(!this.lst_estado_convenio.isEmpty()) {
+            if (!this.lst_estado_convenio.isEmpty()) {
                 this.estado_convenio = this.lst_estado_convenio.get(0).getValue().toString();
             } else {
                 this.estado_convenio = "";
             }
-            
+
             this.lst_frecuencia = drive.lista_frecuencia_convenio();
-            if(!this.lst_frecuencia.isEmpty()) {
+            if (!this.lst_frecuencia.isEmpty()) {
                 this.frecuencia = this.lst_frecuencia.get(0).getValue().toString();
             } else {
                 this.frecuencia = "";
             }
-            
+
             String cadenasql = "select "
                     + "c.tipo_convenio, "//rs.getObject(0)
                     + "c.estado, "//rs.getObject(1)
@@ -444,7 +448,7 @@ public class Expediente_Convenio implements Serializable {
                     + "convenio c "
                     + "where "
                     + "c.convenio = " + this.convenio_sel.getIndice();
-            
+
             Servicio servicio = new Servicio();
             java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
@@ -456,7 +460,7 @@ public class Expediente_Convenio implements Serializable {
                     vector_result[i][j] = resultado.get(i).getItem().get(j);
                 }
             }
-            
+
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
             for (Integer i = 1; i < filas; i++) {
                 this.tipo_convenio = vector_result[i][0];
@@ -473,12 +477,12 @@ public class Expediente_Convenio implements Serializable {
                 this.fecha_pago_inicial = formatDate.parse(vector_result[i][11]);
                 this.observacion = vector_result[i][12];
             }
-            
+
             //CALCULA VALORES AUTOMATICOS.
             this.calcula_valores_modificar();
-            
+
             //DESHABILITA LOS CONTROLES
-            if(this.estado_convenio.equals("NEGOCIACION")) {
+            if (this.estado_convenio.equals("NEGOCIACION")) {
                 this.somTipoConvenio = false;
                 this.somEstadoConvenio = true;
                 this.spnSaldoDeudor = false;
@@ -509,15 +513,15 @@ public class Expediente_Convenio implements Serializable {
                 this.areObservacionConvenio = true;
                 this.btnGuardar = true;
             }
-            
+
             RequestContext.getCurrentInstance().execute("PF('var_convenio').show();");
-            
+
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Convenio(cargar_convenio_modificar): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void cargar_convenio_modificar_estado() {
         try {
             if (convenio_sel != null) {
@@ -630,70 +634,70 @@ public class Expediente_Convenio implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void gestion_convenio() {
         try {
-            if(opcion_gestion == 1) {
+            if (opcion_gestion == 1) {
                 this.insertar_gestion_convenio();
-            } 
-            if(opcion_gestion == 2) {
+            }
+            if (opcion_gestion == 2) {
                 this.modificar_gestion_convenio();
             }
-            if(opcion_gestion == 3) {
+            if (opcion_gestion == 3) {
                 this.modificar_gestion_convenio_estado();
             }
-            
-        } catch(Exception ex) {
+
+        } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Convenio(gestion_convenio): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void insertar_gestion_convenio() {
         try {
             GregorianCalendar gregory1 = new GregorianCalendar();
             gregory1.set(this.fecha_pago_inicial.getYear() + 1900, this.fecha_pago_inicial.getMonth(), this.fecha_pago_inicial.getDate());
             XMLGregorianCalendar gre_fecha_pago_inicial = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory1);
-            
+
             Driver driver = new Driver();
             Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
             Servicio servicio = new Servicio();
             String resultado = servicio.convenioInsertar(id_usuario, this.deudor, this.tipo_convenio, this.estado_convenio, this.saldo, this.interes, this.mora, this.gasto_otros, this.rebaja_interes, this.subtotal_pagar, this.costas, this.monto_costas, this.total, this.cuota_inicial, this.total_pagar, this.numero_cuotas, this.monto_cuota, this.frecuencia, gre_fecha_pago_inicial, this.observacion, this.ambiente);
-            
+
             this.limpiar_expediente_convenio();
             this.Actualizar_Expediente_convenio();
-            
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Convenio(insertar_gestion_convenio): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void modificar_gestion_convenio() {
         try {
             GregorianCalendar gregory1 = new GregorianCalendar();
             gregory1.set(this.fecha_pago_inicial.getYear() + 1900, this.fecha_pago_inicial.getMonth(), this.fecha_pago_inicial.getDate());
             XMLGregorianCalendar gre_fecha_pago_inicial = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory1);
-            
+
             Driver driver = new Driver();
             Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
             Servicio servicio = new Servicio();
             String resultado = servicio.convenioModificar(id_usuario, this.convenio_sel.getIndice(), this.deudor, this.tipo_convenio, this.estado_convenio, this.saldo, this.interes, this.mora, this.gasto_otros, this.rebaja_interes, this.subtotal_pagar, this.costas, this.monto_costas, this.total, this.cuota_inicial, this.total_pagar, this.numero_cuotas, this.monto_cuota, this.frecuencia, gre_fecha_pago_inicial, this.observacion, this.ambiente);
-            
+
             this.limpiar_expediente_convenio();
             this.Actualizar_Expediente_convenio();
-            
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
         } catch (Exception ex) {
             System.out.println("ERROR => LexcomExpediente-Expediente_Convenio(modificar_gestion_convenio): " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void modificar_gestion_convenio_estado() {
         try {
-            if(this.estado_convenio_temp.equals(this.estado_convenio)) {
+            if (this.estado_convenio_temp.equals(this.estado_convenio)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", "No se realizo ningun cambio en el estado del convenio"));
             } else {
                 Driver driver = new Driver();
@@ -711,7 +715,7 @@ public class Expediente_Convenio implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void calcula_valores_modificar() {
         try {
             calcular_saldos();
@@ -721,7 +725,7 @@ public class Expediente_Convenio implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     public void calcula_valores_modificar_estado() {
         try {
             calcular_saldos();
@@ -730,15 +734,15 @@ public class Expediente_Convenio implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
-    
+
     private void calcular_saldos() {
         try {
             this.subtotal_pagar = this.saldo + this.interes + this.mora + this.gasto_otros - this.rebaja_interes;
-            this.monto_costas = this.subtotal_pagar * (this.costas/100);
+            this.monto_costas = this.subtotal_pagar * (this.costas / 100);
             this.total = this.subtotal_pagar + monto_costas;
             this.total_pagar = this.total - this.cuota_inicial;
             this.monto_cuota = total_pagar / numero_cuotas;
-            if(this.monto_cuota.floatValue() > this.monto_cuota.intValue()) {
+            if (this.monto_cuota.floatValue() > this.monto_cuota.intValue()) {
                 Integer temp = this.monto_cuota.intValue();
                 this.monto_cuota = temp + 1.00;
             }
@@ -751,17 +755,17 @@ public class Expediente_Convenio implements Serializable {
     private void generar_observacion() {
         try {
             Date actual = new Date();
-        
+
             DecimalFormat formatter = new DecimalFormat("#,###,##0.00");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            if(this.tipo_convenio.equals("NORMAL")) {
+            if (this.tipo_convenio.equals("NORMAL")) {
                 this.observacion = dateFormat.format(actual) + " CONVENIO: \n"
                         + "Total a Pagar Q. " + formatter.format(total_pagar) + ". \n"
                         + "Se pactó pago inicial de Q. " + formatter.format(cuota_inicial) + " y \n"
                         + numero_cuotas + " cuotas " + this.frecuencia + " de Q. " + formatter.format(this.monto_cuota) + ". \n"
                         + "Se inician pagos el " + dateFormat.format(this.fecha_pago_inicial);
             }
-            if(this.tipo_convenio.equals("CANCELACION TOTAL")) {
+            if (this.tipo_convenio.equals("CANCELACION TOTAL")) {
                 this.observacion = dateFormat.format(actual) + " CONVENIO: \n"
                         + "Saldo Q. " + formatter.format(saldo) + " \n"
                         + "Rebaja Autorizada de Q. " + formatter.format(rebaja_interes) + " \n"
@@ -769,21 +773,21 @@ public class Expediente_Convenio implements Serializable {
                         + "Cancelación Total Autorizada por Q. " + formatter.format(total_pagar) + " \n"
                         + "Pago el " + dateFormat.format(this.fecha_pago_inicial);
             }
-            if(this.tipo_convenio.equals("TRANSACCION")) {
+            if (this.tipo_convenio.equals("TRANSACCION")) {
                 this.observacion = dateFormat.format(actual) + " CONVENIO: \n"
                         + "Cancelación Total Transacción Judicial por Q. " + formatter.format(total) + " por medio \n"
                         + "Deudor " + formatter.format(costas) + "% Costas  Q. " + formatter.format(cuota_inicial) + " \n"
                         + "Restante Transacción Q. " + formatter.format(this.monto_cuota) + " \n"
                         + "Pago el " + dateFormat.format(this.fecha_pago_inicial);
             }
-            if(this.tipo_convenio.equals("TEMPORAL")) {
+            if (this.tipo_convenio.equals("TEMPORAL")) {
                 this.observacion = dateFormat.format(actual) + " CONVENIO: \n"
-                        + "Se pactaron Cuota Inicial de Q. " + formatter.format(cuota_inicial) + " y \n" 
+                        + "Se pactaron Cuota Inicial de Q. " + formatter.format(cuota_inicial) + " y \n"
                         + numero_cuotas + " cuotas temporales de Q. " + formatter.format(cuota_inicial) + " y pagos " + this.frecuencia + " \n"
                         + "Se inician pagos el " + dateFormat.format(this.fecha_pago_inicial) + ". \n"
                         + "Al finalizar estos pagos se realizará convenio normal.";
             }
-            if(this.tipo_convenio.equals("PAGOS SIN CONVENIO")) {
+            if (this.tipo_convenio.equals("PAGOS SIN CONVENIO")) {
                 this.observacion = dateFormat.format(actual) + " Pagos Sin Convenio. \n"
                         + "Caso con gestiones Anteriores, \n"
                         + "con Demanda o Sin Demanda (modificar manualmente). \n"
@@ -1163,5 +1167,5 @@ public class Expediente_Convenio implements Serializable {
     public void setBtnGuardar(Boolean btnGuardar) {
         this.btnGuardar = btnGuardar;
     }
-    
+
 }
