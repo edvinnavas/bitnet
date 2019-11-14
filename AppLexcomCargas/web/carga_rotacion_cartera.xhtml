@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>.:LEXCOM REPORTES:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formCargaMasivaDeudores" enctype="multipart/form-data">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel id="panelCargaMasivaDeudores" style="font-size:10px; font-weight:bold;">
+                    <f:facet name="header">
+                        <p:outputLabel value="Carga rotación de cartera" style="font-weight:bold; width:100%; font-size:25px; text-align: center;"/>
+                    </f:facet>
+                    <h:panelGrid columns="1" style="width:100%; text-align: left;">
+                        <f:facet name="header">
+                            <p:fileUpload id="fupExcel" value="#{Carga_Rotacion_Cartera.file}" mode="simple" skinSimple="true" label="Archivo"/>
+                        </f:facet>
+                        <f:facet name="footer">
+                            <p:commandButton id="btnCargar" value="Cargar" ajax="false" actionListener="#{Carga_Rotacion_Cartera.cargar}" styleClass="ui-priority-primary" icon="ui-icon-refresh"/>
+                        </f:facet>
+                    </h:panelGrid>
+                    <p:outputLabel value="RECOMENTACIONES EN EL PROCESO DE CARGA DE INFORMACIÓN MASIVA AL SISTEMA." style="font-weight:bold ; width:100%; font-size:10px; text-align: center;"/>
+                    <br/>
+                    <p:outputLabel value="1. Verifique en el archivo Excel que los campos de fecha tengan el formato yyyy-mm-dd." style="font-weight:normal; width:100%; font-size:10px; text-align: center;"/>
+                    <br/>
+                    <p:outputLabel value="2. Verifique en el archivo Excel que los campos de moneda no tengan el signo $ o Q." style="font-weight:normal; width:100%; font-size:10px; text-align: center;"/>
+                    <br/>
+                    <p:outputLabel value="3. Verifique en el archivo Excel que los numéricos no tengan comas para separar los miles." style="font-weight:normal; width:100%; font-size:10px; text-align: center;"/>
+                    <br/>
+                    <p:outputLabel value="4. Verifique en el archivo Excel que existan los campos indice en los catálogos del sistema." style="font-weight:normal; width:100%; font-size:10px; text-align: center;"/>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

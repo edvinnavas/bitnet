@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <ui:composition>
+            <h:form id="formListUsuario">
+                <p:panel id="panelUsuario">
+                    <p:dataTable 
+                        id="tblUsuarios"
+                        var="usu"
+                        widgetVar="dtblWidgetUsu"
+                        value="#{Usuario.lst_usuario}"
+                        selectionMode="single"
+                        selection="#{Usuario.selectedUsuario}"
+                        rowKey="#{usu.usuario}"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+                        <f:facet name="header">
+                            <h:outputText value="LISTADO DE USUARIOS"/>
+                        </f:facet>
+                        <p:ajax event="rowDblselect" listener="#{Usuario.carga_info_modificar}" update="DialogCrearUsuario,formMenu:mensaje2" global="false"/>
+                        <p:column headerText="Id" sortBy="#{usu.usuario}" filterBy="#{usu.usuario}" filterMatchMode="contains">
+                            <h:outputText value="#{usu.usuario}"/>
+                        </p:column>
+                        <p:column headerText="Usuario" sortBy="#{usu.nombre}" filterBy="#{usu.nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{usu.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{usu.estado}" filterBy="#{usu.estado}" filterMatchMode="contains">
+                            <h:outputText value="#{usu.estado}"/>
+                        </p:column>
+                        <p:column headerText="Gestor" sortBy="#{usu.gestor}" filterBy="#{usu.gestor}" filterMatchMode="contains">
+                            <h:outputText value="#{usu.gestor}"/>
+                        </p:column>
+                        <p:column headerText="Procurador" sortBy="#{usu.procurador}" filterBy="#{usu.procurador}" filterMatchMode="contains">
+                            <h:outputText value="#{usu.procurador}"/>
+                        </p:column>
+                        <p:column headerText="Asistente" sortBy="#{usu.asistente}" filterBy="#{usu.asistente}" filterMatchMode="contains">
+                            <h:outputText value="#{usu.asistente}"/>
+                        </p:column>
+                        <p:column headerText="Digitador" sortBy="#{usu.digitador}" filterBy="#{usu.digitador}" filterMatchMode="contains">
+                            <h:outputText value="#{usu.digitador}"/>
+                        </p:column>
+                        <p:column headerText="Investigador" sortBy="#{usu.investigador}" filterBy="#{usu.investigador}" filterMatchMode="contains">
+                            <h:outputText value="#{usu.investigador}"/>
+                        </p:column>
+                        <p:column headerText="reiniciado" sortBy="#{usu.investigador}" filterBy="#{usu.investigador}" filterMatchMode="contains">
+                            <h:outputText value="#{Usuario.reinicio_convert(usu.reinicio)}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnExcel" value="Excel" ajax="true" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
+                            <p:dataExporter id="dataexpExcel" type="xls" target="tblUsuarios" fileName="Usuarios"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCrear" actionListener="#{Usuario.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearUsuario,formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnModificar" actionListener="#{Usuario.carga_info_modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="DialogCrearUsuario,formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnEliminar" actionListener="#{Usuario.carga_info_eliminar}" ajax="true" icon="ui-icon-plus" value="Eliminar" update="DialogCrearUsuario,formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnActivar" actionListener="#{Usuario.carga_info_activar}" ajax="true" icon="ui-icon-plus" value="Activar" update="DialogCrearUsuario,formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnVer" actionListener="#{Usuario.carga_info_ver}" ajax="true" icon="ui-icon-plus" value="Ver" update="DialogCrearUsuario,formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnReiniciar" actionListener="#{Usuario.reiniciar_contraseña}" ajax="true" icon="ui-icon-plus" value="Reiniciar contraseña" update="formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+            
+            <p:dialog id="DialogCrearUsuario" header="USUARIO" widgetVar="dlg1" modal="true" resizable="true" appendTo="@(body)" closeOnEscape="true" style="font-size:10px; font-weight:bold;">
+                <h:form id="FormCrearUsuario">
+                    <p:panelGrid columns="2" style="width:100%;">
+                        <p:outputLabel value="Nombre completo"/>
+                        <p:outputLabel value="Usuario"/>
+                        <p:inputText id="txtNombreCompleto" disabled="#{Usuario.txtNombreCompleto}" value="#{Usuario.nombre_completo_d}" style="width:200px;"/>
+                        <p:inputText id="txtUsuario" disabled="#{Usuario.txtUsuario}" value="#{Usuario.nombre_d}" style="width:200px;"/>
+                        <p:outputLabel value="Contraseña"/>
+                        <p:outputLabel value="Re-Contraseña"/>
+                        <p:password id="txtContrasena" disabled="#{Usuario.txtContrasena}" value="#{Usuario.contrasena_d}" style="width:200px;" redisplay="true"/>
+                        <p:password id="txtReContrasena" disabled="#{Usuario.txtReContrasena}" value="#{Usuario.recontrasena_d}" style="width:200px;" redisplay="true"/>
+                        <p:outputLabel value="Tipo Usuario"/>
+                        <p:outputLabel value="Gestor"/>
+                        <p:selectOneMenu id="somTipoUsuario" disabled="#{Usuario.somTipoUsuario}" value="#{Usuario.tipo_usuario_d}" style="width:207px;">
+                            <f:selectItems value="#{Usuario.lst_cartera}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneRadio id="sorGestor" disabled="#{Usuario.sorGestor}" value="#{Usuario.gestor_d}">
+                            <f:selectItem itemLabel="SI" itemValue="SI"/>
+                            <f:selectItem itemLabel="NO" itemValue="NO"/>
+                        </p:selectOneRadio>
+                        <p:outputLabel value="Procurador"/>
+                        <p:outputLabel value="Asistente"/>
+                        <p:selectOneRadio id="sorProcurador" disabled="#{Usuario.sorProcurador}" value="#{Usuario.procurador_d}">
+                            <f:selectItem itemLabel="SI" itemValue="SI"/>
+                            <f:selectItem itemLabel="NO" itemValue="NO"/>
+                        </p:selectOneRadio>
+                        <p:selectOneRadio id="sorAsistente" disabled="#{Usuario.sorAsistente}" value="#{Usuario.asistente_d}">
+                            <f:selectItem itemLabel="SI" itemValue="SI"/>
+                            <f:selectItem itemLabel="NO" itemValue="NO"/>
+                        </p:selectOneRadio>
+                        <p:outputLabel value="Digitador"/>
+                        <p:outputLabel value="Investigador"/>
+                        <p:selectOneRadio id="sorDigitador" disabled="#{Usuario.sorDigitador}" value="#{Usuario.digitador_d}">
+                            <f:selectItem itemLabel="SI" itemValue="SI"/>
+                            <f:selectItem itemLabel="NO" itemValue="NO"/>
+                        </p:selectOneRadio>
+                        <p:selectOneRadio id="sorInvestigador" disabled="#{Usuario.sorInvestigador}" value="#{Usuario.investigador_d}">
+                            <f:selectItem itemLabel="SI" itemValue="SI"/>
+                            <f:selectItem itemLabel="NO" itemValue="NO"/>
+                        </p:selectOneRadio>
+                    </p:panelGrid>
+                     <p:panelGrid columns="1" style="width:100%;">
+                        <p:outputLabel value="Rol"/>
+                        <p:selectOneMenu id="somRol"  value="#{Usuario.rol}" label="#{Usuario.rol_label}" style="width:207px;" disabled="#{Usuario.itaDescripcion}">
+                            <f:selectItem itemLabel="Seleccionar uno..."/>
+                            <f:selectItems value="#{Usuario.lst_rol}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1" style="width:100%;">
+                        <p:outputLabel value="Descripción"/>
+                        <p:inputTextarea id="itaDescripcion" disabled="#{Usuario.itaDescripcion}" value="#{Usuario.descripcion_d}" rows="5" autoResize="false" style="width:98%;"/>
+                    </p:panelGrid>
+                    <div align="right">
+                        <p:commandButton id="btnAceptar" disabled="#{Usuario.btnAceptar}" ajax="true" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('dlg1').hide()" update="formListUsuario,formMenu:mensaje2" actionListener="#{Usuario.aceptar}">
+                            <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" disabled="#{Usuario.btnCancelar}" ajax="true" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg1').hide()"/>
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>.:LEXCOM REPORTES:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="85" resizable="false" closable="false" collapsible="false" style="text-align:center;">
+                <p:outputLabel value="Asesoría Jurídica LEXCOM" style="font-size:40px; font-weight:bold; color:maroon;"/>
+                <div align="left" style="width: 100%;">
+                    <p:outputLabel value="#{Menu.usuario}" style="font-size:10px; font-weight:bold; color:blue;"/>
+                </div>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" header="MENU" size="251px" collapsible="true">
+                <h:form id="formMenu">
+                    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                    <p:growl id="mensaje2" showDetail="true"/>
+                    <p:panelMenu style="width:250px">
+                        <p:submenu label="Principal" style="font-size:12px; font-weight:bold;">
+                            <p:menuitem id="mnuInicio" value="Inicio" update="@all" action="#{Menu.setPagina_seleccionada('inicio')}" ajax="false" style="font-size:12px; font-weight:bold;" rendered="#{accese_get.getpermiso('Inicio')}" />
+                    
+                            <p:menuitem id="mnuSalir" value="Salir" update="@all" action="#{Menu.Salir}" ajax="false" style="font-size:12px; font-weight:bold;" />
+                        </p:submenu>
+                        <p:submenu label="Carga de archivos masiva" style="font-size:12px; font-weight:bold;">
+                            <p:submenu label="Deudores" style="font-size:12px; font-weight:bold;">
+                                <p:menuitem id="mnuCargaMasivaDeudores" value="Carga masiva deudores" update="@all" action="#{Menu.setPagina_seleccionada('carga_masiva_deudores')}" ajax="false" actionListener="#{Carga_Masiva_Deudores.constructor}" style="font-size:12px; font-weight:bold;"   rendered="#{accese_get.getpermiso('Carga masiva deudores')}"/>
+                                <p:menuitem id="mnuCargaActualizacionMasivaDeudores" value="Carga actualización masiva deudores" update="@all" action="#{Menu.setPagina_seleccionada('carga_actualizacion_masiva_deudores')}" ajax="false" actionListener="#{Carga_Actualizacion_Masiva_Deudores.constructor}" style="font-size:12px; font-weight:bold;"   rendered="#{accese_get.getpermiso('Carga actualización masiva deudores')}"/>
+                                <p:menuitem id="mnuCargaRotacionCartera" value="Carga rotación de cartera" update="@all" action="#{Menu.setPagina_seleccionada('carga_rotacion_cartera')}" ajax="false" actionListener="#{Carga_Rotacion_Cartera.constructor}" style="font-size:12px; font-weight:bold;"   rendered="#{accese_get.getpermiso('Carga rotación de cartera')}"/>
+                                <p:menuitem id="mnuCargaPagosMasivos" value="Carga de pagos masivos" update="@all" action="#{Menu.setPagina_seleccionada('carga_pagos_masivos')}" ajax="false" actionListener="#{Carga_Pagos_Masivos.constructor}" style="font-size:12px; font-weight:bold;"   rendered="#{accese_get.getpermiso('Carga de pagos masivos')}"/>
+                            </p:submenu>
+                            <p:submenu label="Juicios" style="font-size:12px; font-weight:bold;">
+                                <p:menuitem id="mnuCargaMasivaPresentarDemanda" value="Carga masiva presentar demanda" update="@all" action="#{Menu.setPagina_seleccionada('carga_masiva_presentar_demanda')}" ajax="false" actionListener="#{Carga_Masiva_Presentar_Demanda.constructor}" style="font-size:12px; font-weight:bold;"   rendered="#{accese_get.getpermiso('Carga masiva presentar demanda')}"/>
+                                <p:menuitem id="mnuCargaMasivaCaratula" value="Carga masiva caratula" update="@all" action="#{Menu.setPagina_seleccionada('carga_masiva_caratula')}" ajax="false" actionListener="#{Carga_Masiva_Caratula.constructor}" style="font-size:12px; font-weight:bold;"   rendered="#{accese_get.getpermiso('Carga masiva caratula')}"/>
+                                <p:menuitem id="mnuCargaMasivaMedidasPrecautorias" value="Carga masiva medidas precautorias" update="@all" action="#{Menu.setPagina_seleccionada('carga_masiva_medidas_precautorias')}" ajax="false" actionListener="#{Carga_Masiva_Medidas_Precautorias.constructor}" style="font-size:12px; font-weight:bold;"   rendered="#{accese_get.getpermiso('Carga masiva medidas precautorias')}"/>
+                                <p:menuitem id="mnuCargaMasivaDeligenciarMedidas" value="Carga masiva diligenciar medidas" update="@all" action="#{Menu.setPagina_seleccionada('carga_masiva_deligenciar_medidas')}" ajax="false" actionListener="#{Carga_Masiva_Deligenciar_Medidas.constructor}" style="font-size:12px; font-weight:bold;"   rendered="#{accese_get.getpermiso('Carga masiva diligenciar medidas')}"/>
+                            </p:submenu>
+                        </p:submenu>
+                        
+                        
+                        
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <ui:include id="ui1" src="#{Menu.pagina_seleccionada}"/>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

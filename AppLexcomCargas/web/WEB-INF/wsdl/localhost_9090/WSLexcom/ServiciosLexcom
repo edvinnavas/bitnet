@@ -1,0 +1,26 @@
+<html>
+<head><title>
+Servicios Web
+</title></head>
+<body>
+<h1>Servicios web</h1>
+<table width='100%' border='1'>
+<tr>
+<td>
+Punto Final
+</td>
+<td>
+Información
+</td>
+</tr>
+<tr>
+<td>
+<table border=\"0\"><tr><td>Nombre de Servicio\:</td><td>{http://lexcom.com/}ServiciosLexcom</td></tr><tr><td>Nombre de Puerto\:</td><td>{http://lexcom.com/}ServiciosLexcomPort</td></tr></table>
+</td>
+<td>
+<table border=\"0\"><tr><td>Dirección\:</td><td>http://localhost:9090/WSLexcom/ServiciosLexcom</td></tr><tr><td>WSDL\:</td><td><a href\="http://localhost:9090/WSLexcom/ServiciosLexcom?wsdl">http://localhost:9090/WSLexcom/ServiciosLexcom?wsdl</a></td></tr><tr><td>Clase de Implantación\:</td><td>com.lexcom.ServiciosLexcom</td></tr></table>
+</td>
+</tr>
+</table>
+</body>
+</html>
