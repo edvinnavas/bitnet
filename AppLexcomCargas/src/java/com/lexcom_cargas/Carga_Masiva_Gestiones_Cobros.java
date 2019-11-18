@@ -12,9 +12,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.primefaces.model.UploadedFile;
 
-@ManagedBean(name = "Carga_Masiva_Caratula")
+@ManagedBean(name = "Carga_Masiva_Gestiones_Cobros")
 @ViewScoped
-public class Carga_Masiva_Caratula implements Serializable {
+public class Carga_Masiva_Gestiones_Cobros implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,16 +30,17 @@ public class Carga_Masiva_Caratula implements Serializable {
             this.ambiente = session.getAttribute("ambiente").toString();
         } catch (Exception ex) {
             try {
-                System.out.println("ERROR => AppLexcomCargas-Carga_Masiva_Caratula(init): " + ex.toString());
+                System.out.println("ERROR => AppLexcomCargas-Carga_Masiva_Gestiones_Cobros(init): " + ex.toString());
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
             } catch (Exception ex1) {
-                System.out.println("ERROR => AppLexcomCargas-Carga_Masiva_Caratula(init - redirect): " + ex1.toString());
+                System.out.println("ERROR => AppLexcomCargas-Carga_Masiva_Gestiones_Cobros(init - redirect): " + ex1.toString());
             }
         }
     }
 
     public void constructor() {
+        System.out.println("ENTRO AQUI!!!");
         this.file = null;
     }
 
@@ -48,12 +49,12 @@ public class Carga_Masiva_Caratula implements Serializable {
 
         try {
             if (this.file != null) {
-                File destFile = new File(driver.getPath() + this.usuario + "_carga_masiva_caratula.xlsx");
+                File destFile = new File(driver.getPath() + this.usuario + "_carga_gestion_cobro.xlsx");
                 FileUtils.copyInputStreamToFile(this.file.getInputstream(), destFile);
 
                 Servicio servicio = new Servicio();
                 Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-                String resultado = servicio.cargaMasivaCaratula(id_usuario, driver.getPath() + this.usuario + "_carga_masiva_caratula.xlsx", this.ambiente);
+                String resultado = servicio.cargaGestionesCobros(id_usuario, driver.getPath() + this.usuario + "_carga_gestion_cobro.xlsx", this.ambiente);
 
                 FacesMessage msg = new FacesMessage("Mensaje del sistema...", resultado);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -62,7 +63,7 @@ public class Carga_Masiva_Caratula implements Serializable {
             System.out.println(ex.toString());
         }
         driver = null;
-
+        
     }
 
     public String getUsuario() {

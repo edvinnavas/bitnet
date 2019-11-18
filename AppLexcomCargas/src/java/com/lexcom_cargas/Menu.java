@@ -10,26 +10,43 @@ import javax.servlet.http.HttpSession;
 @ManagedBean(name = "Menu")
 @ViewScoped
 public class Menu implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private String pagina_seleccionada;
     private String usuario;
+    private String ambiente;
+    private String nombre_ambiente;
 
     @PostConstruct
     public void init() {
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             this.usuario = session.getAttribute("id_usuario").toString();
-
             this.pagina_seleccionada = "inicio";
-        } catch(Exception ex) {
+            this.ambiente = session.getAttribute("ambiente").toString();
+            if (this.ambiente.equals("LEXCOMJNDI")) {
+                this.nombre_ambiente = "Asesoría Jurídica LEXCOM - Ambiente de producción.";
+            } else {
+                this.nombre_ambiente = "Asesoría Jurídica LEXCOM - Ambiente de pruebas.";
+            }
+        } catch (Exception ex) {
             try {
-                System.out.println("ERROR JAVABEAN INDEX: " + ex.toString());
+                System.out.println("ERROR => AppLexcomCargas-Menu(init): " + ex.toString());
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-            } catch(Exception ex1) {
-                System.out.println("ERROR JAVABEAN INDEX: " + ex1.toString());
+            } catch (Exception ex1) {
+                System.out.println("ERROR => AppLexcomCargas-Menu(init - redirect): " + ex1.toString());
             }
+        }
+    }
+
+    public void Salir() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (Exception ex) {
+            System.out.println("ERROR => AppLexcomCargas-Menu(Salir): " + ex.toString());
         }
     }
 
@@ -51,14 +68,21 @@ public class Menu implements Serializable {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-    
-    public void Salir() {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-        } catch(Exception ex) {
-            System.out.println("ERROR JAVABEAN INDEX: " + ex.toString());
-        }
+
+    public String getAmbiente() {
+        return ambiente;
+    }
+
+    public void setAmbiente(String ambiente) {
+        this.ambiente = ambiente;
+    }
+
+    public String getNombre_ambiente() {
+        return nombre_ambiente;
+    }
+
+    public void setNombre_ambiente(String nombre_ambiente) {
+        this.nombre_ambiente = nombre_ambiente;
     }
 
 }

@@ -18,12 +18,24 @@ public class Carga_Actualizacion_Masiva_Deudores implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String usuario;
+    private String ambiente;
     private UploadedFile file;
 
     @PostConstruct
     public void init() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        this.usuario = session.getAttribute("id_usuario").toString();
+        try {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            this.usuario = session.getAttribute("id_usuario").toString();
+            this.ambiente = session.getAttribute("ambiente").toString();
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => AppLexcomCargas-Carga_Actualizacion_Masiva_Deudores(init): " + ex.toString());
+                FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+            } catch (Exception ex1) {
+                System.out.println("ERROR => AppLexcomCargas-Carga_Actualizacion_Masiva_Deudores(init - redirect): " + ex1.toString());
+            }
+        }
     }
 
     public void constructor() {
@@ -39,8 +51,8 @@ public class Carga_Actualizacion_Masiva_Deudores implements Serializable {
                 FileUtils.copyInputStreamToFile(this.file.getInputstream(), destFile);
 
                 Servicio servicio = new Servicio();
-                Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'");
-                String resultado = servicio.actualizacionMasivaDeudores(id_usuario ,driver.getPath() + this.usuario + "_actualizacion_masiva_deudores.xlsx","LEXCOMJNDI");
+                Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
+                String resultado = servicio.actualizacionMasivaDeudores(id_usuario, driver.getPath() + this.usuario + "_actualizacion_masiva_deudores.xlsx", this.ambiente);
 
                 FacesMessage msg = new FacesMessage("Mensaje del sistema...", resultado);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -66,6 +78,14 @@ public class Carga_Actualizacion_Masiva_Deudores implements Serializable {
 
     public void setFile(UploadedFile file) {
         this.file = file;
+    }
+
+    public String getAmbiente() {
+        return ambiente;
+    }
+
+    public void setAmbiente(String ambiente) {
+        this.ambiente = ambiente;
     }
 
 }

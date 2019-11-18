@@ -3,9 +3,9 @@
   <services/>
   <clients>
     <client name="ServiciosLexcom">
-      <wsdl-url>http://localhost:9090/WSLexcom/ServiciosLexcom?wsdl</wsdl-url>
+      <wsdl-url>http://localhost:9090/WSLexcom/ServiciosLexcom?WSDL</wsdl-url>
       <local-wsdl-file>localhost_9090/WSLexcom/ServiciosLexcom.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">ws.lexcomreportes</package-name>
+      <package-name forceReplace="true">lexcom.ws</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:9090/WSLexcom/ServiciosLexcom?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:9090/WSLexcom/ServiciosLexcom?WSDL</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -34,7 +34,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>ws.lexcomreportes</wsimport-option-value>
+          <wsimport-option-value>lexcom.ws</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

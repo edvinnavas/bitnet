@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -16,13 +17,79 @@ public class acceso_menu implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String usuario;
+    private String ambiente;
     private List<rol_load> listucha;
+
+    public String Inicio;
+    public String Usuarios;
+    public String Permisos_Usuarios;
+    public String Rol;
+    public String Permisos_Rol;
+    public String Constantes;
+    public String Corporaciones;
+    public String Actores;
+    public String Deudores;
+    public String Juzgados;
+    public String Garantias;
+    public String Bancos;
+    public String Estados_judicial;
+    public String Status_judicial;
+    public String Estados_extrajudicial;
+    public String Status_extrajudicial;
+    public String Tipos_de_Descuento;
+    public String Tipos_de_Aumento;
+    public String Frases_Predeterminadas;
+    public String Tipos_Codigo_Resultado;
+    public String Codigos_de_Resultado;
+    public String Estado_Status_Judicial;
+    public String Estado_Status_Extrajudicial;
+    public String Estado_Status_Extrajudicial_Bloqueo;
+    public String Tipo_Resultado_Resultado;
+    public String Asignacion_Cartera;
+    public String Expedientes_Asignados;
+    public String Expedientes;
+    public String Juicios;
+    public String Archivo_deudores_carga;
+    public String Archivo_deudores_actualizacion;
+    public String Archivo_rotacion_de_cartera_automatico;
+    public String Archivo_rotacion_de_cartera_manual;
+    public String Archivo_carga_de_pagos_masivos;
+    public String Archivo_presentar_demanda;
+    public String Archivo_caratula;
+    public String Archivo_medidas_precautorias;
+    public String Archivo_diligenciar_medidas;
+    public String Carga_masiva_deudores;
+    public String Carga_actualizacion_masiva_deudores;
+    public String Carga_rotacion_de_cartera;
+    public String Carga_de_pagos_masivos;
+    public String Carga_masiva_presentar_demanda;
+    public String Carga_masiva_caratula;
+    public String Carga_masiva_medidas_precautorias;
+    public String Carga_masiva_diligenciar_medidas;
+    public String Pagos_por_gestor_y_garantia;
+    public String Pagos_por_antigüedad_y_garantia;
+    public String Asignacion_de_cartera;
+    public String Reporte_consejo;
+    public String Reporte_de_procuradores;
+    public String Reporte_de_pagos;
+    public String Reporte_irrecuperabilidad;
+    public String Notificados_por_actor_y_garantia;
+    public String Liquidacion_de_gastos_de_demanda;
+    public String Reporte_deudores_contactados;
+    public String Reporte_historial_de_gestiones;
+    public String Reporte_calificacion_casos;
+    public String Reporte_revision_convenios;
+    public String Reporte_eventos;
+    public String Cartera;
+    public String Permisos_Expediente;
+    public String Carga_gestion_cobros;
 
     @PostConstruct
     public void init() {
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             this.usuario = session.getAttribute("id_usuario").toString();
+            this.ambiente = session.getAttribute("ambiente").toString();
 
             listucha = new ArrayList<>();
 
@@ -36,7 +103,7 @@ public class acceso_menu implements Serializable {
                     + "LEFT OUTER JOIN usuario ON (rol_menu.rol = usuario.rol) "
                     + "LEFT OUTER JOIN menu ON (rol_menu.menu = menu.menu) "
                     + "where usuario.nombre='" + this.usuario + "'";
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql, "LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -244,76 +311,17 @@ public class acceso_menu implements Serializable {
                     case "Permisos Expediente":
                         Permisos_Expediente = listucha.get(i).getVer();
                         break;
+                    case "Carga gestion cobros":
+                        Carga_gestion_cobros = listucha.get(i).getVer();
+                        break;    
                     default:
                         System.out.println("Not in 10, 20 or 30");
                 }
             }
         } catch (Exception ex) {
-
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", ex.toString()));
+            System.out.println("ERROR => AppLexcomCargas-Permisos_Usuario(init): " + ex.toString());
         }
     }
-
-    public String Inicio;
-    public String Usuarios;
-    public String Permisos_Usuarios;
-    public String Rol;
-    public String Permisos_Rol;
-    public String Constantes;
-    public String Corporaciones;
-    public String Actores;
-    public String Deudores;
-    public String Juzgados;
-    public String Garantias;
-    public String Bancos;
-    public String Estados_judicial;
-    public String Status_judicial;
-    public String Estados_extrajudicial;
-    public String Status_extrajudicial;
-    public String Tipos_de_Descuento;
-    public String Tipos_de_Aumento;
-    public String Frases_Predeterminadas;
-    public String Tipos_Codigo_Resultado;
-    public String Codigos_de_Resultado;
-    public String Estado_Status_Judicial;
-    public String Estado_Status_Extrajudicial;
-    public String Estado_Status_Extrajudicial_Bloqueo;
-    public String Tipo_Resultado_Resultado;
-    public String Asignacion_Cartera;
-    public String Expedientes_Asignados;
-    public String Expedientes;
-    public String Juicios;
-    public String Archivo_deudores_carga;
-    public String Archivo_deudores_actualizacion;
-    public String Archivo_rotacion_de_cartera_automatico;
-    public String Archivo_rotacion_de_cartera_manual;
-    public String Archivo_carga_de_pagos_masivos;
-    public String Archivo_presentar_demanda;
-    public String Archivo_caratula;
-    public String Archivo_medidas_precautorias;
-    public String Archivo_diligenciar_medidas;
-    public String Carga_masiva_deudores;
-    public String Carga_actualizacion_masiva_deudores;
-    public String Carga_rotacion_de_cartera;
-    public String Carga_de_pagos_masivos;
-    public String Carga_masiva_presentar_demanda;
-    public String Carga_masiva_caratula;
-    public String Carga_masiva_medidas_precautorias;
-    public String Carga_masiva_diligenciar_medidas;
-    public String Pagos_por_gestor_y_garantia;
-    public String Pagos_por_antigüedad_y_garantia;
-    public String Asignacion_de_cartera;
-    public String Reporte_consejo;
-    public String Reporte_de_procuradores;
-    public String Reporte_de_pagos;
-    public String Reporte_irrecuperabilidad;
-    public String Notificados_por_actor_y_garantia;
-    public String Liquidacion_de_gastos_de_demanda;
-    public String Reporte_deudores_contactados;
-    public String Reporte_historial_de_gestiones;
-    public String Reporte_calificacion_casos;
-    public String Reporte_revision_convenios;
-    public String Reporte_eventos;
-    public String Cartera;
-    public String Permisos_Expediente;
 
 }

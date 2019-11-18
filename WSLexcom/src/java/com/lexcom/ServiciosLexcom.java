@@ -14741,4 +14741,243 @@ public class ServiciosLexcom implements Serializable {
         return resultado;
     }
     
+    /**
+     *
+     * @param usuario_sys
+     * @param archivo
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Carga_Gestiones_Cobros")
+    public String Carga_Gestiones_Cobros(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "archivo") String archivo,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = null;
+        Integer linea_error = 1;
+        Integer filas;
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+
+        try {
+            //Formatos Integer, Double y Date.
+            DecimalFormat formatoInteger = new DecimalFormat("#");
+            DecimalFormat formatoDouble = new DecimalFormat("#0.00");
+            SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoDate1 = new SimpleDateFormat("yyyy-MM-dd");
+            formatoDate.setLenient(false);
+            formatoDate1.setLenient(false);
+
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            //Selecciona el archivo excel para leerlo.
+            File excel = new File(archivo);
+            FileInputStream fis = new FileInputStream(excel);
+            XSSFWorkbook wb = new XSSFWorkbook(fis);
+            XSSFSheet ws = wb.getSheetAt(0);
+
+            filas = ws.getLastRowNum() + 1;
+
+            for (Integer i = 1; i < filas; i++) {
+                linea_error = i + 1;
+
+                XSSFRow row = ws.getRow(i);
+
+                //LEER CAMPOS DEL ARCHIVO EXCEL.
+                XSSFCell deudor = row.getCell(0);
+                XSSFCell fecha = row.getCell(1);
+                XSSFCell hora = row.getCell(2);
+                XSSFCell usuario = row.getCell(3);
+                XSSFCell codigo_resultado = row.getCell(4);
+                XSSFCell contacto = row.getCell(5);
+                XSSFCell descripcion = row.getCell(6);
+                
+                Integer db_deudor = 0;
+                try {
+                    db_deudor = Integer.parseInt(formatoInteger.format(Double.parseDouble(deudor.toString().trim())));
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select d.deudor from deudor d where d.deudor=" + db_deudor);
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    if(!existe) {
+                        throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+
+                Date db_fecha = new Date(1900, 0, 1);
+                if (fecha != null) {
+                    try {
+                        db_fecha = fecha.getDateCellValue();
+                        formatoDate.format(db_fecha);
+                    } catch (Exception ex) {
+                        throw new Exception("Error al calcular el campo Fecha de gestión en la linea: " + linea_error + " Exception: " + ex.toString());
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Fecha de gestión en la linea: " + linea_error);
+                }
+
+                String db_hora = "";
+                if (hora != null) {
+                    db_hora = hora.toString().trim();
+                    if (db_hora.equals("")) {
+                        throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                    } else {
+                        if(db_hora.length() != 8) {
+                            throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                        } else {
+                            try {
+                                Integer hora_num = Integer.parseInt(db_hora.substring(0, 2));
+                                Integer minuto_num = Integer.parseInt(db_hora.substring(3, 5));
+                                Integer segundo_num = Integer.parseInt(db_hora.substring(6, 8));
+                                if(hora_num < 0 && hora_num > 23) {
+                                    throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                                }
+                                if(minuto_num < 0 && minuto_num > 59) {
+                                    throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                                }
+                                if(segundo_num < 0 && segundo_num > 59) {
+                                    throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                                }
+                            } catch(Exception ex_hora) {
+                                throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                            }
+                        }
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                }
+
+                Integer db_usuario = 0;
+                try {
+                    db_usuario = Integer.parseInt(formatoInteger.format(Double.parseDouble(usuario.toString().trim())));
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select u.usuario from usuario u where u.usuario=" + db_usuario);
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    if(!existe) {
+                        throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+
+                Integer db_codigo_contactabilidad = 0;
+                try {
+                    db_codigo_contactabilidad = Integer.parseInt(formatoInteger.format(Double.parseDouble(codigo_resultado.toString().trim())));
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select cc.codigo_contactabilidad from codigo_contactabilidad cc where cc.codigo_contactabilidad=" + db_codigo_contactabilidad);
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    if(!existe) {
+                        throw new Exception("Error al calcular el campo Código de Resultado Usuario en la linea: " + linea_error);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Código de Resultado en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+                
+                String db_contacto = "";
+                if (contacto != null) {
+                    db_contacto = contacto.toString().trim();
+                    if (db_contacto.equals("")) {
+                        throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                    } else {
+                        if(!db_contacto.equals("SI") || !db_contacto.equals("NO")) {
+                            throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                        }
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                }
+                
+                String db_descripcion = "";
+                if (descripcion != null) {
+                    db_descripcion = descripcion.toString().trim();
+                    if (db_descripcion.equals("")) {
+                        throw new Exception("Error al calcular el campo Descripción de gestión en la linea: " + linea_error);
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Descripción de gestión en la linea: " + linea_error);
+                }
+
+                //Carga estructura DEUDORES.
+                Deudores_Gestion_Cobro deu_ges_cob = new Deudores_Gestion_Cobro(
+                        db_deudor,
+                        db_fecha,
+                        db_hora,
+                        db_usuario,
+                        db_codigo_contactabilidad,
+                        db_descripcion,
+                        db_contacto);
+
+                //Cargar pagos al sistema.
+                String cadenasql = "insert deudor_historial_cobros ("
+                        + "deudor, "
+                        + "fecha, "
+                        + "hora, "
+                        + "usuario, "
+                        + "codigo_contactabilidad, "
+                        + "descripcion, "
+                        + "contacto) values ("
+                        + deu_ges_cob.getDeudor() + ",'"
+                        + formatoDate1.format(deu_ges_cob.getFecha()) + "','"
+                        + deu_ges_cob.getHora() + "',"
+                        + deu_ges_cob.getUsuario() + ","
+                        + deu_ges_cob.getCodigo_contactabilidad() + ",'"
+                        + deu_ges_cob.getDescripcion() + "','"
+                        + deu_ges_cob.getContacto() + "')";
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
+
+            //Inserta el evento en la bitacora de eventos del sistema.
+            String cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "Carga masiva gestión cobros." + "',"
+                    + "153" + ")";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Carga masiva gestion de cobros exitosa.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros): " + ex.toString());
+                conn.rollback();
+                resultado = "Error linea(" + linea_error + "): " + ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros - rollback): " + ex1.toString());
+                resultado = "ERROR ROLLBACK: " + ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
 }

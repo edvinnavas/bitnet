@@ -1,4 +1,6 @@
-package com.lexcom_cargas;;
+package com.lexcom_cargas;
+
+;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,11 +23,14 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
+
+
 public class Driver implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private final String path;
-    
+
     public Driver() {
         //this.path = "C:\\lex\\";
         //this.path = "C:\\Users\\Edvin\\Desktop\\";
@@ -35,17 +40,17 @@ public class Driver implements Serializable {
         //this.path = "/home/administrador/ReportesLexcom/";
         this.path = "/home/administrador/ReportesLexcom/";
     }
-    
+
     public String getPath() {
         return path;
     }
-    
-    public List<SelectItem> lista_SelectItem(String cadenasql) {
+
+    public List<SelectItem> lista_SelectItem(String cadenasql, String ambiente) {
         List<SelectItem> lista = new ArrayList<>();
-        
+
         try {
             Servicio servicio = new Servicio();
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql,"LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -56,7 +61,7 @@ public class Driver implements Serializable {
                 }
             }
 
-            for(Integer i = 1; i < filas; i++) {
+            for (Integer i = 1; i < filas; i++) {
                 lista.add(new SelectItem(vector_result[i][0], vector_result[i][1]));
             }
             lista.add(new SelectItem("TODOS", "TODOS"));
@@ -66,12 +71,12 @@ public class Driver implements Serializable {
 
         return lista;
     }
-    
+
     public List<String> convertir_array_to_list(String[] array) {
         List<String> lista = new ArrayList<>();
-        
+
         try {
-            for(Integer i = 0; i < array.length; i++) {
+            for (Integer i = 0; i < array.length; i++) {
                 lista.add(array[i]);
             }
         } catch (Exception ex) {
@@ -80,13 +85,13 @@ public class Driver implements Serializable {
 
         return lista;
     }
-    
-    public List<String> lista_StringItem(String cadenasql) {
+
+    public List<String> lista_StringItem(String cadenasql, String ambiente) {
         List<String> lista = new ArrayList<>();
-        
+
         try {
             Servicio servicio = new Servicio();
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql,"LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -97,7 +102,7 @@ public class Driver implements Serializable {
                 }
             }
 
-            for(Integer i = 1; i < filas; i++) {
+            for (Integer i = 1; i < filas; i++) {
                 lista.add(vector_result[i][0]);
             }
         } catch (Exception ex) {
@@ -106,13 +111,13 @@ public class Driver implements Serializable {
 
         return lista;
     }
-    
-    public List<SelectItem> lista_SelectItem_simple(String cadenasql) {
+
+    public List<SelectItem> lista_SelectItem_simple(String cadenasql, String ambiente) {
         List<SelectItem> lista = new ArrayList<>();
-        
+
         try {
             Servicio servicio = new Servicio();
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql,"LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -123,7 +128,7 @@ public class Driver implements Serializable {
                 }
             }
 
-            for(Integer i = 1; i < filas; i++) {
+            for (Integer i = 1; i < filas; i++) {
                 lista.add(new SelectItem(vector_result[i][0], vector_result[i][1]));
             }
         } catch (Exception ex) {
@@ -132,10 +137,10 @@ public class Driver implements Serializable {
 
         return lista;
     }
-    
+
     public List<SelectItem> lista_paises() {
         List<SelectItem> lst_pais = new ArrayList<>();
-        
+
         try {
             lst_pais.add(new SelectItem("Guatemala", "Guatemala"));
             lst_pais.add(new SelectItem("Afganistán", "Afganistán"));
@@ -399,10 +404,10 @@ public class Driver implements Serializable {
 
         return lst_pais;
     }
-    
+
     public List<SelectItem> lista_departamentos() {
         List<SelectItem> lst_departamento = new ArrayList<>();
-        
+
         try {
             lst_departamento.add(new SelectItem("Guatemala", "Guatemala"));
             lst_departamento.add(new SelectItem("Alta Verapaz", "Alta Verapaz"));
@@ -433,10 +438,10 @@ public class Driver implements Serializable {
 
         return lst_departamento;
     }
-    
+
     public List<SelectItem> lista_cosechas() {
         List<SelectItem> lst_cosecha = new ArrayList<>();
-        
+
         try {
             lst_cosecha.add(new SelectItem("0 antes 31 dic 2008", "0 antes 31 dic 2008"));
             lst_cosecha.add(new SelectItem("2009 1er t", "2009 1er t"));
@@ -489,10 +494,10 @@ public class Driver implements Serializable {
 
         return lst_cosecha;
     }
-    
+
     public List<SelectItem> lista_sexo() {
         List<SelectItem> lst_sexo = new ArrayList<>();
-        
+
         try {
             lst_sexo.add(new SelectItem("MASCULINO", "MASCULINO"));
             lst_sexo.add(new SelectItem("FEMENINO", "FEMENINO"));
@@ -503,10 +508,10 @@ public class Driver implements Serializable {
 
         return lst_sexo;
     }
-    
+
     public List<SelectItem> lista_estado_civil() {
         List<SelectItem> lst_estado_civil = new ArrayList<>();
-        
+
         try {
             lst_estado_civil.add(new SelectItem("SOLTERO", "SOLTERO"));
             lst_estado_civil.add(new SelectItem("CASADO", "CASADO"));
@@ -517,10 +522,10 @@ public class Driver implements Serializable {
 
         return lst_estado_civil;
     }
-    
+
     public List<SelectItem> lista_moneda() {
         List<SelectItem> lst_moneda = new ArrayList<>();
-        
+
         try {
             lst_moneda.add(new SelectItem("QUETZAL", "QUETZAL"));
             lst_moneda.add(new SelectItem("DOLLAR", "DOLLAR"));
@@ -530,10 +535,10 @@ public class Driver implements Serializable {
 
         return lst_moneda;
     }
-    
+
     public List<SelectItem> lista_cargado() {
         List<SelectItem> lst_cargado = new ArrayList<>();
-        
+
         try {
             lst_cargado.add(new SelectItem("CARGADO", "CARGADO"));
             lst_cargado.add(new SelectItem("DESCARGADO", "DESCARGADO"));
@@ -543,10 +548,23 @@ public class Driver implements Serializable {
 
         return lst_cargado;
     }
-    
+
+    public List<SelectItem> lista_ambientes() {
+        List<SelectItem> lst_ambientes = new ArrayList<>();
+
+        try {
+            lst_ambientes.add(new SelectItem("LEXCOMJNDI", "Producción"));
+            lst_ambientes.add(new SelectItem("LexcomJndiTEST", "Pruebas"));
+        } catch (Exception ex) {
+            lst_ambientes.add(new SelectItem("**ERROR**", "**ERROR**"));
+        }
+
+        return lst_ambientes;
+    }
+
     public List<SelectItem> lista_anticipo() {
         List<SelectItem> lst_anticipo = new ArrayList<>();
-        
+
         try {
             lst_anticipo.add(new SelectItem("NO", "NO"));
             lst_anticipo.add(new SelectItem("SI", "SI"));
@@ -558,10 +576,10 @@ public class Driver implements Serializable {
 
         return lst_anticipo;
     }
-    
+
     public List<SelectItem> lista_antiguedad() {
         List<SelectItem> lst_antiguedad = new ArrayList<>();
-        
+
         try {
             lst_antiguedad.add(new SelectItem("ORO", "ORO"));
             lst_antiguedad.add(new SelectItem("PLATA", "PLATA"));
@@ -572,10 +590,10 @@ public class Driver implements Serializable {
 
         return lst_antiguedad;
     }
-    
+
     public List<SelectItem> lista_notificado() {
         List<SelectItem> lst_notificado = new ArrayList<>();
-        
+
         try {
             lst_notificado.add(new SelectItem("SI", "SI"));
             lst_notificado.add(new SelectItem("NO", "NO"));
@@ -591,10 +609,10 @@ public class Driver implements Serializable {
 
         return lst_notificado;
     }
-    
+
     public List<SelectItem> lista_estado_promesa() {
         List<SelectItem> lst_estado_promesa = new ArrayList<>();
-        
+
         try {
             lst_estado_promesa.add(new SelectItem("NO LEIDO", "NO LEIDO"));
             lst_estado_promesa.add(new SelectItem("LEIDO", "LEIDO"));
@@ -604,10 +622,10 @@ public class Driver implements Serializable {
 
         return lst_estado_promesa;
     }
-    
+
     public List<SelectItem> lista_medida_arraigo() {
         List<SelectItem> lst_medida_arraigo = new ArrayList<>();
-        
+
         try {
             lst_medida_arraigo.add(new SelectItem("PEDIDO", "PEDIDO"));
             lst_medida_arraigo.add(new SelectItem("NO PEDIDO", "NO PEDIDO"));
@@ -620,10 +638,10 @@ public class Driver implements Serializable {
 
         return lst_medida_arraigo;
     }
-    
+
     public List<SelectItem> lista_medida_banco() {
         List<SelectItem> lst_medida_banco = new ArrayList<>();
-        
+
         try {
             lst_medida_banco.add(new SelectItem("PEDIDO", "PEDIDO"));
             lst_medida_banco.add(new SelectItem("NO PEDIDO", "NO PEDIDO"));
@@ -636,10 +654,10 @@ public class Driver implements Serializable {
 
         return lst_medida_banco;
     }
-    
+
     public List<SelectItem> lista_medida_finca() {
         List<SelectItem> lst_medida_finca = new ArrayList<>();
-        
+
         try {
             lst_medida_finca.add(new SelectItem("PENDIENTE", "PENDIENTE"));
             lst_medida_finca.add(new SelectItem("EN TRAMITE", "EN TRAMITE"));
@@ -655,10 +673,10 @@ public class Driver implements Serializable {
 
         return lst_medida_finca;
     }
-    
+
     public List<SelectItem> lista_medida_salario() {
         List<SelectItem> lst_medida_salario = new ArrayList<>();
-        
+
         try {
             lst_medida_salario.add(new SelectItem("PEDIDO", "PEDIDO"));
             lst_medida_salario.add(new SelectItem("NO PEDIDO", "NO PEDIDO"));
@@ -672,10 +690,10 @@ public class Driver implements Serializable {
 
         return lst_medida_salario;
     }
-    
+
     public List<SelectItem> lista_medida_vehiculo() {
         List<SelectItem> lst_medida_vehiculo = new ArrayList<>();
-        
+
         try {
             lst_medida_vehiculo.add(new SelectItem("PEDIDO", "PEDIDO"));
             lst_medida_vehiculo.add(new SelectItem("NO PEDIDO", "NO PEDIDO"));
@@ -688,10 +706,10 @@ public class Driver implements Serializable {
 
         return lst_medida_vehiculo;
     }
-    
+
     public List<SelectItem> lista_medida_otro() {
         List<SelectItem> lst_medida_otro = new ArrayList<>();
-        
+
         try {
             lst_medida_otro.add(new SelectItem("PEDIDO", "PEDIDO"));
             lst_medida_otro.add(new SelectItem("NO PEDIDO", "NO PEDIDO"));
@@ -704,10 +722,10 @@ public class Driver implements Serializable {
 
         return lst_medida_otro;
     }
-    
+
     public List<SelectItem> lista_periodo_rotacion() {
         List<SelectItem> lst_periodo_rotacion = new ArrayList<>();
-        
+
         try {
             lst_periodo_rotacion.add(new SelectItem(30, "30"));
             lst_periodo_rotacion.add(new SelectItem(45, "45"));
@@ -718,13 +736,13 @@ public class Driver implements Serializable {
 
         return lst_periodo_rotacion;
     }
-    
-    public Integer getInt(String cadenasql) {
+
+    public Integer getInt(String cadenasql, String ambiente) {
         Integer numero = 0;
-        
+
         try {
             Servicio servicio = new Servicio();
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql,"LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -735,7 +753,7 @@ public class Driver implements Serializable {
                 }
             }
 
-            for(Integer i = 1; i < filas; i++) {
+            for (Integer i = 1; i < filas; i++) {
                 numero = Integer.parseInt(vector_result[i][0]);
             }
         } catch (Exception ex) {
@@ -744,13 +762,13 @@ public class Driver implements Serializable {
 
         return numero;
     }
-    
-    public Double getDouble(String cadenasql) {
+
+    public Double getDouble(String cadenasql, String ambiente) {
         Double numero = 0.00;
-        
+
         try {
             Servicio servicio = new Servicio();
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql,"LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -761,7 +779,7 @@ public class Driver implements Serializable {
                 }
             }
 
-            for(Integer i = 1; i < filas; i++) {
+            for (Integer i = 1; i < filas; i++) {
                 numero = Double.parseDouble(vector_result[i][0]);
             }
         } catch (Exception ex) {
@@ -770,14 +788,14 @@ public class Driver implements Serializable {
 
         return numero;
     }
-    
-    public Date getDate(String cadenasql) {
+
+    public Date getDate(String cadenasql, String ambiente) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = new Date();
-        
+
         try {
             Servicio servicio = new Servicio();
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql,"LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -788,8 +806,7 @@ public class Driver implements Serializable {
                 }
             }
 
-            
-            for(Integer i = 1; i < filas; i++) {
+            for (Integer i = 1; i < filas; i++) {
                 fecha = formatter.parse(vector_result[i][0]);
             }
         } catch (Exception ex) {
@@ -798,13 +815,13 @@ public class Driver implements Serializable {
 
         return fecha;
     }
-    
-    public String getString(String cadenasql) {
+
+    public String getString(String cadenasql, String ambiente) {
         String resultado_string = "";
-        
+
         try {
             Servicio servicio = new Servicio();
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql,"LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -815,7 +832,7 @@ public class Driver implements Serializable {
                 }
             }
 
-            for(Integer i = 1; i < filas; i++) {
+            for (Integer i = 1; i < filas; i++) {
                 resultado_string = vector_result[i][0];
             }
         } catch (Exception ex) {
@@ -824,13 +841,13 @@ public class Driver implements Serializable {
 
         return resultado_string;
     }
-    
-    public String ValidarEstadoStatus(String cadenasql) {
+
+    public String ValidarEstadoStatus(String cadenasql, String ambiente) {
         String resultado_string = "INCORRECTO";
-        
+
         try {
             Servicio servicio = new Servicio();
-            java.util.List<ws.lexcomreportes.StringArray> resultado = servicio.reporte(cadenasql,"LEXCOMJNDI");
+            java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, ambiente);
 
             Integer filas = resultado.size();
             Integer columnas = resultado.get(0).getItem().size();
@@ -841,7 +858,7 @@ public class Driver implements Serializable {
                 }
             }
 
-            for(Integer i = 1; i < filas; i++) {
+            for (Integer i = 1; i < filas; i++) {
                 resultado_string = "CORRECTO";
             }
         } catch (Exception ex) {
@@ -850,7 +867,7 @@ public class Driver implements Serializable {
 
         return resultado_string;
     }
-    
+
     public void generar_reporte_excel(String fileName, String[][] reporte, Integer filas, Integer columnas) {
         try {
             WritableWorkbook workbook;
@@ -877,21 +894,21 @@ public class Driver implements Serializable {
                 Label label = new Label(j, 0, reporte[0][j], tableFormatBackgroundTitle);
                 wsheet.addCell(label);
             }
-            
+
             for (int i = 1; i < filas; i++) {
                 for (int j = 0; j < columnas; j++) {
                     Label label = new Label(j, i, reporte[i][j], tableFormatBackgroundBody);
                     wsheet.addCell(label);
                 }
             }
-            
+
             workbook.write();
             workbook.close();
         } catch (IOException | WriteException ex) {
             System.out.println(ex.toString());
         }
     }
-    
+
     public void generar_reporte_excel_1(String fileName, String[][] reporte, Integer filas, Integer columnas) {
         try {
             WritableWorkbook workbook;
@@ -934,11 +951,11 @@ public class Driver implements Serializable {
                 Label label = new Label(j, 0, reporte[0][j], tableFormatBackgroundTitle);
                 wsheet.addCell(label);
             }
-            
+
             for (int i = 1; i < filas; i++) {
                 for (int j = 0; j < columnas; j++) {
                     Label label = new Label(j, i, reporte[i][j], tableFormatBackgroundBody);
-                    
+
                     if (j == 32 || j == 31 || j == 24 || j == 25 || j == 42 || j == 1 || j == 27 || j == 45 || j == 41 || j == 16 || j == 23 || j == 28 || j == 29 || j == 40) {
                         label = new Label(j, i, reporte[i][j], tableFormatBackgroundLexcom);
                     }
@@ -948,15 +965,15 @@ public class Driver implements Serializable {
                     wsheet.addCell(label);
                 }
             }
-            
+
             workbook.write();
             workbook.close();
-        //} catch (IOException | WriteException ex) {
-            } catch (Exception ex) {
+            //} catch (IOException | WriteException ex) {
+        } catch (Exception ex) {
             System.out.println(ex.toString());
         }
     }
-    
+
     public void generar_reporte_excel_2(String fileName, String[][] reporte, Integer filas, Integer columnas) {
         try {
             WritableWorkbook workbook;
@@ -978,7 +995,7 @@ public class Driver implements Serializable {
             tableFormatBackgroundBody.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BLACK);
             tableFormatBackgroundBody.setFont(TableFormatBody);
             tableFormatBackgroundBody.setAlignment(Alignment.LEFT);
-            
+
             //FORMATO PARA LAS COLUMNAS QUE ENVIA EL BANCO.
             WritableFont TableFormatLexcom = new WritableFont(WritableFont.TIMES, 8, WritableFont.NO_BOLD, false, UnderlineStyle.NO_UNDERLINE, Colour.BLACK);
             WritableCellFormat tableFormatBackgroundLexcom = new WritableCellFormat();
@@ -991,12 +1008,12 @@ public class Driver implements Serializable {
                 Label label = new Label(j, 0, reporte[0][j], tableFormatBackgroundTitle);
                 wsheet.addCell(label);
             }
-            
+
             for (int i = 1; i < filas; i++) {
                 for (int j = 0; j < columnas; j++) {
                     Label label = new Label(j, i, reporte[i][j], tableFormatBackgroundBody);
                     //Label label = new Label(col, fila, rs.getString(col + 1), tableFormatBackgroundBody);
-                    
+
                     if (j == 6 || j == 7) {
                         label = new Label(j, i, reporte[i][j], tableFormatBackgroundLexcom);
                     }
@@ -1006,49 +1023,49 @@ public class Driver implements Serializable {
                     wsheet.addCell(label);
                 }
             }
-            
+
             workbook.write();
             workbook.close();
-        //} catch (IOException | WriteException ex) {
-            } catch (Exception ex) {
+            //} catch (IOException | WriteException ex) {
+        } catch (Exception ex) {
             System.out.println(ex.toString());
         }
     }
-    
-    public String dar_path_digitalizados(Integer constante) {
+
+    public String dar_path_digitalizados(Integer constante, String ambiente) {
         String resultado = "";
-        
+
         try {
-            resultado = this.getString("select c.valor from constantes c where c.constantes=" + constante);
-        } catch(Exception ex) {
+            resultado = this.getString("select c.valor from constantes c where c.constantes=" + constante, ambiente);
+        } catch (Exception ex) {
             System.out.println(ex.toString());
         }
-        
+
         return resultado;
     }
-    
-    public String dar_path_actor(Integer deudor) {
+
+    public String dar_path_actor(Integer deudor, String ambiente) {
         String resultado = "";
-        
+
         try {
-            resultado = this.getString("select a.digitalizados from actor a left join deudor d on (a.actor=d.actor) where d.deudor=" + deudor);
-        } catch(Exception ex) {
+            resultado = this.getString("select a.digitalizados from actor a left join deudor d on (a.actor=d.actor) where d.deudor=" + deudor, ambiente);
+        } catch (Exception ex) {
             System.out.println(ex.toString());
         }
-        
+
         return resultado;
     }
-    
-    public String dar_caso_deudor(Integer deudor) {
+
+    public String dar_caso_deudor(Integer deudor, String ambiente) {
         String resultado = "";
-        
+
         try {
-            resultado = this.getString("select d.caso from deudor d where d.deudor=" + deudor);
-        } catch(Exception ex) {
+            resultado = this.getString("select d.caso from deudor d where d.deudor=" + deudor, ambiente);
+        } catch (Exception ex) {
             System.out.println(ex.toString());
         }
-        
+
         return resultado;
     }
-    
+
 }

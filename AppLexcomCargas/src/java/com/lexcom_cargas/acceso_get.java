@@ -24,7 +24,7 @@ public class acceso_get implements Serializable {
 
     public String getpermiso(String menu) {
         String retorno = "false";
-        
+
         menu = menu.replaceAll(" ", "_");
         menu = menu.replaceAll("á", "a");
         menu = menu.replaceAll("é", "e");
@@ -46,5 +46,5 @@ public class acceso_get implements Serializable {
 
         return retorno;
     }
-    
+
 }

@@ -28,7 +28,7 @@
     </target>
     <target name="wsimport-client-ServiciosLexcom" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/ServiciosLexcom"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ServiciosLexcom" destdir="${build.generated.dir}/jax-wsCache/ServiciosLexcom" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/ServiciosLexcom/wsdl/localhost_9090/WSLexcom/ServiciosLexcom.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9090/WSLexcom/ServiciosLexcom?wsdl" xnocompile="true" xendorsed="true" package="ws.lexcomreportes">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ServiciosLexcom" destdir="${build.generated.dir}/jax-wsCache/ServiciosLexcom" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/ServiciosLexcom/wsdl/localhost_9090/WSLexcom/ServiciosLexcom.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9090/WSLexcom/ServiciosLexcom?WSDL" xnocompile="true" xendorsed="true" package="lexcom.ws">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/ServiciosLexcom/wsdl/localhost_9090/WSLexcom/ServiciosLexcom.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/ServiciosLexcom"/>
         </wsimport>
@@ -39,7 +39,7 @@
         </copy>
     </target>
     <target name="wsimport-client-clean-ServiciosLexcom" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/ws/lexcomreportes"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/lexcom/ws"/>
         <delete dir="${build.generated.dir}/jax-wsCache/ServiciosLexcom"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-ServiciosLexcom"/>
