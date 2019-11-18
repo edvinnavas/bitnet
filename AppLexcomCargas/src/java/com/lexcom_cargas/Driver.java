@@ -1,7 +1,5 @@
 package com.lexcom_cargas;
 
-;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -22,8 +20,6 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-
-
 
 public class Driver implements Serializable {
 
