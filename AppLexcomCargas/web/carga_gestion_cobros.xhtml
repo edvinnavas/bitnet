@@ -24,7 +24,7 @@
                             <p:fileUpload id="fupExcel" value="#{Carga_Masiva_Gestiones_Cobros.file}" mode="simple" skinSimple="true" label="Archivo"/>
                         </f:facet>
                         <f:facet name="footer">
-                            <p:commandButton id="btnCargar" value="Cargar" ajax="false" actionListener="#{Carga_Masiva_Gestiones_Cobros.cargar}" styleClass="ui-priority-primary" icon="ui-icon-refresh"/>
+                            <p:commandButton id="btnCargar" value="Cargar" ajax="false" actionListener="#{Carga_Masiva_Gestiones_Cobros.cargar}" styleClass="ui-priority-primary" icon="ui-icon-refresh" update="msgCarga"/>
                         </f:facet>
                     </h:panelGrid>
                     <p:outputLabel value="RECOMENTACIONES EN EL PROCESO DE CARGA DE INFORMACIÓN MASIVA AL SISTEMA." style="font-weight:bold ; width:100%; font-size:10px; text-align: center;"/>
@@ -39,6 +39,7 @@
                     <br/>
                     <p:outputLabel value="5. Todos los pagos son registrados con el banco BAM." style="font-weight:normal; width:100%; font-size:10px; text-align: center;"/>
                 </p:panel>
+                <p:messages id="msgCarga" showDetail="true" closable="true" autoUpdate="true"/>
             </h:form>
         </ui:composition>
     </h:body>

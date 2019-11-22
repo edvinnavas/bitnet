@@ -40,7 +40,6 @@ public class Carga_Masiva_Gestiones_Cobros implements Serializable {
     }
 
     public void constructor() {
-        System.out.println("ENTRO AQUI!!!");
         this.file = null;
     }
 

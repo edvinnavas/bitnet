@@ -14787,13 +14787,17 @@ public class ServiciosLexcom implements Serializable {
                 XSSFRow row = ws.getRow(i);
 
                 //LEER CAMPOS DEL ARCHIVO EXCEL.
-                XSSFCell deudor = row.getCell(0);
-                XSSFCell fecha = row.getCell(1);
-                XSSFCell hora = row.getCell(2);
-                XSSFCell usuario = row.getCell(3);
-                XSSFCell codigo_resultado = row.getCell(4);
-                XSSFCell contacto = row.getCell(5);
-                XSSFCell descripcion = row.getCell(6);
+                XSSFCell corporacion = row.getCell(0);
+                XSSFCell actor = row.getCell(1);
+                XSSFCell deudor = row.getCell(2);
+                XSSFCell caso = row.getCell(3);
+                XSSFCell cargado = row.getCell(4);
+                XSSFCell usuario = row.getCell(5);
+                XSSFCell fecha = row.getCell(6);
+                XSSFCell hora = row.getCell(7);
+                XSSFCell codigo_resultado = row.getCell(8);
+                XSSFCell contacto = row.getCell(9);
+                XSSFCell descripcion = row.getCell(10);
                 
                 Integer db_deudor = 0;
                 try {
@@ -14812,6 +14816,26 @@ public class ServiciosLexcom implements Serializable {
                 } catch (Exception ex) {
                     throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error + " Exception: " + ex.toString());
                 }
+                
+                Integer db_usuario = 0;
+                try {
+                    String db_usuario_nombre = usuario.toString().trim();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select u.usuario from usuario u where u.nombre='" + db_usuario_nombre + "'");
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        db_usuario = rs.getInt(1);
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    
+                    if(!existe) {
+                        throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
 
                 Date db_fecha = new Date(1900, 0, 1);
                 if (fecha != null) {
@@ -14829,64 +14853,47 @@ public class ServiciosLexcom implements Serializable {
                 if (hora != null) {
                     db_hora = hora.toString().trim();
                     if (db_hora.equals("")) {
-                        throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                        throw new Exception("Error al calcular el campo Hora (Espacio en blanco) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                     } else {
                         if(db_hora.length() != 8) {
-                            throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                            throw new Exception("Error al calcular el campo Hora (longitud diferente a 8) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                         } else {
                             try {
                                 Integer hora_num = Integer.parseInt(db_hora.substring(0, 2));
                                 Integer minuto_num = Integer.parseInt(db_hora.substring(3, 5));
                                 Integer segundo_num = Integer.parseInt(db_hora.substring(6, 8));
                                 if(hora_num < 0 && hora_num > 23) {
-                                    throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                                    throw new Exception("Error al calcular el campo Hora (hora) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                                 }
                                 if(minuto_num < 0 && minuto_num > 59) {
-                                    throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                                    throw new Exception("Error al calcular el campo Hora (minuto) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                                 }
                                 if(segundo_num < 0 && segundo_num > 59) {
-                                    throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                                    throw new Exception("Error al calcular el campo Hora (segundo) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                                 }
                             } catch(Exception ex_hora) {
-                                throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
+                                throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error + ", ex_hora" + " Valor: " + db_hora);
                             }
                         }
                     }
                 } else {
-                    throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error);
-                }
-
-                Integer db_usuario = 0;
-                try {
-                    db_usuario = Integer.parseInt(formatoInteger.format(Double.parseDouble(usuario.toString().trim())));
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("select u.usuario from usuario u where u.usuario=" + db_usuario);
-                    Boolean existe = false;
-                    while (rs.next()) {
-                        existe = true;
-                    }
-                    rs.close();
-                    stmt.close();
-                    if(!existe) {
-                        throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error);
-                    }
-                } catch (Exception ex) {
-                    throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error + " Exception: " + ex.toString());
+                    throw new Exception("Error al calcular el campo Hora (NULL) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                 }
 
                 Integer db_codigo_contactabilidad = 0;
                 try {
-                    db_codigo_contactabilidad = Integer.parseInt(formatoInteger.format(Double.parseDouble(codigo_resultado.toString().trim())));
+                    String db_codigo_contactabilidad_nombre = codigo_resultado.toString().trim();
                     Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("select cc.codigo_contactabilidad from codigo_contactabilidad cc where cc.codigo_contactabilidad=" + db_codigo_contactabilidad);
+                    ResultSet rs = stmt.executeQuery("select cc.codigo_contactabilidad from codigo_contactabilidad cc where cc.codigo='" + db_codigo_contactabilidad_nombre + "'");
                     Boolean existe = false;
                     while (rs.next()) {
+                        db_codigo_contactabilidad = rs.getInt(1);
                         existe = true;
                     }
                     rs.close();
                     stmt.close();
                     if(!existe) {
-                        throw new Exception("Error al calcular el campo Código de Resultado Usuario en la linea: " + linea_error);
+                        throw new Exception("Error al calcular el campo Código de Resultado Usuario en la linea: " + linea_error + " Valor: " + db_codigo_contactabilidad_nombre);
                     }
                 } catch (Exception ex) {
                     throw new Exception("Error al calcular el campo Código de Resultado en la linea: " + linea_error + " Exception: " + ex.toString());
@@ -14898,7 +14905,8 @@ public class ServiciosLexcom implements Serializable {
                     if (db_contacto.equals("")) {
                         throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
                     } else {
-                        if(!db_contacto.equals("SI") || !db_contacto.equals("NO")) {
+                        System.out.println("VALOR_2: " + db_contacto);
+                        if(!db_contacto.equals("SI") && !db_contacto.equals("NO")) {
                             throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
                         }
                     }
@@ -14962,7 +14970,7 @@ public class ServiciosLexcom implements Serializable {
             conn.commit();
             conn.setAutoCommit(true);
 
-            resultado = "Carga masiva gestion de cobros exitosa.";
+            resultado = "Carga masiva gestión de cobros exitosa.";
         } catch (Exception ex) {
             try {
                 System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros): " + ex.toString());
