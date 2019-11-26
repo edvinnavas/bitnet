@@ -14953,18 +14953,18 @@ public class ServiciosLexcom implements Serializable {
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
                 stmt.close();
+                
+                //Inserta el evento en la bitacora de eventos del sistema.
+                cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                        + usuario_sys + ","
+                        + "CURRENT_DATE()" + ","
+                        + "CURRENT_TIME()" + ",'"
+                        + "Carga masiva gestión cobros=[Deudor: " + deu_ges_cob.getDeudor() + ", Corporación: " + corporacion.toString().trim() + ", Actor: " + actor.toString().trim() + ", Caso: " + caso.toString().trim() + ", Cargado: " + cargado.toString().trim() + "]" + "',"
+                        + "153" + ")";
+                stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
             }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            String cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Carga masiva gestión cobros." + "',"
-                    + "153" + ")";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
 
             //Commit hacia la base de datos y cierra conexion.
             conn.commit();
