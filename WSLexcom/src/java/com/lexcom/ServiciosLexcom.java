@@ -14959,7 +14959,7 @@ public class ServiciosLexcom implements Serializable {
                         + usuario_sys + ","
                         + "CURRENT_DATE()" + ","
                         + "CURRENT_TIME()" + ",'"
-                        + "Carga masiva gestión cobros=[Deudor: " + deu_ges_cob.getDeudor() + ", Corporación: " + corporacion.toString().trim() + ", Actor: " + actor.toString().trim() + ", Caso: " + caso.toString().trim() + ", Cargado: " + cargado.toString().trim() + "]" + "',"
+                        + "Carga masiva gestión cobros=[Deudor: " + deu_ges_cob.getDeudor() + ", Corporación: " + corporacion.toString().trim() + ", Actor: " + actor.toString().trim() + ", Caso: " + caso.toString().trim() + ", Cargado: " + cargado.toString().trim() + ", Código Resultado: " + codigo_resultado.toString().trim() + "]" + "',"
                         + "153" + ")";
                 stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
