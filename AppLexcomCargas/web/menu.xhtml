@@ -42,6 +42,9 @@
                                 <p:menuitem id="mnuCargaMasivaDeligenciarMedidas" value="Carga masiva diligenciar medidas" update="@all" action="#{Menu.setPagina_seleccionada('carga_masiva_deligenciar_medidas')}" ajax="false" actionListener="#{Carga_Masiva_Deligenciar_Medidas.constructor}" style="font-size:12px; font-weight:bold;" rendered="#{accese_get.getpermiso('Carga masiva diligenciar medidas')}"/>
                             </p:submenu>
                         </p:submenu>
+                        <p:submenu label="Reportes" style="font-size:12px; font-weight:bold;">
+                            <p:menuitem id="mnuReporteIrrecuperabilidad" value="Reporte irrecuperabilidad" update="@all" action="#{Menu.setPagina_seleccionada('reporte_irrecuperabilidad')}" ajax="false" actionListener="#{Reporte_Irrecuperabilidad.constructor}" style="font-size:12px; font-weight:bold;" rendered="#{accese_get.getpermiso('Reporte irrecuperabilidad')}"/>
+                        </p:submenu>
                     </p:panelMenu>
                 </h:form>
             </p:layoutUnit>
