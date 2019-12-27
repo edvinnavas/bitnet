@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Pagos" language="groovy" pageWidth="2592" pageHeight="540" orientation="Landscape" columnWidth="2552" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="486"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="corporacion" class="java.lang.String"/>
+	<parameter name="fechac" class="java.lang.String">
+		<defaultValueExpression><![CDATA[($P{fecha}==null?"01/01/13":(new SimpleDateFormat("dd/MM/yy")).format(( new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH)).parse($P{fecha}.toString())))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafinc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[($P{fechafin}==null?"01/01/15":(new SimpleDateFormat("dd/MM/yy")).format(( new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH)).parse($P{fechafin}.toString())))]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+d.caso AS CASO,
+d.fecha_recepcion AS FECHA_RECEPCION,
+d.antiguedad AS ANTIGUEDAD,
+dhc.ULTIMA_GESTION AS ULTIMA_GESTION,
+CAST(d.no_cuenta AS CHAR) AS NO_CREDITO,
+CAST(d.no_cuenta_otro AS CHAR) AS OTRO_NO_CREDITO,
+d.saldo AS SALDO_AL_DIA,
+d.nombre AS NOMBRE_DEUDOR,
+e.nombre AS STATUS,
+s.nombre AS ESTADO,
+d.moneda AS MONEDA,
+d.monto_inicial AS MONTO_INICIAL,
+if(d.opcion_proximo_pago='SI', d.cuota_convenio, 0.00) AS CUOTA,
+pag.fecha_registro AS PAGO_REGISTRO,
+ban.nombre AS BANCO,
+pag.no_boleta AS NO_BOLETA,
+pag.fecha AS FECHA_BOLETA,
+pag.monto AS PAGO_MES,
+if(d.opcion_proximo_pago='SI',  DATE_FORMAT( d.fecha_proximo_pago,'%d-%m-%Y'), '01-01-1900') AS FECHA_PROXIMO_PAGO,
+g.nombre AS GARANTIA,
+u.nombre AS GESTOR,
+cc.nombre as CODIGO_CONTACTABILIDAD,
+a.nombre AS ACTOR
+from
+deudor d
+left join estatus e on (d.estatus=e.estatus)
+left join sestado s on (d.sestado=s.sestado)
+left join garantia g on (d.garantia=g.garantia)
+left join usuario u on (d.usuario=u.usuario)
+left join pago pag on (d.deudor=pag.deudor)
+left join banco ban on (pag.banco=ban.banco)
+left join codigo_contactabilidad cc on (d.codigo_contactabilidad=cc.codigo_contactabilidad)
+left join actor a on (d.actor=a.actor)
+left join cooperacion cor on (a.cooperacion=cor.cooperacion)
+left join (select
+dh.deudor AS DEUDOR,
+max(dh.fecha) AS ULTIMA_GESTION
+from
+deudor_historial_cobros dh
+group by
+dh.deudor) dhc on (d.deudor=dhc.DEUDOR)
+where
+(d.cargado='CARGADO') AND
+( pag.fecha_registro >=  STR_TO_DATE($P{fechac}, '%d/%m/%Y')  and pag.fecha_registro <= STR_TO_DATE($P{fechafinc}, '%d/%m/%Y') ) AND
+(pag.monto > 0.00) AND
+(cor.nombre like '%$P!{corporacion}%');]]>
+	</queryString>
+	<field name="CASO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHA_RECEPCION" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ANTIGUEDAD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ULTIMA_GESTION" class="java.sql.Date"/>
+	<field name="NO_CREDITO" class="java.lang.String"/>
+	<field name="OTRO_NO_CREDITO" class="java.lang.String"/>
+	<field name="SALDO_AL_DIA" class="java.lang.Double"/>
+	<field name="NOMBRE_DEUDOR" class="java.lang.String"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="ESTADO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MONEDA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MONTO_INICIAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CUOTA" class="java.lang.Double"/>
+	<field name="PAGO_REGISTRO" class="java.sql.Date"/>
+	<field name="BANCO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NO_BOLETA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHA_BOLETA" class="java.sql.Date"/>
+	<field name="PAGO_MES" class="java.lang.Double"/>
+	<field name="FECHA_PROXIMO_PAGO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GARANTIA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GESTOR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CODIGO_CONTACTABILIDAD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACTOR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="2552" height="33" forecolor="#BF2822" uuid="16adc3b2-6ba2-4475-b2f9-244641b99cca"/>
+				<box leftPadding="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de pagos.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="104" height="20" uuid="d39ef3c9-2f13-4502-8f1c-c630dba3ce74"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[CASO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="0" width="104" height="20" uuid="4cd4604a-936d-4557-a27c-b20db84f048e"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[FECHA_RECEPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="0" width="104" height="20" uuid="54bf7d6b-9f42-48bb-863e-5d3bfd56b23e"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[ANTIGUEDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="0" width="104" height="20" uuid="b2956c79-47f4-49ab-8d1e-589f515f9596"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[ULTIMA_GESTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="0" width="104" height="20" uuid="754f8655-b595-4a36-9d7e-a72ff2574cca"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[NO_CREDITO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="520" y="0" width="104" height="20" uuid="44a46dc6-58fe-4474-8668-e0ee3673f180"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[OTRO_NO_CREDITO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="624" y="0" width="104" height="20" uuid="08530c1d-a04a-41c3-b1c2-2fa0784db833"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[SALDO_AL_DIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="728" y="0" width="235" height="20" uuid="2b0e2544-3704-4451-b8fc-bffe2054bf34"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[NOMBRE_DEUDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="963" y="0" width="104" height="20" uuid="689c8080-4f1c-49bd-b1d7-ca423902c8e6"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1067" y="0" width="104" height="20" uuid="0c8ea5b7-14d3-4a63-9fbb-f890f9a4c30f"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1171" y="0" width="104" height="20" uuid="f9f65777-d6b7-4ae2-b846-9cad81c1aef3"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[MONEDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1275" y="0" width="104" height="20" uuid="8ce47e6a-5295-4cdd-a252-553cbd8ec339"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[MONTO_INICIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1379" y="0" width="104" height="20" uuid="c6029e3f-691f-4550-8a03-32fd765fc427"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[CUOTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1483" y="0" width="104" height="20" uuid="811b9216-009f-40de-b0cd-d3bdf93b8a2a"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[PAGO_REGISTRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1587" y="0" width="104" height="20" uuid="4c3c9abf-6e53-41ab-9f5c-a2bf6b7cdf66"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[BANCO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1691" y="0" width="104" height="20" uuid="24ff15ee-3cef-40e1-bbc0-172fda94467b"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[NO_BOLETA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1795" y="0" width="104" height="20" uuid="c4cb0ce5-3473-44fc-9083-eb6fbeb9bb8d"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[FECHA_BOLETA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1899" y="0" width="104" height="20" uuid="9eb5f644-6551-4df4-a43a-469a33d01a33"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[PAGO_MES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2003" y="0" width="133" height="20" uuid="69aa8d0a-670c-4116-be4b-1fb68e852a4a"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[FECHA_PROXIMO_PAGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2136" y="0" width="104" height="20" uuid="50842bfb-d27c-40d8-81a0-3093fe4953ff"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[GARANTIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2240" y="0" width="104" height="20" uuid="e0f627f5-df2c-4550-83d9-1419c03981f0"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[GESTOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2344" y="0" width="104" height="20" uuid="d05d9e6a-a090-42a2-989b-6989f8bc39e3"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[CODIGO_CONTACTABILIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2448" y="0" width="104" height="20" uuid="e46b54ce-0885-4c90-92c9-c0aa0d316660"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[ACTOR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="110" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="104" height="20" uuid="54ce1e9b-b126-426c-87de-fae95c273537"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CASO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="104" y="0" width="104" height="20" uuid="0a2fe27f-c389-4a1c-9a81-421471582374"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{FECHA_RECEPCION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="208" y="0" width="104" height="20" uuid="68d492d0-430e-4a3a-b52b-4efd31cc7dd9"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ANTIGUEDAD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="312" y="0" width="104" height="20" uuid="cf972e8a-35b3-495c-90ec-0de5987365ba"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ULTIMA_GESTION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="416" y="0" width="104" height="20" uuid="de57bcaa-33ca-4035-94d9-974cdf2bce89"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{NO_CREDITO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="520" y="0" width="104" height="20" uuid="4ff2cd9f-f5c7-4e0d-8aa3-5fdc8c099243"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{OTRO_NO_CREDITO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="624" y="0" width="104" height="20" uuid="05f64312-8b16-4c93-ac38-d781aab63c2c"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{SALDO_AL_DIA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="728" y="0" width="235" height="20" uuid="369c8f8b-b01b-4ffe-b8b4-6b084c9ff58c"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{NOMBRE_DEUDOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="963" y="0" width="104" height="20" uuid="de2f73fb-7e35-4ccb-940f-cb37af451634"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{STATUS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1067" y="0" width="104" height="20" uuid="d8a567cc-fd5e-4de2-b9eb-25e53c38ff62"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ESTADO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1171" y="0" width="104" height="20" uuid="208a4d56-2880-420f-9a3a-ec747b169255"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{MONEDA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1275" y="0" width="104" height="20" uuid="2208fa86-c5eb-4720-a82b-9b13d7f90625"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{MONTO_INICIAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1379" y="0" width="104" height="20" uuid="f4aadf05-fe71-4f39-99a4-7556ff59033b"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CUOTA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1483" y="0" width="104" height="20" uuid="8a24d83f-e76f-4cee-81a1-ad7af165a154"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{PAGO_REGISTRO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1587" y="0" width="104" height="20" uuid="a6e2576c-6539-451d-9415-ceca6dba3858"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{BANCO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1691" y="0" width="104" height="20" uuid="83923f60-082f-46f3-b44f-639fb6a25b29"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{NO_BOLETA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1795" y="0" width="104" height="20" uuid="5ebddc72-e0be-4bf7-84e9-faf1b6562813"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{FECHA_BOLETA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1899" y="0" width="104" height="20" uuid="6f96ac65-b2cd-48d8-83e4-3f1e70cd74ad"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{PAGO_MES}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="2003" y="0" width="133" height="20" uuid="cdc13cd6-4375-47fa-8092-8d1618f06922"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{FECHA_PROXIMO_PAGO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="2136" y="0" width="104" height="20" uuid="b9204478-4d62-44df-9581-d3b471d6e37c"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{GARANTIA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="2240" y="0" width="104" height="20" uuid="e4b7b06a-b06b-47b7-a43c-68ef035226a4"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{GESTOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="2344" y="0" width="104" height="20" uuid="546f36b1-80c9-44fd-8889-e83604e87680"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CODIGO_CONTACTABILIDAD}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="2448" y="0" width="104" height="20" uuid="35c2783c-7179-44eb-9bb4-eb66575a2628"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ACTOR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

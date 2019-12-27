@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Pagos_Gestor" language="groovy" pageWidth="1440" pageHeight="540" orientation="Landscape" columnWidth="1400" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="corporacion" class="java.lang.String"/>
+	<parameter name="fechac" class="java.lang.String">
+		<defaultValueExpression><![CDATA[($P{fecha}==null?"01/01/13":(new SimpleDateFormat("dd/MM/yy")).format(( new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH)).parse($P{fecha}.toString())))]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafinc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[($P{fechafin}==null?"01/01/13":(new SimpleDateFormat("dd/MM/yy")).format(( new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH)).parse($P{fechafin}.toString())))]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+                        d.cargado as CARGADO,
+                        u.nombre as GESTOR,
+                        g.nombre as GARANTIA,
+                        COUNT(p.monto) as PAGOMES,
+                        SUM(p.monto) as SUMADEPAGOMES
+                        from
+                        pago p
+                        left join deudor d on (p.deudor=d.deudor)
+                        left join usuario u on (d.usuario=u.usuario)
+                        left join garantia g on (d.garantia=g.garantia)
+                        left join actor a on (d.actor=a.actor)
+                        left join cooperacion c on (a.cooperacion=c.cooperacion)
+                        where
+                        (d.cargado='CARGADO') and
+
+( p.fecha >=  STR_TO_DATE($P{fechac}, '%d/%m/%Y')  and p.fecha <= STR_TO_DATE($P{fechafinc}, '%d/%m/%Y') ) and
+                        (p.monto > 0.00) and
+                        (c.nombre like '%$P!{corporacion}%')
+                        group by
+                        d.usuario,
+                        d.garantia
+                        order by
+                        d.cargado,
+                        u.nombre,
+                        g.nombre]]>
+	</queryString>
+	<field name="CARGADO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GESTOR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GARANTIA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAGOMES" class="java.lang.Long"/>
+	<field name="SUMADEPAGOMES" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1400" height="20" uuid="fc0e8fe6-f947-41cc-829e-746308f1b592"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Pagos Gesto Garantia]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="280" height="20" uuid="2ea02bc1-1adc-4b02-bc83-ea1a3efe4114"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[CARGADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="280" height="20" uuid="ccbf535c-a08e-4c37-94b5-c50d2f3d6988"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[GESTOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="560" y="0" width="280" height="20" uuid="a1dca7de-368d-438a-888e-d705b14e0f0d"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[GARANTIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="840" y="0" width="280" height="20" uuid="b7f57c54-d2c0-4a8f-a350-86a676251af0"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[NO. PAGOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1120" y="0" width="280" height="20" uuid="57197933-f79f-4af6-bf58-8d3fbc5936b9"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[SUMA PAGOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="280" height="20" uuid="855f6374-38a2-4a77-b954-054097c2eb33"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CARGADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="280" height="20" uuid="c631864d-068e-492b-a166-485fc263fc80"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{GESTOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="560" y="0" width="280" height="20" uuid="770ae580-b609-4910-8bc2-e5c0d0552b5d"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{GARANTIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="840" y="0" width="280" height="20" uuid="5fb0e07c-e12d-41b8-a49d-c85ee9337756"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{PAGOMES}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="1120" y="0" width="280" height="20" uuid="24cf7a5a-e84c-46ea-9260-20d47e5c1de6"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SUMADEPAGOMES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
