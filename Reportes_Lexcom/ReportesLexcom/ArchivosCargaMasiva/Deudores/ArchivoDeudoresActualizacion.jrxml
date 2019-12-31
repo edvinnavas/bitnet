@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoDeudoresActualizacion" pageWidth="5000" pageHeight="842" orientation="Landscape" columnWidth="5000" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="25f30453-a8f0-49bc-a183-0c7084720d0a">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<parameter name="ACTOR" class="java.lang.String">
+	<parameter name="corporacion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="actor" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="CARGADO" class="java.lang.String">
+	<parameter name="cargado" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -79,71 +82,256 @@ from
 deudor d
 left join juicio j on (d.deudor=j.deudor)
 left join actor a on (d.actor=a.actor)
+left join cooperacion c on (a.cooperacion=c.cooperacion)
 where
-a.nombre like '$P!{ACTOR}'  and
-d.cargado like '$P!{CARGADO}']]>
+c.nombre like '$P!{corporacion}' and
+a.nombre like '$P!{actor}' and
+d.cargado like '$P!{cargado}']]>
 	</queryString>
-	<field name="deudor" class="java.lang.Long"/>
-	<field name="actor" class="java.lang.Long"/>
-	<field name="moneda" class="java.lang.String"/>
-	<field name="dpi" class="java.lang.String"/>
-	<field name="nit" class="java.lang.String"/>
-	<field name="fecha_nacimiento" class="java.sql.Date"/>
-	<field name="nombre" class="java.lang.String"/>
-	<field name="nacionalidad" class="java.lang.String"/>
-	<field name="telefono_casa" class="java.lang.String"/>
-	<field name="telefono_celular" class="java.lang.String"/>
-	<field name="direccion" class="java.lang.String"/>
-	<field name="zona" class="java.lang.Integer"/>
-	<field name="pais" class="java.lang.String"/>
-	<field name="departamento" class="java.lang.String"/>
-	<field name="sexo" class="java.lang.String"/>
-	<field name="estado_civil" class="java.lang.String"/>
-	<field name="fecha_ingreso" class="java.sql.Date"/>
-	<field name="profesion" class="java.lang.String"/>
-	<field name="correo_electronico" class="java.lang.String"/>
-	<field name="lugar_trabajo" class="java.lang.String"/>
-	<field name="direccion_trabajo" class="java.lang.String"/>
-	<field name="telefono_trabajo" class="java.lang.String"/>
-	<field name="monto_inicial" class="java.lang.Double"/>
-	<field name="usuario" class="java.lang.Long"/>
-	<field name="sestado" class="java.lang.Long"/>
-	<field name="estatus" class="java.lang.Long"/>
-	<field name="sestado_extra" class="java.lang.Long"/>
-	<field name="estatus_extra" class="java.lang.Long"/>
-	<field name="intencion_pago" class="java.lang.Long"/>
-	<field name="no_cuenta" class="java.lang.String"/>
-	<field name="garantia" class="java.lang.Long"/>
-	<field name="cargado" class="java.lang.String"/>
-	<field name="estado" class="java.lang.String"/>
-	<field name="descripcion" class="java.lang.String"/>
-	<field name="codigo_contactabilidad" class="java.lang.Long"/>
-	<field name="caso" class="java.lang.Integer"/>
-	<field name="pdf" class="java.lang.String"/>
-	<field name="inv" class="java.lang.String"/>
-	<field name="maycom" class="java.lang.String"/>
-	<field name="nits" class="java.lang.String"/>
-	<field name="cosecha" class="java.lang.String"/>
-	<field name="no_cuenta_otro" class="java.lang.String"/>
-	<field name="descripcion_adicional" class="java.lang.String"/>
-	<field name="fecha_recepcion" class="java.sql.Date"/>
-	<field name="anticipo" class="java.lang.String"/>
-	<field name="antiguedad" class="java.lang.String"/>
-	<field name="fecha_proximo_pago" class="java.sql.Date"/>
-	<field name="monto_proximo_pago" class="java.lang.Double"/>
-	<field name="saldo" class="java.lang.Double"/>
-	<field name="convenio_pactado" class="java.lang.String"/>
-	<field name="cuota_convenio" class="java.lang.Double"/>
-	<field name="costas_pagadas" class="java.lang.String"/>
-	<field name="situacion_caso" class="java.lang.String"/>
-	<field name="opcion_proximo_pago" class="java.lang.String"/>
-	<field name="procuracion" class="java.lang.String"/>
-	<field name="fecha_demanda" class="java.sql.Date"/>
-	<field name="procurador" class="java.lang.Long"/>
-	<field name="juzgado" class="java.lang.Long"/>
-	<field name="no_juicio" class="java.lang.String"/>
-	<field name="notificador" class="java.lang.Integer"/>
-	<field name="monto" class="java.lang.Double"/>
+	<field name="deudor" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="deudor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="actor" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="actor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="moneda" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="moneda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="dpi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="dpi"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="nit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="fecha_nacimiento" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_nacimiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="nacionalidad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nacionalidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="telefono_casa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="telefono_casa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="telefono_celular" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="telefono_celular"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="direccion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="zona" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="zona"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="pais" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pais"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="departamento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="departamento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sexo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="estado_civil" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estado_civil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="fecha_ingreso" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_ingreso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="profesion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="profesion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="correo_electronico" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="correo_electronico"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="lugar_trabajo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="lugar_trabajo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="direccion_trabajo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="direccion_trabajo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="telefono_trabajo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="telefono_trabajo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="monto_inicial" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="monto_inicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="usuario" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="usuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="sestado" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="sestado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="estatus" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="estatus"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="sestado_extra" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="sestado_extra"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="estatus_extra" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="estatus_extra"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="intencion_pago" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="intencion_pago"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="no_cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="no_cuenta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="garantia" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="garantia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="cargado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cargado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="codigo_contactabilidad" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="codigo_contactabilidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="caso" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="caso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="pdf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pdf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="inv" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="inv"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="maycom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="maycom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="nits" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nits"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="cosecha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cosecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="no_cuenta_otro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="no_cuenta_otro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="descripcion_adicional" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descripcion_adicional"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="fecha_recepcion" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_recepcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="anticipo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="anticipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="antiguedad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="antiguedad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="fecha_proximo_pago" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_proximo_pago"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="monto_proximo_pago" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="monto_proximo_pago"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="saldo" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="saldo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="convenio_pactado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="convenio_pactado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="cuota_convenio" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="cuota_convenio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="costas_pagadas" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="costas_pagadas"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="situacion_caso" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="situacion_caso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="opcion_proximo_pago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="opcion_proximo_pago"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="procuracion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="procuracion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="fecha_demanda" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_demanda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="procurador" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="procurador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="juzgado" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="juzgado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="no_juicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="no_juicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="notificador" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="notificador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="monto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="monto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
 	<columnHeader>
 		<band height="21">
 			<staticText>

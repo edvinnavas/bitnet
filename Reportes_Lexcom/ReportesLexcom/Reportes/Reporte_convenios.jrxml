@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Convenios" language="groovy" pageWidth="3905" pageHeight="541" orientation="Landscape" columnWidth="3865" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Convenios" language="groovy" pageWidth="4515" pageHeight="541" orientation="Landscape" columnWidth="4475" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="1174"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="corporacion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="actor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cargado" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -61,7 +58,12 @@ ifnull(con.numero_cuotas,0) - (select ifnull(count(*),0) from pago p where p.deu
 se.nombre estado_judicial,
 es.nombre estatus_judicial,
 see.nombre estado_extrajudicial,
-ese.nombre estatus_extrajudicial
+ese.nombre estatus_extrajudicial,
+ifnull((select dhc.contacto from deudor_historial_cobros dhc where dhc.deudor_historial_cobros=get_id_ultima_gestion(deu.deudor)),'-') contacto,
+ifnull((select j.no_juicio from juicio j where j.deudor=deu.deudor),'-') no_juicio,
+trim(concat(deu.telefono_casa,' ',deu.telefono_celular,' ',deu.telefono_trabajo)) telefono,
+ifnull((select p.fecha from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),date('1900-01-01')) fecha_ultimo_pagpo,
+ifnull((select p.monto from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),0.00) monto_ultimo_pagpo
 from
 deudor deu
 left join garantia gar on (deu.garantia=gar.garantia)
@@ -75,58 +77,172 @@ left join estatus_extra ese on (deu.estatus_extra=ese.estatus_extra)
 left join (select c3.deudor, c3.convenio, c3.tipo_convenio, c3.estado, c3.fecha_creacion, c3.total_pagar, c3.cuota_inicial, c3.numero_cuotas, c3.frecuencia, c3.monto_cuota, c3.observacion, c3.interes, c3.mora, c3.gasto_otros, c3.rebaja_interes, c3.costas, c3.monto_costas, c3.total, c3.fecha_pago_inicial, c3.saldo from convenio c3 where (c3.deudor, c3.fecha_creacion, c3.convenio) in (select c2.deudor deudor, c2.fecha_creacion fecha_creacion, max(c2.convenio) convenio from convenio c2 where (c2.deudor,c2.fecha_creacion) in (select c1.deudor, max(c1.fecha_creacion) from convenio c1 group by c1.deudor) group by c2.deudor, c2.fecha_creacion)) con on (deu.deudor=con.deudor)
 left join (select (select c.deudor from convenio c where c.convenio=pp4.convenio) deudor, pp4.convenio, pp4.promesa_pago, pp4.estado_promesa from convenio_detalle pp4 where (pp4.convenio, pp4.fecha_pago, pp4.hora_pago, pp4.promesa_pago) in (select pp3.convenio, pp3.fecha_pago, pp3.hora_pago, max(pp3.promesa_pago) numero from convenio_detalle pp3 where (pp3.convenio, pp3.fecha_pago, pp3.hora_pago) in (select pp2.convenio, pp2.fecha_pago, max(pp2.hora_pago) from convenio_detalle pp2 where (pp2.convenio, pp2.fecha_pago) in (select pp1.convenio, max(pp1.fecha_pago) from convenio_detalle pp1 group by pp1.convenio) group by pp2.convenio, pp2.fecha_pago) group by pp3.convenio, pp3.fecha_pago, pp3.hora_pago) group by pp4.convenio, pp4.fecha_pago, pp4.hora_pago, pp4.promesa_pago) pro on (con.deudor=pro.deudor and con.convenio=pro.convenio)
 where
-deu.cargado='CARGADO' and 
-(cor.nombre like '$P!{corporacion}')]]>
+cor.nombre like '$P!{corporacion}' and
+cor.nombre like '$P!{actor}' and
+deu.cargado='$P!{cargado}']]>
 	</queryString>
-	<field name="actor" class="java.lang.String"/>
-	<field name="caso" class="java.lang.Integer"/>
-	<field name="fecha_recepcion" class="java.sql.Date"/>
-	<field name="antiguedad" class="java.lang.String"/>
-	<field name="garantia" class="java.lang.String"/>
-	<field name="gestor" class="java.lang.String"/>
-	<field name="no_cuenta" class="java.lang.String"/>
-	<field name="nombre_deudor" class="java.lang.String"/>
-	<field name="monto_inicial" class="java.lang.Double"/>
-	<field name="saldo" class="java.lang.Double"/>
-	<field name="pagos_acumulados" class="java.lang.Double"/>
-	<field name="tipo_convenio" class="java.lang.String"/>
-	<field name="estado_convenio" class="java.lang.String"/>
-	<field name="fecha_convenio" class="java.sql.Date"/>
-	<field name="saldo_convenio" class="java.math.BigDecimal"/>
-	<field name="interes" class="java.math.BigDecimal"/>
-	<field name="mora" class="java.math.BigDecimal"/>
-	<field name="gastos_otros" class="java.math.BigDecimal"/>
-	<field name="porcentaje_costas" class="java.math.BigDecimal"/>
-	<field name="q_monto_costas" class="java.math.BigDecimal"/>
-	<field name="rebaja_interes" class="java.math.BigDecimal"/>
-	<field name="total_convenio" class="java.math.BigDecimal"/>
-	<field name="q_pago_inicial" class="java.math.BigDecimal"/>
-	<field name="total_pagar" class="java.math.BigDecimal"/>
-	<field name="cantidad_cuotas" class="java.lang.Long"/>
-	<field name="frecuencia_cuotas" class="java.lang.String"/>
-	<field name="monto_cuota" class="java.math.BigDecimal"/>
-	<field name="convenio_pactado" class="java.lang.String"/>
-	<field name="fecha_pago_inicial" class="java.sql.Date"/>
-	<field name="estado_pp" class="java.lang.String"/>
-	<field name="f_prox_cuota" class="java.sql.Date"/>
-	<field name="q_prox_cuota" class="java.lang.Double"/>
-	<field name="promesas_cumplidas" class="java.lang.Long"/>
-	<field name="promesas_incumplidas" class="java.lang.Long"/>
-	<field name="ultimo_pago" class="java.sql.Date"/>
-	<field name="cant_pagos_convenio" class="java.lang.Long"/>
-	<field name="q_pagos_convenio" class="java.lang.Double"/>
-	<field name="cuotas_pendientes" class="java.lang.Long"/>
-	<field name="estado_judicial" class="java.lang.String"/>
-	<field name="estatus_judicial" class="java.lang.String"/>
-	<field name="estado_extrajudicial" class="java.lang.String"/>
-	<field name="estatus_extrajudicial" class="java.lang.String"/>
+	<field name="actor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="actor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="actor"/>
+	</field>
+	<field name="caso" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="caso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="fecha_recepcion" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_recepcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="antiguedad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="antiguedad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="garantia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="garantia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="garantia"/>
+	</field>
+	<field name="gestor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="gestor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+	</field>
+	<field name="no_cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="no_cuenta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="nombre_deudor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombre_deudor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="monto_inicial" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="monto_inicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="saldo" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="saldo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="pagos_acumulados" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="pagos_acumulados"/>
+	</field>
+	<field name="tipo_convenio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipo_convenio"/>
+	</field>
+	<field name="estado_convenio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estado_convenio"/>
+	</field>
+	<field name="fecha_convenio" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_convenio"/>
+	</field>
+	<field name="saldo_convenio" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="saldo_convenio"/>
+	</field>
+	<field name="interes" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="interes"/>
+	</field>
+	<field name="mora" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="mora"/>
+	</field>
+	<field name="gastos_otros" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="gastos_otros"/>
+	</field>
+	<field name="porcentaje_costas" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="porcentaje_costas"/>
+	</field>
+	<field name="q_monto_costas" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="q_monto_costas"/>
+	</field>
+	<field name="rebaja_interes" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="rebaja_interes"/>
+	</field>
+	<field name="total_convenio" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="total_convenio"/>
+	</field>
+	<field name="q_pago_inicial" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="q_pago_inicial"/>
+	</field>
+	<field name="total_pagar" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="total_pagar"/>
+	</field>
+	<field name="cantidad_cuotas" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cantidad_cuotas"/>
+	</field>
+	<field name="frecuencia_cuotas" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="frecuencia_cuotas"/>
+	</field>
+	<field name="monto_cuota" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="monto_cuota"/>
+	</field>
+	<field name="convenio_pactado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="convenio_pactado"/>
+	</field>
+	<field name="fecha_pago_inicial" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_pago_inicial"/>
+	</field>
+	<field name="estado_pp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estado_pp"/>
+	</field>
+	<field name="f_prox_cuota" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="f_prox_cuota"/>
+	</field>
+	<field name="q_prox_cuota" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="q_prox_cuota"/>
+	</field>
+	<field name="promesas_cumplidas" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="promesas_cumplidas"/>
+	</field>
+	<field name="promesas_incumplidas" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="promesas_incumplidas"/>
+	</field>
+	<field name="ultimo_pago" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="ultimo_pago"/>
+	</field>
+	<field name="cant_pagos_convenio" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cant_pagos_convenio"/>
+	</field>
+	<field name="q_pagos_convenio" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="q_pagos_convenio"/>
+	</field>
+	<field name="cuotas_pendientes" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cuotas_pendientes"/>
+	</field>
+	<field name="estado_judicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estado_judicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sestado"/>
+	</field>
+	<field name="estatus_judicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estatus_judicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estatus"/>
+	</field>
+	<field name="estado_extrajudicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estado_extrajudicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sestado_extra"/>
+	</field>
+	<field name="estatus_extrajudicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="estatus_extrajudicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estatus_extra"/>
+	</field>
+	<field name="contacto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="contacto"/>
+	</field>
+	<field name="no_juicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="no_juicio"/>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
+	</field>
+	<field name="fecha_ultimo_pagpo" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_ultimo_pagpo"/>
+	</field>
+	<field name="monto_ultimo_pagpo" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="monto_ultimo_pagpo"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="3584" height="33" forecolor="#BF2822" uuid="f58fb834-bef0-4c98-b8b4-aed0818805a6"/>
+				<reportElement x="0" y="0" width="4134" height="33" forecolor="#BF2822" uuid="f58fb834-bef0-4c98-b8b4-aed0818805a6"/>
 				<box leftPadding="10"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="26" isBold="true"/>
@@ -134,7 +250,7 @@ deu.cargado='CARGADO' and
 				<text><![CDATA[Reporte revisión convenios]]></text>
 			</staticText>
 			<textField pattern="MMMM d, yyyy">
-				<reportElement x="3584" y="0" width="280" height="33" uuid="1de63854-28bc-4c99-ab57-f05d4bda9a3f">
+				<reportElement x="4134" y="0" width="340" height="33" uuid="1de63854-28bc-4c99-ab57-f05d4bda9a3f">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
@@ -729,6 +845,86 @@ deu.cargado='CARGADO' and
 				</textElement>
 				<text><![CDATA[Estatus extrajudicial]]></text>
 			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="3864" y="0" width="70" height="45" uuid="4c3ae0c2-8934-4285-b173-90b49cfd7c75">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8bfecf0d-9c37-4a8f-964a-7c95fe30bed7"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contacto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="3934" y="0" width="200" height="45" uuid="3d04507f-f0dc-4a8e-88f9-776782aefa43">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="796ad61f-201c-4b72-ad15-35541a249126"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. juicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="4134" y="0" width="200" height="45" uuid="69f5194a-4378-4fef-be03-bc8a35cb0e87">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c8e6583b-868a-4c4d-91bd-79ef468a8618"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="4334" y="0" width="70" height="45" uuid="397141ef-f8a0-4690-9151-f5d33a01ac48">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71f76bc7-4fac-49b4-8707-088e4e59c76a"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha último pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="4404" y="0" width="70" height="45" uuid="f48594c1-ec10-4890-bbb6-7a69d68ad081">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c747fee7-c787-4d6f-8e24-11cb87731899"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto último pago]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -1284,6 +1480,76 @@ deu.cargado='CARGADO' and
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{estatus_extrajudicial}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="3864" y="0" width="70" height="30" uuid="b1815817-d03d-4f63-8ffe-30b6b260d70e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8bfecf0d-9c37-4a8f-964a-7c95fe30bed7"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{contacto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="3934" y="0" width="200" height="30" uuid="ef2c5494-3a44-4b37-8adf-d916564bac2e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="796ad61f-201c-4b72-ad15-35541a249126"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{no_juicio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="4134" y="0" width="200" height="30" uuid="81a0e83b-ccec-418f-b370-3ae37d64bb60">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c8e6583b-868a-4c4d-91bd-79ef468a8618"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement stretchType="RelativeToTallestObject" x="4334" y="0" width="70" height="30" uuid="c36628d1-e4ab-46ec-a71b-ddc2b588cfc5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71f76bc7-4fac-49b4-8707-088e4e59c76a"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{fecha_ultimo_pagpo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00#;(#,##0.00#-)">
+				<reportElement stretchType="RelativeToTallestObject" x="4404" y="0" width="70" height="30" uuid="61836a28-5cae-4260-843d-6630fe0fd6e6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c747fee7-c787-4d6f-8e24-11cb87731899"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{monto_ultimo_pagpo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

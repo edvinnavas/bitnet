@@ -50,7 +50,7 @@ YEAR(j.fecha) AÑO_PRESENTACION_DEMANDA,
 MONTH(j.fecha) MES_PRESENTACION_DEMANDA,
 j.no_juicio NO_JUICIO,
 (select max(fecha) from pago p where p.pago=get_id_ultimo_pago(d.deudor)) FECHA_ULTIMO_PAGO,
-(select cc.nombre from codigo_contactabilidad cc where cc.codigo_contactabilidad in (select dhc.codigo_contactabilidad from deudor_historial_cobros dhc where dhc.deudor_historial_cobros=get_id_ultima_gestion_contacto(d.deudor))) CODIGO_RESULTADO,
+(select cc.codigo from codigo_contactabilidad cc where cc.codigo_contactabilidad in (select dhc.codigo_contactabilidad from deudor_historial_cobros dhc where dhc.deudor_historial_cobros=get_id_ultima_gestion_contacto(d.deudor))) CODIGO_RESULTADO,
 (select dhc.fecha from deudor_historial_cobros dhc where dhc.deudor_historial_cobros=get_id_ultima_gestion_contacto(d.deudor)) FECHA_ULTIMO_CONTACTO,
 (select dhc.descripcion from deudor_historial_cobros dhc where dhc.deudor_historial_cobros=get_id_ultima_gestion_contacto(d.deudor)) DESCRIPCION_GESTION,
 (select jf.deligenciado from juicio_finca jf where jf.juicio=j.juicio and jf.correlativo=get_id_ultimo_finca_anotada(j.juicio)) ULTIMA_FECHA_FINCA,
@@ -669,7 +669,7 @@ c.nombre]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Código resultado]]></text>
+				<text><![CDATA[Último código resultado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="2300" y="0" width="75" height="33" uuid="0d1730e8-a2e7-43e3-ab96-bc7307e430ff">
@@ -1271,8 +1271,7 @@ c.nombre]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{FECHA_ULTIMO_CONTACTO} == null ? '-' : $F{FECHA_ULTIMO_CONTACTO}
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{FECHA_ULTIMO_CONTACTO} == null ? '-' : $F{FECHA_ULTIMO_CONTACTO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement stretchType="RelativeToTallestObject" x="2375" y="0" width="200" height="11" uuid="5fb2881a-0bda-4bca-981b-44b47e5d2253">

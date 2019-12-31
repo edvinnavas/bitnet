@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoCargaPagosMasivos" pageWidth="1900" pageHeight="842" columnWidth="1900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="eef91ff7-88fc-4848-9cb0-c4ebbc83f172">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<parameter name="corporacion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<parameter name="actor" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="garantia" class="java.lang.String">
+	<parameter name="cargado" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="cargado" class="java.lang.String">
+	<parameter name="garantia" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -46,10 +49,12 @@ left join sestado_extra se on (d.sestado_extra=se.sestado_extra)
 left join estatus_extra ee on (d.estatus_extra=ee.estatus_extra)
 left join actor a on (d.actor=a.actor)
 left join garantia g on (d.garantia=g.garantia)
+left join cooperacion c on (a.cooperacion=c.cooperacion)
 where
+(c.nombre like  '$P!{corporacion}') and
+(a.nombre like  '$P!{actor}') and
 (d.cargado like '$P!{cargado}') and
-(g.nombre like  '$P!{garantia}') and
-(a.nombre like  '$P!{actor}')]]>
+(g.nombre like  '$P!{garantia}')]]>
 	</queryString>
 	<field name="Deudor" class="java.lang.Long"/>
 	<field name="Actor" class="java.lang.String"/>
