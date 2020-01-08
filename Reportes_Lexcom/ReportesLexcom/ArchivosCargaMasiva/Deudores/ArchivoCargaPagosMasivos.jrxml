@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoCargaPagosMasivos" pageWidth="1900" pageHeight="842" columnWidth="1900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="eef91ff7-88fc-4848-9cb0-c4ebbc83f172">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoCargaPagosMasivos" pageWidth="2150" pageHeight="842" columnWidth="2150" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="eef91ff7-88fc-4848-9cb0-c4ebbc83f172">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="corporacion" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -38,7 +45,8 @@ e.nombre Estatus_judicial,
 se.nombre Estado_extrajudicial,
 ee.nombre Estatus_extrajudicial,
 d.saldo Saldo,
-d.situacion_caso Situacion_caso
+d.situacion_caso Situacion_caso,
+'texto descripción' Descripcion
 from
 deudor d
 left join juicio j on (d.deudor=j.deudor)
@@ -56,25 +64,80 @@ where
 (d.cargado like '$P!{cargado}') and
 (g.nombre like  '$P!{garantia}')]]>
 	</queryString>
-	<field name="Deudor" class="java.lang.Long"/>
-	<field name="Actor" class="java.lang.String"/>
-	<field name="Garantia" class="java.lang.String"/>
-	<field name="Caso" class="java.lang.Integer"/>
-	<field name="No_cuenta" class="java.lang.String"/>
-	<field name="Otro_no_cuenta" class="java.lang.String"/>
-	<field name="Nombre_deudor" class="java.lang.String"/>
-	<field name="Convenio_pactado" class="java.lang.String"/>
-	<field name="Fecha_pago" class="java.lang.String"/>
-	<field name="Monto_pago" class="java.math.BigDecimal"/>
-	<field name="Banco_pago" class="java.lang.Long"/>
-	<field name="No_boleta_pago" class="java.lang.String"/>
-	<field name="Juzgado" class="java.lang.String"/>
-	<field name="Estado_judicial" class="java.lang.String"/>
-	<field name="Estatus_judicial" class="java.lang.String"/>
-	<field name="Estado_extrajudicial" class="java.lang.String"/>
-	<field name="Estatus_extrajudicial" class="java.lang.String"/>
-	<field name="Saldo" class="java.lang.Double"/>
-	<field name="Situacion_caso" class="java.lang.String"/>
+	<field name="Deudor" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Deudor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Actor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Actor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="actor"/>
+	</field>
+	<field name="Garantia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Garantia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="garantia"/>
+	</field>
+	<field name="Caso" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Caso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="No_cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="No_cuenta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Otro_no_cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Otro_no_cuenta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Nombre_deudor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre_deudor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Convenio_pactado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Convenio_pactado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Fecha_pago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha_pago"/>
+	</field>
+	<field name="Monto_pago" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Monto_pago"/>
+	</field>
+	<field name="Banco_pago" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Banco_pago"/>
+	</field>
+	<field name="No_boleta_pago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="No_boleta_pago"/>
+	</field>
+	<field name="Juzgado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Juzgado"/>
+	</field>
+	<field name="Estado_judicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estado_judicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sestado"/>
+	</field>
+	<field name="Estatus_judicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estatus_judicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estatus"/>
+	</field>
+	<field name="Estado_extrajudicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estado_extrajudicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sestado_extra"/>
+	</field>
+	<field name="Estatus_extrajudicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estatus_extrajudicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estatus_extra"/>
+	</field>
+	<field name="Saldo" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="Saldo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Situacion_caso" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Situacion_caso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Descripcion"/>
+	</field>
 	<columnHeader>
 		<band height="22">
 			<staticText>
@@ -325,6 +388,21 @@ where
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Situación caso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1900" y="0" width="250" height="22" backcolor="#5AA66E" uuid="558ff518-9370-474f-8d76-caa33ed5804a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="037f7dd4-fcee-4778-9a97-9f654a5260b5"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -579,6 +657,21 @@ where
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Situacion_caso}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1900" y="0" width="250" height="11" backcolor="#5AA66E" uuid="04b52820-9dda-4e32-b81e-ac3324feebdf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="037f7dd4-fcee-4778-9a97-9f654a5260b5"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

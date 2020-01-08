@@ -2126,6 +2126,7 @@ public class ServiciosLexcom implements Serializable {
                 XSSFCell monto_pago = row.getCell(9);
                 XSSFCell banco_pago = row.getCell(10);
                 XSSFCell boleta_pago = row.getCell(11);
+                XSSFCell descripcion = row.getCell(19);
 
                 Integer db_deudor = 0;
                 try {
@@ -2169,6 +2170,16 @@ public class ServiciosLexcom implements Serializable {
                 } else {
                     db_boleta_pago = "BOL-SYS";
                 }
+                
+                String db_descripcion = "";
+                if (descripcion != null) {
+                    db_descripcion = descripcion.toString().trim();
+                    if (db_descripcion.equals("")) {
+                        db_descripcion = "Pago carga masiva.";
+                    }
+                } else {
+                    db_descripcion = "Pago carga masiva.";
+                }
 
                 //Carga estructura DEUDORES.
                 Deudores_Pagos_Masivos deu_car_mas = new Deudores_Pagos_Masivos(
@@ -2176,7 +2187,8 @@ public class ServiciosLexcom implements Serializable {
                         db_fecha_pago,
                         db_monto_pago,
                         db_banco_pago,
-                        db_boleta_pago);
+                        db_boleta_pago,
+                        db_descripcion);
 
                 //Cargar pagos al sistema.
                 String cadenasql = "insert into pago ("
@@ -2192,7 +2204,7 @@ public class ServiciosLexcom implements Serializable {
                         + formatoDate1.format(deu_car_mas.getFecha_pago()) + "','"
                         + deu_car_mas.getBoleta_pago() + "',"
                         + deu_car_mas.getMonto_pago() + ",'"
-                        + "Pago carga masiva." + "',"
+                        + deu_car_mas.getDescripcion() + "',"
                         + "CURRENT_DATE()" + ")";
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
