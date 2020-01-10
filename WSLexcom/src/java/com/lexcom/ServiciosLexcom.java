@@ -522,18 +522,21 @@ public class ServiciosLexcom implements Serializable {
                 String db_cosecha = "";
                 if (cosecha != null) {
                     db_cosecha = cosecha.toString().trim();
-                    if (!db_cosecha.equals("0 antes 31 dic 2008") && !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t")
-                            && !db_cosecha.equals("2009 4to t") && !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t")
-                            && !db_cosecha.equals("2010 4to t") && !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t")
-                            && !db_cosecha.equals("2011 4to t") && !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t")
-                            && !db_cosecha.equals("2012 4to t") && !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t")
-                            && !db_cosecha.equals("2013 4to t") && !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t")
-                            && !db_cosecha.equals("2014 4to t") && !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t")
-                            && !db_cosecha.equals("2015 4to t") && !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t")
-                            && !db_cosecha.equals("2016 4to t") && !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t")
-                            && !db_cosecha.equals("2017 4to t") && !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t")
-                            && !db_cosecha.equals("2018 4to t") && !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t")
-                            && !db_cosecha.equals("2019 4to ")) {
+                    if (!db_cosecha.equals("0 antes 31 dic 2008") && 
+                            !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t") && !db_cosecha.equals("2009 4to t") && 
+                            !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t") && !db_cosecha.equals("2010 4to t") && 
+                            !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t") && !db_cosecha.equals("2011 4to t") && 
+                            !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t") && !db_cosecha.equals("2012 4to t") && 
+                            !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t") && !db_cosecha.equals("2013 4to t") && 
+                            !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t") && !db_cosecha.equals("2014 4to t") && 
+                            !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t") && !db_cosecha.equals("2015 4to t") && 
+                            !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t") && !db_cosecha.equals("2016 4to t") && 
+                            !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t") && !db_cosecha.equals("2017 4to t") && 
+                            !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t") && !db_cosecha.equals("2018 4to t") && 
+                            !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t") && !db_cosecha.equals("2019 4to t") && 
+                            !db_cosecha.equals("2020 1er t") && !db_cosecha.equals("2020 2do t") && !db_cosecha.equals("2020 3er t") && !db_cosecha.equals("2020 4to t") && 
+                            !db_cosecha.equals("2021 1er t") && !db_cosecha.equals("2021 2do t") && !db_cosecha.equals("2021 3er t") && !db_cosecha.equals("2021 4to t") && 
+                            !db_cosecha.equals("2022 1er t") && !db_cosecha.equals("2022 2do t") && !db_cosecha.equals("2022 3er t") && !db_cosecha.equals("2022 4to t")) {
                         throw new Exception("Error al calcular el campo Cosecha en la linea: " + linea_error);
                     }
                 } else {
@@ -1425,18 +1428,21 @@ public class ServiciosLexcom implements Serializable {
                 String db_cosecha = "";
                 if (cosecha != null) {
                     db_cosecha = cosecha.toString().trim();
-                    if (!db_cosecha.equals("0 antes 31 dic 2008") && !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t")
-                            && !db_cosecha.equals("2009 4to t") && !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t")
-                            && !db_cosecha.equals("2010 4to t") && !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t")
-                            && !db_cosecha.equals("2011 4to t") && !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t")
-                            && !db_cosecha.equals("2012 4to t") && !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t")
-                            && !db_cosecha.equals("2013 4to t") && !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t")
-                            && !db_cosecha.equals("2014 4to t") && !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t")
-                            && !db_cosecha.equals("2015 4to t") && !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t")
-                            && !db_cosecha.equals("2016 4to t") && !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t")
-                            && !db_cosecha.equals("2017 4to t") && !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t")
-                            && !db_cosecha.equals("2018 4to t") && !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t")
-                            && !db_cosecha.equals("2019 4to ")) {
+                    if (!db_cosecha.equals("0 antes 31 dic 2008") && 
+                            !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t") && !db_cosecha.equals("2009 4to t") && 
+                            !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t") && !db_cosecha.equals("2010 4to t") && 
+                            !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t") && !db_cosecha.equals("2011 4to t") && 
+                            !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t") && !db_cosecha.equals("2012 4to t") && 
+                            !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t") && !db_cosecha.equals("2013 4to t") && 
+                            !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t") && !db_cosecha.equals("2014 4to t") && 
+                            !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t") && !db_cosecha.equals("2015 4to t") && 
+                            !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t") && !db_cosecha.equals("2016 4to t") && 
+                            !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t") && !db_cosecha.equals("2017 4to t") && 
+                            !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t") && !db_cosecha.equals("2018 4to t") && 
+                            !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t") && !db_cosecha.equals("2019 4to t") && 
+                            !db_cosecha.equals("2020 1er t") && !db_cosecha.equals("2020 2do t") && !db_cosecha.equals("2020 3er t") && !db_cosecha.equals("2020 4to t") && 
+                            !db_cosecha.equals("2021 1er t") && !db_cosecha.equals("2021 2do t") && !db_cosecha.equals("2021 3er t") && !db_cosecha.equals("2021 4to t") && 
+                            !db_cosecha.equals("2022 1er t") && !db_cosecha.equals("2022 2do t") && !db_cosecha.equals("2022 3er t") && !db_cosecha.equals("2022 4to t")) {
                         throw new Exception("Error al calcular el campo Cosecha en la linea: " + linea_error);
                     }
                 } else {
