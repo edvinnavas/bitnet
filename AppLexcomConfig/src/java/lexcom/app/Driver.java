@@ -28,11 +28,11 @@ public class Driver implements Serializable {
     private final String path;
     
     public Driver() {
-        //this.path = "C:\\lex\\";
-        //this.path = "C:\\Users\\Edvin\\Desktop\\";
-        //this.path = "C:\\Users\\enavas\\Desktop\\";
-        //this.path = "/home/lexcomadmin/ReportesLexcom/";
-        //this.path = "/home/edvin/ReportesLexcom/";
+        // this.path = "C:\\lex\\";
+        // this.path = "C:\\Users\\Edvin\\Desktop\\";
+        // this.path = "C:\\Users\\enavas\\Desktop\\";
+        // this.path = "/home/lexcomadmin/ReportesLexcom/";
+        // this.path = "/home/edvin/ReportesLexcom/";
         this.path = "/home/administrador/ReportesLexcom/";
     }
     

@@ -43,12 +43,12 @@ public class Driver implements Serializable {
     }
 
     public String[][] rotacion_automatica(Integer sys, Integer tipo_cartera) {
-        //Numero de filas del registro.
-        Integer numero_filas = this.cartera.getLongitud_lista();
-        String[][] resultado = new String[numero_filas + 1][18];
+        String[][] resultado = null;
         
         try {
             this.generar_rotacion(tipo_cartera);
+            Integer numero_filas = this.cartera.getLongitud_lista();
+            resultado = new String[numero_filas + 1][18];
             
             Integer fila = 0;
             resultado[fila][0] = "Deudor";
@@ -200,7 +200,6 @@ public class Driver implements Serializable {
                     + "(d1.cuota_convenio <= 0.00) and "
                     + "(u1.tipo_usuario = " + tipo_cartera + "))) "
                     + ") AS TABLA";
-
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(cadenasql);
             while (rs.next()) {
@@ -219,7 +218,6 @@ public class Driver implements Serializable {
                     + "d.cargado='CARGADO' and "
                     + "d.cuota_convenio <= 0.00 and "
                     + "u.tipo_usuario=" + tipo_cartera;
-            
             Lista3 asignacion_actual = new Lista3();
             stmt = conn.createStatement();
             rs = stmt.executeQuery(cadenasql);
