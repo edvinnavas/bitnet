@@ -49,12 +49,14 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
         this.cbxStatusJudicial.setSelectedItem(status_judicial);
         
         com.lexcom.driver.EstadoExtra DEstadoExtra = new com.lexcom.driver.EstadoExtra(this.conn, this.usuario);
-        this.cbxEstadoExtrajudicial.setModel(DEstadoExtra.dar_lista_comb());
-        this.cbxEstadoExtrajudicial.setSelectedItem(estado_extrajudicial);
+        this.cbxEstadoExtrajudicial.setModel(DEstadoExtra.dar_lista_comb_vacio());
+        this.cbxEstadoExtrajudicial.setSelectedItem("Seleccione...");
+        this.lbEstadoActual.setText(this.lbEstadoActual.getText() + " " + estado_extrajudicial);
         
         com.lexcom.driver.StatusExtra DStatusExtra = new com.lexcom.driver.StatusExtra(this.conn, this.usuario);
-        this.cbxStatusExtrajudicial.setModel(DStatusExtra.dar_lista_comb(this.cbxEstadoExtrajudicial.getSelectedItem().toString()));
-        this.cbxStatusExtrajudicial.setSelectedItem(status_extrajudicial);
+        this.cbxStatusExtrajudicial.setModel(DStatusExtra.dar_lista_comb_vacio(this.cbxEstadoExtrajudicial.getSelectedItem().toString()));
+        this.cbxStatusExtrajudicial.setSelectedItem("Seleccione...");
+        this.lbEstatusActual.setText(this.lbEstatusActual.getText() + " " + status_extrajudicial);
         
         com.lexcom.driver.Intencion_Pago DIntencion_Pago = new com.lexcom.driver.Intencion_Pago(this.conn, this.usuario);
         this.cbxIntencionPago.setModel(DIntencion_Pago.dar_lista());
@@ -129,6 +131,13 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         cbxRazonDeuda = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        cbxEstadoExtrajudicial = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        cbxStatusExtrajudicial = new javax.swing.JComboBox();
+        lbEstadoActual = new javax.swing.JLabel();
+        lbEstatusActual = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         cbxGestionCodigo = new javax.swing.JComboBox();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -142,18 +151,13 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
         cbxEstadoJudicial = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         cbxStatusJudicial = new javax.swing.JComboBox();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        cbxEstadoExtrajudicial = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
-        cbxStatusExtrajudicial = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
         cbxTipoGestion = new javax.swing.JComboBox();
         btnGestionInsertar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("PRÓXIMA GESTIÓN");
+        setTitle("INSERTAR GESTIÓN.");
         setResizable(false);
 
         jLabel9.setText("Tipo de gestión:");
@@ -190,6 +194,63 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
 
         jLabel14.setText("Razón de deuda");
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Extrajudicial"));
+
+        jLabel6.setText("Estado");
+
+        cbxEstadoExtrajudicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEstadoExtrajudicialActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Estatus");
+
+        lbEstadoActual.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lbEstadoActual.setForeground(new java.awt.Color(-16776961,true));
+        lbEstadoActual.setText("Estado actual:");
+
+        lbEstatusActual.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lbEstatusActual.setForeground(new java.awt.Color(-16776961,true));
+        lbEstatusActual.setText("Estatus actual:");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(cbxStatusExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbEstatusActual))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(cbxEstadoExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbEstadoActual)))
+                .addContainerGap(202, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbxEstadoExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbEstadoActual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(cbxStatusExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbEstatusActual))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -197,6 +258,7 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                     .addComponent(jLabel11)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -248,7 +310,9 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxRazonDeuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gestión", jPanel1);
@@ -296,7 +360,7 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbxStatusJudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxEstadoJudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(299, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,48 +373,7 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cbxStatusJudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Extrajudicial"));
-
-        jLabel6.setText("Estado");
-
-        cbxEstadoExtrajudicial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxEstadoExtrajudicialActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Status");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxStatusExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxEstadoExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbxEstadoExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cbxStatusExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jLabel13.setText("Tipo gestión");
@@ -365,10 +388,11 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
                             .addComponent(jLabel3)
@@ -378,12 +402,8 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                             .addComponent(cbxGestionCodigo, 0, 496, Short.MAX_VALUE)
                             .addComponent(cbxTipoGestion, 0, 496, Short.MAX_VALUE)
                             .addComponent(dccFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -406,10 +426,8 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Proxima gestión", jPanel11);
@@ -432,11 +450,11 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGestionInsertar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCerrar)))
@@ -446,7 +464,7 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
@@ -474,48 +492,54 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
             if (this.cbxGestionCodigo_p.getSelectedIndex() > 0) {
                 if (!this.areGestionDescripcion.getText().equals("")) {
                     if (this.cbxGestionCodigo.getSelectedIndex() > 0) {
-                        com.lexcom.driver.Codigo_Contactabilidad DCodigo_Contactabilidad = new com.lexcom.driver.Codigo_Contactabilidad(this.conn, this.usuario);
-                        com.lexcom.driver.Estado DEstado = new com.lexcom.driver.Estado(this.conn, this.usuario);
-                        com.lexcom.driver.Status DStatus = new com.lexcom.driver.Status(this.conn, this.usuario);
-                        com.lexcom.driver.EstadoExtra DEstadoExtra = new com.lexcom.driver.EstadoExtra(this.conn, this.usuario);
-                        com.lexcom.driver.StatusExtra DStatusExtra = new com.lexcom.driver.StatusExtra(this.conn, this.usuario);
-                        com.lexcom.driver.Intencion_Pago DIntencion_Pago = new com.lexcom.driver.Intencion_Pago(this.conn, this.usuario);
-                        com.lexcom.driver.Razon_Deuda DRazon_Deuda = new com.lexcom.driver.Razon_Deuda(this.conn, this.usuario);
-                        
-                        com.lexcom.driver.Expediente DExpediente = new com.lexcom.driver.Expediente(this.conn, this.usuario);
-                        DExpediente.insertar_btn_gestion(
-                                this.deudor, 
-                                this.usuario, 
-                                DCodigo_Contactabilidad.obtener_indice(this.cbxGestionCodigo_p.getSelectedItem().toString()), 
-                                this.areGestionDescripcion_p.getText(),
-                                this.cbxContacto.getSelectedItem().toString());
-                        this.cbxGestionCodigo_p.setSelectedIndex(0);
-                        this.areGestionDescripcion_p.setText("");
+                        if(!this.cbxEstadoExtrajudicial.getSelectedItem().toString().equals("Seleccione...")) {
+                            if(!this.cbxStatusExtrajudicial.getSelectedItem().toString().equals("Seleccione...")) {
+                                com.lexcom.driver.Codigo_Contactabilidad DCodigo_Contactabilidad = new com.lexcom.driver.Codigo_Contactabilidad(this.conn, this.usuario);
+                                com.lexcom.driver.Estado DEstado = new com.lexcom.driver.Estado(this.conn, this.usuario);
+                                com.lexcom.driver.Status DStatus = new com.lexcom.driver.Status(this.conn, this.usuario);
+                                com.lexcom.driver.EstadoExtra DEstadoExtra = new com.lexcom.driver.EstadoExtra(this.conn, this.usuario);
+                                com.lexcom.driver.StatusExtra DStatusExtra = new com.lexcom.driver.StatusExtra(this.conn, this.usuario);
+                                com.lexcom.driver.Intencion_Pago DIntencion_Pago = new com.lexcom.driver.Intencion_Pago(this.conn, this.usuario);
+                                com.lexcom.driver.Razon_Deuda DRazon_Deuda = new com.lexcom.driver.Razon_Deuda(this.conn, this.usuario);
 
-                        com.lexcom.driver.Gestion_Pendiente_Cobros drive = new com.lexcom.driver.Gestion_Pendiente_Cobros(this.conn, this.usuario);
-                        drive.insertar_btn_gestion(
-                                this.deudor,
-                                this.dccFecha.getSelectedDate(),
-                                this.usuario,
-                                DCodigo_Contactabilidad.obtener_indice(this.cbxGestionCodigo.getSelectedItem().toString()),
-                                this.areGestionDescripcion.getText(),
-                                DEstado.obtener_indice(this.cbxEstadoJudicial.getSelectedItem().toString()),
-                                DStatus.obtener_indice(this.cbxStatusJudicial.getSelectedItem().toString()),
-                                DEstadoExtra.obtener_indice(this.cbxEstadoExtrajudicial.getSelectedItem().toString()),
-                                DStatusExtra.obtener_indice(this.cbxStatusExtrajudicial.getSelectedItem().toString()),
-                                DIntencion_Pago.obtener_indice(this.cbxIntencionPago.getSelectedItem().toString()),
-                                DRazon_Deuda.obtener_indice(this.cbxRazonDeuda.getSelectedItem().toString()));
-                        
+                                com.lexcom.driver.Expediente DExpediente = new com.lexcom.driver.Expediente(this.conn, this.usuario);
+                                DExpediente.insertar_btn_gestion(
+                                        this.deudor, 
+                                        this.usuario, 
+                                        DCodigo_Contactabilidad.obtener_indice(this.cbxGestionCodigo_p.getSelectedItem().toString()), 
+                                        this.areGestionDescripcion_p.getText(),
+                                        this.cbxContacto.getSelectedItem().toString());
+                                this.cbxGestionCodigo_p.setSelectedIndex(0);
+                                this.areGestionDescripcion_p.setText("");
 
-                        this.dispose();
+                                com.lexcom.driver.Gestion_Pendiente_Cobros drive = new com.lexcom.driver.Gestion_Pendiente_Cobros(this.conn, this.usuario);
+                                drive.insertar_btn_gestion(
+                                        this.deudor,
+                                        this.dccFecha.getSelectedDate(),
+                                        this.usuario,
+                                        DCodigo_Contactabilidad.obtener_indice(this.cbxGestionCodigo.getSelectedItem().toString()),
+                                        this.areGestionDescripcion.getText(),
+                                        DEstado.obtener_indice(this.cbxEstadoJudicial.getSelectedItem().toString()),
+                                        DStatus.obtener_indice(this.cbxStatusJudicial.getSelectedItem().toString()),
+                                        DEstadoExtra.obtener_indice(this.cbxEstadoExtrajudicial.getSelectedItem().toString()),
+                                        DStatusExtra.obtener_indice(this.cbxStatusExtrajudicial.getSelectedItem().toString()),
+                                        DIntencion_Pago.obtener_indice(this.cbxIntencionPago.getSelectedItem().toString()),
+                                        DRazon_Deuda.obtener_indice(this.cbxRazonDeuda.getSelectedItem().toString()));
+                                this.dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Debe actualizar el ESTATUS extrajudicial del cliente.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Debe actualizar el ESTADO extrajudicial del cliente.");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Debe selecionar un código de ressultado para la gestión pendiente.");
+                        JOptionPane.showMessageDialog(null, "Debe selecionar un código de resultado para la gestión pendiente.");
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Debe ingresar una descripción de la gestión pendiente.");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Debe selecionar un código de ressultado para la gestión.");
+                JOptionPane.showMessageDialog(null, "Debe selecionar un código de resultado para la gestión.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe ingresar una descripción de la gestión.");
@@ -529,7 +553,7 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
 
     private void cbxEstadoExtrajudicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEstadoExtrajudicialActionPerformed
         com.lexcom.driver.StatusExtra DStatusExtra = new com.lexcom.driver.StatusExtra(this.conn, this.usuario);
-        this.cbxStatusExtrajudicial.setModel(DStatusExtra.dar_lista_comb(this.cbxEstadoExtrajudicial.getSelectedItem().toString()));
+        this.cbxStatusExtrajudicial.setModel(DStatusExtra.dar_lista_comb_vacio(this.cbxEstadoExtrajudicial.getSelectedItem().toString()));
 }//GEN-LAST:event_cbxEstadoExtrajudicialActionPerformed
 
     private void cbxTipoGestionCodigo_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoGestionCodigo_pActionPerformed
@@ -601,6 +625,8 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbEstadoActual;
+    private javax.swing.JLabel lbEstatusActual;
     // End of variables declaration//GEN-END:variables
 
 }
