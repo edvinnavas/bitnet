@@ -522,18 +522,21 @@ public class ServiciosLexcom implements Serializable {
                 String db_cosecha = "";
                 if (cosecha != null) {
                     db_cosecha = cosecha.toString().trim();
-                    if (!db_cosecha.equals("0 antes 31 dic 2008") && !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t")
-                            && !db_cosecha.equals("2009 4to t") && !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t")
-                            && !db_cosecha.equals("2010 4to t") && !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t")
-                            && !db_cosecha.equals("2011 4to t") && !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t")
-                            && !db_cosecha.equals("2012 4to t") && !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t")
-                            && !db_cosecha.equals("2013 4to t") && !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t")
-                            && !db_cosecha.equals("2014 4to t") && !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t")
-                            && !db_cosecha.equals("2015 4to t") && !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t")
-                            && !db_cosecha.equals("2016 4to t") && !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t")
-                            && !db_cosecha.equals("2017 4to t") && !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t")
-                            && !db_cosecha.equals("2018 4to t") && !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t")
-                            && !db_cosecha.equals("2019 4to ")) {
+                    if (!db_cosecha.equals("0 antes 31 dic 2008") && 
+                            !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t") && !db_cosecha.equals("2009 4to t") && 
+                            !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t") && !db_cosecha.equals("2010 4to t") && 
+                            !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t") && !db_cosecha.equals("2011 4to t") && 
+                            !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t") && !db_cosecha.equals("2012 4to t") && 
+                            !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t") && !db_cosecha.equals("2013 4to t") && 
+                            !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t") && !db_cosecha.equals("2014 4to t") && 
+                            !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t") && !db_cosecha.equals("2015 4to t") && 
+                            !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t") && !db_cosecha.equals("2016 4to t") && 
+                            !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t") && !db_cosecha.equals("2017 4to t") && 
+                            !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t") && !db_cosecha.equals("2018 4to t") && 
+                            !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t") && !db_cosecha.equals("2019 4to t") && 
+                            !db_cosecha.equals("2020 1er t") && !db_cosecha.equals("2020 2do t") && !db_cosecha.equals("2020 3er t") && !db_cosecha.equals("2020 4to t") && 
+                            !db_cosecha.equals("2021 1er t") && !db_cosecha.equals("2021 2do t") && !db_cosecha.equals("2021 3er t") && !db_cosecha.equals("2021 4to t") && 
+                            !db_cosecha.equals("2022 1er t") && !db_cosecha.equals("2022 2do t") && !db_cosecha.equals("2022 3er t") && !db_cosecha.equals("2022 4to t")) {
                         throw new Exception("Error al calcular el campo Cosecha en la linea: " + linea_error);
                     }
                 } else {
@@ -1425,18 +1428,21 @@ public class ServiciosLexcom implements Serializable {
                 String db_cosecha = "";
                 if (cosecha != null) {
                     db_cosecha = cosecha.toString().trim();
-                    if (!db_cosecha.equals("0 antes 31 dic 2008") && !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t")
-                            && !db_cosecha.equals("2009 4to t") && !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t")
-                            && !db_cosecha.equals("2010 4to t") && !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t")
-                            && !db_cosecha.equals("2011 4to t") && !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t")
-                            && !db_cosecha.equals("2012 4to t") && !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t")
-                            && !db_cosecha.equals("2013 4to t") && !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t")
-                            && !db_cosecha.equals("2014 4to t") && !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t")
-                            && !db_cosecha.equals("2015 4to t") && !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t")
-                            && !db_cosecha.equals("2016 4to t") && !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t")
-                            && !db_cosecha.equals("2017 4to t") && !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t")
-                            && !db_cosecha.equals("2018 4to t") && !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t")
-                            && !db_cosecha.equals("2019 4to ")) {
+                    if (!db_cosecha.equals("0 antes 31 dic 2008") && 
+                            !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t") && !db_cosecha.equals("2009 4to t") && 
+                            !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t") && !db_cosecha.equals("2010 4to t") && 
+                            !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t") && !db_cosecha.equals("2011 4to t") && 
+                            !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t") && !db_cosecha.equals("2012 4to t") && 
+                            !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t") && !db_cosecha.equals("2013 4to t") && 
+                            !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t") && !db_cosecha.equals("2014 4to t") && 
+                            !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t") && !db_cosecha.equals("2015 4to t") && 
+                            !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t") && !db_cosecha.equals("2016 4to t") && 
+                            !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t") && !db_cosecha.equals("2017 4to t") && 
+                            !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t") && !db_cosecha.equals("2018 4to t") && 
+                            !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t") && !db_cosecha.equals("2019 4to t") && 
+                            !db_cosecha.equals("2020 1er t") && !db_cosecha.equals("2020 2do t") && !db_cosecha.equals("2020 3er t") && !db_cosecha.equals("2020 4to t") && 
+                            !db_cosecha.equals("2021 1er t") && !db_cosecha.equals("2021 2do t") && !db_cosecha.equals("2021 3er t") && !db_cosecha.equals("2021 4to t") && 
+                            !db_cosecha.equals("2022 1er t") && !db_cosecha.equals("2022 2do t") && !db_cosecha.equals("2022 3er t") && !db_cosecha.equals("2022 4to t")) {
                         throw new Exception("Error al calcular el campo Cosecha en la linea: " + linea_error);
                     }
                 } else {
@@ -2126,6 +2132,7 @@ public class ServiciosLexcom implements Serializable {
                 XSSFCell monto_pago = row.getCell(9);
                 XSSFCell banco_pago = row.getCell(10);
                 XSSFCell boleta_pago = row.getCell(11);
+                XSSFCell descripcion = row.getCell(19);
 
                 Integer db_deudor = 0;
                 try {
@@ -2169,6 +2176,16 @@ public class ServiciosLexcom implements Serializable {
                 } else {
                     db_boleta_pago = "BOL-SYS";
                 }
+                
+                String db_descripcion = "";
+                if (descripcion != null) {
+                    db_descripcion = descripcion.toString().trim();
+                    if (db_descripcion.equals("")) {
+                        db_descripcion = "Pago carga masiva.";
+                    }
+                } else {
+                    db_descripcion = "Pago carga masiva.";
+                }
 
                 //Carga estructura DEUDORES.
                 Deudores_Pagos_Masivos deu_car_mas = new Deudores_Pagos_Masivos(
@@ -2176,7 +2193,8 @@ public class ServiciosLexcom implements Serializable {
                         db_fecha_pago,
                         db_monto_pago,
                         db_banco_pago,
-                        db_boleta_pago);
+                        db_boleta_pago,
+                        db_descripcion);
 
                 //Cargar pagos al sistema.
                 String cadenasql = "insert into pago ("
@@ -2192,7 +2210,7 @@ public class ServiciosLexcom implements Serializable {
                         + formatoDate1.format(deu_car_mas.getFecha_pago()) + "','"
                         + deu_car_mas.getBoleta_pago() + "',"
                         + deu_car_mas.getMonto_pago() + ",'"
-                        + "Pago carga masiva." + "',"
+                        + deu_car_mas.getDescripcion() + "',"
                         + "CURRENT_DATE()" + ")";
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
@@ -14675,6 +14693,310 @@ public class ServiciosLexcom implements Serializable {
             } catch (Exception ex1) {
                 System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Resultado_Contacto - rollback): " + ex1.toString());
                 resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
+    /**
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "getMonitor")
+    public String[][] getMonitor(
+        @WebParam(name = "poolConexion") String poolConexion) {
+        
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String[][] resultado;
+
+        try {
+            resultado = new String[2][3];
+            resultado[0][0] = "fecha_ultima_gestion";
+            resultado[0][1] = "hora_ultima_gestion";
+            resultado[0][2] = "numero_gestion";
+            
+            String cadenasql = "select max(e.fecha) from evento e";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(cadenasql);
+            while(rs.next()) {
+                resultado[1][0] = rs.getString(1);
+            }
+            rs.close();
+            stmt.close();
+            
+            cadenasql = "select max(e.hora) from evento e where e.fecha='" + resultado[1][0] + "'";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(cadenasql);
+            while(rs.next()) {
+                resultado[1][1] = rs.getString(1);
+            }
+            rs.close();
+            stmt.close();
+            
+            cadenasql = "select count(*) from evento e";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(cadenasql);
+            while(rs.next()) {
+                resultado[1][2] = rs.getString(1);
+            }
+            rs.close();
+            stmt.close();
+            
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(getMonitor): " + ex.toString());
+            resultado = new String[1][1];
+            resultado[0][0] = "*** ERROR *** : " + ex.toString();
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
+    /**
+     *
+     * @param usuario_sys
+     * @param archivo
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Carga_Gestiones_Cobros")
+    public String Carga_Gestiones_Cobros(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "archivo") String archivo,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = null;
+        Integer linea_error = 1;
+        Integer filas;
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+
+        try {
+            //Formatos Integer, Double y Date.
+            DecimalFormat formatoInteger = new DecimalFormat("#");
+            DecimalFormat formatoDouble = new DecimalFormat("#0.00");
+            SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoDate1 = new SimpleDateFormat("yyyy-MM-dd");
+            formatoDate.setLenient(false);
+            formatoDate1.setLenient(false);
+
+            //Modo transaccion.
+            conn.setAutoCommit(false);
+
+            //Selecciona el archivo excel para leerlo.
+            File excel = new File(archivo);
+            FileInputStream fis = new FileInputStream(excel);
+            XSSFWorkbook wb = new XSSFWorkbook(fis);
+            XSSFSheet ws = wb.getSheetAt(0);
+
+            filas = ws.getLastRowNum() + 1;
+
+            for (Integer i = 1; i < filas; i++) {
+                linea_error = i + 1;
+
+                XSSFRow row = ws.getRow(i);
+
+                //LEER CAMPOS DEL ARCHIVO EXCEL.
+                XSSFCell corporacion = row.getCell(0);
+                XSSFCell actor = row.getCell(1);
+                XSSFCell deudor = row.getCell(2);
+                XSSFCell caso = row.getCell(3);
+                XSSFCell cargado = row.getCell(4);
+                XSSFCell usuario = row.getCell(5);
+                XSSFCell fecha = row.getCell(6);
+                XSSFCell hora = row.getCell(7);
+                XSSFCell codigo_resultado = row.getCell(8);
+                XSSFCell contacto = row.getCell(9);
+                XSSFCell descripcion = row.getCell(10);
+                
+                Integer db_deudor = 0;
+                try {
+                    db_deudor = Integer.parseInt(formatoInteger.format(Double.parseDouble(deudor.toString().trim())));
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select d.deudor from deudor d where d.deudor=" + db_deudor);
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    if(!existe) {
+                        throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+                
+                Integer db_usuario = 0;
+                try {
+                    String db_usuario_nombre = usuario.toString().trim();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select u.usuario from usuario u where u.nombre='" + db_usuario_nombre + "'");
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        db_usuario = rs.getInt(1);
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    
+                    if(!existe) {
+                        throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+
+                Date db_fecha = new Date(1900, 0, 1);
+                if (fecha != null) {
+                    try {
+                        db_fecha = fecha.getDateCellValue();
+                        formatoDate.format(db_fecha);
+                    } catch (Exception ex) {
+                        throw new Exception("Error al calcular el campo Fecha de gestión en la linea: " + linea_error + " Exception: " + ex.toString());
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Fecha de gestión en la linea: " + linea_error);
+                }
+
+                String db_hora = "";
+                if (hora != null) {
+                    db_hora = hora.toString().trim();
+                    if (db_hora.equals("")) {
+                        throw new Exception("Error al calcular el campo Hora (Espacio en blanco) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                    } else {
+                        if(db_hora.length() != 8) {
+                            throw new Exception("Error al calcular el campo Hora (longitud diferente a 8) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                        } else {
+                            try {
+                                Integer hora_num = Integer.parseInt(db_hora.substring(0, 2));
+                                Integer minuto_num = Integer.parseInt(db_hora.substring(3, 5));
+                                Integer segundo_num = Integer.parseInt(db_hora.substring(6, 8));
+                                if(hora_num < 0 && hora_num > 23) {
+                                    throw new Exception("Error al calcular el campo Hora (hora) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                                }
+                                if(minuto_num < 0 && minuto_num > 59) {
+                                    throw new Exception("Error al calcular el campo Hora (minuto) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                                }
+                                if(segundo_num < 0 && segundo_num > 59) {
+                                    throw new Exception("Error al calcular el campo Hora (segundo) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                                }
+                            } catch(Exception ex_hora) {
+                                throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error + ", ex_hora" + " Valor: " + db_hora);
+                            }
+                        }
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Hora (NULL) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                }
+
+                Integer db_codigo_contactabilidad = 0;
+                try {
+                    String db_codigo_contactabilidad_nombre = codigo_resultado.toString().trim();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select cc.codigo_contactabilidad from codigo_contactabilidad cc where cc.codigo='" + db_codigo_contactabilidad_nombre + "'");
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        db_codigo_contactabilidad = rs.getInt(1);
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    if(!existe) {
+                        throw new Exception("Error al calcular el campo Código de Resultado Usuario en la linea: " + linea_error + " Valor: " + db_codigo_contactabilidad_nombre);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Código de Resultado en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+                
+                String db_contacto = "";
+                if (contacto != null) {
+                    db_contacto = contacto.toString().trim();
+                    if (db_contacto.equals("")) {
+                        throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                    } else {
+                        System.out.println("VALOR_2: " + db_contacto);
+                        if(!db_contacto.equals("SI") && !db_contacto.equals("NO")) {
+                            throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                        }
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                }
+                
+                String db_descripcion = "";
+                if (descripcion != null) {
+                    db_descripcion = descripcion.toString().trim();
+                    if (db_descripcion.equals("")) {
+                        throw new Exception("Error al calcular el campo Descripción de gestión en la linea: " + linea_error);
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Descripción de gestión en la linea: " + linea_error);
+                }
+
+                //Carga estructura DEUDORES.
+                Deudores_Gestion_Cobro deu_ges_cob = new Deudores_Gestion_Cobro(
+                        db_deudor,
+                        db_fecha,
+                        db_hora,
+                        db_usuario,
+                        db_codigo_contactabilidad,
+                        db_descripcion,
+                        db_contacto);
+
+                //Cargar pagos al sistema.
+                String cadenasql = "insert deudor_historial_cobros ("
+                        + "deudor, "
+                        + "fecha, "
+                        + "hora, "
+                        + "usuario, "
+                        + "codigo_contactabilidad, "
+                        + "descripcion, "
+                        + "contacto) values ("
+                        + deu_ges_cob.getDeudor() + ",'"
+                        + formatoDate1.format(deu_ges_cob.getFecha()) + "','"
+                        + deu_ges_cob.getHora() + "',"
+                        + deu_ges_cob.getUsuario() + ","
+                        + deu_ges_cob.getCodigo_contactabilidad() + ",'"
+                        + deu_ges_cob.getDescripcion() + "','"
+                        + deu_ges_cob.getContacto() + "')";
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+                
+                //Inserta el evento en la bitacora de eventos del sistema.
+                cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                        + usuario_sys + ","
+                        + "CURRENT_DATE()" + ","
+                        + "CURRENT_TIME()" + ",'"
+                        + "Carga masiva gestión cobros=[Deudor: " + deu_ges_cob.getDeudor() + ", Corporación: " + corporacion.toString().trim() + ", Actor: " + actor.toString().trim() + ", Caso: " + caso.toString().trim() + ", Cargado: " + cargado.toString().trim() + ", Código Resultado: " + codigo_resultado.toString().trim() + "]" + "',"
+                        + "153" + ")";
+                stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
+
+            //Commit hacia la base de datos y cierra conexion.
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Carga masiva gestión de cobros exitosa.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros): " + ex.toString());
+                conn.rollback();
+                resultado = "Error linea(" + linea_error + "): " + ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros - rollback): " + ex1.toString());
+                resultado = "ERROR ROLLBACK: " + ex1.toString();
             }
         } finally {
             conn = driver.closeConn();

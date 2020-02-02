@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Deudores_Contadores" language="groovy" pageWidth="1728" pageHeight="612" orientation="Landscape" columnWidth="1688" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="actor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+                    d.deudor AS DEUDOR,
+                    d.no_cuenta AS MO_CUENTA,
+                    d.nombre AS NOMBRE_DEUDOR,
+                    a.nombre AS ACTOR,
+                    g.nombre AS GARANTIA,
+                    contactado.fecha_maxima AS FECHA_MAXIMA,
+                    contactado.hora_maxima AS HORA_MAXIMA,
+                    cc.nombre AS CODIGO_RESULTADO,
+                    dhc3.descripcion AS GESTION
+                    from
+                    (select
+                    fm.deudor,
+                    fm.fecha_maxima,
+                    max(dhc2.hora) as hora_maxima
+                    from
+                    (select
+                    dhc1.deudor as deudor,
+                    max(dhc1.fecha) as fecha_maxima
+                    from
+                    deudor_historial_cobros dhc1
+                    where
+                    dhc1.codigo_contactabilidad in (2, 3, 6, 7, 11, 12)
+                    group by
+                    dhc1.deudor) fm
+                    left join deudor_historial_cobros dhc2 on (fm.deudor = dhc2.deudor and fm.fecha_maxima = dhc2.fecha and dhc2.codigo_contactabilidad in (2, 3, 6, 7, 11, 12))
+                    group by
+                    fm.deudor,
+                    fm.fecha_maxima) contactado
+                    left join deudor_historial_cobros dhc3 on (contactado.deudor = dhc3.deudor and contactado.fecha_maxima = dhc3.fecha and contactado.hora_maxima = dhc3.hora and dhc3.codigo_contactabilidad in (2, 3, 6, 7, 11, 12))
+                    left join deudor d on (contactado.deudor = d.deudor)
+                    left join codigo_contactabilidad cc on (dhc3.codigo_contactabilidad = cc.codigo_contactabilidad)
+                    left join actor a on (d.actor = a.actor)
+                    left join garantia g on (d.garantia = g.garantia)
+
+where a.nombre like '%$P!{actor}%']]>
+	</queryString>
+	<field name="DEUDOR" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MO_CUENTA" class="java.lang.String"/>
+	<field name="NOMBRE_DEUDOR" class="java.lang.String"/>
+	<field name="ACTOR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GARANTIA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHA_MAXIMA" class="java.sql.Date"/>
+	<field name="HORA_MAXIMA" class="java.sql.Time"/>
+	<field name="CODIGO_RESULTADO" class="java.lang.String"/>
+	<field name="GESTION" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1688" height="20" uuid="fc0e8fe6-f947-41cc-829e-746308f1b592"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Deudores Contactados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="155" height="20" uuid="43da4f2f-751a-4826-a15f-cf44b66bce99"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[DEUDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="0" width="155" height="20" uuid="19143f9c-6ce1-465a-9c6d-e803591e1ea9"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[MO_CUENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="0" width="155" height="20" uuid="074ac58c-9e3e-49ee-85b1-b232ae02e530"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[NOMBRE_DEUDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="0" width="155" height="20" uuid="6e57b25c-a09b-43eb-a680-4f2a22ad2974"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[ACTOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="0" width="155" height="20" uuid="42e1f321-1eaa-4d3a-aa85-d17681ed66d5"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[GARANTIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="775" y="0" width="155" height="20" uuid="272ceb08-e631-4685-a78e-2eeb9c7208be"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[FECHA_MAXIMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="930" y="0" width="155" height="20" uuid="254bca96-81ad-4451-b46c-882d333cb209"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[HORA_MAXIMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1085" y="0" width="155" height="20" uuid="27e0cee6-5df7-4dd0-be24-6fe1568b8a49"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[CODIGO_RESULTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1240" y="0" width="448" height="20" uuid="cfd5fa54-6fd1-4332-906e-d4d6061c3331"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[GESTION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="155" height="20" uuid="9b211b30-e869-44d9-b20b-6e502c96c651"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{DEUDOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="155" y="0" width="155" height="20" uuid="51f4189d-525c-4757-8b76-71925493eb69"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{MO_CUENTA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="310" y="0" width="155" height="20" uuid="529eda43-b011-4287-ad92-f44c2763ffda"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{NOMBRE_DEUDOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="465" y="0" width="155" height="20" uuid="98c1fafb-49de-4dac-984d-5c5458ffb7ea"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ACTOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="620" y="0" width="155" height="20" uuid="111eaf3b-7978-4c1f-bcbb-a9fe4f7dd2a8"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{GARANTIA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="775" y="0" width="155" height="20" uuid="25880d10-d4ff-4648-a7a4-770bb96258c6"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{FECHA_MAXIMA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="930" y="0" width="155" height="20" uuid="9053e0dd-c2b7-4b54-8249-2fd30e18260f"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{HORA_MAXIMA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1085" y="0" width="155" height="20" uuid="4d099d2a-8c92-4886-aba6-a2efcd6db3c2"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CODIGO_RESULTADO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="1240" y="0" width="448" height="20" uuid="c7dafb6b-02a7-4b84-a499-bda18859ff62"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{GESTION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

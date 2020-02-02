@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:9090/WSLexcom/ServiciosLexcom" uri="src/conf/xml-resources/web-service-references/ServiciosLexcom/wsdl/localhost_9090/WSLexcom/ServiciosLexcom"/>
+    <system systemId="http://192.168.2.6:9090/WSLexcom/ServiciosLexcom?wsdl" uri="src/conf/xml-resources/web-service-references/ServiciosLexcom/wsdl/192.168.2.6_9090/WSLexcom/ServiciosLexcom.wsdl"/>
+    <system systemId="http://192.168.2.6:9090/WSLexcom/ServiciosLexcom?xsd=1" uri="src/conf/xml-resources/web-service-references/ServiciosLexcom/wsdl/192.168.2.6_9090/WSLexcom/ServiciosLexcom.xsd_1.xsd"/>
+    <system systemId="http://192.168.2.6:9090/WSLexcom/ServiciosLexcom?xsd=2" uri="src/conf/xml-resources/web-service-references/ServiciosLexcom/wsdl/192.168.2.6_9090/WSLexcom/ServiciosLexcom.xsd_2.xsd"/>
+    <system systemId="http://localhost:9090/WSLexcom/ServiciosLexcom?wsdl" uri="src/conf/xml-resources/web-service-references/ServiciosLexcom/wsdl/localhost_9090/WSLexcom/ServiciosLexcom.wsdl"/>
+    <system systemId="http://localhost:9090/WSLexcom/ServiciosLexcom?WSDL" uri="src/conf/xml-resources/web-service-references/ServiciosLexcom/wsdl/localhost_9090/WSLexcom/ServiciosLexcom.wsdl"/>
+    <system systemId="http://localhost:9090/WSLexcom/ServiciosLexcom?xsd=1" uri="src/conf/xml-resources/web-service-references/ServiciosLexcom/wsdl/localhost_9090/WSLexcom/ServiciosLexcom.xsd_1.xsd"/>
+    <system systemId="http://localhost:9090/WSLexcom/ServiciosLexcom?xsd=2" uri="src/conf/xml-resources/web-service-references/ServiciosLexcom/wsdl/localhost_9090/WSLexcom/ServiciosLexcom.xsd_2.xsd"/>
+</catalog>

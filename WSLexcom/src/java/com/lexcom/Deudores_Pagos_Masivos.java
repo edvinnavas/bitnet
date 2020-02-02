@@ -12,13 +12,15 @@ public class Deudores_Pagos_Masivos implements Serializable {
     private Double monto_pago;
     private Integer banco_pago;
     private String boleta_pago;
+    private String descripcion;
 
-    public Deudores_Pagos_Masivos(Integer deudor, Date fecha_pago, Double monto_pago, Integer banco_pago, String boleta_pago) {
+    public Deudores_Pagos_Masivos(Integer deudor, Date fecha_pago, Double monto_pago, Integer banco_pago, String boleta_pago, String descripcion) {
         this.deudor = deudor;
         this.fecha_pago = fecha_pago;
         this.monto_pago = monto_pago;
         this.banco_pago = banco_pago;
         this.boleta_pago = boleta_pago;
+        this.descripcion = descripcion;
     }
 
     public Integer getDeudor() {
@@ -59,6 +61,14 @@ public class Deudores_Pagos_Masivos implements Serializable {
 
     public void setBoleta_pago(String boleta_pago) {
         this.boleta_pago = boleta_pago;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
 }
