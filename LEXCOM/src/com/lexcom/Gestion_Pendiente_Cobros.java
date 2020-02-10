@@ -51,12 +51,12 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
         com.lexcom.driver.EstadoExtra DEstadoExtra = new com.lexcom.driver.EstadoExtra(this.conn, this.usuario);
         this.cbxEstadoExtrajudicial.setModel(DEstadoExtra.dar_lista_comb_vacio());
         this.cbxEstadoExtrajudicial.setSelectedItem("Seleccione...");
-        this.lbEstadoActual.setText(this.lbEstadoActual.getText() + " " + estado_extrajudicial);
+        this.lbEstadoActual.setText(estado_extrajudicial);
         
         com.lexcom.driver.StatusExtra DStatusExtra = new com.lexcom.driver.StatusExtra(this.conn, this.usuario);
         this.cbxStatusExtrajudicial.setModel(DStatusExtra.dar_lista_comb_vacio(this.cbxEstadoExtrajudicial.getSelectedItem().toString()));
         this.cbxStatusExtrajudicial.setSelectedItem("Seleccione...");
-        this.lbEstatusActual.setText(this.lbEstatusActual.getText() + " " + status_extrajudicial);
+        this.lbEstatusActual.setText(status_extrajudicial);
         
         com.lexcom.driver.Intencion_Pago DIntencion_Pago = new com.lexcom.driver.Intencion_Pago(this.conn, this.usuario);
         this.cbxIntencionPago.setModel(DIntencion_Pago.dar_lista());
@@ -136,6 +136,8 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
         cbxEstadoExtrajudicial = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         cbxStatusExtrajudicial = new javax.swing.JComboBox();
+        lbEstadoActual1 = new javax.swing.JLabel();
+        lbEstatusActual1 = new javax.swing.JLabel();
         lbEstadoActual = new javax.swing.JLabel();
         lbEstatusActual = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
@@ -206,13 +208,19 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
 
         jLabel7.setText("Estatus");
 
+        lbEstadoActual1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lbEstadoActual1.setText("Estado actual:");
+
+        lbEstatusActual1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        lbEstatusActual1.setText("Estatus actual:");
+
         lbEstadoActual.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lbEstadoActual.setForeground(new java.awt.Color(-16776961,true));
-        lbEstadoActual.setText("Estado actual:");
+        lbEstadoActual.setText("jLabel15");
 
         lbEstatusActual.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lbEstatusActual.setForeground(new java.awt.Color(-16776961,true));
-        lbEstatusActual.setText("Estatus actual:");
+        lbEstatusActual.setText("jLabel16");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -228,12 +236,16 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(cbxStatusExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbEstatusActual))
+                        .addComponent(lbEstatusActual1))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(cbxEstadoExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbEstadoActual)))
-                .addContainerGap(202, Short.MAX_VALUE))
+                        .addComponent(lbEstadoActual1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbEstadoActual)
+                    .addComponent(lbEstatusActual))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,11 +254,13 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cbxEstadoExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbEstadoActual1)
                     .addComponent(lbEstadoActual))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cbxStatusExtrajudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbEstatusActual1)
                     .addComponent(lbEstatusActual))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -626,7 +640,9 @@ public class Gestion_Pendiente_Cobros extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbEstadoActual;
+    private javax.swing.JLabel lbEstadoActual1;
     private javax.swing.JLabel lbEstatusActual;
+    private javax.swing.JLabel lbEstatusActual1;
     // End of variables declaration//GEN-END:variables
 
 }
