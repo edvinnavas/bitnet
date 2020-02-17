@@ -17,9 +17,8 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 
     String user = "usuario_gcj";
     String pass = "gcj123";
-    String url = "jdbc:mysql://192.168.2.3:3306/gcj";
-    // String url = "jdbc:mysql://localhost:3306/gcj";
-    // String url = "jdbc:mysql://192.200.106.145:3306/gcj";
+    // String url = "jdbc:mysql://192.168.2.3:3306/gcj";
+    String url = "jdbc:mysql://192.168.2.3:3306/gcj_test";
     
     Connection conn;
     Integer usuario;

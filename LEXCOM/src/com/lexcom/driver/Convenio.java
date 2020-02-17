@@ -282,14 +282,17 @@ public class Convenio {
                 + "where convenio=" + convenio.toString();
             Statement stmt = this.conn.createStatement();
             stmt.executeUpdate(cadenasql);
+            stmt.close();
             
             cadenasql = "update deudor set opcion_proximo_pago='NO', convenio_pactado='" + observacion + "' where deudor=" + deudor.toString();
             stmt = this.conn.createStatement();
             stmt.executeUpdate(cadenasql);
+            stmt.close();
             
             cadenasql = "delete from convenio_detalle where convenio=" + convenio.toString();
             stmt = this.conn.createStatement();
             stmt.executeUpdate(cadenasql);
+            stmt.close();
             
             for(Integer i=0; i < promesas.size(); i++) {
                 dia = promesas.get(i).getFecha_pago().get(Calendar.DATE);
@@ -307,6 +310,7 @@ public class Convenio {
                         + promesas.get(i).getObservacion() + "')";
                 stmt = this.conn.createStatement();
                 stmt.executeUpdate(cadenasql);
+                stmt.close();
             }
             
             Calendar fecha_proximo_pago = null;
@@ -343,6 +347,23 @@ public class Convenio {
                         + "where deudor=" + deudor.toString();
                 stmt = this.conn.createStatement();
                 stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
+            
+            if (estado.equals("ANULADO") || estado.equals("TERMINADO")) {
+                cadenasql = "update convenio_detalle set "
+                        + "estado_promesa='INCUMPLIDO' "
+                        + "where convenio=" + convenio.toString();
+                stmt = this.conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+
+                cadenasql = "update deudor set "
+                        + "opcion_proximo_pago='NO' "
+                        + "where deudor=" + deudor;
+                stmt = this.conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
             }
             
             conn.commit();
@@ -380,7 +401,7 @@ public class Convenio {
 
         return resultado;
     }
-
+    
     public Convenio obtener(Integer seleccion) {
         try {
             String cadenasql = "select "

@@ -754,7 +754,8 @@ public class Convenio extends javax.swing.JDialog {
         Double sub_total = saldo + interes + mora + gastos_otros - rebaja_interes;
         Double monto_costas = sub_total * (costas / 100);
         Double total = sub_total + monto_costas;
-        Double total_pagar = total - cuota_inicial;
+        // Double total_pagar = total - cuota_inicial;
+        Double total_pagar = total;
         Double cuota = total_pagar / numero_cuotas;
         if(cuota.floatValue() > cuota.intValue()) {
             Integer temp = cuota.intValue();
@@ -801,7 +802,7 @@ public class Convenio extends javax.swing.JDialog {
                     + "Total a Pagar Q. " + formatter.format(total_pagar) + ". \n"
                     + "Se pactó pago inicial de Q. " + formatter.format(cuota_inicial) + " y \n"
                     + numero_cuotas + " cuotas " + this.cbxFrecuencia.getSelectedItem().toString() + " de Q. " + formatter.format(cuota) + ". \n"
-                    + "Se inician pagos el " + fecha_pago;
+                    + "Se inician pagos el " + fecha_pago + ".";
         }
         if(this.cbxTipoConvenio.getSelectedItem().equals("CANCELACION TOTAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
@@ -809,14 +810,14 @@ public class Convenio extends javax.swing.JDialog {
                     + "Rebaja Autorizada de Q. " + formatter.format(rebaja_interes) + " \n"
                     + "Costas Q. " + formatter.format(monto_costas) + " \n"
                     + "Cancelación Total Autorizada por Q. " + formatter.format(total_pagar) + " \n"
-                    + "Pago el " + fecha_pago;
+                    + "Pago el " + fecha_pago + ".";
         }
         if(this.cbxTipoConvenio.getSelectedItem().equals("TRANSACCION")) {
             observacion = fecha_actual + " CONVENIO: \n"
                     + "Cancelación Total Transacción Judicial por Q. " + formatter.format(total) + " por medio \n"
                     + "Deudor " + formatter.format(costas) + "% Costas  Q. " + formatter.format(cuota_inicial) + " \n"
                     + "Restante Transacción Q. " + formatter.format(cuota) + " \n"
-                    + "Pago el " + fecha_pago;
+                    + "Pago el " + fecha_pago + ".";
         }
         if(this.cbxTipoConvenio.getSelectedItem().equals("TEMPORAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
@@ -927,34 +928,55 @@ public class Convenio extends javax.swing.JDialog {
     }
     
     private void modificar() {
-        com.lexcom.driver.Convenio drive = new com.lexcom.driver.Convenio(this.conn, this.usuario);
-        
-        String resultado = drive.modificar(
-                this.seleccion,                                                                         // convenio            Integer convenio,
-                this.deudor,                                                                            // deudor              Integer deudor,
-                this.cbxTipoConvenio.getSelectedItem().toString(),                                      // tipo_convenio       String tipo_convenio,
-                this.cbxEstado.getSelectedItem().toString(),                                            // estado              String estado,
-                Double.parseDouble(this.spnSaldo.getValue().toString()),                                // saldo               Double saldo,
-                Double.parseDouble(this.spnIntereses.getValue().toString()),                            // interes             Double interes,
-                Double.parseDouble(this.spnMora.getValue().toString()),                                 // mora                Double mora,
-                Double.parseDouble(this.spnGastosOtros.getValue().toString()),                          // gasto_otros         Double gasto_otros,
-                Double.parseDouble(this.spnRebajaInteres.getValue().toString()),                        // rebaja_interes      Double rebaja_interes,
-                Double.parseDouble(this.quitar_currency(this.txtSubTotal.getText())),                   // subtotal_pagar      Double subtotal_pagar,
-                Double.parseDouble(this.spnCostas.getValue().toString()),                               // costas              Double costas,
-                Double.parseDouble(this.quitar_currency(this.txtMontoCostas.getText())),                // monto_costas        Double monto_costas,
-                Double.parseDouble(this.quitar_currency(this.txtTotal.getText())),                      // total               Double total,
-                Double.parseDouble(this.spnCuotaInicial.getValue().toString()),                         // cuota_inicial       Double cuota_inicial,
-                Double.parseDouble(this.quitar_currency(this.txtTotalPagar.getText())),                 // total_pagar         Double total_pagar,
-                Integer.parseInt(this.spnNoCuotas.getValue().toString()),                               // numero_cuotas       Integer numero_cuotas,
-                Double.parseDouble(this.quitar_currency(this.txtCuota.getText())),                      // monto_cuota         Double monto_cuota,
-                this.cbxFrecuencia.getSelectedItem().toString(),                                        // frecuencia          String frecuencia,
-                this.dccFechaPago.getSelectedDate(),                                                    // fecha_pago_inicial  Calendar fecha_pago_inicial,
-                this.areObservacion.getText(),                                                          // observacion         String observacion,
-                this.promesas);                                                                         // promesas            List<Nodo_Convenio_Detalle> promesas
-        String[] mensaje = resultado.split(",");
-        JOptionPane.showMessageDialog(null, mensaje[1]);
-        if(mensaje[0].equals("1")) {
-            this.dispose();
+        Integer opcion1 = -1;
+        switch (this.cbxEstado.getSelectedItem().toString()) {
+            case "ACTIVO": {
+                opcion1 = JOptionPane.showConfirmDialog(null, "¿Seguro desea guardar el Convenio de Pago? Revise los datos del convenio y las anotaciones adicionales manuales en el campo de 'Observaciones'.", "Convenio de pago.", 0);
+                break;
+            }
+            case "ANULADO": {
+                opcion1 = JOptionPane.showConfirmDialog(null, "¿Está seguro de Anular el Convenio de pago?", "Convenio de pago.", 0);
+                break;
+            }
+            case "TERMINADO": {
+                opcion1 = JOptionPane.showConfirmDialog(null, "¿Está seguro de Terminar el Convenio de pago?", "Convenio de pago.", 0);
+                break;
+            }
+            default: {
+                opcion1 = 0;
+                break;
+            }
+        }
+
+        if (opcion1 == 0) {
+            com.lexcom.driver.Convenio drive = new com.lexcom.driver.Convenio(this.conn, this.usuario);
+            String resultado = drive.modificar(
+                    this.seleccion,                                                          // convenio            Integer convenio,
+                    this.deudor,                                                             // deudor              Integer deudor,
+                    this.cbxTipoConvenio.getSelectedItem().toString(),                       // tipo_convenio       String tipo_convenio,
+                    this.cbxEstado.getSelectedItem().toString(),                             // estado              String estado,
+                    Double.parseDouble(this.spnSaldo.getValue().toString()),                 // saldo               Double saldo,
+                    Double.parseDouble(this.spnIntereses.getValue().toString()),             // interes             Double interes,
+                    Double.parseDouble(this.spnMora.getValue().toString()),                  // mora                Double mora,
+                    Double.parseDouble(this.spnGastosOtros.getValue().toString()),           // gasto_otros         Double gasto_otros,
+                    Double.parseDouble(this.spnRebajaInteres.getValue().toString()),         // rebaja_interes      Double rebaja_interes,
+                    Double.parseDouble(this.quitar_currency(this.txtSubTotal.getText())),    // subtotal_pagar      Double subtotal_pagar,
+                    Double.parseDouble(this.spnCostas.getValue().toString()),                // costas              Double costas,
+                    Double.parseDouble(this.quitar_currency(this.txtMontoCostas.getText())), // monto_costas        Double monto_costas,
+                    Double.parseDouble(this.quitar_currency(this.txtTotal.getText())),       // total               Double total,
+                    Double.parseDouble(this.spnCuotaInicial.getValue().toString()),          // cuota_inicial       Double cuota_inicial,
+                    Double.parseDouble(this.quitar_currency(this.txtTotalPagar.getText())),  // total_pagar         Double total_pagar,
+                    Integer.parseInt(this.spnNoCuotas.getValue().toString()),                // numero_cuotas       Integer numero_cuotas,
+                    Double.parseDouble(this.quitar_currency(this.txtCuota.getText())),       // monto_cuota         Double monto_cuota,
+                    this.cbxFrecuencia.getSelectedItem().toString(),                         // frecuencia          String frecuencia,
+                    this.dccFechaPago.getSelectedDate(),                                     // fecha_pago_inicial  Calendar fecha_pago_inicial,
+                    this.areObservacion.getText(),                                           // observacion         String observacion,
+                    this.promesas);                                                          // promesas            List<Nodo_Convenio_Detalle> promesas
+            String[] mensaje = resultado.split(",");
+            JOptionPane.showMessageDialog(null, mensaje[1]);
+            if (mensaje[0].equals("1")) {
+                this.dispose();
+            }
         }
     }
     

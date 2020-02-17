@@ -1326,7 +1326,8 @@ public class Expediente {
             Integer estatus_extra,
             String notas,
             Integer intencion_pago,
-            Integer razon_deuda) {
+            Integer razon_deuda,
+            String antiguedad) {
 
         String resultado = "";
 
@@ -1432,7 +1433,8 @@ public class Expediente {
                     + "estatus_extra='" + estatus_extra + "', "
                     + "descripcion='" + quitar_simbolos(notas) + "', "
                     + "intencion_pago='" + intencion_pago + "', "
-                    + "razon_deuda='" + razon_deuda + "' "
+                    + "razon_deuda='" + razon_deuda + "', "
+                    + "antiguedad='" + antiguedad + "' "
                     + "where deudor=" + deudor.toString();
             stmt = this.conn.createStatement();
             stmt.executeUpdate(cadenasql);
