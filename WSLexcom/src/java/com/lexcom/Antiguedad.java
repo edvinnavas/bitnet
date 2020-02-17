@@ -40,7 +40,7 @@ public class Antiguedad implements Serializable {
                     + "CURRENT_DATE()" + ","
                     + "CURRENT_TIME()" + ",'"
                     + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "49" + ")";
+                    + "154" + ")";
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
@@ -96,7 +96,7 @@ public class Antiguedad implements Serializable {
                     + "CURRENT_DATE()" + ","
                     + "CURRENT_TIME()" + ",'"
                     + "Id_Antiguedad: " + id_antiguedad + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "50" + ")";
+                    + "155" + ")";
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
@@ -149,7 +149,7 @@ public class Antiguedad implements Serializable {
                     + "CURRENT_DATE()" + ","
                     + "CURRENT_TIME()" + ",'"
                     + "ANTIGUEDAD: " + id_antiguedad + "',"
-                    + "51" + ")";
+                    + "156" + ")";
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
@@ -190,7 +190,7 @@ public class Antiguedad implements Serializable {
             conn.setAutoCommit(false);
 
             String cadenasql = "update antiguedad set "
-                    + "estado='" + "ELIMINADO" + "' "
+                    + "estado='" + "VIGENTE" + "' "
                     + "where antiguedad=" + id_antiguedad;
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
@@ -202,7 +202,7 @@ public class Antiguedad implements Serializable {
                     + "CURRENT_DATE()" + ","
                     + "CURRENT_TIME()" + ",'"
                     + "ANTIGUEDAD: " + id_antiguedad + "',"
-                    + "51" + ")";
+                    + "157" + ")";
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
@@ -211,7 +211,7 @@ public class Antiguedad implements Serializable {
             conn.commit();
             conn.setAutoCommit(true);
 
-            resultado = "Antigüedad eliminada en el sistema.";
+            resultado = "Antigüedad activa en el sistema.";
         } catch (Exception ex) {
             try {
                 System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Eliminar): " + ex.toString());

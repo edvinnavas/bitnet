@@ -15026,7 +15026,7 @@ public class ServiciosLexcom implements Serializable {
             Antiguedad antiguedad = new Antiguedad();
             resultado = antiguedad.Insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar): " + ex.toString());
+            System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Insertar): " + ex.toString());
             resultado = ex.toString();
         }
 
@@ -15055,7 +15055,7 @@ public class ServiciosLexcom implements Serializable {
             Antiguedad antiguedad = new Antiguedad();
             resultado = antiguedad.Modificar(usuario_sys, id_antiguedad, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar): " + ex.toString());
+            System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Modificar): " + ex.toString());
             resultado = ex.toString();
         }
 
@@ -15080,7 +15080,7 @@ public class ServiciosLexcom implements Serializable {
             Antiguedad antiguedad = new Antiguedad();
             resultado = antiguedad.Eliminar(usuario_sys, id_antiguedad, poolConexion);
         } catch (Exception ex) {
-            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar): " + ex.toString());
+            System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Eliminar): " + ex.toString());
             resultado = ex.toString();
         }
 
@@ -15105,7 +15105,7 @@ public class ServiciosLexcom implements Serializable {
             Antiguedad antiguedad = new Antiguedad();
             resultado = antiguedad.Activar(usuario_sys, id_antiguedad, poolConexion);
         } catch (Exception ex) {
-            System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Modificar): " + ex.toString());
+            System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Activar): " + ex.toString());
             resultado = ex.toString();
         }
 

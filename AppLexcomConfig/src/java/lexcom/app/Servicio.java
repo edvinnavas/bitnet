@@ -836,5 +836,29 @@ public class Servicio implements Serializable {
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
         return port.guardarExpedienteExtrajudicial(usuarioSys, deudor, estadoExtra, statusExtra, telefonoCasa, telefonoCelular, correoElectronico, lugarTrabajo, contactoTrabajo, telefonoTrabajo, dpi, nit, intensionPago, direccion, notas, razonDeuda, poolConexion);
     }
+
+    public String antiguedadInsertar(java.lang.Integer usuarioSys, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.antiguedadInsertar(usuarioSys, nombreD, descripcionD, poolConexion);
+    }
+
+    public String antiguedadModificar(java.lang.Integer usuarioSys, java.lang.Integer idGarantia, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.antiguedadModificar(usuarioSys, idGarantia, nombreD, descripcionD, poolConexion);
+    }
+
+    public String antiguedadEliminar(java.lang.Integer usuarioSys, java.lang.Integer idAntiguedad, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.antiguedadEliminar(usuarioSys, idAntiguedad, poolConexion);
+    }
+
+    public String antiguedadActivar(java.lang.Integer usuarioSys, java.lang.Integer idAntiguedad, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.antiguedadActivar(usuarioSys, idAntiguedad, poolConexion);
+    }
     
 }
