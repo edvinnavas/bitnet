@@ -15006,4 +15006,110 @@ public class ServiciosLexcom implements Serializable {
         return resultado;
     }
     
+    /**
+     * @param usuario_sys
+     * @param nombre_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Antiguedad_Insertar")
+    public String Antiguedad_Insertar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        
+        try {
+            Antiguedad antiguedad = new Antiguedad();
+            resultado = antiguedad.Insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar): " + ex.toString());
+            resultado = ex.toString();
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_antiguedad
+     * @param nombre_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Antiguedad_Modificar")
+    public String Antiguedad_Modificar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_garantia") Integer id_antiguedad,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        
+        try {
+            Antiguedad antiguedad = new Antiguedad();
+            resultado = antiguedad.Modificar(usuario_sys, id_antiguedad, nombre_d, descripcion_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar): " + ex.toString());
+            resultado = ex.toString();
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_antiguedad
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Antiguedad_Eliminar")
+    public String Antiguedad_Eliminar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_antiguedad") Integer id_antiguedad,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        
+        try {
+            Antiguedad antiguedad = new Antiguedad();
+            resultado = antiguedad.Eliminar(usuario_sys, id_antiguedad, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar): " + ex.toString());
+            resultado = ex.toString();
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_antiguedad
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Antiguedad_Activar")
+    public String Antiguedad_Activar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_antiguedad") Integer id_antiguedad,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        
+        try {
+            Antiguedad antiguedad = new Antiguedad();
+            resultado = antiguedad.Activar(usuario_sys, id_antiguedad, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Modificar): " + ex.toString());
+            resultado = ex.toString();
+        }
+
+        return resultado;
+    }
+    
 }
