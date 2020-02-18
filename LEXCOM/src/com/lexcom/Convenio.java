@@ -119,7 +119,7 @@ public class Convenio extends javax.swing.JDialog {
 
         jLabel5.setText("Saldo");
 
-        spnSaldo.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 1.0d));
+        spnSaldo.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         spnSaldo.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spnSaldoStateChanged(evt);
@@ -145,7 +145,7 @@ public class Convenio extends javax.swing.JDialog {
             }
         });
 
-        spnIntereses.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 1.0d));
+        spnIntereses.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         spnIntereses.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spnInteresesStateChanged(evt);
@@ -163,7 +163,7 @@ public class Convenio extends javax.swing.JDialog {
 
         jLabel7.setText("Costas %");
 
-        spnCuotaInicial.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 1.0d));
+        spnCuotaInicial.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         spnCuotaInicial.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spnCuotaInicialStateChanged(evt);
@@ -172,7 +172,7 @@ public class Convenio extends javax.swing.JDialog {
 
         jLabel8.setText("Cuota inicial");
 
-        spnNoCuotas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spnNoCuotas.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
         spnNoCuotas.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spnNoCuotasStateChanged(evt);
@@ -194,38 +194,38 @@ public class Convenio extends javax.swing.JDialog {
 
         jLabel12.setText("Sub-Total");
 
-        txtMontoCostas.setEditable(false);
         txtMontoCostas.setBackground(new java.awt.Color(255, 255, 51));
+        txtMontoCostas.setEditable(false);
         txtMontoCostas.setForeground(new java.awt.Color(204, 0, 0));
         txtMontoCostas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtMontoCostas.setText("0.00");
 
-        txtSubTotal.setEditable(false);
         txtSubTotal.setBackground(new java.awt.Color(255, 255, 51));
+        txtSubTotal.setEditable(false);
         txtSubTotal.setForeground(new java.awt.Color(204, 0, 0));
         txtSubTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSubTotal.setText("0.00");
 
-        txtTotal.setEditable(false);
         txtTotal.setBackground(new java.awt.Color(255, 255, 51));
+        txtTotal.setEditable(false);
         txtTotal.setForeground(new java.awt.Color(204, 0, 0));
         txtTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTotal.setText("0.00");
 
         jLabel13.setText("Total");
 
-        txtTotalPagar.setEditable(false);
         txtTotalPagar.setBackground(new java.awt.Color(255, 255, 51));
+        txtTotalPagar.setEditable(false);
         txtTotalPagar.setForeground(new java.awt.Color(204, 0, 0));
         txtTotalPagar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTotalPagar.setText("0.00");
 
-        jLabel14.setText("Total a pagar");
+        jLabel14.setText("Saldo cuotas");
 
         jLabel15.setText("Cuota");
 
-        txtCuota.setEditable(false);
         txtCuota.setBackground(new java.awt.Color(255, 255, 51));
+        txtCuota.setEditable(false);
         txtCuota.setForeground(new java.awt.Color(204, 0, 0));
         txtCuota.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtCuota.setText("0.00");
@@ -239,7 +239,7 @@ public class Convenio extends javax.swing.JDialog {
 
         jLabel4.setText("Tipo convenio");
 
-        spnMora.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 1.0d));
+        spnMora.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         spnMora.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spnMoraStateChanged(evt);
@@ -248,7 +248,7 @@ public class Convenio extends javax.swing.JDialog {
 
         jLabel16.setText("Mora");
 
-        spnGastosOtros.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 1.0d));
+        spnGastosOtros.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         spnGastosOtros.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spnGastosOtrosStateChanged(evt);
@@ -257,7 +257,7 @@ public class Convenio extends javax.swing.JDialog {
 
         jLabel17.setText("Gastos y Otros");
 
-        spnRebajaInteres.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 1.0d));
+        spnRebajaInteres.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(1.0d)));
         spnRebajaInteres.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spnRebajaInteresStateChanged(evt);
@@ -754,8 +754,7 @@ public class Convenio extends javax.swing.JDialog {
         Double sub_total = saldo + interes + mora + gastos_otros - rebaja_interes;
         Double monto_costas = sub_total * (costas / 100);
         Double total = sub_total + monto_costas;
-        // Double total_pagar = total - cuota_inicial;
-        Double total_pagar = total;
+        Double total_pagar = total - cuota_inicial;
         Double cuota = total_pagar / numero_cuotas;
         if(cuota.floatValue() > cuota.intValue()) {
             Integer temp = cuota.intValue();
@@ -799,7 +798,7 @@ public class Convenio extends javax.swing.JDialog {
         String observacion = "";
         if(this.cbxTipoConvenio.getSelectedItem().equals("NORMAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
-                    + "Total a Pagar Q. " + formatter.format(total_pagar) + ". \n"
+                    + "Total a Pagar Q. " + formatter.format(total) + ". \n"
                     + "Se pactó pago inicial de Q. " + formatter.format(cuota_inicial) + " y \n"
                     + numero_cuotas + " cuotas " + this.cbxFrecuencia.getSelectedItem().toString() + " de Q. " + formatter.format(cuota) + ". \n"
                     + "Se inician pagos el " + fecha_pago + ".";
@@ -809,7 +808,7 @@ public class Convenio extends javax.swing.JDialog {
                     + "Saldo Q. " + formatter.format(saldo) + " \n"
                     + "Rebaja Autorizada de Q. " + formatter.format(rebaja_interes) + " \n"
                     + "Costas Q. " + formatter.format(monto_costas) + " \n"
-                    + "Cancelación Total Autorizada por Q. " + formatter.format(total_pagar) + " \n"
+                    + "Cancelación Total Autorizada por Q. " + formatter.format(total) + " \n"
                     + "Pago el " + fecha_pago + ".";
         }
         if(this.cbxTipoConvenio.getSelectedItem().equals("TRANSACCION")) {

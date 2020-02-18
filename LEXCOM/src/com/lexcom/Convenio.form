@@ -410,7 +410,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Total a pagar"/>
+                <Property name="text" type="java.lang.String" value="Saldo cuotas"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
