@@ -798,13 +798,14 @@ public class Convenio extends javax.swing.JDialog {
         String observacion = "";
         if(this.cbxTipoConvenio.getSelectedItem().equals("NORMAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
-                    + "Total a Pagar Q. " + formatter.format(total) + ". \n"
+                    + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Se pactó pago inicial de Q. " + formatter.format(cuota_inicial) + " y \n"
                     + numero_cuotas + " cuotas " + this.cbxFrecuencia.getSelectedItem().toString() + " de Q. " + formatter.format(cuota) + ". \n"
                     + "Se inician pagos el " + fecha_pago + ".";
         }
         if(this.cbxTipoConvenio.getSelectedItem().equals("CANCELACION TOTAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
+                    + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Saldo Q. " + formatter.format(saldo) + " \n"
                     + "Rebaja Autorizada de Q. " + formatter.format(rebaja_interes) + " \n"
                     + "Costas Q. " + formatter.format(monto_costas) + " \n"
@@ -813,6 +814,7 @@ public class Convenio extends javax.swing.JDialog {
         }
         if(this.cbxTipoConvenio.getSelectedItem().equals("TRANSACCION")) {
             observacion = fecha_actual + " CONVENIO: \n"
+                    + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Cancelación Total Transacción Judicial por Q. " + formatter.format(total) + " por medio \n"
                     + "Deudor " + formatter.format(costas) + "% Costas  Q. " + formatter.format(cuota_inicial) + " \n"
                     + "Restante Transacción Q. " + formatter.format(cuota) + " \n"
@@ -820,6 +822,7 @@ public class Convenio extends javax.swing.JDialog {
         }
         if(this.cbxTipoConvenio.getSelectedItem().equals("TEMPORAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
+                    + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Se pactaron Cuota Inicial de Q. " + formatter.format(cuota_inicial) + " y \n" 
                     + numero_cuotas + " cuotas temporales de Q. " + formatter.format(cuota_inicial) + " y pagos " + this.cbxFrecuencia.getSelectedItem().toString() + " \n"
                     + "Se inician pagos el " + fecha_pago + ". \n"
@@ -827,6 +830,7 @@ public class Convenio extends javax.swing.JDialog {
         }
         if(this.cbxTipoConvenio.getSelectedItem().equals("PAGOS SIN CONVENIO")) {
             observacion = fecha_actual + " Pagos Sin Convenio. \n"
+                    + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Caso con gestiones Anteriores, \n"
                     + "con Demanda o Sin Demanda (modificar manualmente). \n"
                     + "Cliente ilocalizado o Cliente localizado \n"

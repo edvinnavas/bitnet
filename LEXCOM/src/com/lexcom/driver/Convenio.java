@@ -350,10 +350,10 @@ public class Convenio {
                 stmt.close();
             }
             
-            if (estado.equals("ANULADO")) {
+            if (estado.equals("ANULADO") || estado.equals("TERMINADO")) {
                 cadenasql = "update convenio_detalle set "
                         + "estado_promesa='INCUMPLIDO' "
-                        + "where convenio=" + convenio.toString();
+                        + "where estado_promesa <> 'CUMPLIDO' and convenio=" + convenio.toString();
                 stmt = this.conn.createStatement();
                 stmt.executeUpdate(cadenasql);
                 stmt.close();
