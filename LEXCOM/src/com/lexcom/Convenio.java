@@ -824,7 +824,7 @@ public class Convenio extends javax.swing.JDialog {
             observacion = fecha_actual + " CONVENIO: \n"
                     + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Se pactaron Cuota Inicial de Q. " + formatter.format(cuota_inicial) + " y \n" 
-                    + numero_cuotas + " cuotas temporales de Q. " + formatter.format(cuota_inicial) + " y pagos " + this.cbxFrecuencia.getSelectedItem().toString() + " \n"
+                    + numero_cuotas + " cuotas temporales de Q. " + formatter.format(cuota) + " y pagos " + this.cbxFrecuencia.getSelectedItem().toString() + " \n"
                     + "Se inician pagos el " + fecha_pago + ". \n"
                     + "Al finalizar estos pagos se realizará convenio normal.";
         }
