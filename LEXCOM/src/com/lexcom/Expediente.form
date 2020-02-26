@@ -131,7 +131,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel8" min="-2" max="-2" attributes="1"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="53" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -180,8 +180,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtNombre" min="-2" pref="476" max="-2" attributes="1"/>
-                                      <Component id="cbxActor" alignment="0" min="-2" pref="476" max="-2" attributes="1"/>
+                                      <Component id="cbxActor" min="-2" pref="540" max="-2" attributes="1"/>
+                                      <Component id="txtNombre" alignment="0" min="-2" pref="540" max="-2" attributes="1"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -250,13 +250,13 @@
                                       <Component id="jLabel31" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbxCargado" alignment="0" min="-2" pref="136" max="-2" attributes="3"/>
-                                      <Component id="cbxAntiguedad" alignment="0" min="-2" pref="136" max="-2" attributes="1"/>
-                                      <Component id="cbxGarantia" alignment="1" min="-2" pref="136" max="-2" attributes="3"/>
-                                      <Component id="spnCaso" alignment="1" min="-2" pref="136" max="-2" attributes="3"/>
-                                      <Component id="txtNoCuenta" alignment="1" min="-2" pref="136" max="-2" attributes="3"/>
-                                      <Component id="txtOtroNoCuenta" alignment="0" min="-2" pref="136" max="-2" attributes="3"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="spnCaso" alignment="1" min="-2" pref="200" max="-2" attributes="3"/>
+                                      <Component id="cbxGarantia" alignment="1" min="-2" pref="200" max="-2" attributes="3"/>
+                                      <Component id="txtOtroNoCuenta" alignment="0" min="-2" pref="200" max="-2" attributes="3"/>
+                                      <Component id="cbxAntiguedad" alignment="0" min="-2" pref="200" max="-2" attributes="1"/>
+                                      <Component id="cbxCargado" alignment="0" min="-2" pref="200" max="-2" attributes="3"/>
+                                      <Component id="txtNoCuenta" alignment="1" min="-2" pref="200" max="-2" attributes="3"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -861,8 +861,8 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel32" min="-2" pref="277" max="-2" attributes="1"/>
-                                  <Component id="jPanel31" min="-2" pref="277" max="-2" attributes="1"/>
+                                  <Component id="jPanel32" pref="294" max="32767" attributes="1"/>
+                                  <Component id="jPanel31" alignment="0" pref="294" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -879,7 +879,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jPanel29" max="32767" attributes="1"/>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="jPanel31" min="-2" pref="171" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jPanel32" pref="194" max="32767" attributes="1"/>
@@ -1253,7 +1253,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane21" pref="245" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane21" pref="262" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1304,7 +1304,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane22" pref="245" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane22" pref="262" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1361,16 +1361,16 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel6" min="-2" max="-2" attributes="1"/>
+                              <Component id="jPanel6" max="32767" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jPanel6" alignment="0" max="32767" attributes="1"/>
                                   <Group type="102" alignment="0" attributes="1">
                                       <Component id="jPanel10" min="-2" max="-2" attributes="1"/>
@@ -1617,7 +1617,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                                  <EmptySpace pref="30" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>

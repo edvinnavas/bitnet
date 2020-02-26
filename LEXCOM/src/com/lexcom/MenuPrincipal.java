@@ -17,8 +17,8 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 
     String user = "usuario_gcj";
     String pass = "gcj123";
-    // String url = "jdbc:mysql://192.168.2.3:3306/gcj";
-    String url = "jdbc:mysql://192.168.2.3:3306/gcj_test";
+    String url = "jdbc:mysql://192.168.2.3:3306/gcj";
+    // String url = "jdbc:mysql://192.168.2.3:3306/gcj_test";
     
     Connection conn;
     Integer usuario;
@@ -57,7 +57,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
             this.usuario = a.dar_usuario();
             initComponents();
             this.setExtendedState(this.MAXIMIZED_BOTH);
-            this.setTitle("SISTEMA DE LA GESTION DE COBROS - " + this.usuario);
+            this.setTitle("APP-LEXCOM-DESKTOP-PRUEBAS - " + this.usuario);
 
             this.MenuEntidades.setVisible(false);
             this.MenuReportes.setVisible(false);
