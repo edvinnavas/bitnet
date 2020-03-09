@@ -25,5 +25,6 @@
 </resources>
     <application-desc main-class="com.lexcom.LEXCOM">
         
-    </application-desc>
+    <argument>PRODUCCIÓN</argument>
+</application-desc>
 </jnlp>

@@ -17,16 +17,20 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 
     String user = "usuario_gcj";
     String pass = "gcj123";
-    String url = "jdbc:mysql://192.168.2.3:3306/gcj";
-    // String url = "jdbc:mysql://192.168.2.3:3306/gcj_test";
+    String url = "";
     
     Connection conn;
     Integer usuario;
     Thread hilo;
     Boolean hilo_corriendo;
 
-    public MenuPrincipal() {
+    public MenuPrincipal(String ambiente) {
         try {
+            if(ambiente.equals("PRUEBAS")) {
+                url = "jdbc:mysql://192.168.2.3:3306/gcj_test";
+            }else {
+                url = "jdbc:mysql://192.168.2.3:3306/gcj";
+            }
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection(url, user, pass);
 //            Properties properties = new Properties();
@@ -55,9 +59,13 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
             a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
             a.setVisible(true);
             this.usuario = a.dar_usuario();
+            
             initComponents();
+            
             this.setExtendedState(this.MAXIMIZED_BOTH);
-            this.setTitle("APP-LEXCOM-DESKTOP-PRUEBAS - " + this.usuario);
+            com.lexcom.driver.Usuario DUsuario = new com.lexcom.driver.Usuario(conn, this.usuario);
+            this.setTitle("APP-LEXCOM-DESKTOP-" + ambiente + " - " + DUsuario.obtener_nombre(this.usuario));
+            this.jLabel1.setText("AMBIENTE DE " + ambiente + ".");
 
             this.MenuEntidades.setVisible(false);
             this.MenuReportes.setVisible(false);
@@ -70,6 +78,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
             this.MenuCargarJuicios.setVisible(false);
             this.SubMenuPermisosUsuarios.setVisible(false);
             this.SubMenuConstantes.setVisible(false);
+            
             hilo = new Thread(this);
             hilo.start();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
@@ -83,6 +92,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
     private void initComponents() {
 
         desktopPane = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         MenuPrincipal = new javax.swing.JMenu();
         SubMenuUsuarios = new javax.swing.JMenuItem();
@@ -155,6 +165,12 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
         SubMenuAcercade = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(-65536,true));
+        jLabel1.setText("AMBIENTE DE PRUEBAS.");
+        jLabel1.setBounds(10, 10, 600, 24);
+        desktopPane.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         MenuPrincipal.setMnemonic('p');
         MenuPrincipal.setText("Principal");
@@ -1344,6 +1360,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
     private javax.swing.JMenuItem SubMenuUpdateMasivaDeudores;
     private javax.swing.JMenuItem SubMenuUsuarios;
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;

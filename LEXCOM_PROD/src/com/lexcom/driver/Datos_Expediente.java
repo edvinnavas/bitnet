@@ -19,7 +19,7 @@ public class Datos_Expediente {
         this.conn = conn;
     }
 
-    public DefaultTableModel obtener_tabla(String patron) {
+    public DefaultTableModel obtener_tabla(String patron, Boolean solo_cargados) {
         Integer numeroColumnas = 0;
 
         this.modelo = new DefaultTableModel() {
@@ -34,6 +34,13 @@ public class Datos_Expediente {
                 this.modelo.removeRow(0);
             }
 
+            String cargado = "";
+            if(solo_cargados) {
+                cargado = "d.cargado in ('CARGADO')";
+            } else {
+                cargado = "d.cargado in ('CARGADO','DESCARGADO')";
+            }
+            
             String cadenasql = "SELECT "
                     + "d.deudor AS CODIGO, "
                     + "a.nombre AS ACTOR, "
@@ -57,22 +64,16 @@ public class Datos_Expediente {
                     + "left join garantia ga on (d.garantia=ga.garantia) "
                     + "left join juicio j on (d.deudor=j.deudor)"
                     + "WHERE "
-                    + "a.nombre like '%" + patron + "%' or "
+                    + cargado + " and "
+                    + "(a.nombre like '%" + patron + "%' or "
                     + "d.dpi like '%" + patron + "%' or "
                     + "d.nit like '%" + patron + "%' or "
                     + "d.nombre like '%" + patron + "%' or "
                     + "d.caso like '%" + patron + "%' or "
-                    + "d.pais like '%" + patron + "%' or "
-                    + "d.departamento like '%" + patron + "%' or "
-                    + "d.fecha_ingreso like '%" + patron + "%' or "
                     + "u.nombre like '%" + patron + "%' or "
-                    + "s.nombre like '%" + patron + "%' or "
-                    + "e.nombre like '%" + patron + "%' or "
                     + "d.no_cuenta like '%" + patron + "%' or "
                     + "d.no_cuenta_otro like '%" + patron + "%' or "
-                    + "j.no_juicio like '%" + patron + "%' or "
-                    + "ga.nombre like '%" + patron + "%' or "
-                    + "d.cargado like '%" + patron + "%'";
+                    + "j.no_juicio like '%" + patron + "%')";
 
             try {
                 Statement stmt = conn.createStatement();
