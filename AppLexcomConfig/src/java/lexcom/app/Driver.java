@@ -483,6 +483,50 @@ public class Driver implements Serializable {
             lst_cosecha.add(new SelectItem("2019 2do t", "2019 2do t"));
             lst_cosecha.add(new SelectItem("2019 3er t", "2019 3er t"));
             lst_cosecha.add(new SelectItem("2019 4to t", "2019 4to t"));
+            lst_cosecha.add(new SelectItem("2020 1er t", "2020 1er t"));
+            lst_cosecha.add(new SelectItem("2020 2do t", "2020 2do t"));
+            lst_cosecha.add(new SelectItem("2020 3er t", "2020 3er t"));
+            lst_cosecha.add(new SelectItem("2020 4to t", "2020 4to t"));
+            lst_cosecha.add(new SelectItem("2021 1er t", "2021 1er t"));
+            lst_cosecha.add(new SelectItem("2021 2do t", "2021 2do t"));
+            lst_cosecha.add(new SelectItem("2021 3er t", "2021 3er t"));
+            lst_cosecha.add(new SelectItem("2021 4to t", "2021 4to t"));
+            lst_cosecha.add(new SelectItem("2022 1er t", "2022 1er t"));
+            lst_cosecha.add(new SelectItem("2022 2do t", "2022 2do t"));
+            lst_cosecha.add(new SelectItem("2022 3er t", "2022 3er t"));
+            lst_cosecha.add(new SelectItem("2022 4to t", "2022 4to t"));
+            lst_cosecha.add(new SelectItem("2023 1er t", "2023 1er t"));
+            lst_cosecha.add(new SelectItem("2023 2do t", "2023 2do t"));
+            lst_cosecha.add(new SelectItem("2023 3er t", "2023 3er t"));
+            lst_cosecha.add(new SelectItem("2023 4to t", "2023 4to t"));
+            lst_cosecha.add(new SelectItem("2024 1er t", "2024 1er t"));
+            lst_cosecha.add(new SelectItem("2024 2do t", "2024 2do t"));
+            lst_cosecha.add(new SelectItem("2024 3er t", "2024 3er t"));
+            lst_cosecha.add(new SelectItem("2024 4to t", "2024 4to t"));
+            lst_cosecha.add(new SelectItem("2025 1er t", "2025 1er t"));
+            lst_cosecha.add(new SelectItem("2025 2do t", "2025 2do t"));
+            lst_cosecha.add(new SelectItem("2025 3er t", "2025 3er t"));
+            lst_cosecha.add(new SelectItem("2025 4to t", "2025 4to t"));
+            lst_cosecha.add(new SelectItem("2026 1er t", "2026 1er t"));
+            lst_cosecha.add(new SelectItem("2026 2do t", "2026 2do t"));
+            lst_cosecha.add(new SelectItem("2026 3er t", "2026 3er t"));
+            lst_cosecha.add(new SelectItem("2026 4to t", "2026 4to t"));
+            lst_cosecha.add(new SelectItem("2027 1er t", "2027 1er t"));
+            lst_cosecha.add(new SelectItem("2027 2do t", "2027 2do t"));
+            lst_cosecha.add(new SelectItem("2027 3er t", "2027 3er t"));
+            lst_cosecha.add(new SelectItem("2027 4to t", "2027 4to t"));
+            lst_cosecha.add(new SelectItem("2028 1er t", "2028 1er t"));
+            lst_cosecha.add(new SelectItem("2028 2do t", "2028 2do t"));
+            lst_cosecha.add(new SelectItem("2028 3er t", "2028 3er t"));
+            lst_cosecha.add(new SelectItem("2028 4to t", "2028 4to t"));
+            lst_cosecha.add(new SelectItem("2029 1er t", "2029 1er t"));
+            lst_cosecha.add(new SelectItem("2029 2do t", "2029 2do t"));
+            lst_cosecha.add(new SelectItem("2029 3er t", "2029 3er t"));
+            lst_cosecha.add(new SelectItem("2029 4to t", "2029 4to t"));
+            lst_cosecha.add(new SelectItem("2030 1er t", "2030 1er t"));
+            lst_cosecha.add(new SelectItem("2030 2do t", "2030 2do t"));
+            lst_cosecha.add(new SelectItem("2030 3er t", "2030 3er t"));
+            lst_cosecha.add(new SelectItem("2030 4to t", "2030 4to t"));
         } catch (Exception ex) {
             lst_cosecha.add(new SelectItem("**ERROR**", "**ERROR**"));
         }
@@ -531,6 +575,25 @@ public class Driver implements Serializable {
         return lst_moneda;
     }
     
+    public List<SelectItem> lista_nacionalidad() {
+        List<SelectItem> lst_nacionalidad = new ArrayList<>();
+        
+        try {
+            lst_nacionalidad.add(new SelectItem("GUATEMALTECO(A)", "GUATEMALTECO(A)"));
+            lst_nacionalidad.add(new SelectItem("SALVADOREÑO(A)", "SALVADOREÑO(A)"));
+            lst_nacionalidad.add(new SelectItem("HONDUREÑO(A)", "HONDUREÑO(A)"));
+            lst_nacionalidad.add(new SelectItem("NICARAGÜENSE", "NICARAGÜENSE"));
+            lst_nacionalidad.add(new SelectItem("COSTARRICENSE", "COSTARRICENSE"));
+            lst_nacionalidad.add(new SelectItem("BELICEÑO(A)", "BELICEÑO(A)"));
+            lst_nacionalidad.add(new SelectItem("MEXICANO(A)", "MEXICANO(A)"));
+            lst_nacionalidad.add(new SelectItem("ESTADOUNIDENSE", "ESTADOUNIDENSE"));
+        } catch (Exception ex) {
+            lst_nacionalidad.add(new SelectItem("**ERROR**", "**ERROR**"));
+        }
+
+        return lst_nacionalidad;
+    }
+    
     public List<SelectItem> lista_cargado() {
         List<SelectItem> lst_cargado = new ArrayList<>();
         
@@ -542,6 +605,19 @@ public class Driver implements Serializable {
         }
 
         return lst_cargado;
+    }
+    
+    public List<SelectItem> lista_estado_deudor() {
+        List<SelectItem> lst_estado_deudor = new ArrayList<>();
+        
+        try {
+            lst_estado_deudor.add(new SelectItem("CARGADO", "CARGADO"));
+            lst_estado_deudor.add(new SelectItem("DESCARGADO", "DESCARGADO"));
+        } catch (Exception ex) {
+            lst_estado_deudor.add(new SelectItem("**ERROR**", "**ERROR**"));
+        }
+
+        return lst_estado_deudor;
     }
     
     public List<SelectItem> lista_anticipo() {
@@ -557,20 +633,6 @@ public class Driver implements Serializable {
         }
 
         return lst_anticipo;
-    }
-    
-    public List<SelectItem> lista_antiguedad() {
-        List<SelectItem> lst_antiguedad = new ArrayList<>();
-        
-        try {
-            lst_antiguedad.add(new SelectItem("ORO", "ORO"));
-            lst_antiguedad.add(new SelectItem("PLATA", "PLATA"));
-            lst_antiguedad.add(new SelectItem("BRONCE", "BRONCE"));
-        } catch (Exception ex) {
-            lst_antiguedad.add(new SelectItem("**ERROR**", "**ERROR**"));
-        }
-
-        return lst_antiguedad;
     }
     
     public List<SelectItem> lista_notificado() {

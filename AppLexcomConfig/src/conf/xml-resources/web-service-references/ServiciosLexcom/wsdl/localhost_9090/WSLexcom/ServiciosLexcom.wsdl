@@ -7,53 +7,17 @@
 <xsd:import namespace="http://jaxb.dev.java.net/array" schemaLocation="http://localhost:9090/WSLexcom/ServiciosLexcom?xsd=2"/>
 </xsd:schema>
 </types>
-<message name="Antiguedad_Activar">
-<part name="parameters" element="tns:Antiguedad_Activar"/>
-</message>
-<message name="Antiguedad_ActivarResponse">
-<part name="parameters" element="tns:Antiguedad_ActivarResponse"/>
-</message>
-<message name="Antiguedad_Modificar">
-<part name="parameters" element="tns:Antiguedad_Modificar"/>
-</message>
-<message name="Antiguedad_ModificarResponse">
-<part name="parameters" element="tns:Antiguedad_ModificarResponse"/>
-</message>
-<message name="Antiguedad_Insertar">
-<part name="parameters" element="tns:Antiguedad_Insertar"/>
-</message>
-<message name="Antiguedad_InsertarResponse">
-<part name="parameters" element="tns:Antiguedad_InsertarResponse"/>
-</message>
-<message name="Antiguedad_Eliminar">
-<part name="parameters" element="tns:Antiguedad_Eliminar"/>
-</message>
-<message name="Antiguedad_EliminarResponse">
-<part name="parameters" element="tns:Antiguedad_EliminarResponse"/>
-</message>
-<message name="Convenio_Modificar_Estado">
-<part name="parameters" element="tns:Convenio_Modificar_Estado"/>
-</message>
-<message name="Convenio_Modificar_EstadoResponse">
-<part name="parameters" element="tns:Convenio_Modificar_EstadoResponse"/>
-</message>
-<message name="Carga_Gestiones_Cobros">
-<part name="parameters" element="tns:Carga_Gestiones_Cobros"/>
-</message>
-<message name="Carga_Gestiones_CobrosResponse">
-<part name="parameters" element="tns:Carga_Gestiones_CobrosResponse"/>
-</message>
 <message name="Guardar_Expediente_Judicial">
 <part name="parameters" element="tns:Guardar_Expediente_Judicial"/>
 </message>
 <message name="Guardar_Expediente_JudicialResponse">
 <part name="parameters" element="tns:Guardar_Expediente_JudicialResponse"/>
 </message>
-<message name="Actualizacion_Masiva_Deudores">
-<part name="parameters" element="tns:Actualizacion_Masiva_Deudores"/>
+<message name="Rol_Modificar">
+<part name="parameters" element="tns:Rol_Modificar"/>
 </message>
-<message name="Actualizacion_Masiva_DeudoresResponse">
-<part name="parameters" element="tns:Actualizacion_Masiva_DeudoresResponse"/>
+<message name="Rol_ModificarResponse">
+<part name="parameters" element="tns:Rol_ModificarResponse"/>
 </message>
 <message name="Logueo">
 <part name="parameters" element="tns:Logueo"/>
@@ -67,23 +31,149 @@
 <message name="ReporteResponse">
 <part name="parameters" element="tns:ReporteResponse"/>
 </message>
-<message name="Carga_Masiva_Medidas_Precautorias">
-<part name="parameters" element="tns:Carga_Masiva_Medidas_Precautorias"/>
+<message name="Cartera_Activar">
+<part name="parameters" element="tns:Cartera_Activar"/>
 </message>
-<message name="Carga_Masiva_Medidas_PrecautoriasResponse">
-<part name="parameters" element="tns:Carga_Masiva_Medidas_PrecautoriasResponse"/>
+<message name="Cartera_ActivarResponse">
+<part name="parameters" element="tns:Cartera_ActivarResponse"/>
 </message>
-<message name="Convenio_Detalle_Modificar_Estado">
-<part name="parameters" element="tns:Convenio_Detalle_Modificar_Estado"/>
+<message name="Fiador_Modificar">
+<part name="parameters" element="tns:Fiador_Modificar"/>
 </message>
-<message name="Convenio_Detalle_Modificar_EstadoResponse">
-<part name="parameters" element="tns:Convenio_Detalle_Modificar_EstadoResponse"/>
+<message name="Fiador_ModificarResponse">
+<part name="parameters" element="tns:Fiador_ModificarResponse"/>
 </message>
-<message name="Rol_Modificar">
-<part name="parameters" element="tns:Rol_Modificar"/>
+<message name="Rol_Eliminar">
+<part name="parameters" element="tns:Rol_Eliminar"/>
 </message>
-<message name="Rol_ModificarResponse">
-<part name="parameters" element="tns:Rol_ModificarResponse"/>
+<message name="Rol_EliminarResponse">
+<part name="parameters" element="tns:Rol_EliminarResponse"/>
+</message>
+<message name="Deudor_Insertar">
+<part name="parameters" element="tns:Deudor_Insertar"/>
+</message>
+<message name="Deudor_InsertarResponse">
+<part name="parameters" element="tns:Deudor_InsertarResponse"/>
+</message>
+<message name="Usuario_Activar">
+<part name="parameters" element="tns:Usuario_Activar"/>
+</message>
+<message name="Usuario_ActivarResponse">
+<part name="parameters" element="tns:Usuario_ActivarResponse"/>
+</message>
+<message name="Usuario_Insertar">
+<part name="parameters" element="tns:Usuario_Insertar"/>
+</message>
+<message name="Usuario_InsertarResponse">
+<part name="parameters" element="tns:Usuario_InsertarResponse"/>
+</message>
+<message name="Actor_Modificar">
+<part name="parameters" element="tns:Actor_Modificar"/>
+</message>
+<message name="Actor_ModificarResponse">
+<part name="parameters" element="tns:Actor_ModificarResponse"/>
+</message>
+<message name="SqlTransaccion">
+<part name="parameters" element="tns:SqlTransaccion"/>
+</message>
+<message name="SqlTransaccionResponse">
+<part name="parameters" element="tns:SqlTransaccionResponse"/>
+</message>
+<message name="Actor_Eliminar">
+<part name="parameters" element="tns:Actor_Eliminar"/>
+</message>
+<message name="Actor_EliminarResponse">
+<part name="parameters" element="tns:Actor_EliminarResponse"/>
+</message>
+<message name="Actor_Activar">
+<part name="parameters" element="tns:Actor_Activar"/>
+</message>
+<message name="Actor_ActivarResponse">
+<part name="parameters" element="tns:Actor_ActivarResponse"/>
+</message>
+<message name="Usuario_Eliminar">
+<part name="parameters" element="tns:Usuario_Eliminar"/>
+</message>
+<message name="Usuario_EliminarResponse">
+<part name="parameters" element="tns:Usuario_EliminarResponse"/>
+</message>
+<message name="Logueo_cambio">
+<part name="parameters" element="tns:Logueo_cambio"/>
+</message>
+<message name="Logueo_cambioResponse">
+<part name="parameters" element="tns:Logueo_cambioResponse"/>
+</message>
+<message name="Aumento_Insertar">
+<part name="parameters" element="tns:Aumento_Insertar"/>
+</message>
+<message name="Aumento_InsertarResponse">
+<part name="parameters" element="tns:Aumento_InsertarResponse"/>
+</message>
+<message name="Juicio_Modificar">
+<part name="parameters" element="tns:Juicio_Modificar"/>
+</message>
+<message name="Juicio_ModificarResponse">
+<part name="parameters" element="tns:Juicio_ModificarResponse"/>
+</message>
+<message name="Juicio_Eliminar">
+<part name="parameters" element="tns:Juicio_Eliminar"/>
+</message>
+<message name="Juicio_EliminarResponse">
+<part name="parameters" element="tns:Juicio_EliminarResponse"/>
+</message>
+<message name="Status_Eliminar">
+<part name="parameters" element="tns:Status_Eliminar"/>
+</message>
+<message name="Status_EliminarResponse">
+<part name="parameters" element="tns:Status_EliminarResponse"/>
+</message>
+<message name="Status_Modificar">
+<part name="parameters" element="tns:Status_Modificar"/>
+</message>
+<message name="Status_ModificarResponse">
+<part name="parameters" element="tns:Status_ModificarResponse"/>
+</message>
+<message name="Status_Insertar">
+<part name="parameters" element="tns:Status_Insertar"/>
+</message>
+<message name="Status_InsertarResponse">
+<part name="parameters" element="tns:Status_InsertarResponse"/>
+</message>
+<message name="Garantia_Activar">
+<part name="parameters" element="tns:Garantia_Activar"/>
+</message>
+<message name="Garantia_ActivarResponse">
+<part name="parameters" element="tns:Garantia_ActivarResponse"/>
+</message>
+<message name="Pago_Eliminar">
+<part name="parameters" element="tns:Pago_Eliminar"/>
+</message>
+<message name="Pago_EliminarResponse">
+<part name="parameters" element="tns:Pago_EliminarResponse"/>
+</message>
+<message name="Fiador_Insertar">
+<part name="parameters" element="tns:Fiador_Insertar"/>
+</message>
+<message name="Fiador_InsertarResponse">
+<part name="parameters" element="tns:Fiador_InsertarResponse"/>
+</message>
+<message name="Aumento_Eliminar">
+<part name="parameters" element="tns:Aumento_Eliminar"/>
+</message>
+<message name="Aumento_EliminarResponse">
+<part name="parameters" element="tns:Aumento_EliminarResponse"/>
+</message>
+<message name="Estado_Activar">
+<part name="parameters" element="tns:Estado_Activar"/>
+</message>
+<message name="Estado_ActivarResponse">
+<part name="parameters" element="tns:Estado_ActivarResponse"/>
+</message>
+<message name="Rol_Insertar">
+<part name="parameters" element="tns:Rol_Insertar"/>
+</message>
+<message name="Rol_InsertarResponse">
+<part name="parameters" element="tns:Rol_InsertarResponse"/>
 </message>
 <message name="Fiador_Eliminar">
 <part name="parameters" element="tns:Fiador_Eliminar"/>
@@ -97,197 +187,17 @@
 <message name="Cartera_EliminarResponse">
 <part name="parameters" element="tns:Cartera_EliminarResponse"/>
 </message>
-<message name="Rol_Eliminar">
-<part name="parameters" element="tns:Rol_Eliminar"/>
+<message name="Pago_Modificar">
+<part name="parameters" element="tns:Pago_Modificar"/>
 </message>
-<message name="Rol_EliminarResponse">
-<part name="parameters" element="tns:Rol_EliminarResponse"/>
-</message>
-<message name="Rol_Insertar">
-<part name="parameters" element="tns:Rol_Insertar"/>
-</message>
-<message name="Rol_InsertarResponse">
-<part name="parameters" element="tns:Rol_InsertarResponse"/>
+<message name="Pago_ModificarResponse">
+<part name="parameters" element="tns:Pago_ModificarResponse"/>
 </message>
 <message name="getMonitor">
 <part name="parameters" element="tns:getMonitor"/>
 </message>
 <message name="getMonitorResponse">
 <part name="parameters" element="tns:getMonitorResponse"/>
-</message>
-<message name="Carga_Masiva_Deudoroes">
-<part name="parameters" element="tns:Carga_Masiva_Deudoroes"/>
-</message>
-<message name="Carga_Masiva_DeudoroesResponse">
-<part name="parameters" element="tns:Carga_Masiva_DeudoroesResponse"/>
-</message>
-<message name="Promesa_Pago_Eliminar">
-<part name="parameters" element="tns:Promesa_Pago_Eliminar"/>
-</message>
-<message name="Promesa_Pago_EliminarResponse">
-<part name="parameters" element="tns:Promesa_Pago_EliminarResponse"/>
-</message>
-<message name="Rotacion_Automatica">
-<part name="parameters" element="tns:Rotacion_Automatica"/>
-</message>
-<message name="Rotacion_AutomaticaResponse">
-<part name="parameters" element="tns:Rotacion_AutomaticaResponse"/>
-</message>
-<message name="Promesa_Pago_Modificar">
-<part name="parameters" element="tns:Promesa_Pago_Modificar"/>
-</message>
-<message name="Promesa_Pago_ModificarResponse">
-<part name="parameters" element="tns:Promesa_Pago_ModificarResponse"/>
-</message>
-<message name="Intencion_Pago_Insertar">
-<part name="parameters" element="tns:Intencion_Pago_Insertar"/>
-</message>
-<message name="Intencion_Pago_InsertarResponse">
-<part name="parameters" element="tns:Intencion_Pago_InsertarResponse"/>
-</message>
-<message name="Razon_Deuda_Modificar">
-<part name="parameters" element="tns:Razon_Deuda_Modificar"/>
-</message>
-<message name="Razon_Deuda_ModificarResponse">
-<part name="parameters" element="tns:Razon_Deuda_ModificarResponse"/>
-</message>
-<message name="Intencion_Pago_Modificar">
-<part name="parameters" element="tns:Intencion_Pago_Modificar"/>
-</message>
-<message name="Intencion_Pago_ModificarResponse">
-<part name="parameters" element="tns:Intencion_Pago_ModificarResponse"/>
-</message>
-<message name="Codigo_Contactabilidad_Insertar">
-<part name="parameters" element="tns:Codigo_Contactabilidad_Insertar"/>
-</message>
-<message name="Codigo_Contactabilidad_InsertarResponse">
-<part name="parameters" element="tns:Codigo_Contactabilidad_InsertarResponse"/>
-</message>
-<message name="Gestion_Cobros_Insertar">
-<part name="parameters" element="tns:Gestion_Cobros_Insertar"/>
-</message>
-<message name="Gestion_Cobros_InsertarResponse">
-<part name="parameters" element="tns:Gestion_Cobros_InsertarResponse"/>
-</message>
-<message name="Convenio_Detalle_Modificar">
-<part name="parameters" element="tns:Convenio_Detalle_Modificar"/>
-</message>
-<message name="Convenio_Detalle_ModificarResponse">
-<part name="parameters" element="tns:Convenio_Detalle_ModificarResponse"/>
-</message>
-<message name="Razon_Deuda_Insertar">
-<part name="parameters" element="tns:Razon_Deuda_Insertar"/>
-</message>
-<message name="Razon_Deuda_InsertarResponse">
-<part name="parameters" element="tns:Razon_Deuda_InsertarResponse"/>
-</message>
-<message name="Intencion_Pago_Eliminar">
-<part name="parameters" element="tns:Intencion_Pago_Eliminar"/>
-</message>
-<message name="Intencion_Pago_EliminarResponse">
-<part name="parameters" element="tns:Intencion_Pago_EliminarResponse"/>
-</message>
-<message name="Intencion_Pago_Activar">
-<part name="parameters" element="tns:Intencion_Pago_Activar"/>
-</message>
-<message name="Intencion_Pago_ActivarResponse">
-<part name="parameters" element="tns:Intencion_Pago_ActivarResponse"/>
-</message>
-<message name="Razon_Deuda_Activar">
-<part name="parameters" element="tns:Razon_Deuda_Activar"/>
-</message>
-<message name="Razon_Deuda_ActivarResponse">
-<part name="parameters" element="tns:Razon_Deuda_ActivarResponse"/>
-</message>
-<message name="Convenio_Detalle_Insertar">
-<part name="parameters" element="tns:Convenio_Detalle_Insertar"/>
-</message>
-<message name="Convenio_Detalle_InsertarResponse">
-<part name="parameters" element="tns:Convenio_Detalle_InsertarResponse"/>
-</message>
-<message name="Tipo_Codigo_Resultado_Contacto">
-<part name="parameters" element="tns:Tipo_Codigo_Resultado_Contacto"/>
-</message>
-<message name="Tipo_Codigo_Resultado_ContactoResponse">
-<part name="parameters" element="tns:Tipo_Codigo_Resultado_ContactoResponse"/>
-</message>
-<message name="Razon_Deuda_Eliminar">
-<part name="parameters" element="tns:Razon_Deuda_Eliminar"/>
-</message>
-<message name="Razon_Deuda_EliminarResponse">
-<part name="parameters" element="tns:Razon_Deuda_EliminarResponse"/>
-</message>
-<message name="Codigo_Contactabilidad_Modificar">
-<part name="parameters" element="tns:Codigo_Contactabilidad_Modificar"/>
-</message>
-<message name="Codigo_Contactabilidad_ModificarResponse">
-<part name="parameters" element="tns:Codigo_Contactabilidad_ModificarResponse"/>
-</message>
-<message name="Codigo_Contactabilidad_Activar">
-<part name="parameters" element="tns:Codigo_Contactabilidad_Activar"/>
-</message>
-<message name="Codigo_Contactabilidad_ActivarResponse">
-<part name="parameters" element="tns:Codigo_Contactabilidad_ActivarResponse"/>
-</message>
-<message name="Promesa_Pago_Insertar">
-<part name="parameters" element="tns:Promesa_Pago_Insertar"/>
-</message>
-<message name="Promesa_Pago_InsertarResponse">
-<part name="parameters" element="tns:Promesa_Pago_InsertarResponse"/>
-</message>
-<message name="Gestion_Administracion_Insertar">
-<part name="parameters" element="tns:Gestion_Administracion_Insertar"/>
-</message>
-<message name="Gestion_Administracion_InsertarResponse">
-<part name="parameters" element="tns:Gestion_Administracion_InsertarResponse"/>
-</message>
-<message name="Gestion_Juridico_Insertar">
-<part name="parameters" element="tns:Gestion_Juridico_Insertar"/>
-</message>
-<message name="Gestion_Juridico_InsertarResponse">
-<part name="parameters" element="tns:Gestion_Juridico_InsertarResponse"/>
-</message>
-<message name="Codigo_Contactabilidad_Eliminar">
-<part name="parameters" element="tns:Codigo_Contactabilidad_Eliminar"/>
-</message>
-<message name="Codigo_Contactabilidad_EliminarResponse">
-<part name="parameters" element="tns:Codigo_Contactabilidad_EliminarResponse"/>
-</message>
-<message name="Fiador_Insertar">
-<part name="parameters" element="tns:Fiador_Insertar"/>
-</message>
-<message name="Fiador_InsertarResponse">
-<part name="parameters" element="tns:Fiador_InsertarResponse"/>
-</message>
-<message name="Pago_Eliminar">
-<part name="parameters" element="tns:Pago_Eliminar"/>
-</message>
-<message name="Pago_EliminarResponse">
-<part name="parameters" element="tns:Pago_EliminarResponse"/>
-</message>
-<message name="Aumento_Eliminar">
-<part name="parameters" element="tns:Aumento_Eliminar"/>
-</message>
-<message name="Aumento_EliminarResponse">
-<part name="parameters" element="tns:Aumento_EliminarResponse"/>
-</message>
-<message name="Status_Insertar">
-<part name="parameters" element="tns:Status_Insertar"/>
-</message>
-<message name="Status_InsertarResponse">
-<part name="parameters" element="tns:Status_InsertarResponse"/>
-</message>
-<message name="Cartera_Modificar">
-<part name="parameters" element="tns:Cartera_Modificar"/>
-</message>
-<message name="Cartera_ModificarResponse">
-<part name="parameters" element="tns:Cartera_ModificarResponse"/>
-</message>
-<message name="Pago_Modificar">
-<part name="parameters" element="tns:Pago_Modificar"/>
-</message>
-<message name="Pago_ModificarResponse">
-<part name="parameters" element="tns:Pago_ModificarResponse"/>
 </message>
 <message name="Estado_Eliminar">
 <part name="parameters" element="tns:Estado_Eliminar"/>
@@ -307,59 +217,83 @@
 <message name="Pago_InsertarResponse">
 <part name="parameters" element="tns:Pago_InsertarResponse"/>
 </message>
-<message name="Estado_Activar">
-<part name="parameters" element="tns:Estado_Activar"/>
+<message name="Cartera_Insertar">
+<part name="parameters" element="tns:Cartera_Insertar"/>
 </message>
-<message name="Estado_ActivarResponse">
-<part name="parameters" element="tns:Estado_ActivarResponse"/>
+<message name="Cartera_InsertarResponse">
+<part name="parameters" element="tns:Cartera_InsertarResponse"/>
 </message>
-<message name="Logueo_cambio">
-<part name="parameters" element="tns:Logueo_cambio"/>
+<message name="Antiguedad_Modificar">
+<part name="parameters" element="tns:Antiguedad_Modificar"/>
 </message>
-<message name="Logueo_cambioResponse">
-<part name="parameters" element="tns:Logueo_cambioResponse"/>
+<message name="Antiguedad_ModificarResponse">
+<part name="parameters" element="tns:Antiguedad_ModificarResponse"/>
 </message>
-<message name="Actor_Activar">
-<part name="parameters" element="tns:Actor_Activar"/>
+<message name="Antiguedad_Insertar">
+<part name="parameters" element="tns:Antiguedad_Insertar"/>
 </message>
-<message name="Actor_ActivarResponse">
-<part name="parameters" element="tns:Actor_ActivarResponse"/>
+<message name="Antiguedad_InsertarResponse">
+<part name="parameters" element="tns:Antiguedad_InsertarResponse"/>
 </message>
-<message name="Actor_Modificar">
-<part name="parameters" element="tns:Actor_Modificar"/>
+<message name="Antiguedad_Activar">
+<part name="parameters" element="tns:Antiguedad_Activar"/>
 </message>
-<message name="Actor_ModificarResponse">
-<part name="parameters" element="tns:Actor_ModificarResponse"/>
+<message name="Antiguedad_ActivarResponse">
+<part name="parameters" element="tns:Antiguedad_ActivarResponse"/>
 </message>
-<message name="Usuario_Insertar">
-<part name="parameters" element="tns:Usuario_Insertar"/>
+<message name="Carga_Gestiones_Cobros">
+<part name="parameters" element="tns:Carga_Gestiones_Cobros"/>
 </message>
-<message name="Usuario_InsertarResponse">
-<part name="parameters" element="tns:Usuario_InsertarResponse"/>
+<message name="Carga_Gestiones_CobrosResponse">
+<part name="parameters" element="tns:Carga_Gestiones_CobrosResponse"/>
 </message>
-<message name="Actor_Eliminar">
-<part name="parameters" element="tns:Actor_Eliminar"/>
+<message name="Antiguedad_Eliminar">
+<part name="parameters" element="tns:Antiguedad_Eliminar"/>
 </message>
-<message name="Actor_EliminarResponse">
-<part name="parameters" element="tns:Actor_EliminarResponse"/>
+<message name="Antiguedad_EliminarResponse">
+<part name="parameters" element="tns:Antiguedad_EliminarResponse"/>
 </message>
-<message name="SqlTransaccion">
-<part name="parameters" element="tns:SqlTransaccion"/>
+<message name="Banco_Activar">
+<part name="parameters" element="tns:Banco_Activar"/>
 </message>
-<message name="SqlTransaccionResponse">
-<part name="parameters" element="tns:SqlTransaccionResponse"/>
+<message name="Banco_ActivarResponse">
+<part name="parameters" element="tns:Banco_ActivarResponse"/>
 </message>
-<message name="Usuario_Eliminar">
-<part name="parameters" element="tns:Usuario_Eliminar"/>
+<message name="Juzgado_Insertar">
+<part name="parameters" element="tns:Juzgado_Insertar"/>
 </message>
-<message name="Usuario_EliminarResponse">
-<part name="parameters" element="tns:Usuario_EliminarResponse"/>
+<message name="Juzgado_InsertarResponse">
+<part name="parameters" element="tns:Juzgado_InsertarResponse"/>
 </message>
-<message name="Juzgado_Eliminar">
-<part name="parameters" element="tns:Juzgado_Eliminar"/>
+<message name="Banco_Modificar">
+<part name="parameters" element="tns:Banco_Modificar"/>
 </message>
-<message name="Juzgado_EliminarResponse">
-<part name="parameters" element="tns:Juzgado_EliminarResponse"/>
+<message name="Banco_ModificarResponse">
+<part name="parameters" element="tns:Banco_ModificarResponse"/>
+</message>
+<message name="Estado_Insertar">
+<part name="parameters" element="tns:Estado_Insertar"/>
+</message>
+<message name="Estado_InsertarResponse">
+<part name="parameters" element="tns:Estado_InsertarResponse"/>
+</message>
+<message name="Estado_Modificar">
+<part name="parameters" element="tns:Estado_Modificar"/>
+</message>
+<message name="Estado_ModificarResponse">
+<part name="parameters" element="tns:Estado_ModificarResponse"/>
+</message>
+<message name="Deudor_Eliminar">
+<part name="parameters" element="tns:Deudor_Eliminar"/>
+</message>
+<message name="Deudor_EliminarResponse">
+<part name="parameters" element="tns:Deudor_EliminarResponse"/>
+</message>
+<message name="Juzgado_Activar">
+<part name="parameters" element="tns:Juzgado_Activar"/>
+</message>
+<message name="Juzgado_ActivarResponse">
+<part name="parameters" element="tns:Juzgado_ActivarResponse"/>
 </message>
 <message name="Actor_Insertar">
 <part name="parameters" element="tns:Actor_Insertar"/>
@@ -367,11 +301,11 @@
 <message name="Actor_InsertarResponse">
 <part name="parameters" element="tns:Actor_InsertarResponse"/>
 </message>
-<message name="Deudor_Insertar">
-<part name="parameters" element="tns:Deudor_Insertar"/>
+<message name="Juzgado_Eliminar">
+<part name="parameters" element="tns:Juzgado_Eliminar"/>
 </message>
-<message name="Deudor_InsertarResponse">
-<part name="parameters" element="tns:Deudor_InsertarResponse"/>
+<message name="Juzgado_EliminarResponse">
+<part name="parameters" element="tns:Juzgado_EliminarResponse"/>
 </message>
 <message name="Deudor_Activar">
 <part name="parameters" element="tns:Deudor_Activar"/>
@@ -391,263 +325,23 @@
 <message name="Banco_EliminarResponse">
 <part name="parameters" element="tns:Banco_EliminarResponse"/>
 </message>
-<message name="Aumento_Insertar">
-<part name="parameters" element="tns:Aumento_Insertar"/>
-</message>
-<message name="Aumento_InsertarResponse">
-<part name="parameters" element="tns:Aumento_InsertarResponse"/>
-</message>
-<message name="Deudor_Eliminar">
-<part name="parameters" element="tns:Deudor_Eliminar"/>
-</message>
-<message name="Deudor_EliminarResponse">
-<part name="parameters" element="tns:Deudor_EliminarResponse"/>
-</message>
-<message name="Juicio_Eliminar">
-<part name="parameters" element="tns:Juicio_Eliminar"/>
-</message>
-<message name="Juicio_EliminarResponse">
-<part name="parameters" element="tns:Juicio_EliminarResponse"/>
-</message>
 <message name="Banco_Insertar">
 <part name="parameters" element="tns:Banco_Insertar"/>
 </message>
 <message name="Banco_InsertarResponse">
 <part name="parameters" element="tns:Banco_InsertarResponse"/>
 </message>
-<message name="Estado_Modificar">
-<part name="parameters" element="tns:Estado_Modificar"/>
+<message name="Convenio_Detalle_Modificar_Estado">
+<part name="parameters" element="tns:Convenio_Detalle_Modificar_Estado"/>
 </message>
-<message name="Estado_ModificarResponse">
-<part name="parameters" element="tns:Estado_ModificarResponse"/>
+<message name="Convenio_Detalle_Modificar_EstadoResponse">
+<part name="parameters" element="tns:Convenio_Detalle_Modificar_EstadoResponse"/>
 </message>
-<message name="Estado_Insertar">
-<part name="parameters" element="tns:Estado_Insertar"/>
+<message name="Carga_Masiva_Medidas_Precautorias">
+<part name="parameters" element="tns:Carga_Masiva_Medidas_Precautorias"/>
 </message>
-<message name="Estado_InsertarResponse">
-<part name="parameters" element="tns:Estado_InsertarResponse"/>
-</message>
-<message name="Juzgado_Activar">
-<part name="parameters" element="tns:Juzgado_Activar"/>
-</message>
-<message name="Juzgado_ActivarResponse">
-<part name="parameters" element="tns:Juzgado_ActivarResponse"/>
-</message>
-<message name="Garantia_Activar">
-<part name="parameters" element="tns:Garantia_Activar"/>
-</message>
-<message name="Garantia_ActivarResponse">
-<part name="parameters" element="tns:Garantia_ActivarResponse"/>
-</message>
-<message name="Juzgado_Insertar">
-<part name="parameters" element="tns:Juzgado_Insertar"/>
-</message>
-<message name="Juzgado_InsertarResponse">
-<part name="parameters" element="tns:Juzgado_InsertarResponse"/>
-</message>
-<message name="Banco_Modificar">
-<part name="parameters" element="tns:Banco_Modificar"/>
-</message>
-<message name="Banco_ModificarResponse">
-<part name="parameters" element="tns:Banco_ModificarResponse"/>
-</message>
-<message name="Juicio_Modificar">
-<part name="parameters" element="tns:Juicio_Modificar"/>
-</message>
-<message name="Juicio_ModificarResponse">
-<part name="parameters" element="tns:Juicio_ModificarResponse"/>
-</message>
-<message name="Banco_Activar">
-<part name="parameters" element="tns:Banco_Activar"/>
-</message>
-<message name="Banco_ActivarResponse">
-<part name="parameters" element="tns:Banco_ActivarResponse"/>
-</message>
-<message name="Status_Modificar">
-<part name="parameters" element="tns:Status_Modificar"/>
-</message>
-<message name="Status_ModificarResponse">
-<part name="parameters" element="tns:Status_ModificarResponse"/>
-</message>
-<message name="Status_Eliminar">
-<part name="parameters" element="tns:Status_Eliminar"/>
-</message>
-<message name="Status_EliminarResponse">
-<part name="parameters" element="tns:Status_EliminarResponse"/>
-</message>
-<message name="Usuario_Activar">
-<part name="parameters" element="tns:Usuario_Activar"/>
-</message>
-<message name="Usuario_ActivarResponse">
-<part name="parameters" element="tns:Usuario_ActivarResponse"/>
-</message>
-<message name="Cartera_Insertar">
-<part name="parameters" element="tns:Cartera_Insertar"/>
-</message>
-<message name="Cartera_InsertarResponse">
-<part name="parameters" element="tns:Cartera_InsertarResponse"/>
-</message>
-<message name="Cartera_Activar">
-<part name="parameters" element="tns:Cartera_Activar"/>
-</message>
-<message name="Cartera_ActivarResponse">
-<part name="parameters" element="tns:Cartera_ActivarResponse"/>
-</message>
-<message name="Fiador_Modificar">
-<part name="parameters" element="tns:Fiador_Modificar"/>
-</message>
-<message name="Fiador_ModificarResponse">
-<part name="parameters" element="tns:Fiador_ModificarResponse"/>
-</message>
-<message name="Tipo_Codigo_Resultado_Modificar">
-<part name="parameters" element="tns:Tipo_Codigo_Resultado_Modificar"/>
-</message>
-<message name="Tipo_Codigo_Resultado_ModificarResponse">
-<part name="parameters" element="tns:Tipo_Codigo_Resultado_ModificarResponse"/>
-</message>
-<message name="Permisos_Rol_Modificar">
-<part name="parameters" element="tns:Permisos_Rol_Modificar"/>
-</message>
-<message name="Permisos_Rol_ModificarResponse">
-<part name="parameters" element="tns:Permisos_Rol_ModificarResponse"/>
-</message>
-<message name="Corporacion_Modificar">
-<part name="parameters" element="tns:Corporacion_Modificar"/>
-</message>
-<message name="Corporacion_ModificarResponse">
-<part name="parameters" element="tns:Corporacion_ModificarResponse"/>
-</message>
-<message name="Usuario_Modificar">
-<part name="parameters" element="tns:Usuario_Modificar"/>
-</message>
-<message name="Usuario_ModificarResponse">
-<part name="parameters" element="tns:Usuario_ModificarResponse"/>
-</message>
-<message name="Garantia_Modificar">
-<part name="parameters" element="tns:Garantia_Modificar"/>
-</message>
-<message name="Garantia_ModificarResponse">
-<part name="parameters" element="tns:Garantia_ModificarResponse"/>
-</message>
-<message name="Corporacion_Eliminar">
-<part name="parameters" element="tns:Corporacion_Eliminar"/>
-</message>
-<message name="Corporacion_EliminarResponse">
-<part name="parameters" element="tns:Corporacion_EliminarResponse"/>
-</message>
-<message name="Carga_Masiva_Presentar_Demanda">
-<part name="parameters" element="tns:Carga_Masiva_Presentar_Demanda"/>
-</message>
-<message name="Carga_Masiva_Presentar_DemandaResponse">
-<part name="parameters" element="tns:Carga_Masiva_Presentar_DemandaResponse"/>
-</message>
-<message name="Carga_Pagos_Masivos">
-<part name="parameters" element="tns:Carga_Pagos_Masivos"/>
-</message>
-<message name="Carga_Pagos_MasivosResponse">
-<part name="parameters" element="tns:Carga_Pagos_MasivosResponse"/>
-</message>
-<message name="Carga_Rotacion_Cartera">
-<part name="parameters" element="tns:Carga_Rotacion_Cartera"/>
-</message>
-<message name="Carga_Rotacion_CarteraResponse">
-<part name="parameters" element="tns:Carga_Rotacion_CarteraResponse"/>
-</message>
-<message name="TipoCodigo_Codigo_Resultado">
-<part name="parameters" element="tns:TipoCodigo_Codigo_Resultado"/>
-</message>
-<message name="TipoCodigo_Codigo_ResultadoResponse">
-<part name="parameters" element="tns:TipoCodigo_Codigo_ResultadoResponse"/>
-</message>
-<message name="Estado_Status_Extra_Permite">
-<part name="parameters" element="tns:Estado_Status_Extra_Permite"/>
-</message>
-<message name="Estado_Status_Extra_PermiteResponse">
-<part name="parameters" element="tns:Estado_Status_Extra_PermiteResponse"/>
-</message>
-<message name="Guardar_Expediente_Caso">
-<part name="parameters" element="tns:Guardar_Expediente_Caso"/>
-</message>
-<message name="Guardar_Expediente_CasoResponse">
-<part name="parameters" element="tns:Guardar_Expediente_CasoResponse"/>
-</message>
-<message name="Estado_Status_Judicial">
-<part name="parameters" element="tns:Estado_Status_Judicial"/>
-</message>
-<message name="Estado_Status_JudicialResponse">
-<part name="parameters" element="tns:Estado_Status_JudicialResponse"/>
-</message>
-<message name="Tipo_Descuento_Insertar">
-<part name="parameters" element="tns:Tipo_Descuento_Insertar"/>
-</message>
-<message name="Tipo_Descuento_InsertarResponse">
-<part name="parameters" element="tns:Tipo_Descuento_InsertarResponse"/>
-</message>
-<message name="Garantia_Eliminar">
-<part name="parameters" element="tns:Garantia_Eliminar"/>
-</message>
-<message name="Garantia_EliminarResponse">
-<part name="parameters" element="tns:Garantia_EliminarResponse"/>
-</message>
-<message name="StatusExtra_Activar">
-<part name="parameters" element="tns:StatusExtra_Activar"/>
-</message>
-<message name="StatusExtra_ActivarResponse">
-<part name="parameters" element="tns:StatusExtra_ActivarResponse"/>
-</message>
-<message name="Tipo_Descuento_Modificar">
-<part name="parameters" element="tns:Tipo_Descuento_Modificar"/>
-</message>
-<message name="Tipo_Descuento_ModificarResponse">
-<part name="parameters" element="tns:Tipo_Descuento_ModificarResponse"/>
-</message>
-<message name="Reiniciar_Contrasena">
-<part name="parameters" element="tns:Reiniciar_Contrasena"/>
-</message>
-<message name="Reiniciar_ContrasenaResponse">
-<part name="parameters" element="tns:Reiniciar_ContrasenaResponse"/>
-</message>
-<message name="Garantia_Insertar">
-<part name="parameters" element="tns:Garantia_Insertar"/>
-</message>
-<message name="Garantia_InsertarResponse">
-<part name="parameters" element="tns:Garantia_InsertarResponse"/>
-</message>
-<message name="StatusExtra_Eliminar">
-<part name="parameters" element="tns:StatusExtra_Eliminar"/>
-</message>
-<message name="StatusExtra_EliminarResponse">
-<part name="parameters" element="tns:StatusExtra_EliminarResponse"/>
-</message>
-<message name="Frase_Predeterminada_Activar">
-<part name="parameters" element="tns:Frase_Predeterminada_Activar"/>
-</message>
-<message name="Frase_Predeterminada_ActivarResponse">
-<part name="parameters" element="tns:Frase_Predeterminada_ActivarResponse"/>
-</message>
-<message name="Frase_Predeterminada_Modificar">
-<part name="parameters" element="tns:Frase_Predeterminada_Modificar"/>
-</message>
-<message name="Frase_Predeterminada_ModificarResponse">
-<part name="parameters" element="tns:Frase_Predeterminada_ModificarResponse"/>
-</message>
-<message name="Frase_Predeterminada_Eliminar">
-<part name="parameters" element="tns:Frase_Predeterminada_Eliminar"/>
-</message>
-<message name="Frase_Predeterminada_EliminarResponse">
-<part name="parameters" element="tns:Frase_Predeterminada_EliminarResponse"/>
-</message>
-<message name="Frase_Predeterminada_Insertar">
-<part name="parameters" element="tns:Frase_Predeterminada_Insertar"/>
-</message>
-<message name="Frase_Predeterminada_InsertarResponse">
-<part name="parameters" element="tns:Frase_Predeterminada_InsertarResponse"/>
-</message>
-<message name="Descuento_Eliminar">
-<part name="parameters" element="tns:Descuento_Eliminar"/>
-</message>
-<message name="Descuento_EliminarResponse">
-<part name="parameters" element="tns:Descuento_EliminarResponse"/>
+<message name="Carga_Masiva_Medidas_PrecautoriasResponse">
+<part name="parameters" element="tns:Carga_Masiva_Medidas_PrecautoriasResponse"/>
 </message>
 <message name="Permisos_Usuario_Modificar">
 <part name="parameters" element="tns:Permisos_Usuario_Modificar"/>
@@ -655,11 +349,11 @@
 <message name="Permisos_Usuario_ModificarResponse">
 <part name="parameters" element="tns:Permisos_Usuario_ModificarResponse"/>
 </message>
-<message name="Referencia_Modificar">
-<part name="parameters" element="tns:Referencia_Modificar"/>
+<message name="Permisos_Usuario_Uno_Modificar">
+<part name="parameters" element="tns:Permisos_Usuario_Uno_Modificar"/>
 </message>
-<message name="Referencia_ModificarResponse">
-<part name="parameters" element="tns:Referencia_ModificarResponse"/>
+<message name="Permisos_Usuario_Uno_ModificarResponse">
+<part name="parameters" element="tns:Permisos_Usuario_Uno_ModificarResponse"/>
 </message>
 <message name="Lista_Archivos_Digitalizados">
 <part name="parameters" element="tns:Lista_Archivos_Digitalizados"/>
@@ -667,41 +361,29 @@
 <message name="Lista_Archivos_DigitalizadosResponse">
 <part name="parameters" element="tns:Lista_Archivos_DigitalizadosResponse"/>
 </message>
-<message name="Permisos_Usuario_Uno_Modificar">
-<part name="parameters" element="tns:Permisos_Usuario_Uno_Modificar"/>
-</message>
-<message name="Permisos_Usuario_Uno_ModificarResponse">
-<part name="parameters" element="tns:Permisos_Usuario_Uno_ModificarResponse"/>
-</message>
 <message name="EstadoExtra_Insertar">
 <part name="parameters" element="tns:EstadoExtra_Insertar"/>
 </message>
 <message name="EstadoExtra_InsertarResponse">
 <part name="parameters" element="tns:EstadoExtra_InsertarResponse"/>
 </message>
-<message name="EstadoExtra_Activar">
-<part name="parameters" element="tns:EstadoExtra_Activar"/>
+<message name="Frase_Predeterminada_Modificar">
+<part name="parameters" element="tns:Frase_Predeterminada_Modificar"/>
 </message>
-<message name="EstadoExtra_ActivarResponse">
-<part name="parameters" element="tns:EstadoExtra_ActivarResponse"/>
+<message name="Frase_Predeterminada_ModificarResponse">
+<part name="parameters" element="tns:Frase_Predeterminada_ModificarResponse"/>
 </message>
-<message name="StatusExtra_Insertar">
-<part name="parameters" element="tns:StatusExtra_Insertar"/>
+<message name="Frase_Predeterminada_Insertar">
+<part name="parameters" element="tns:Frase_Predeterminada_Insertar"/>
 </message>
-<message name="StatusExtra_InsertarResponse">
-<part name="parameters" element="tns:StatusExtra_InsertarResponse"/>
+<message name="Frase_Predeterminada_InsertarResponse">
+<part name="parameters" element="tns:Frase_Predeterminada_InsertarResponse"/>
 </message>
-<message name="Referencia_Insertar">
-<part name="parameters" element="tns:Referencia_Insertar"/>
+<message name="Frase_Predeterminada_Activar">
+<part name="parameters" element="tns:Frase_Predeterminada_Activar"/>
 </message>
-<message name="Referencia_InsertarResponse">
-<part name="parameters" element="tns:Referencia_InsertarResponse"/>
-</message>
-<message name="Descuento_Modificar">
-<part name="parameters" element="tns:Descuento_Modificar"/>
-</message>
-<message name="Descuento_ModificarResponse">
-<part name="parameters" element="tns:Descuento_ModificarResponse"/>
+<message name="Frase_Predeterminada_ActivarResponse">
+<part name="parameters" element="tns:Frase_Predeterminada_ActivarResponse"/>
 </message>
 <message name="Aumento_Modificar">
 <part name="parameters" element="tns:Aumento_Modificar"/>
@@ -709,17 +391,17 @@
 <message name="Aumento_ModificarResponse">
 <part name="parameters" element="tns:Aumento_ModificarResponse"/>
 </message>
-<message name="StatusExtra_Modificar">
-<part name="parameters" element="tns:StatusExtra_Modificar"/>
+<message name="StatusExtra_Insertar">
+<part name="parameters" element="tns:StatusExtra_Insertar"/>
 </message>
-<message name="StatusExtra_ModificarResponse">
-<part name="parameters" element="tns:StatusExtra_ModificarResponse"/>
+<message name="StatusExtra_InsertarResponse">
+<part name="parameters" element="tns:StatusExtra_InsertarResponse"/>
 </message>
-<message name="EstadoExtra_Eliminar">
-<part name="parameters" element="tns:EstadoExtra_Eliminar"/>
+<message name="Descuento_Eliminar">
+<part name="parameters" element="tns:Descuento_Eliminar"/>
 </message>
-<message name="EstadoExtra_EliminarResponse">
-<part name="parameters" element="tns:EstadoExtra_EliminarResponse"/>
+<message name="Descuento_EliminarResponse">
+<part name="parameters" element="tns:Descuento_EliminarResponse"/>
 </message>
 <message name="Descuento_Insertar">
 <part name="parameters" element="tns:Descuento_Insertar"/>
@@ -727,59 +409,23 @@
 <message name="Descuento_InsertarResponse">
 <part name="parameters" element="tns:Descuento_InsertarResponse"/>
 </message>
-<message name="Corporacion_Insertar">
-<part name="parameters" element="tns:Corporacion_Insertar"/>
-</message>
-<message name="Corporacion_InsertarResponse">
-<part name="parameters" element="tns:Corporacion_InsertarResponse"/>
-</message>
 <message name="Tipo_Descuento_Activar">
 <part name="parameters" element="tns:Tipo_Descuento_Activar"/>
 </message>
 <message name="Tipo_Descuento_ActivarResponse">
 <part name="parameters" element="tns:Tipo_Descuento_ActivarResponse"/>
 </message>
-<message name="Tipo_Aumento_Eliminar">
-<part name="parameters" element="tns:Tipo_Aumento_Eliminar"/>
+<message name="EstadoExtra_Activar">
+<part name="parameters" element="tns:EstadoExtra_Activar"/>
 </message>
-<message name="Tipo_Aumento_EliminarResponse">
-<part name="parameters" element="tns:Tipo_Aumento_EliminarResponse"/>
+<message name="EstadoExtra_ActivarResponse">
+<part name="parameters" element="tns:EstadoExtra_ActivarResponse"/>
 </message>
-<message name="Carga_Masiva_Deligenciar_Medidas">
-<part name="parameters" element="tns:Carga_Masiva_Deligenciar_Medidas"/>
+<message name="Descuento_Modificar">
+<part name="parameters" element="tns:Descuento_Modificar"/>
 </message>
-<message name="Carga_Masiva_Deligenciar_MedidasResponse">
-<part name="parameters" element="tns:Carga_Masiva_Deligenciar_MedidasResponse"/>
-</message>
-<message name="Carga_Masiva_Caratula">
-<part name="parameters" element="tns:Carga_Masiva_Caratula"/>
-</message>
-<message name="Carga_Masiva_CaratulaResponse">
-<part name="parameters" element="tns:Carga_Masiva_CaratulaResponse"/>
-</message>
-<message name="Tipo_Aumento_Modificar">
-<part name="parameters" element="tns:Tipo_Aumento_Modificar"/>
-</message>
-<message name="Tipo_Aumento_ModificarResponse">
-<part name="parameters" element="tns:Tipo_Aumento_ModificarResponse"/>
-</message>
-<message name="Modificar_Juicio_Expediente">
-<part name="parameters" element="tns:Modificar_Juicio_Expediente"/>
-</message>
-<message name="Modificar_Juicio_ExpedienteResponse">
-<part name="parameters" element="tns:Modificar_Juicio_ExpedienteResponse"/>
-</message>
-<message name="Referencia_Eliminar">
-<part name="parameters" element="tns:Referencia_Eliminar"/>
-</message>
-<message name="Referencia_EliminarResponse">
-<part name="parameters" element="tns:Referencia_EliminarResponse"/>
-</message>
-<message name="Corporacion_Activar">
-<part name="parameters" element="tns:Corporacion_Activar"/>
-</message>
-<message name="Corporacion_ActivarResponse">
-<part name="parameters" element="tns:Corporacion_ActivarResponse"/>
+<message name="Descuento_ModificarResponse">
+<part name="parameters" element="tns:Descuento_ModificarResponse"/>
 </message>
 <message name="Tipo_Descuento_Eliminar">
 <part name="parameters" element="tns:Tipo_Descuento_Eliminar"/>
@@ -787,29 +433,29 @@
 <message name="Tipo_Descuento_EliminarResponse">
 <part name="parameters" element="tns:Tipo_Descuento_EliminarResponse"/>
 </message>
-<message name="Juzgado_Modificar">
-<part name="parameters" element="tns:Juzgado_Modificar"/>
+<message name="Frase_Predeterminada_Eliminar">
+<part name="parameters" element="tns:Frase_Predeterminada_Eliminar"/>
 </message>
-<message name="Juzgado_ModificarResponse">
-<part name="parameters" element="tns:Juzgado_ModificarResponse"/>
+<message name="Frase_Predeterminada_EliminarResponse">
+<part name="parameters" element="tns:Frase_Predeterminada_EliminarResponse"/>
 </message>
-<message name="EstadoExtra_Modificar">
-<part name="parameters" element="tns:EstadoExtra_Modificar"/>
+<message name="Referencia_Modificar">
+<part name="parameters" element="tns:Referencia_Modificar"/>
 </message>
-<message name="EstadoExtra_ModificarResponse">
-<part name="parameters" element="tns:EstadoExtra_ModificarResponse"/>
+<message name="Referencia_ModificarResponse">
+<part name="parameters" element="tns:Referencia_ModificarResponse"/>
 </message>
-<message name="Tipo_Aumento_Activar">
-<part name="parameters" element="tns:Tipo_Aumento_Activar"/>
+<message name="Referencia_Insertar">
+<part name="parameters" element="tns:Referencia_Insertar"/>
 </message>
-<message name="Tipo_Aumento_ActivarResponse">
-<part name="parameters" element="tns:Tipo_Aumento_ActivarResponse"/>
+<message name="Referencia_InsertarResponse">
+<part name="parameters" element="tns:Referencia_InsertarResponse"/>
 </message>
-<message name="Modificar_Deudor_Expediente">
-<part name="parameters" element="tns:Modificar_Deudor_Expediente"/>
+<message name="StatusExtra_Modificar">
+<part name="parameters" element="tns:StatusExtra_Modificar"/>
 </message>
-<message name="Modificar_Deudor_ExpedienteResponse">
-<part name="parameters" element="tns:Modificar_Deudor_ExpedienteResponse"/>
+<message name="StatusExtra_ModificarResponse">
+<part name="parameters" element="tns:StatusExtra_ModificarResponse"/>
 </message>
 <message name="Tipo_Aumento_Insertar">
 <part name="parameters" element="tns:Tipo_Aumento_Insertar"/>
@@ -817,23 +463,125 @@
 <message name="Tipo_Aumento_InsertarResponse">
 <part name="parameters" element="tns:Tipo_Aumento_InsertarResponse"/>
 </message>
-<message name="Estado_Status_Extrajudicial">
-<part name="parameters" element="tns:Estado_Status_Extrajudicial"/>
+<message name="EstadoExtra_Eliminar">
+<part name="parameters" element="tns:EstadoExtra_Eliminar"/>
 </message>
-<message name="Estado_Status_ExtrajudicialResponse">
-<part name="parameters" element="tns:Estado_Status_ExtrajudicialResponse"/>
+<message name="EstadoExtra_EliminarResponse">
+<part name="parameters" element="tns:EstadoExtra_EliminarResponse"/>
 </message>
-<message name="Convenio_Insertar">
-<part name="parameters" element="tns:Convenio_Insertar"/>
+<message name="Modificar_Juicio_Expediente">
+<part name="parameters" element="tns:Modificar_Juicio_Expediente"/>
 </message>
-<message name="Convenio_InsertarResponse">
-<part name="parameters" element="tns:Convenio_InsertarResponse"/>
+<message name="Modificar_Juicio_ExpedienteResponse">
+<part name="parameters" element="tns:Modificar_Juicio_ExpedienteResponse"/>
 </message>
-<message name="Tipo_Codigo_Resultado_Insertar">
-<part name="parameters" element="tns:Tipo_Codigo_Resultado_Insertar"/>
+<message name="Tipo_Aumento_Modificar">
+<part name="parameters" element="tns:Tipo_Aumento_Modificar"/>
 </message>
-<message name="Tipo_Codigo_Resultado_InsertarResponse">
-<part name="parameters" element="tns:Tipo_Codigo_Resultado_InsertarResponse"/>
+<message name="Tipo_Aumento_ModificarResponse">
+<part name="parameters" element="tns:Tipo_Aumento_ModificarResponse"/>
+</message>
+<message name="Juzgado_Modificar">
+<part name="parameters" element="tns:Juzgado_Modificar"/>
+</message>
+<message name="Juzgado_ModificarResponse">
+<part name="parameters" element="tns:Juzgado_ModificarResponse"/>
+</message>
+<message name="Tipo_Aumento_Eliminar">
+<part name="parameters" element="tns:Tipo_Aumento_Eliminar"/>
+</message>
+<message name="Tipo_Aumento_EliminarResponse">
+<part name="parameters" element="tns:Tipo_Aumento_EliminarResponse"/>
+</message>
+<message name="Modificar_Deudor_Expediente">
+<part name="parameters" element="tns:Modificar_Deudor_Expediente"/>
+</message>
+<message name="Modificar_Deudor_ExpedienteResponse">
+<part name="parameters" element="tns:Modificar_Deudor_ExpedienteResponse"/>
+</message>
+<message name="Carga_Masiva_Deligenciar_Medidas">
+<part name="parameters" element="tns:Carga_Masiva_Deligenciar_Medidas"/>
+</message>
+<message name="Carga_Masiva_Deligenciar_MedidasResponse">
+<part name="parameters" element="tns:Carga_Masiva_Deligenciar_MedidasResponse"/>
+</message>
+<message name="Carga_Masiva_Presentar_Demanda">
+<part name="parameters" element="tns:Carga_Masiva_Presentar_Demanda"/>
+</message>
+<message name="Carga_Masiva_Presentar_DemandaResponse">
+<part name="parameters" element="tns:Carga_Masiva_Presentar_DemandaResponse"/>
+</message>
+<message name="Corporacion_Activar">
+<part name="parameters" element="tns:Corporacion_Activar"/>
+</message>
+<message name="Corporacion_ActivarResponse">
+<part name="parameters" element="tns:Corporacion_ActivarResponse"/>
+</message>
+<message name="Tipo_Aumento_Activar">
+<part name="parameters" element="tns:Tipo_Aumento_Activar"/>
+</message>
+<message name="Tipo_Aumento_ActivarResponse">
+<part name="parameters" element="tns:Tipo_Aumento_ActivarResponse"/>
+</message>
+<message name="Referencia_Eliminar">
+<part name="parameters" element="tns:Referencia_Eliminar"/>
+</message>
+<message name="Referencia_EliminarResponse">
+<part name="parameters" element="tns:Referencia_EliminarResponse"/>
+</message>
+<message name="Corporacion_Insertar">
+<part name="parameters" element="tns:Corporacion_Insertar"/>
+</message>
+<message name="Corporacion_InsertarResponse">
+<part name="parameters" element="tns:Corporacion_InsertarResponse"/>
+</message>
+<message name="Carga_Pagos_Masivos">
+<part name="parameters" element="tns:Carga_Pagos_Masivos"/>
+</message>
+<message name="Carga_Pagos_MasivosResponse">
+<part name="parameters" element="tns:Carga_Pagos_MasivosResponse"/>
+</message>
+<message name="Carga_Masiva_Caratula">
+<part name="parameters" element="tns:Carga_Masiva_Caratula"/>
+</message>
+<message name="Carga_Masiva_CaratulaResponse">
+<part name="parameters" element="tns:Carga_Masiva_CaratulaResponse"/>
+</message>
+<message name="Corporacion_Eliminar">
+<part name="parameters" element="tns:Corporacion_Eliminar"/>
+</message>
+<message name="Corporacion_EliminarResponse">
+<part name="parameters" element="tns:Corporacion_EliminarResponse"/>
+</message>
+<message name="Carga_Rotacion_Cartera">
+<part name="parameters" element="tns:Carga_Rotacion_Cartera"/>
+</message>
+<message name="Carga_Rotacion_CarteraResponse">
+<part name="parameters" element="tns:Carga_Rotacion_CarteraResponse"/>
+</message>
+<message name="EstadoExtra_Modificar">
+<part name="parameters" element="tns:EstadoExtra_Modificar"/>
+</message>
+<message name="EstadoExtra_ModificarResponse">
+<part name="parameters" element="tns:EstadoExtra_ModificarResponse"/>
+</message>
+<message name="Garantia_Modificar">
+<part name="parameters" element="tns:Garantia_Modificar"/>
+</message>
+<message name="Garantia_ModificarResponse">
+<part name="parameters" element="tns:Garantia_ModificarResponse"/>
+</message>
+<message name="Garantia_Insertar">
+<part name="parameters" element="tns:Garantia_Insertar"/>
+</message>
+<message name="Garantia_InsertarResponse">
+<part name="parameters" element="tns:Garantia_InsertarResponse"/>
+</message>
+<message name="Usuario_Modificar">
+<part name="parameters" element="tns:Usuario_Modificar"/>
+</message>
+<message name="Usuario_ModificarResponse">
+<part name="parameters" element="tns:Usuario_ModificarResponse"/>
 </message>
 <message name="Permiso_Expediente">
 <part name="parameters" element="tns:Permiso_Expediente"/>
@@ -841,17 +589,95 @@
 <message name="Permiso_ExpedienteResponse">
 <part name="parameters" element="tns:Permiso_ExpedienteResponse"/>
 </message>
-<message name="Tipo_Codigo_Resultado_Activar">
-<part name="parameters" element="tns:Tipo_Codigo_Resultado_Activar"/>
+<message name="Estado_Status_Extrajudicial">
+<part name="parameters" element="tns:Estado_Status_Extrajudicial"/>
 </message>
-<message name="Tipo_Codigo_Resultado_ActivarResponse">
-<part name="parameters" element="tns:Tipo_Codigo_Resultado_ActivarResponse"/>
+<message name="Estado_Status_ExtrajudicialResponse">
+<part name="parameters" element="tns:Estado_Status_ExtrajudicialResponse"/>
 </message>
-<message name="Guardar_Expediente_Extrajudicial">
-<part name="parameters" element="tns:Guardar_Expediente_Extrajudicial"/>
+<message name="Guardar_Expediente_Caso">
+<part name="parameters" element="tns:Guardar_Expediente_Caso"/>
 </message>
-<message name="Guardar_Expediente_ExtrajudicialResponse">
-<part name="parameters" element="tns:Guardar_Expediente_ExtrajudicialResponse"/>
+<message name="Guardar_Expediente_CasoResponse">
+<part name="parameters" element="tns:Guardar_Expediente_CasoResponse"/>
+</message>
+<message name="Tipo_Codigo_Resultado_Insertar">
+<part name="parameters" element="tns:Tipo_Codigo_Resultado_Insertar"/>
+</message>
+<message name="Tipo_Codigo_Resultado_InsertarResponse">
+<part name="parameters" element="tns:Tipo_Codigo_Resultado_InsertarResponse"/>
+</message>
+<message name="Tipo_Descuento_Modificar">
+<part name="parameters" element="tns:Tipo_Descuento_Modificar"/>
+</message>
+<message name="Tipo_Descuento_ModificarResponse">
+<part name="parameters" element="tns:Tipo_Descuento_ModificarResponse"/>
+</message>
+<message name="StatusExtra_Activar">
+<part name="parameters" element="tns:StatusExtra_Activar"/>
+</message>
+<message name="StatusExtra_ActivarResponse">
+<part name="parameters" element="tns:StatusExtra_ActivarResponse"/>
+</message>
+<message name="Estado_Status_Judicial">
+<part name="parameters" element="tns:Estado_Status_Judicial"/>
+</message>
+<message name="Estado_Status_JudicialResponse">
+<part name="parameters" element="tns:Estado_Status_JudicialResponse"/>
+</message>
+<message name="Corporacion_Modificar">
+<part name="parameters" element="tns:Corporacion_Modificar"/>
+</message>
+<message name="Corporacion_ModificarResponse">
+<part name="parameters" element="tns:Corporacion_ModificarResponse"/>
+</message>
+<message name="Garantia_Eliminar">
+<part name="parameters" element="tns:Garantia_Eliminar"/>
+</message>
+<message name="Garantia_EliminarResponse">
+<part name="parameters" element="tns:Garantia_EliminarResponse"/>
+</message>
+<message name="Estado_Status_Extra_Permite">
+<part name="parameters" element="tns:Estado_Status_Extra_Permite"/>
+</message>
+<message name="Estado_Status_Extra_PermiteResponse">
+<part name="parameters" element="tns:Estado_Status_Extra_PermiteResponse"/>
+</message>
+<message name="StatusExtra_Eliminar">
+<part name="parameters" element="tns:StatusExtra_Eliminar"/>
+</message>
+<message name="StatusExtra_EliminarResponse">
+<part name="parameters" element="tns:StatusExtra_EliminarResponse"/>
+</message>
+<message name="TipoCodigo_Codigo_Resultado">
+<part name="parameters" element="tns:TipoCodigo_Codigo_Resultado"/>
+</message>
+<message name="TipoCodigo_Codigo_ResultadoResponse">
+<part name="parameters" element="tns:TipoCodigo_Codigo_ResultadoResponse"/>
+</message>
+<message name="Tipo_Descuento_Insertar">
+<part name="parameters" element="tns:Tipo_Descuento_Insertar"/>
+</message>
+<message name="Tipo_Descuento_InsertarResponse">
+<part name="parameters" element="tns:Tipo_Descuento_InsertarResponse"/>
+</message>
+<message name="Convenio_Insertar">
+<part name="parameters" element="tns:Convenio_Insertar"/>
+</message>
+<message name="Convenio_InsertarResponse">
+<part name="parameters" element="tns:Convenio_InsertarResponse"/>
+</message>
+<message name="Reiniciar_Contrasena">
+<part name="parameters" element="tns:Reiniciar_Contrasena"/>
+</message>
+<message name="Reiniciar_ContrasenaResponse">
+<part name="parameters" element="tns:Reiniciar_ContrasenaResponse"/>
+</message>
+<message name="Intencion_Pago_Activar">
+<part name="parameters" element="tns:Intencion_Pago_Activar"/>
+</message>
+<message name="Intencion_Pago_ActivarResponse">
+<part name="parameters" element="tns:Intencion_Pago_ActivarResponse"/>
 </message>
 <message name="Convenio_Modificar">
 <part name="parameters" element="tns:Convenio_Modificar"/>
@@ -865,44 +691,194 @@
 <message name="Tipo_Codigo_Resultado_EliminarResponse">
 <part name="parameters" element="tns:Tipo_Codigo_Resultado_EliminarResponse"/>
 </message>
+<message name="Cartera_Modificar">
+<part name="parameters" element="tns:Cartera_Modificar"/>
+</message>
+<message name="Cartera_ModificarResponse">
+<part name="parameters" element="tns:Cartera_ModificarResponse"/>
+</message>
+<message name="Tipo_Codigo_Resultado_Modificar">
+<part name="parameters" element="tns:Tipo_Codigo_Resultado_Modificar"/>
+</message>
+<message name="Tipo_Codigo_Resultado_ModificarResponse">
+<part name="parameters" element="tns:Tipo_Codigo_Resultado_ModificarResponse"/>
+</message>
+<message name="Guardar_Expediente_Extrajudicial">
+<part name="parameters" element="tns:Guardar_Expediente_Extrajudicial"/>
+</message>
+<message name="Guardar_Expediente_ExtrajudicialResponse">
+<part name="parameters" element="tns:Guardar_Expediente_ExtrajudicialResponse"/>
+</message>
+<message name="Tipo_Codigo_Resultado_Contacto">
+<part name="parameters" element="tns:Tipo_Codigo_Resultado_Contacto"/>
+</message>
+<message name="Tipo_Codigo_Resultado_ContactoResponse">
+<part name="parameters" element="tns:Tipo_Codigo_Resultado_ContactoResponse"/>
+</message>
+<message name="Tipo_Codigo_Resultado_Activar">
+<part name="parameters" element="tns:Tipo_Codigo_Resultado_Activar"/>
+</message>
+<message name="Tipo_Codigo_Resultado_ActivarResponse">
+<part name="parameters" element="tns:Tipo_Codigo_Resultado_ActivarResponse"/>
+</message>
+<message name="Razon_Deuda_Insertar">
+<part name="parameters" element="tns:Razon_Deuda_Insertar"/>
+</message>
+<message name="Razon_Deuda_InsertarResponse">
+<part name="parameters" element="tns:Razon_Deuda_InsertarResponse"/>
+</message>
 <message name="Constantes_Modificar">
 <part name="parameters" element="tns:Constantes_Modificar"/>
 </message>
 <message name="Constantes_ModificarResponse">
 <part name="parameters" element="tns:Constantes_ModificarResponse"/>
 </message>
+<message name="Permisos_Rol_Modificar">
+<part name="parameters" element="tns:Permisos_Rol_Modificar"/>
+</message>
+<message name="Permisos_Rol_ModificarResponse">
+<part name="parameters" element="tns:Permisos_Rol_ModificarResponse"/>
+</message>
+<message name="Convenio_Detalle_Modificar">
+<part name="parameters" element="tns:Convenio_Detalle_Modificar"/>
+</message>
+<message name="Convenio_Detalle_ModificarResponse">
+<part name="parameters" element="tns:Convenio_Detalle_ModificarResponse"/>
+</message>
+<message name="Intencion_Pago_Insertar">
+<part name="parameters" element="tns:Intencion_Pago_Insertar"/>
+</message>
+<message name="Intencion_Pago_InsertarResponse">
+<part name="parameters" element="tns:Intencion_Pago_InsertarResponse"/>
+</message>
+<message name="Convenio_Modificar_Estado">
+<part name="parameters" element="tns:Convenio_Modificar_Estado"/>
+</message>
+<message name="Convenio_Modificar_EstadoResponse">
+<part name="parameters" element="tns:Convenio_Modificar_EstadoResponse"/>
+</message>
+<message name="Actualizacion_Masiva_Deudores">
+<part name="parameters" element="tns:Actualizacion_Masiva_Deudores"/>
+</message>
+<message name="Actualizacion_Masiva_DeudoresResponse">
+<part name="parameters" element="tns:Actualizacion_Masiva_DeudoresResponse"/>
+</message>
+<message name="Convenio_Detalle_Insertar">
+<part name="parameters" element="tns:Convenio_Detalle_Insertar"/>
+</message>
+<message name="Convenio_Detalle_InsertarResponse">
+<part name="parameters" element="tns:Convenio_Detalle_InsertarResponse"/>
+</message>
+<message name="Rotacion_Automatica">
+<part name="parameters" element="tns:Rotacion_Automatica"/>
+</message>
+<message name="Rotacion_AutomaticaResponse">
+<part name="parameters" element="tns:Rotacion_AutomaticaResponse"/>
+</message>
+<message name="Intencion_Pago_Modificar">
+<part name="parameters" element="tns:Intencion_Pago_Modificar"/>
+</message>
+<message name="Intencion_Pago_ModificarResponse">
+<part name="parameters" element="tns:Intencion_Pago_ModificarResponse"/>
+</message>
+<message name="Intencion_Pago_Eliminar">
+<part name="parameters" element="tns:Intencion_Pago_Eliminar"/>
+</message>
+<message name="Intencion_Pago_EliminarResponse">
+<part name="parameters" element="tns:Intencion_Pago_EliminarResponse"/>
+</message>
+<message name="Razon_Deuda_Activar">
+<part name="parameters" element="tns:Razon_Deuda_Activar"/>
+</message>
+<message name="Razon_Deuda_ActivarResponse">
+<part name="parameters" element="tns:Razon_Deuda_ActivarResponse"/>
+</message>
+<message name="Codigo_Contactabilidad_Activar">
+<part name="parameters" element="tns:Codigo_Contactabilidad_Activar"/>
+</message>
+<message name="Codigo_Contactabilidad_ActivarResponse">
+<part name="parameters" element="tns:Codigo_Contactabilidad_ActivarResponse"/>
+</message>
+<message name="Codigo_Contactabilidad_Modificar">
+<part name="parameters" element="tns:Codigo_Contactabilidad_Modificar"/>
+</message>
+<message name="Codigo_Contactabilidad_ModificarResponse">
+<part name="parameters" element="tns:Codigo_Contactabilidad_ModificarResponse"/>
+</message>
+<message name="Promesa_Pago_Eliminar">
+<part name="parameters" element="tns:Promesa_Pago_Eliminar"/>
+</message>
+<message name="Promesa_Pago_EliminarResponse">
+<part name="parameters" element="tns:Promesa_Pago_EliminarResponse"/>
+</message>
+<message name="Gestion_Administracion_Insertar">
+<part name="parameters" element="tns:Gestion_Administracion_Insertar"/>
+</message>
+<message name="Gestion_Administracion_InsertarResponse">
+<part name="parameters" element="tns:Gestion_Administracion_InsertarResponse"/>
+</message>
+<message name="Codigo_Contactabilidad_Eliminar">
+<part name="parameters" element="tns:Codigo_Contactabilidad_Eliminar"/>
+</message>
+<message name="Codigo_Contactabilidad_EliminarResponse">
+<part name="parameters" element="tns:Codigo_Contactabilidad_EliminarResponse"/>
+</message>
+<message name="Promesa_Pago_Insertar">
+<part name="parameters" element="tns:Promesa_Pago_Insertar"/>
+</message>
+<message name="Promesa_Pago_InsertarResponse">
+<part name="parameters" element="tns:Promesa_Pago_InsertarResponse"/>
+</message>
+<message name="Carga_Masiva_Deudoroes">
+<part name="parameters" element="tns:Carga_Masiva_Deudoroes"/>
+</message>
+<message name="Carga_Masiva_DeudoroesResponse">
+<part name="parameters" element="tns:Carga_Masiva_DeudoroesResponse"/>
+</message>
+<message name="Razon_Deuda_Modificar">
+<part name="parameters" element="tns:Razon_Deuda_Modificar"/>
+</message>
+<message name="Razon_Deuda_ModificarResponse">
+<part name="parameters" element="tns:Razon_Deuda_ModificarResponse"/>
+</message>
+<message name="Promesa_Pago_Modificar">
+<part name="parameters" element="tns:Promesa_Pago_Modificar"/>
+</message>
+<message name="Promesa_Pago_ModificarResponse">
+<part name="parameters" element="tns:Promesa_Pago_ModificarResponse"/>
+</message>
+<message name="Codigo_Contactabilidad_Insertar">
+<part name="parameters" element="tns:Codigo_Contactabilidad_Insertar"/>
+</message>
+<message name="Codigo_Contactabilidad_InsertarResponse">
+<part name="parameters" element="tns:Codigo_Contactabilidad_InsertarResponse"/>
+</message>
+<message name="Gestion_Juridico_Insertar">
+<part name="parameters" element="tns:Gestion_Juridico_Insertar"/>
+</message>
+<message name="Gestion_Juridico_InsertarResponse">
+<part name="parameters" element="tns:Gestion_Juridico_InsertarResponse"/>
+</message>
+<message name="Razon_Deuda_Eliminar">
+<part name="parameters" element="tns:Razon_Deuda_Eliminar"/>
+</message>
+<message name="Razon_Deuda_EliminarResponse">
+<part name="parameters" element="tns:Razon_Deuda_EliminarResponse"/>
+</message>
+<message name="Gestion_Cobros_Insertar">
+<part name="parameters" element="tns:Gestion_Cobros_Insertar"/>
+</message>
+<message name="Gestion_Cobros_InsertarResponse">
+<part name="parameters" element="tns:Gestion_Cobros_InsertarResponse"/>
+</message>
 <portType name="ServiciosLexcom">
-<operation name="Antiguedad_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_ActivarRequest" message="tns:Antiguedad_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_ActivarResponse" message="tns:Antiguedad_ActivarResponse"/>
-</operation>
-<operation name="Antiguedad_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_ModificarRequest" message="tns:Antiguedad_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_ModificarResponse" message="tns:Antiguedad_ModificarResponse"/>
-</operation>
-<operation name="Antiguedad_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_InsertarRequest" message="tns:Antiguedad_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_InsertarResponse" message="tns:Antiguedad_InsertarResponse"/>
-</operation>
-<operation name="Antiguedad_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_EliminarRequest" message="tns:Antiguedad_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_EliminarResponse" message="tns:Antiguedad_EliminarResponse"/>
-</operation>
-<operation name="Convenio_Modificar_Estado">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Modificar_EstadoRequest" message="tns:Convenio_Modificar_Estado"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Modificar_EstadoResponse" message="tns:Convenio_Modificar_EstadoResponse"/>
-</operation>
-<operation name="Carga_Gestiones_Cobros">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Gestiones_CobrosRequest" message="tns:Carga_Gestiones_Cobros"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Gestiones_CobrosResponse" message="tns:Carga_Gestiones_CobrosResponse"/>
-</operation>
 <operation name="Guardar_Expediente_Judicial">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_JudicialRequest" message="tns:Guardar_Expediente_Judicial"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_JudicialResponse" message="tns:Guardar_Expediente_JudicialResponse"/>
 </operation>
-<operation name="Actualizacion_Masiva_Deudores">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Actualizacion_Masiva_DeudoresRequest" message="tns:Actualizacion_Masiva_Deudores"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Actualizacion_Masiva_DeudoresResponse" message="tns:Actualizacion_Masiva_DeudoresResponse"/>
+<operation name="Rol_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_ModificarRequest" message="tns:Rol_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_ModificarResponse" message="tns:Rol_ModificarResponse"/>
 </operation>
 <operation name="Logueo">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/LogueoRequest" message="tns:Logueo"/>
@@ -912,17 +888,101 @@
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/ReporteRequest" message="tns:Reporte"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/ReporteResponse" message="tns:ReporteResponse"/>
 </operation>
-<operation name="Carga_Masiva_Medidas_Precautorias">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Medidas_PrecautoriasRequest" message="tns:Carga_Masiva_Medidas_Precautorias"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Medidas_PrecautoriasResponse" message="tns:Carga_Masiva_Medidas_PrecautoriasResponse"/>
+<operation name="Cartera_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ActivarRequest" message="tns:Cartera_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ActivarResponse" message="tns:Cartera_ActivarResponse"/>
 </operation>
-<operation name="Convenio_Detalle_Modificar_Estado">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_Modificar_EstadoRequest" message="tns:Convenio_Detalle_Modificar_Estado"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_Modificar_EstadoResponse" message="tns:Convenio_Detalle_Modificar_EstadoResponse"/>
+<operation name="Fiador_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_ModificarRequest" message="tns:Fiador_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_ModificarResponse" message="tns:Fiador_ModificarResponse"/>
 </operation>
-<operation name="Rol_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_ModificarRequest" message="tns:Rol_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_ModificarResponse" message="tns:Rol_ModificarResponse"/>
+<operation name="Rol_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_EliminarRequest" message="tns:Rol_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_EliminarResponse" message="tns:Rol_EliminarResponse"/>
+</operation>
+<operation name="Deudor_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_InsertarRequest" message="tns:Deudor_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_InsertarResponse" message="tns:Deudor_InsertarResponse"/>
+</operation>
+<operation name="Usuario_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_ActivarRequest" message="tns:Usuario_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_ActivarResponse" message="tns:Usuario_ActivarResponse"/>
+</operation>
+<operation name="Usuario_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_InsertarRequest" message="tns:Usuario_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_InsertarResponse" message="tns:Usuario_InsertarResponse"/>
+</operation>
+<operation name="Actor_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_ModificarRequest" message="tns:Actor_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_ModificarResponse" message="tns:Actor_ModificarResponse"/>
+</operation>
+<operation name="SqlTransaccion">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/SqlTransaccionRequest" message="tns:SqlTransaccion"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/SqlTransaccionResponse" message="tns:SqlTransaccionResponse"/>
+</operation>
+<operation name="Actor_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_EliminarRequest" message="tns:Actor_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_EliminarResponse" message="tns:Actor_EliminarResponse"/>
+</operation>
+<operation name="Actor_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_ActivarRequest" message="tns:Actor_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_ActivarResponse" message="tns:Actor_ActivarResponse"/>
+</operation>
+<operation name="Usuario_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_EliminarRequest" message="tns:Usuario_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_EliminarResponse" message="tns:Usuario_EliminarResponse"/>
+</operation>
+<operation name="Logueo_cambio">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Logueo_cambioRequest" message="tns:Logueo_cambio"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Logueo_cambioResponse" message="tns:Logueo_cambioResponse"/>
+</operation>
+<operation name="Aumento_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_InsertarRequest" message="tns:Aumento_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_InsertarResponse" message="tns:Aumento_InsertarResponse"/>
+</operation>
+<operation name="Juicio_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juicio_ModificarRequest" message="tns:Juicio_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juicio_ModificarResponse" message="tns:Juicio_ModificarResponse"/>
+</operation>
+<operation name="Juicio_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juicio_EliminarRequest" message="tns:Juicio_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juicio_EliminarResponse" message="tns:Juicio_EliminarResponse"/>
+</operation>
+<operation name="Status_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Status_EliminarRequest" message="tns:Status_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Status_EliminarResponse" message="tns:Status_EliminarResponse"/>
+</operation>
+<operation name="Status_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Status_ModificarRequest" message="tns:Status_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Status_ModificarResponse" message="tns:Status_ModificarResponse"/>
+</operation>
+<operation name="Status_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Status_InsertarRequest" message="tns:Status_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Status_InsertarResponse" message="tns:Status_InsertarResponse"/>
+</operation>
+<operation name="Garantia_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_ActivarRequest" message="tns:Garantia_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_ActivarResponse" message="tns:Garantia_ActivarResponse"/>
+</operation>
+<operation name="Pago_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_EliminarRequest" message="tns:Pago_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_EliminarResponse" message="tns:Pago_EliminarResponse"/>
+</operation>
+<operation name="Fiador_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_InsertarRequest" message="tns:Fiador_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_InsertarResponse" message="tns:Fiador_InsertarResponse"/>
+</operation>
+<operation name="Aumento_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_EliminarRequest" message="tns:Aumento_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_EliminarResponse" message="tns:Aumento_EliminarResponse"/>
+</operation>
+<operation name="Estado_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_ActivarRequest" message="tns:Estado_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_ActivarResponse" message="tns:Estado_ActivarResponse"/>
+</operation>
+<operation name="Rol_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_InsertarRequest" message="tns:Rol_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_InsertarResponse" message="tns:Rol_InsertarResponse"/>
 </operation>
 <operation name="Fiador_Eliminar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_EliminarRequest" message="tns:Fiador_Eliminar"/>
@@ -932,133 +992,13 @@
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_EliminarRequest" message="tns:Cartera_Eliminar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_EliminarResponse" message="tns:Cartera_EliminarResponse"/>
 </operation>
-<operation name="Rol_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_EliminarRequest" message="tns:Rol_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_EliminarResponse" message="tns:Rol_EliminarResponse"/>
-</operation>
-<operation name="Rol_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_InsertarRequest" message="tns:Rol_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Rol_InsertarResponse" message="tns:Rol_InsertarResponse"/>
+<operation name="Pago_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_ModificarRequest" message="tns:Pago_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_ModificarResponse" message="tns:Pago_ModificarResponse"/>
 </operation>
 <operation name="getMonitor">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/getMonitorRequest" message="tns:getMonitor"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/getMonitorResponse" message="tns:getMonitorResponse"/>
-</operation>
-<operation name="Carga_Masiva_Deudoroes">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_DeudoroesRequest" message="tns:Carga_Masiva_Deudoroes"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_DeudoroesResponse" message="tns:Carga_Masiva_DeudoroesResponse"/>
-</operation>
-<operation name="Promesa_Pago_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_EliminarRequest" message="tns:Promesa_Pago_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_EliminarResponse" message="tns:Promesa_Pago_EliminarResponse"/>
-</operation>
-<operation name="Rotacion_Automatica">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Rotacion_AutomaticaRequest" message="tns:Rotacion_Automatica"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Rotacion_AutomaticaResponse" message="tns:Rotacion_AutomaticaResponse"/>
-</operation>
-<operation name="Promesa_Pago_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_ModificarRequest" message="tns:Promesa_Pago_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_ModificarResponse" message="tns:Promesa_Pago_ModificarResponse"/>
-</operation>
-<operation name="Intencion_Pago_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_InsertarRequest" message="tns:Intencion_Pago_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_InsertarResponse" message="tns:Intencion_Pago_InsertarResponse"/>
-</operation>
-<operation name="Razon_Deuda_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ModificarRequest" message="tns:Razon_Deuda_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ModificarResponse" message="tns:Razon_Deuda_ModificarResponse"/>
-</operation>
-<operation name="Intencion_Pago_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ModificarRequest" message="tns:Intencion_Pago_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ModificarResponse" message="tns:Intencion_Pago_ModificarResponse"/>
-</operation>
-<operation name="Codigo_Contactabilidad_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_InsertarRequest" message="tns:Codigo_Contactabilidad_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_InsertarResponse" message="tns:Codigo_Contactabilidad_InsertarResponse"/>
-</operation>
-<operation name="Gestion_Cobros_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Cobros_InsertarRequest" message="tns:Gestion_Cobros_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Cobros_InsertarResponse" message="tns:Gestion_Cobros_InsertarResponse"/>
-</operation>
-<operation name="Convenio_Detalle_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_ModificarRequest" message="tns:Convenio_Detalle_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_ModificarResponse" message="tns:Convenio_Detalle_ModificarResponse"/>
-</operation>
-<operation name="Razon_Deuda_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_InsertarRequest" message="tns:Razon_Deuda_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_InsertarResponse" message="tns:Razon_Deuda_InsertarResponse"/>
-</operation>
-<operation name="Intencion_Pago_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_EliminarRequest" message="tns:Intencion_Pago_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_EliminarResponse" message="tns:Intencion_Pago_EliminarResponse"/>
-</operation>
-<operation name="Intencion_Pago_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ActivarRequest" message="tns:Intencion_Pago_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ActivarResponse" message="tns:Intencion_Pago_ActivarResponse"/>
-</operation>
-<operation name="Razon_Deuda_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ActivarRequest" message="tns:Razon_Deuda_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ActivarResponse" message="tns:Razon_Deuda_ActivarResponse"/>
-</operation>
-<operation name="Convenio_Detalle_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_InsertarRequest" message="tns:Convenio_Detalle_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_InsertarResponse" message="tns:Convenio_Detalle_InsertarResponse"/>
-</operation>
-<operation name="Tipo_Codigo_Resultado_Contacto">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ContactoRequest" message="tns:Tipo_Codigo_Resultado_Contacto"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ContactoResponse" message="tns:Tipo_Codigo_Resultado_ContactoResponse"/>
-</operation>
-<operation name="Razon_Deuda_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_EliminarRequest" message="tns:Razon_Deuda_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_EliminarResponse" message="tns:Razon_Deuda_EliminarResponse"/>
-</operation>
-<operation name="Codigo_Contactabilidad_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_ModificarRequest" message="tns:Codigo_Contactabilidad_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_ModificarResponse" message="tns:Codigo_Contactabilidad_ModificarResponse"/>
-</operation>
-<operation name="Codigo_Contactabilidad_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_ActivarRequest" message="tns:Codigo_Contactabilidad_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_ActivarResponse" message="tns:Codigo_Contactabilidad_ActivarResponse"/>
-</operation>
-<operation name="Promesa_Pago_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_InsertarRequest" message="tns:Promesa_Pago_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_InsertarResponse" message="tns:Promesa_Pago_InsertarResponse"/>
-</operation>
-<operation name="Gestion_Administracion_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Administracion_InsertarRequest" message="tns:Gestion_Administracion_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Administracion_InsertarResponse" message="tns:Gestion_Administracion_InsertarResponse"/>
-</operation>
-<operation name="Gestion_Juridico_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Juridico_InsertarRequest" message="tns:Gestion_Juridico_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Juridico_InsertarResponse" message="tns:Gestion_Juridico_InsertarResponse"/>
-</operation>
-<operation name="Codigo_Contactabilidad_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_EliminarRequest" message="tns:Codigo_Contactabilidad_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_EliminarResponse" message="tns:Codigo_Contactabilidad_EliminarResponse"/>
-</operation>
-<operation name="Fiador_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_InsertarRequest" message="tns:Fiador_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_InsertarResponse" message="tns:Fiador_InsertarResponse"/>
-</operation>
-<operation name="Pago_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_EliminarRequest" message="tns:Pago_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_EliminarResponse" message="tns:Pago_EliminarResponse"/>
-</operation>
-<operation name="Aumento_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_EliminarRequest" message="tns:Aumento_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_EliminarResponse" message="tns:Aumento_EliminarResponse"/>
-</operation>
-<operation name="Status_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Status_InsertarRequest" message="tns:Status_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Status_InsertarResponse" message="tns:Status_InsertarResponse"/>
-</operation>
-<operation name="Cartera_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ModificarRequest" message="tns:Cartera_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ModificarResponse" message="tns:Cartera_ModificarResponse"/>
-</operation>
-<operation name="Pago_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_ModificarRequest" message="tns:Pago_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_ModificarResponse" message="tns:Pago_ModificarResponse"/>
 </operation>
 <operation name="Estado_Eliminar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_EliminarRequest" message="tns:Estado_Eliminar"/>
@@ -1072,49 +1012,65 @@
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_InsertarRequest" message="tns:Pago_Insertar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Pago_InsertarResponse" message="tns:Pago_InsertarResponse"/>
 </operation>
-<operation name="Estado_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_ActivarRequest" message="tns:Estado_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_ActivarResponse" message="tns:Estado_ActivarResponse"/>
+<operation name="Cartera_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_InsertarRequest" message="tns:Cartera_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_InsertarResponse" message="tns:Cartera_InsertarResponse"/>
 </operation>
-<operation name="Logueo_cambio">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Logueo_cambioRequest" message="tns:Logueo_cambio"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Logueo_cambioResponse" message="tns:Logueo_cambioResponse"/>
+<operation name="Antiguedad_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_ModificarRequest" message="tns:Antiguedad_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_ModificarResponse" message="tns:Antiguedad_ModificarResponse"/>
 </operation>
-<operation name="Actor_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_ActivarRequest" message="tns:Actor_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_ActivarResponse" message="tns:Actor_ActivarResponse"/>
+<operation name="Antiguedad_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_InsertarRequest" message="tns:Antiguedad_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_InsertarResponse" message="tns:Antiguedad_InsertarResponse"/>
 </operation>
-<operation name="Actor_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_ModificarRequest" message="tns:Actor_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_ModificarResponse" message="tns:Actor_ModificarResponse"/>
+<operation name="Antiguedad_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_ActivarRequest" message="tns:Antiguedad_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_ActivarResponse" message="tns:Antiguedad_ActivarResponse"/>
 </operation>
-<operation name="Usuario_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_InsertarRequest" message="tns:Usuario_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_InsertarResponse" message="tns:Usuario_InsertarResponse"/>
+<operation name="Carga_Gestiones_Cobros">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Gestiones_CobrosRequest" message="tns:Carga_Gestiones_Cobros"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Gestiones_CobrosResponse" message="tns:Carga_Gestiones_CobrosResponse"/>
 </operation>
-<operation name="Actor_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_EliminarRequest" message="tns:Actor_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_EliminarResponse" message="tns:Actor_EliminarResponse"/>
+<operation name="Antiguedad_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_EliminarRequest" message="tns:Antiguedad_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Antiguedad_EliminarResponse" message="tns:Antiguedad_EliminarResponse"/>
 </operation>
-<operation name="SqlTransaccion">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/SqlTransaccionRequest" message="tns:SqlTransaccion"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/SqlTransaccionResponse" message="tns:SqlTransaccionResponse"/>
+<operation name="Banco_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_ActivarRequest" message="tns:Banco_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_ActivarResponse" message="tns:Banco_ActivarResponse"/>
 </operation>
-<operation name="Usuario_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_EliminarRequest" message="tns:Usuario_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_EliminarResponse" message="tns:Usuario_EliminarResponse"/>
+<operation name="Juzgado_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_InsertarRequest" message="tns:Juzgado_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_InsertarResponse" message="tns:Juzgado_InsertarResponse"/>
 </operation>
-<operation name="Juzgado_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_EliminarRequest" message="tns:Juzgado_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_EliminarResponse" message="tns:Juzgado_EliminarResponse"/>
+<operation name="Banco_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_ModificarRequest" message="tns:Banco_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_ModificarResponse" message="tns:Banco_ModificarResponse"/>
+</operation>
+<operation name="Estado_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_InsertarRequest" message="tns:Estado_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_InsertarResponse" message="tns:Estado_InsertarResponse"/>
+</operation>
+<operation name="Estado_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_ModificarRequest" message="tns:Estado_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_ModificarResponse" message="tns:Estado_ModificarResponse"/>
+</operation>
+<operation name="Deudor_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_EliminarRequest" message="tns:Deudor_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_EliminarResponse" message="tns:Deudor_EliminarResponse"/>
+</operation>
+<operation name="Juzgado_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_ActivarRequest" message="tns:Juzgado_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_ActivarResponse" message="tns:Juzgado_ActivarResponse"/>
 </operation>
 <operation name="Actor_Insertar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_InsertarRequest" message="tns:Actor_Insertar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Actor_InsertarResponse" message="tns:Actor_InsertarResponse"/>
 </operation>
-<operation name="Deudor_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_InsertarRequest" message="tns:Deudor_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_InsertarResponse" message="tns:Deudor_InsertarResponse"/>
+<operation name="Juzgado_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_EliminarRequest" message="tns:Juzgado_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_EliminarResponse" message="tns:Juzgado_EliminarResponse"/>
 </operation>
 <operation name="Deudor_Activar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_ActivarRequest" message="tns:Deudor_Activar"/>
@@ -1128,313 +1084,241 @@
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_EliminarRequest" message="tns:Banco_Eliminar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_EliminarResponse" message="tns:Banco_EliminarResponse"/>
 </operation>
-<operation name="Aumento_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_InsertarRequest" message="tns:Aumento_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_InsertarResponse" message="tns:Aumento_InsertarResponse"/>
-</operation>
-<operation name="Deudor_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_EliminarRequest" message="tns:Deudor_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Deudor_EliminarResponse" message="tns:Deudor_EliminarResponse"/>
-</operation>
-<operation name="Juicio_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juicio_EliminarRequest" message="tns:Juicio_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juicio_EliminarResponse" message="tns:Juicio_EliminarResponse"/>
-</operation>
 <operation name="Banco_Insertar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_InsertarRequest" message="tns:Banco_Insertar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_InsertarResponse" message="tns:Banco_InsertarResponse"/>
 </operation>
-<operation name="Estado_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_ModificarRequest" message="tns:Estado_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_ModificarResponse" message="tns:Estado_ModificarResponse"/>
+<operation name="Convenio_Detalle_Modificar_Estado">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_Modificar_EstadoRequest" message="tns:Convenio_Detalle_Modificar_Estado"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_Modificar_EstadoResponse" message="tns:Convenio_Detalle_Modificar_EstadoResponse"/>
 </operation>
-<operation name="Estado_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_InsertarRequest" message="tns:Estado_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_InsertarResponse" message="tns:Estado_InsertarResponse"/>
-</operation>
-<operation name="Juzgado_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_ActivarRequest" message="tns:Juzgado_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_ActivarResponse" message="tns:Juzgado_ActivarResponse"/>
-</operation>
-<operation name="Garantia_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_ActivarRequest" message="tns:Garantia_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_ActivarResponse" message="tns:Garantia_ActivarResponse"/>
-</operation>
-<operation name="Juzgado_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_InsertarRequest" message="tns:Juzgado_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_InsertarResponse" message="tns:Juzgado_InsertarResponse"/>
-</operation>
-<operation name="Banco_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_ModificarRequest" message="tns:Banco_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_ModificarResponse" message="tns:Banco_ModificarResponse"/>
-</operation>
-<operation name="Juicio_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juicio_ModificarRequest" message="tns:Juicio_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juicio_ModificarResponse" message="tns:Juicio_ModificarResponse"/>
-</operation>
-<operation name="Banco_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_ActivarRequest" message="tns:Banco_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Banco_ActivarResponse" message="tns:Banco_ActivarResponse"/>
-</operation>
-<operation name="Status_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Status_ModificarRequest" message="tns:Status_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Status_ModificarResponse" message="tns:Status_ModificarResponse"/>
-</operation>
-<operation name="Status_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Status_EliminarRequest" message="tns:Status_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Status_EliminarResponse" message="tns:Status_EliminarResponse"/>
-</operation>
-<operation name="Usuario_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_ActivarRequest" message="tns:Usuario_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_ActivarResponse" message="tns:Usuario_ActivarResponse"/>
-</operation>
-<operation name="Cartera_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_InsertarRequest" message="tns:Cartera_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_InsertarResponse" message="tns:Cartera_InsertarResponse"/>
-</operation>
-<operation name="Cartera_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ActivarRequest" message="tns:Cartera_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ActivarResponse" message="tns:Cartera_ActivarResponse"/>
-</operation>
-<operation name="Fiador_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_ModificarRequest" message="tns:Fiador_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Fiador_ModificarResponse" message="tns:Fiador_ModificarResponse"/>
-</operation>
-<operation name="Tipo_Codigo_Resultado_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ModificarRequest" message="tns:Tipo_Codigo_Resultado_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ModificarResponse" message="tns:Tipo_Codigo_Resultado_ModificarResponse"/>
-</operation>
-<operation name="Permisos_Rol_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Rol_ModificarRequest" message="tns:Permisos_Rol_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Rol_ModificarResponse" message="tns:Permisos_Rol_ModificarResponse"/>
-</operation>
-<operation name="Corporacion_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_ModificarRequest" message="tns:Corporacion_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_ModificarResponse" message="tns:Corporacion_ModificarResponse"/>
-</operation>
-<operation name="Usuario_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_ModificarRequest" message="tns:Usuario_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_ModificarResponse" message="tns:Usuario_ModificarResponse"/>
-</operation>
-<operation name="Garantia_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_ModificarRequest" message="tns:Garantia_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_ModificarResponse" message="tns:Garantia_ModificarResponse"/>
-</operation>
-<operation name="Corporacion_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_EliminarRequest" message="tns:Corporacion_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_EliminarResponse" message="tns:Corporacion_EliminarResponse"/>
-</operation>
-<operation name="Carga_Masiva_Presentar_Demanda">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Presentar_DemandaRequest" message="tns:Carga_Masiva_Presentar_Demanda"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Presentar_DemandaResponse" message="tns:Carga_Masiva_Presentar_DemandaResponse"/>
-</operation>
-<operation name="Carga_Pagos_Masivos">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Pagos_MasivosRequest" message="tns:Carga_Pagos_Masivos"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Pagos_MasivosResponse" message="tns:Carga_Pagos_MasivosResponse"/>
-</operation>
-<operation name="Carga_Rotacion_Cartera">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Rotacion_CarteraRequest" message="tns:Carga_Rotacion_Cartera"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Rotacion_CarteraResponse" message="tns:Carga_Rotacion_CarteraResponse"/>
-</operation>
-<operation name="TipoCodigo_Codigo_Resultado">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/TipoCodigo_Codigo_ResultadoRequest" message="tns:TipoCodigo_Codigo_Resultado"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/TipoCodigo_Codigo_ResultadoResponse" message="tns:TipoCodigo_Codigo_ResultadoResponse"/>
-</operation>
-<operation name="Estado_Status_Extra_Permite">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_Extra_PermiteRequest" message="tns:Estado_Status_Extra_Permite"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_Extra_PermiteResponse" message="tns:Estado_Status_Extra_PermiteResponse"/>
-</operation>
-<operation name="Guardar_Expediente_Caso">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_CasoRequest" message="tns:Guardar_Expediente_Caso"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_CasoResponse" message="tns:Guardar_Expediente_CasoResponse"/>
-</operation>
-<operation name="Estado_Status_Judicial">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_JudicialRequest" message="tns:Estado_Status_Judicial"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_JudicialResponse" message="tns:Estado_Status_JudicialResponse"/>
-</operation>
-<operation name="Tipo_Descuento_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_InsertarRequest" message="tns:Tipo_Descuento_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_InsertarResponse" message="tns:Tipo_Descuento_InsertarResponse"/>
-</operation>
-<operation name="Garantia_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_EliminarRequest" message="tns:Garantia_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_EliminarResponse" message="tns:Garantia_EliminarResponse"/>
-</operation>
-<operation name="StatusExtra_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_ActivarRequest" message="tns:StatusExtra_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_ActivarResponse" message="tns:StatusExtra_ActivarResponse"/>
-</operation>
-<operation name="Tipo_Descuento_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_ModificarRequest" message="tns:Tipo_Descuento_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_ModificarResponse" message="tns:Tipo_Descuento_ModificarResponse"/>
-</operation>
-<operation name="Reiniciar_Contrasena">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Reiniciar_ContrasenaRequest" message="tns:Reiniciar_Contrasena"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Reiniciar_ContrasenaResponse" message="tns:Reiniciar_ContrasenaResponse"/>
-</operation>
-<operation name="Garantia_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_InsertarRequest" message="tns:Garantia_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_InsertarResponse" message="tns:Garantia_InsertarResponse"/>
-</operation>
-<operation name="StatusExtra_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_EliminarRequest" message="tns:StatusExtra_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_EliminarResponse" message="tns:StatusExtra_EliminarResponse"/>
-</operation>
-<operation name="Frase_Predeterminada_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_ActivarRequest" message="tns:Frase_Predeterminada_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_ActivarResponse" message="tns:Frase_Predeterminada_ActivarResponse"/>
-</operation>
-<operation name="Frase_Predeterminada_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_ModificarRequest" message="tns:Frase_Predeterminada_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_ModificarResponse" message="tns:Frase_Predeterminada_ModificarResponse"/>
-</operation>
-<operation name="Frase_Predeterminada_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_EliminarRequest" message="tns:Frase_Predeterminada_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_EliminarResponse" message="tns:Frase_Predeterminada_EliminarResponse"/>
-</operation>
-<operation name="Frase_Predeterminada_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_InsertarRequest" message="tns:Frase_Predeterminada_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_InsertarResponse" message="tns:Frase_Predeterminada_InsertarResponse"/>
-</operation>
-<operation name="Descuento_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_EliminarRequest" message="tns:Descuento_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_EliminarResponse" message="tns:Descuento_EliminarResponse"/>
+<operation name="Carga_Masiva_Medidas_Precautorias">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Medidas_PrecautoriasRequest" message="tns:Carga_Masiva_Medidas_Precautorias"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Medidas_PrecautoriasResponse" message="tns:Carga_Masiva_Medidas_PrecautoriasResponse"/>
 </operation>
 <operation name="Permisos_Usuario_Modificar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Usuario_ModificarRequest" message="tns:Permisos_Usuario_Modificar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Usuario_ModificarResponse" message="tns:Permisos_Usuario_ModificarResponse"/>
 </operation>
-<operation name="Referencia_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_ModificarRequest" message="tns:Referencia_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_ModificarResponse" message="tns:Referencia_ModificarResponse"/>
+<operation name="Permisos_Usuario_Uno_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Usuario_Uno_ModificarRequest" message="tns:Permisos_Usuario_Uno_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Usuario_Uno_ModificarResponse" message="tns:Permisos_Usuario_Uno_ModificarResponse"/>
 </operation>
 <operation name="Lista_Archivos_Digitalizados">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Lista_Archivos_DigitalizadosRequest" message="tns:Lista_Archivos_Digitalizados"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Lista_Archivos_DigitalizadosResponse" message="tns:Lista_Archivos_DigitalizadosResponse"/>
 </operation>
-<operation name="Permisos_Usuario_Uno_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Usuario_Uno_ModificarRequest" message="tns:Permisos_Usuario_Uno_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Usuario_Uno_ModificarResponse" message="tns:Permisos_Usuario_Uno_ModificarResponse"/>
-</operation>
 <operation name="EstadoExtra_Insertar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_InsertarRequest" message="tns:EstadoExtra_Insertar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_InsertarResponse" message="tns:EstadoExtra_InsertarResponse"/>
 </operation>
-<operation name="EstadoExtra_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_ActivarRequest" message="tns:EstadoExtra_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_ActivarResponse" message="tns:EstadoExtra_ActivarResponse"/>
+<operation name="Frase_Predeterminada_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_ModificarRequest" message="tns:Frase_Predeterminada_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_ModificarResponse" message="tns:Frase_Predeterminada_ModificarResponse"/>
 </operation>
-<operation name="StatusExtra_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_InsertarRequest" message="tns:StatusExtra_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_InsertarResponse" message="tns:StatusExtra_InsertarResponse"/>
+<operation name="Frase_Predeterminada_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_InsertarRequest" message="tns:Frase_Predeterminada_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_InsertarResponse" message="tns:Frase_Predeterminada_InsertarResponse"/>
 </operation>
-<operation name="Referencia_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_InsertarRequest" message="tns:Referencia_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_InsertarResponse" message="tns:Referencia_InsertarResponse"/>
-</operation>
-<operation name="Descuento_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_ModificarRequest" message="tns:Descuento_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_ModificarResponse" message="tns:Descuento_ModificarResponse"/>
+<operation name="Frase_Predeterminada_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_ActivarRequest" message="tns:Frase_Predeterminada_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_ActivarResponse" message="tns:Frase_Predeterminada_ActivarResponse"/>
 </operation>
 <operation name="Aumento_Modificar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_ModificarRequest" message="tns:Aumento_Modificar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Aumento_ModificarResponse" message="tns:Aumento_ModificarResponse"/>
 </operation>
-<operation name="StatusExtra_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_ModificarRequest" message="tns:StatusExtra_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_ModificarResponse" message="tns:StatusExtra_ModificarResponse"/>
+<operation name="StatusExtra_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_InsertarRequest" message="tns:StatusExtra_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_InsertarResponse" message="tns:StatusExtra_InsertarResponse"/>
 </operation>
-<operation name="EstadoExtra_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_EliminarRequest" message="tns:EstadoExtra_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_EliminarResponse" message="tns:EstadoExtra_EliminarResponse"/>
+<operation name="Descuento_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_EliminarRequest" message="tns:Descuento_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_EliminarResponse" message="tns:Descuento_EliminarResponse"/>
 </operation>
 <operation name="Descuento_Insertar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_InsertarRequest" message="tns:Descuento_Insertar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_InsertarResponse" message="tns:Descuento_InsertarResponse"/>
 </operation>
-<operation name="Corporacion_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_InsertarRequest" message="tns:Corporacion_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_InsertarResponse" message="tns:Corporacion_InsertarResponse"/>
-</operation>
 <operation name="Tipo_Descuento_Activar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_ActivarRequest" message="tns:Tipo_Descuento_Activar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_ActivarResponse" message="tns:Tipo_Descuento_ActivarResponse"/>
 </operation>
-<operation name="Tipo_Aumento_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_EliminarRequest" message="tns:Tipo_Aumento_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_EliminarResponse" message="tns:Tipo_Aumento_EliminarResponse"/>
+<operation name="EstadoExtra_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_ActivarRequest" message="tns:EstadoExtra_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_ActivarResponse" message="tns:EstadoExtra_ActivarResponse"/>
 </operation>
-<operation name="Carga_Masiva_Deligenciar_Medidas">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Deligenciar_MedidasRequest" message="tns:Carga_Masiva_Deligenciar_Medidas"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Deligenciar_MedidasResponse" message="tns:Carga_Masiva_Deligenciar_MedidasResponse"/>
-</operation>
-<operation name="Carga_Masiva_Caratula">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_CaratulaRequest" message="tns:Carga_Masiva_Caratula"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_CaratulaResponse" message="tns:Carga_Masiva_CaratulaResponse"/>
-</operation>
-<operation name="Tipo_Aumento_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_ModificarRequest" message="tns:Tipo_Aumento_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_ModificarResponse" message="tns:Tipo_Aumento_ModificarResponse"/>
-</operation>
-<operation name="Modificar_Juicio_Expediente">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Modificar_Juicio_ExpedienteRequest" message="tns:Modificar_Juicio_Expediente"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Modificar_Juicio_ExpedienteResponse" message="tns:Modificar_Juicio_ExpedienteResponse"/>
-</operation>
-<operation name="Referencia_Eliminar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_EliminarRequest" message="tns:Referencia_Eliminar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_EliminarResponse" message="tns:Referencia_EliminarResponse"/>
-</operation>
-<operation name="Corporacion_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_ActivarRequest" message="tns:Corporacion_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_ActivarResponse" message="tns:Corporacion_ActivarResponse"/>
+<operation name="Descuento_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_ModificarRequest" message="tns:Descuento_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Descuento_ModificarResponse" message="tns:Descuento_ModificarResponse"/>
 </operation>
 <operation name="Tipo_Descuento_Eliminar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_EliminarRequest" message="tns:Tipo_Descuento_Eliminar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_EliminarResponse" message="tns:Tipo_Descuento_EliminarResponse"/>
 </operation>
-<operation name="Juzgado_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_ModificarRequest" message="tns:Juzgado_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_ModificarResponse" message="tns:Juzgado_ModificarResponse"/>
+<operation name="Frase_Predeterminada_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_EliminarRequest" message="tns:Frase_Predeterminada_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Frase_Predeterminada_EliminarResponse" message="tns:Frase_Predeterminada_EliminarResponse"/>
 </operation>
-<operation name="EstadoExtra_Modificar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_ModificarRequest" message="tns:EstadoExtra_Modificar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_ModificarResponse" message="tns:EstadoExtra_ModificarResponse"/>
+<operation name="Referencia_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_ModificarRequest" message="tns:Referencia_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_ModificarResponse" message="tns:Referencia_ModificarResponse"/>
 </operation>
-<operation name="Tipo_Aumento_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_ActivarRequest" message="tns:Tipo_Aumento_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_ActivarResponse" message="tns:Tipo_Aumento_ActivarResponse"/>
+<operation name="Referencia_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_InsertarRequest" message="tns:Referencia_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_InsertarResponse" message="tns:Referencia_InsertarResponse"/>
 </operation>
-<operation name="Modificar_Deudor_Expediente">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Modificar_Deudor_ExpedienteRequest" message="tns:Modificar_Deudor_Expediente"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Modificar_Deudor_ExpedienteResponse" message="tns:Modificar_Deudor_ExpedienteResponse"/>
+<operation name="StatusExtra_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_ModificarRequest" message="tns:StatusExtra_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_ModificarResponse" message="tns:StatusExtra_ModificarResponse"/>
 </operation>
 <operation name="Tipo_Aumento_Insertar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_InsertarRequest" message="tns:Tipo_Aumento_Insertar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_InsertarResponse" message="tns:Tipo_Aumento_InsertarResponse"/>
 </operation>
-<operation name="Estado_Status_Extrajudicial">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_ExtrajudicialRequest" message="tns:Estado_Status_Extrajudicial"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_ExtrajudicialResponse" message="tns:Estado_Status_ExtrajudicialResponse"/>
+<operation name="EstadoExtra_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_EliminarRequest" message="tns:EstadoExtra_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_EliminarResponse" message="tns:EstadoExtra_EliminarResponse"/>
 </operation>
-<operation name="Convenio_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_InsertarRequest" message="tns:Convenio_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_InsertarResponse" message="tns:Convenio_InsertarResponse"/>
+<operation name="Modificar_Juicio_Expediente">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Modificar_Juicio_ExpedienteRequest" message="tns:Modificar_Juicio_Expediente"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Modificar_Juicio_ExpedienteResponse" message="tns:Modificar_Juicio_ExpedienteResponse"/>
 </operation>
-<operation name="Tipo_Codigo_Resultado_Insertar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_InsertarRequest" message="tns:Tipo_Codigo_Resultado_Insertar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_InsertarResponse" message="tns:Tipo_Codigo_Resultado_InsertarResponse"/>
+<operation name="Tipo_Aumento_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_ModificarRequest" message="tns:Tipo_Aumento_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_ModificarResponse" message="tns:Tipo_Aumento_ModificarResponse"/>
+</operation>
+<operation name="Juzgado_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_ModificarRequest" message="tns:Juzgado_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Juzgado_ModificarResponse" message="tns:Juzgado_ModificarResponse"/>
+</operation>
+<operation name="Tipo_Aumento_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_EliminarRequest" message="tns:Tipo_Aumento_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_EliminarResponse" message="tns:Tipo_Aumento_EliminarResponse"/>
+</operation>
+<operation name="Modificar_Deudor_Expediente">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Modificar_Deudor_ExpedienteRequest" message="tns:Modificar_Deudor_Expediente"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Modificar_Deudor_ExpedienteResponse" message="tns:Modificar_Deudor_ExpedienteResponse"/>
+</operation>
+<operation name="Carga_Masiva_Deligenciar_Medidas">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Deligenciar_MedidasRequest" message="tns:Carga_Masiva_Deligenciar_Medidas"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Deligenciar_MedidasResponse" message="tns:Carga_Masiva_Deligenciar_MedidasResponse"/>
+</operation>
+<operation name="Carga_Masiva_Presentar_Demanda">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Presentar_DemandaRequest" message="tns:Carga_Masiva_Presentar_Demanda"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_Presentar_DemandaResponse" message="tns:Carga_Masiva_Presentar_DemandaResponse"/>
+</operation>
+<operation name="Corporacion_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_ActivarRequest" message="tns:Corporacion_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_ActivarResponse" message="tns:Corporacion_ActivarResponse"/>
+</operation>
+<operation name="Tipo_Aumento_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_ActivarRequest" message="tns:Tipo_Aumento_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Aumento_ActivarResponse" message="tns:Tipo_Aumento_ActivarResponse"/>
+</operation>
+<operation name="Referencia_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_EliminarRequest" message="tns:Referencia_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Referencia_EliminarResponse" message="tns:Referencia_EliminarResponse"/>
+</operation>
+<operation name="Corporacion_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_InsertarRequest" message="tns:Corporacion_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_InsertarResponse" message="tns:Corporacion_InsertarResponse"/>
+</operation>
+<operation name="Carga_Pagos_Masivos">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Pagos_MasivosRequest" message="tns:Carga_Pagos_Masivos"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Pagos_MasivosResponse" message="tns:Carga_Pagos_MasivosResponse"/>
+</operation>
+<operation name="Carga_Masiva_Caratula">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_CaratulaRequest" message="tns:Carga_Masiva_Caratula"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_CaratulaResponse" message="tns:Carga_Masiva_CaratulaResponse"/>
+</operation>
+<operation name="Corporacion_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_EliminarRequest" message="tns:Corporacion_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_EliminarResponse" message="tns:Corporacion_EliminarResponse"/>
+</operation>
+<operation name="Carga_Rotacion_Cartera">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Rotacion_CarteraRequest" message="tns:Carga_Rotacion_Cartera"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Rotacion_CarteraResponse" message="tns:Carga_Rotacion_CarteraResponse"/>
+</operation>
+<operation name="EstadoExtra_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_ModificarRequest" message="tns:EstadoExtra_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/EstadoExtra_ModificarResponse" message="tns:EstadoExtra_ModificarResponse"/>
+</operation>
+<operation name="Garantia_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_ModificarRequest" message="tns:Garantia_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_ModificarResponse" message="tns:Garantia_ModificarResponse"/>
+</operation>
+<operation name="Garantia_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_InsertarRequest" message="tns:Garantia_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_InsertarResponse" message="tns:Garantia_InsertarResponse"/>
+</operation>
+<operation name="Usuario_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_ModificarRequest" message="tns:Usuario_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Usuario_ModificarResponse" message="tns:Usuario_ModificarResponse"/>
 </operation>
 <operation name="Permiso_Expediente">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Permiso_ExpedienteRequest" message="tns:Permiso_Expediente"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Permiso_ExpedienteResponse" message="tns:Permiso_ExpedienteResponse"/>
 </operation>
-<operation name="Tipo_Codigo_Resultado_Activar">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ActivarRequest" message="tns:Tipo_Codigo_Resultado_Activar"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ActivarResponse" message="tns:Tipo_Codigo_Resultado_ActivarResponse"/>
+<operation name="Estado_Status_Extrajudicial">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_ExtrajudicialRequest" message="tns:Estado_Status_Extrajudicial"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_ExtrajudicialResponse" message="tns:Estado_Status_ExtrajudicialResponse"/>
 </operation>
-<operation name="Guardar_Expediente_Extrajudicial">
-<input wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_ExtrajudicialRequest" message="tns:Guardar_Expediente_Extrajudicial"/>
-<output wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_ExtrajudicialResponse" message="tns:Guardar_Expediente_ExtrajudicialResponse"/>
+<operation name="Guardar_Expediente_Caso">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_CasoRequest" message="tns:Guardar_Expediente_Caso"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_CasoResponse" message="tns:Guardar_Expediente_CasoResponse"/>
+</operation>
+<operation name="Tipo_Codigo_Resultado_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_InsertarRequest" message="tns:Tipo_Codigo_Resultado_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_InsertarResponse" message="tns:Tipo_Codigo_Resultado_InsertarResponse"/>
+</operation>
+<operation name="Tipo_Descuento_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_ModificarRequest" message="tns:Tipo_Descuento_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_ModificarResponse" message="tns:Tipo_Descuento_ModificarResponse"/>
+</operation>
+<operation name="StatusExtra_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_ActivarRequest" message="tns:StatusExtra_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_ActivarResponse" message="tns:StatusExtra_ActivarResponse"/>
+</operation>
+<operation name="Estado_Status_Judicial">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_JudicialRequest" message="tns:Estado_Status_Judicial"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_JudicialResponse" message="tns:Estado_Status_JudicialResponse"/>
+</operation>
+<operation name="Corporacion_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_ModificarRequest" message="tns:Corporacion_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Corporacion_ModificarResponse" message="tns:Corporacion_ModificarResponse"/>
+</operation>
+<operation name="Garantia_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_EliminarRequest" message="tns:Garantia_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Garantia_EliminarResponse" message="tns:Garantia_EliminarResponse"/>
+</operation>
+<operation name="Estado_Status_Extra_Permite">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_Extra_PermiteRequest" message="tns:Estado_Status_Extra_Permite"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Estado_Status_Extra_PermiteResponse" message="tns:Estado_Status_Extra_PermiteResponse"/>
+</operation>
+<operation name="StatusExtra_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_EliminarRequest" message="tns:StatusExtra_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/StatusExtra_EliminarResponse" message="tns:StatusExtra_EliminarResponse"/>
+</operation>
+<operation name="TipoCodigo_Codigo_Resultado">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/TipoCodigo_Codigo_ResultadoRequest" message="tns:TipoCodigo_Codigo_Resultado"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/TipoCodigo_Codigo_ResultadoResponse" message="tns:TipoCodigo_Codigo_ResultadoResponse"/>
+</operation>
+<operation name="Tipo_Descuento_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_InsertarRequest" message="tns:Tipo_Descuento_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Descuento_InsertarResponse" message="tns:Tipo_Descuento_InsertarResponse"/>
+</operation>
+<operation name="Convenio_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_InsertarRequest" message="tns:Convenio_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_InsertarResponse" message="tns:Convenio_InsertarResponse"/>
+</operation>
+<operation name="Reiniciar_Contrasena">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Reiniciar_ContrasenaRequest" message="tns:Reiniciar_Contrasena"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Reiniciar_ContrasenaResponse" message="tns:Reiniciar_ContrasenaResponse"/>
+</operation>
+<operation name="Intencion_Pago_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ActivarRequest" message="tns:Intencion_Pago_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ActivarResponse" message="tns:Intencion_Pago_ActivarResponse"/>
 </operation>
 <operation name="Convenio_Modificar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_ModificarRequest" message="tns:Convenio_Modificar"/>
@@ -1444,67 +1328,129 @@
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_EliminarRequest" message="tns:Tipo_Codigo_Resultado_Eliminar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_EliminarResponse" message="tns:Tipo_Codigo_Resultado_EliminarResponse"/>
 </operation>
+<operation name="Cartera_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ModificarRequest" message="tns:Cartera_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Cartera_ModificarResponse" message="tns:Cartera_ModificarResponse"/>
+</operation>
+<operation name="Tipo_Codigo_Resultado_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ModificarRequest" message="tns:Tipo_Codigo_Resultado_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ModificarResponse" message="tns:Tipo_Codigo_Resultado_ModificarResponse"/>
+</operation>
+<operation name="Guardar_Expediente_Extrajudicial">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_ExtrajudicialRequest" message="tns:Guardar_Expediente_Extrajudicial"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Guardar_Expediente_ExtrajudicialResponse" message="tns:Guardar_Expediente_ExtrajudicialResponse"/>
+</operation>
+<operation name="Tipo_Codigo_Resultado_Contacto">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ContactoRequest" message="tns:Tipo_Codigo_Resultado_Contacto"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ContactoResponse" message="tns:Tipo_Codigo_Resultado_ContactoResponse"/>
+</operation>
+<operation name="Tipo_Codigo_Resultado_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ActivarRequest" message="tns:Tipo_Codigo_Resultado_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Tipo_Codigo_Resultado_ActivarResponse" message="tns:Tipo_Codigo_Resultado_ActivarResponse"/>
+</operation>
+<operation name="Razon_Deuda_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_InsertarRequest" message="tns:Razon_Deuda_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_InsertarResponse" message="tns:Razon_Deuda_InsertarResponse"/>
+</operation>
 <operation name="Constantes_Modificar">
 <input wsam:Action="http://lexcom.com/ServiciosLexcom/Constantes_ModificarRequest" message="tns:Constantes_Modificar"/>
 <output wsam:Action="http://lexcom.com/ServiciosLexcom/Constantes_ModificarResponse" message="tns:Constantes_ModificarResponse"/>
 </operation>
+<operation name="Permisos_Rol_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Rol_ModificarRequest" message="tns:Permisos_Rol_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Permisos_Rol_ModificarResponse" message="tns:Permisos_Rol_ModificarResponse"/>
+</operation>
+<operation name="Convenio_Detalle_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_ModificarRequest" message="tns:Convenio_Detalle_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_ModificarResponse" message="tns:Convenio_Detalle_ModificarResponse"/>
+</operation>
+<operation name="Intencion_Pago_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_InsertarRequest" message="tns:Intencion_Pago_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_InsertarResponse" message="tns:Intencion_Pago_InsertarResponse"/>
+</operation>
+<operation name="Convenio_Modificar_Estado">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Modificar_EstadoRequest" message="tns:Convenio_Modificar_Estado"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Modificar_EstadoResponse" message="tns:Convenio_Modificar_EstadoResponse"/>
+</operation>
+<operation name="Actualizacion_Masiva_Deudores">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Actualizacion_Masiva_DeudoresRequest" message="tns:Actualizacion_Masiva_Deudores"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Actualizacion_Masiva_DeudoresResponse" message="tns:Actualizacion_Masiva_DeudoresResponse"/>
+</operation>
+<operation name="Convenio_Detalle_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_InsertarRequest" message="tns:Convenio_Detalle_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Convenio_Detalle_InsertarResponse" message="tns:Convenio_Detalle_InsertarResponse"/>
+</operation>
+<operation name="Rotacion_Automatica">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Rotacion_AutomaticaRequest" message="tns:Rotacion_Automatica"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Rotacion_AutomaticaResponse" message="tns:Rotacion_AutomaticaResponse"/>
+</operation>
+<operation name="Intencion_Pago_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ModificarRequest" message="tns:Intencion_Pago_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_ModificarResponse" message="tns:Intencion_Pago_ModificarResponse"/>
+</operation>
+<operation name="Intencion_Pago_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_EliminarRequest" message="tns:Intencion_Pago_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Intencion_Pago_EliminarResponse" message="tns:Intencion_Pago_EliminarResponse"/>
+</operation>
+<operation name="Razon_Deuda_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ActivarRequest" message="tns:Razon_Deuda_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ActivarResponse" message="tns:Razon_Deuda_ActivarResponse"/>
+</operation>
+<operation name="Codigo_Contactabilidad_Activar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_ActivarRequest" message="tns:Codigo_Contactabilidad_Activar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_ActivarResponse" message="tns:Codigo_Contactabilidad_ActivarResponse"/>
+</operation>
+<operation name="Codigo_Contactabilidad_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_ModificarRequest" message="tns:Codigo_Contactabilidad_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_ModificarResponse" message="tns:Codigo_Contactabilidad_ModificarResponse"/>
+</operation>
+<operation name="Promesa_Pago_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_EliminarRequest" message="tns:Promesa_Pago_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_EliminarResponse" message="tns:Promesa_Pago_EliminarResponse"/>
+</operation>
+<operation name="Gestion_Administracion_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Administracion_InsertarRequest" message="tns:Gestion_Administracion_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Administracion_InsertarResponse" message="tns:Gestion_Administracion_InsertarResponse"/>
+</operation>
+<operation name="Codigo_Contactabilidad_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_EliminarRequest" message="tns:Codigo_Contactabilidad_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_EliminarResponse" message="tns:Codigo_Contactabilidad_EliminarResponse"/>
+</operation>
+<operation name="Promesa_Pago_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_InsertarRequest" message="tns:Promesa_Pago_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_InsertarResponse" message="tns:Promesa_Pago_InsertarResponse"/>
+</operation>
+<operation name="Carga_Masiva_Deudoroes">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_DeudoroesRequest" message="tns:Carga_Masiva_Deudoroes"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Carga_Masiva_DeudoroesResponse" message="tns:Carga_Masiva_DeudoroesResponse"/>
+</operation>
+<operation name="Razon_Deuda_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ModificarRequest" message="tns:Razon_Deuda_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_ModificarResponse" message="tns:Razon_Deuda_ModificarResponse"/>
+</operation>
+<operation name="Promesa_Pago_Modificar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_ModificarRequest" message="tns:Promesa_Pago_Modificar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Promesa_Pago_ModificarResponse" message="tns:Promesa_Pago_ModificarResponse"/>
+</operation>
+<operation name="Codigo_Contactabilidad_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_InsertarRequest" message="tns:Codigo_Contactabilidad_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Codigo_Contactabilidad_InsertarResponse" message="tns:Codigo_Contactabilidad_InsertarResponse"/>
+</operation>
+<operation name="Gestion_Juridico_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Juridico_InsertarRequest" message="tns:Gestion_Juridico_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Juridico_InsertarResponse" message="tns:Gestion_Juridico_InsertarResponse"/>
+</operation>
+<operation name="Razon_Deuda_Eliminar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_EliminarRequest" message="tns:Razon_Deuda_Eliminar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Razon_Deuda_EliminarResponse" message="tns:Razon_Deuda_EliminarResponse"/>
+</operation>
+<operation name="Gestion_Cobros_Insertar">
+<input wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Cobros_InsertarRequest" message="tns:Gestion_Cobros_Insertar"/>
+<output wsam:Action="http://lexcom.com/ServiciosLexcom/Gestion_Cobros_InsertarResponse" message="tns:Gestion_Cobros_InsertarResponse"/>
+</operation>
 </portType>
 <binding name="ServiciosLexcomPortBinding" type="tns:ServiciosLexcom">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="Antiguedad_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Antiguedad_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Antiguedad_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Antiguedad_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Convenio_Modificar_Estado">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Carga_Gestiones_Cobros">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="Guardar_Expediente_Judicial">
 <soap:operation soapAction=""/>
 <input>
@@ -1514,7 +1460,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Actualizacion_Masiva_Deudores">
+<operation name="Rol_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1541,7 +1487,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Carga_Masiva_Medidas_Precautorias">
+<operation name="Cartera_Activar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1550,7 +1496,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Convenio_Detalle_Modificar_Estado">
+<operation name="Fiador_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1559,7 +1505,196 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Rol_Modificar">
+<operation name="Rol_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Deudor_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Usuario_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Usuario_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Actor_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="SqlTransaccion">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Actor_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Actor_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Usuario_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Logueo_cambio">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Aumento_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Juicio_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Juicio_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Status_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Status_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Status_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Garantia_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Pago_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Fiador_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Aumento_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Estado_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Rol_Insertar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1586,16 +1721,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Rol_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Rol_Insertar">
+<operation name="Pago_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1605,267 +1731,6 @@
 </output>
 </operation>
 <operation name="getMonitor">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Carga_Masiva_Deudoroes">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Promesa_Pago_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Rotacion_Automatica">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Promesa_Pago_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Intencion_Pago_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Razon_Deuda_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Intencion_Pago_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Codigo_Contactabilidad_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Gestion_Cobros_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Convenio_Detalle_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Razon_Deuda_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Intencion_Pago_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Intencion_Pago_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Razon_Deuda_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Convenio_Detalle_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Tipo_Codigo_Resultado_Contacto">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Razon_Deuda_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Codigo_Contactabilidad_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Codigo_Contactabilidad_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Promesa_Pago_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Gestion_Administracion_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Gestion_Juridico_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Codigo_Contactabilidad_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Fiador_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Pago_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Aumento_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Status_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Cartera_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Pago_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1901,7 +1766,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Estado_Activar">
+<operation name="Cartera_Insertar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1910,7 +1775,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Logueo_cambio">
+<operation name="Antiguedad_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1919,7 +1784,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Actor_Activar">
+<operation name="Antiguedad_Insertar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1928,7 +1793,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Actor_Modificar">
+<operation name="Antiguedad_Activar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1937,7 +1802,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Usuario_Insertar">
+<operation name="Carga_Gestiones_Cobros">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1946,7 +1811,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Actor_Eliminar">
+<operation name="Antiguedad_Eliminar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1955,7 +1820,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="SqlTransaccion">
+<operation name="Banco_Activar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1964,7 +1829,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Usuario_Eliminar">
+<operation name="Juzgado_Insertar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1973,7 +1838,43 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Juzgado_Eliminar">
+<operation name="Banco_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Estado_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Estado_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Deudor_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Juzgado_Activar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -1991,7 +1892,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Deudor_Insertar">
+<operation name="Juzgado_Eliminar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2027,33 +1928,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Aumento_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Deudor_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Juicio_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="Banco_Insertar">
 <soap:operation soapAction=""/>
 <input>
@@ -2063,7 +1937,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Estado_Modificar">
+<operation name="Convenio_Detalle_Modificar_Estado">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2072,340 +1946,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Estado_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Juzgado_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Garantia_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Juzgado_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Banco_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Juicio_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Banco_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Status_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Status_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Usuario_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Cartera_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Cartera_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Fiador_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Tipo_Codigo_Resultado_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Permisos_Rol_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Corporacion_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Usuario_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Garantia_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Corporacion_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Carga_Masiva_Presentar_Demanda">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Carga_Pagos_Masivos">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Carga_Rotacion_Cartera">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="TipoCodigo_Codigo_Resultado">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Estado_Status_Extra_Permite">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Guardar_Expediente_Caso">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Estado_Status_Judicial">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Tipo_Descuento_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Garantia_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="StatusExtra_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Tipo_Descuento_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Reiniciar_Contrasena">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Garantia_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="StatusExtra_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Frase_Predeterminada_Activar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Frase_Predeterminada_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Frase_Predeterminada_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Frase_Predeterminada_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Descuento_Eliminar">
+<operation name="Carga_Masiva_Medidas_Precautorias">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2423,7 +1964,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Referencia_Modificar">
+<operation name="Permisos_Usuario_Uno_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2441,15 +1982,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Permisos_Usuario_Uno_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="EstadoExtra_Insertar">
 <soap:operation soapAction=""/>
 <input>
@@ -2459,7 +1991,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="EstadoExtra_Activar">
+<operation name="Frase_Predeterminada_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2468,7 +2000,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="StatusExtra_Insertar">
+<operation name="Frase_Predeterminada_Insertar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2477,16 +2009,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Referencia_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Descuento_Modificar">
+<operation name="Frase_Predeterminada_Activar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2504,7 +2027,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="StatusExtra_Modificar">
+<operation name="StatusExtra_Insertar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2513,7 +2036,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="EstadoExtra_Eliminar">
+<operation name="Descuento_Eliminar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2531,15 +2054,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Corporacion_Insertar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="Tipo_Descuento_Activar">
 <soap:operation soapAction=""/>
 <input>
@@ -2549,7 +2063,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Tipo_Aumento_Eliminar">
+<operation name="EstadoExtra_Activar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2558,52 +2072,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Carga_Masiva_Deligenciar_Medidas">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Carga_Masiva_Caratula">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Tipo_Aumento_Modificar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Modificar_Juicio_Expediente">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Referencia_Eliminar">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="Corporacion_Activar">
+<operation name="Descuento_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2621,7 +2090,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Juzgado_Modificar">
+<operation name="Frase_Predeterminada_Eliminar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2630,7 +2099,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="EstadoExtra_Modificar">
+<operation name="Referencia_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2639,7 +2108,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Tipo_Aumento_Activar">
+<operation name="Referencia_Insertar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2648,7 +2117,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Modificar_Deudor_Expediente">
+<operation name="StatusExtra_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2666,7 +2135,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Estado_Status_Extrajudicial">
+<operation name="EstadoExtra_Eliminar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2675,7 +2144,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Convenio_Insertar">
+<operation name="Modificar_Juicio_Expediente">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2684,7 +2153,160 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Tipo_Codigo_Resultado_Insertar">
+<operation name="Tipo_Aumento_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Juzgado_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Tipo_Aumento_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Modificar_Deudor_Expediente">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Carga_Masiva_Deligenciar_Medidas">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Carga_Masiva_Presentar_Demanda">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Corporacion_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Tipo_Aumento_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Referencia_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Corporacion_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Carga_Pagos_Masivos">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Carga_Masiva_Caratula">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Corporacion_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Carga_Rotacion_Cartera">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="EstadoExtra_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Garantia_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Garantia_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Usuario_Modificar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2702,7 +2324,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Tipo_Codigo_Resultado_Activar">
+<operation name="Estado_Status_Extrajudicial">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2711,7 +2333,124 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Guardar_Expediente_Extrajudicial">
+<operation name="Guardar_Expediente_Caso">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Tipo_Codigo_Resultado_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Tipo_Descuento_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="StatusExtra_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Estado_Status_Judicial">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Corporacion_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Garantia_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Estado_Status_Extra_Permite">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="StatusExtra_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="TipoCodigo_Codigo_Resultado">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Tipo_Descuento_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Convenio_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Reiniciar_Contrasena">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Intencion_Pago_Activar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -2738,7 +2477,268 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="Cartera_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Tipo_Codigo_Resultado_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Guardar_Expediente_Extrajudicial">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Tipo_Codigo_Resultado_Contacto">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Tipo_Codigo_Resultado_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Razon_Deuda_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="Constantes_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Permisos_Rol_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Convenio_Detalle_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Intencion_Pago_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Convenio_Modificar_Estado">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Actualizacion_Masiva_Deudores">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Convenio_Detalle_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Rotacion_Automatica">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Intencion_Pago_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Intencion_Pago_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Razon_Deuda_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Codigo_Contactabilidad_Activar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Codigo_Contactabilidad_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Promesa_Pago_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Gestion_Administracion_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Codigo_Contactabilidad_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Promesa_Pago_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Carga_Masiva_Deudoroes">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Razon_Deuda_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Promesa_Pago_Modificar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Codigo_Contactabilidad_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Gestion_Juridico_Insertar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Razon_Deuda_Eliminar">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="Gestion_Cobros_Insertar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

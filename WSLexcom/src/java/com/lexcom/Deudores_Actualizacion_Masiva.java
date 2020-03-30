@@ -68,8 +68,10 @@ public class Deudores_Actualizacion_Masiva implements Serializable {
     private String no_juicio;
     private Integer notificador;
     private Double monto_demanda;
+    private Integer cuenta_principal_relacion;
+    private Integer deudor_cuenta_relacionada;
 
-    public Deudores_Actualizacion_Masiva(Integer deudor, Integer actor, String moneda, String dpi, String nit, Date fecha_nacimiento, String nombre_deudor, String nacionalidad, String telefono_casa, String telefono_celular, String direccion, Integer zona, String pais, String departamento, String sexo, String estado_civil, Date fecha_ingreso, String profesion, String correo_electronico, String lugar_trabajo, String contacto_trabajo, String telefono_trabajo, Double monto_inicial, Integer gestor, Integer estado_judicial, Integer estatus_judicial, Integer estado_extrajudicial, Integer estatus_extrajudicial, Integer intencion_pago, String no_cuenta, Integer garantia, String cargado, String estado_ae, String notas, Integer codigo_resultado, Integer caso, String pdf, String inv, String maycom, String nits, String cosecha, String otro_no_cuenta, String descripcion_adicional, Date fecha_recepcion, String anticipo, String antiguedad, Date fecha_proximo_pago, Double monto_proximo_pago, Double saldo, String convenio_pactado, Double cuota_convenio, String costas_pagadas, String situacion_caso, String opcion_proximo_pago, String procuracion, Date fecha_demanda, Integer procurador, Integer juzgado, String no_juicio, Integer notificador, Double monto_demanda) {
+    public Deudores_Actualizacion_Masiva(Integer deudor, Integer actor, String moneda, String dpi, String nit, Date fecha_nacimiento, String nombre_deudor, String nacionalidad, String telefono_casa, String telefono_celular, String direccion, Integer zona, String pais, String departamento, String sexo, String estado_civil, Date fecha_ingreso, String profesion, String correo_electronico, String lugar_trabajo, String contacto_trabajo, String telefono_trabajo, Double monto_inicial, Integer gestor, Integer estado_judicial, Integer estatus_judicial, Integer estado_extrajudicial, Integer estatus_extrajudicial, Integer intencion_pago, String no_cuenta, Integer garantia, String cargado, String estado_ae, String notas, Integer codigo_resultado, Integer caso, String pdf, String inv, String maycom, String nits, String cosecha, String otro_no_cuenta, String descripcion_adicional, Date fecha_recepcion, String anticipo, String antiguedad, Date fecha_proximo_pago, Double monto_proximo_pago, Double saldo, String convenio_pactado, Double cuota_convenio, String costas_pagadas, String situacion_caso, String opcion_proximo_pago, String procuracion, Date fecha_demanda, Integer procurador, Integer juzgado, String no_juicio, Integer notificador, Double monto_demanda, Integer cuenta_principal_relacion, Integer deudor_cuenta_relacionada) {
         this.deudor = deudor;
         this.actor = actor;
         this.moneda = moneda;
@@ -131,6 +133,8 @@ public class Deudores_Actualizacion_Masiva implements Serializable {
         this.no_juicio = no_juicio;
         this.notificador = notificador;
         this.monto_demanda = monto_demanda;
+        this.cuenta_principal_relacion = cuenta_principal_relacion;
+        this.deudor_cuenta_relacionada = deudor_cuenta_relacionada;
     }
 
     public Integer getDeudor() {
@@ -619,6 +623,22 @@ public class Deudores_Actualizacion_Masiva implements Serializable {
 
     public void setMonto_demanda(Double monto_demanda) {
         this.monto_demanda = monto_demanda;
+    }
+
+    public Integer getCuenta_principal_relacion() {
+        return cuenta_principal_relacion;
+    }
+
+    public void setCuenta_principal_relacion(Integer cuenta_principal_relacion) {
+        this.cuenta_principal_relacion = cuenta_principal_relacion;
+    }
+
+    public Integer getDeudor_cuenta_relacionada() {
+        return deudor_cuenta_relacionada;
+    }
+
+    public void setDeudor_cuenta_relacionada(Integer deudor_cuenta_relacionada) {
+        this.deudor_cuenta_relacionada = deudor_cuenta_relacionada;
     }
     
 }

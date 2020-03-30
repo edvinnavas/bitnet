@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoDeudoresCarga" pageWidth="3800" pageHeight="842" columnWidth="3800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2341d4c8-977c-465a-9eed-12e7b2456cae">
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoDeudoresCarga" pageWidth="3900" pageHeight="842" columnWidth="3900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2341d4c8-977c-465a-9eed-12e7b2456cae">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<queryString language="SQL">
 		<![CDATA[select
 1 Actor,
@@ -43,46 +50,126 @@
 '-' No_juicio,
 0 Notificador,
 0.00 Monto_demanda,
-'-' Procuracion]]>
+'-' Procuracion,
+0 Cuenta_relacionada]]>
 	</queryString>
-	<field name="Actor" class="java.lang.Long"/>
-	<field name="Caso" class="java.lang.Long"/>
-	<field name="Estado_judicial" class="java.lang.Long"/>
-	<field name="Estatus_judicial" class="java.lang.Long"/>
-	<field name="Estado_extrajudicial" class="java.lang.Long"/>
-	<field name="Estatus_extrajudicial" class="java.lang.Long"/>
-	<field name="Intensión_pago" class="java.lang.String"/>
-	<field name="Garantia" class="java.lang.Long"/>
-	<field name="Gestor" class="java.lang.Long"/>
-	<field name="Saldo" class="java.math.BigDecimal"/>
-	<field name="Monto_inicial" class="java.math.BigDecimal"/>
-	<field name="Nombre_deudor" class="java.lang.String"/>
-	<field name="No_cuenta" class="java.lang.String"/>
-	<field name="Otro_no_cuenta" class="java.lang.String"/>
-	<field name="Antiguedad" class="java.lang.String"/>
-	<field name="Situación_caso" class="java.lang.String"/>
-	<field name="Fecha_Recepción" class="java.lang.String"/>
-	<field name="Cargado" class="java.lang.String"/>
-	<field name="Moneda" class="java.lang.String"/>
-	<field name="Anticipo" class="java.lang.String"/>
-	<field name="Cosecha" class="java.lang.String"/>
-	<field name="Fecha_nacimiento" class="java.lang.String"/>
-	<field name="Telefono_casa" class="java.lang.String"/>
-	<field name="Telefono_celular" class="java.lang.String"/>
-	<field name="Telefono_trabajo" class="java.lang.String"/>
-	<field name="Correo_electronico" class="java.lang.String"/>
-	<field name="Lugar_trabajo" class="java.lang.String"/>
-	<field name="Contacto_trabajo" class="java.lang.String"/>
-	<field name="Direccion" class="java.lang.String"/>
-	<field name="DPI" class="java.lang.String"/>
-	<field name="NIT" class="java.lang.String"/>
-	<field name="Notas" class="java.lang.String"/>
-	<field name="Procurador" class="java.lang.Long"/>
-	<field name="Juzgado" class="java.lang.Long"/>
-	<field name="No_juicio" class="java.lang.String"/>
-	<field name="Notificador" class="java.lang.Long"/>
-	<field name="Monto_demanda" class="java.math.BigDecimal"/>
-	<field name="Procuracion" class="java.lang.String"/>
+	<field name="Actor" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Actor"/>
+	</field>
+	<field name="Caso" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Caso"/>
+	</field>
+	<field name="Estado_judicial" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Estado_judicial"/>
+	</field>
+	<field name="Estatus_judicial" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Estatus_judicial"/>
+	</field>
+	<field name="Estado_extrajudicial" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Estado_extrajudicial"/>
+	</field>
+	<field name="Estatus_extrajudicial" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Estatus_extrajudicial"/>
+	</field>
+	<field name="Intensión_pago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Intensión_pago"/>
+	</field>
+	<field name="Garantia" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Garantia"/>
+	</field>
+	<field name="Gestor" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Gestor"/>
+	</field>
+	<field name="Saldo" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Saldo"/>
+	</field>
+	<field name="Monto_inicial" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Monto_inicial"/>
+	</field>
+	<field name="Nombre_deudor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre_deudor"/>
+	</field>
+	<field name="No_cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="No_cuenta"/>
+	</field>
+	<field name="Otro_no_cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Otro_no_cuenta"/>
+	</field>
+	<field name="Antiguedad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Antiguedad"/>
+	</field>
+	<field name="Situación_caso" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Situación_caso"/>
+	</field>
+	<field name="Fecha_Recepción" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha_Recepción"/>
+	</field>
+	<field name="Cargado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Cargado"/>
+	</field>
+	<field name="Moneda" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Moneda"/>
+	</field>
+	<field name="Anticipo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Anticipo"/>
+	</field>
+	<field name="Cosecha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Cosecha"/>
+	</field>
+	<field name="Fecha_nacimiento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha_nacimiento"/>
+	</field>
+	<field name="Telefono_casa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Telefono_casa"/>
+	</field>
+	<field name="Telefono_celular" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Telefono_celular"/>
+	</field>
+	<field name="Telefono_trabajo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Telefono_trabajo"/>
+	</field>
+	<field name="Correo_electronico" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Correo_electronico"/>
+	</field>
+	<field name="Lugar_trabajo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Lugar_trabajo"/>
+	</field>
+	<field name="Contacto_trabajo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Contacto_trabajo"/>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Direccion"/>
+	</field>
+	<field name="DPI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DPI"/>
+	</field>
+	<field name="NIT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NIT"/>
+	</field>
+	<field name="Notas" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Notas"/>
+	</field>
+	<field name="Procurador" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Procurador"/>
+	</field>
+	<field name="Juzgado" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Juzgado"/>
+	</field>
+	<field name="No_juicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="No_juicio"/>
+	</field>
+	<field name="Notificador" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Notificador"/>
+	</field>
+	<field name="Monto_demanda" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Monto_demanda"/>
+	</field>
+	<field name="Procuracion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Procuracion"/>
+	</field>
+	<field name="Cuenta_relacionada" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="Cuenta_relacionada"/>
+	</field>
 	<columnHeader>
 		<band height="11">
 			<staticText>
@@ -96,7 +183,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Actor]]></text>
 			</staticText>
@@ -109,7 +196,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Caso]]></text>
 			</staticText>
@@ -122,7 +209,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estado judicial]]></text>
 			</staticText>
@@ -135,7 +222,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estatus judicial]]></text>
 			</staticText>
@@ -148,7 +235,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estado extrajudicial]]></text>
 			</staticText>
@@ -161,7 +248,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estatus extrajudicial]]></text>
 			</staticText>
@@ -174,7 +261,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Intención pago]]></text>
 			</staticText>
@@ -187,7 +274,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Garantía]]></text>
 			</staticText>
@@ -200,7 +287,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Gestor]]></text>
 			</staticText>
@@ -213,7 +300,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Saldo]]></text>
 			</staticText>
@@ -226,7 +313,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Monto inicial]]></text>
 			</staticText>
@@ -239,7 +326,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre deudor]]></text>
 			</staticText>
@@ -252,7 +339,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[No. cuenta]]></text>
 			</staticText>
@@ -265,7 +352,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Antigüedad]]></text>
 			</staticText>
@@ -278,7 +365,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Situación caso]]></text>
 			</staticText>
@@ -291,7 +378,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha Recepción]]></text>
 			</staticText>
@@ -304,7 +391,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cargado]]></text>
 			</staticText>
@@ -317,7 +404,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Moneda]]></text>
 			</staticText>
@@ -330,7 +417,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Anticipo]]></text>
 			</staticText>
@@ -343,7 +430,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cosecha]]></text>
 			</staticText>
@@ -356,7 +443,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[No. juicio]]></text>
 			</staticText>
@@ -369,7 +456,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Juzgado]]></text>
 			</staticText>
@@ -382,7 +469,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Procurador]]></text>
 			</staticText>
@@ -395,7 +482,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Notificador]]></text>
 			</staticText>
@@ -408,12 +495,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Monto demanda]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2500" y="0" width="100" height="11" uuid="b97c9d5a-84ef-4e96-ad00-27e86c21dab9">
+				<reportElement stretchType="RelativeToTallestObject" x="2500" y="0" width="100" height="11" uuid="b97c9d5a-84ef-4e96-ad00-27e86c21dab9">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
@@ -423,12 +510,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Otro no. cuenta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2600" y="0" width="100" height="11" uuid="bc8e86d1-f9da-4f3d-b62f-599d7ce227a0"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2600" y="0" width="100" height="11" uuid="bc8e86d1-f9da-4f3d-b62f-599d7ce227a0"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -436,12 +523,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha nacimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2700" y="0" width="100" height="11" uuid="2fe9677b-0360-40cd-b7ec-cd77921057a7"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="100" height="11" uuid="2fe9677b-0360-40cd-b7ec-cd77921057a7"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -449,12 +536,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Teléfono casa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2800" y="0" width="100" height="11" uuid="d2b9dcba-bb90-4f97-9126-7edb7a86ff30"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2800" y="0" width="100" height="11" uuid="d2b9dcba-bb90-4f97-9126-7edb7a86ff30"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -462,12 +549,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Teléfono celular]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2900" y="0" width="100" height="11" uuid="ae48171b-2897-4838-b996-5490ac1d5fc6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2900" y="0" width="100" height="11" uuid="ae48171b-2897-4838-b996-5490ac1d5fc6"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -475,12 +562,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Teléfono trabajo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3000" y="0" width="100" height="11" uuid="843c38ae-5b86-4034-9328-c8227c30a235"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3000" y="0" width="100" height="11" uuid="843c38ae-5b86-4034-9328-c8227c30a235"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -488,12 +575,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Correo electrónico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3100" y="0" width="100" height="11" uuid="c9dc93be-af8f-4bfd-b345-28a7fdc1a90c"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3100" y="0" width="100" height="11" uuid="c9dc93be-af8f-4bfd-b345-28a7fdc1a90c"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -501,12 +588,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lugar trabajo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3200" y="0" width="100" height="11" uuid="162d8f67-8e75-4a6a-a7c3-01ba125779a9"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3200" y="0" width="100" height="11" uuid="162d8f67-8e75-4a6a-a7c3-01ba125779a9"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -514,12 +601,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Contacto trabajo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3300" y="0" width="100" height="11" uuid="520842cd-58da-4db9-bf7a-4ddbf6c00386"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3300" y="0" width="100" height="11" uuid="520842cd-58da-4db9-bf7a-4ddbf6c00386"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -527,12 +614,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dirección]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3400" y="0" width="100" height="11" uuid="f5d34245-06f8-4330-8f9d-76bff05bdbf6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3400" y="0" width="100" height="11" uuid="f5d34245-06f8-4330-8f9d-76bff05bdbf6"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -540,12 +627,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DPI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3500" y="0" width="100" height="11" uuid="f2927e29-8343-47da-954d-27db5a56e3fd"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3500" y="0" width="100" height="11" uuid="f2927e29-8343-47da-954d-27db5a56e3fd"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -553,12 +640,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NIT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3600" y="0" width="100" height="11" uuid="4ccc0b75-26d8-4d58-93a1-55a539c02b1c"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3600" y="0" width="100" height="11" uuid="4ccc0b75-26d8-4d58-93a1-55a539c02b1c"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -566,12 +653,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Notas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3700" y="0" width="100" height="11" uuid="e862f63e-bd7a-4060-bd43-54459008d343"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3700" y="0" width="100" height="11" uuid="e862f63e-bd7a-4060-bd43-54459008d343"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -579,9 +666,24 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="true"/>
+					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Procuración]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="3800" y="0" width="100" height="11" uuid="22f4b3ac-db77-4bc6-8352-50d681eda862">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8578a527-fb42-4c31-8288-1f908b18efd6"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta relacionada]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -1085,6 +1187,21 @@
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Procuracion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="3800" y="0" width="100" height="11" uuid="15538f53-3434-4577-8a99-995ccc86669e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8578a527-fb42-4c31-8288-1f908b18efd6"/>
+				</reportElement>
+				<box rightPadding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuenta_relacionada}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

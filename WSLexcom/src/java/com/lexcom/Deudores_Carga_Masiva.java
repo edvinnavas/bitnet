@@ -45,8 +45,10 @@ public class Deudores_Carga_Masiva implements Serializable {
     private String nit;
     private String notas;
     private String procuracion;
+    private Integer cuenta_principal_relacion;
+    private Integer deudor_cuenta_relacionada;
 
-    public Deudores_Carga_Masiva(Integer actor, Integer caso, Integer estado_judicial, Integer estatus_judicial, Integer estado_extrajudicial, Integer estatus_extrajudicial, String intension_pago, Integer garantia, Integer gestor, Double saldo, Double monto_inicial, String nombre_deudor, String no_cuenta, String antiguedad, String situacion_caso, Date fecha_recepcion, String cargado, String moneda, String anticipo, String cosecha, String no_juicio, Integer juzgado, Integer procurador, Integer notificador, Double monto_demanda, String otro_no_cuenta, Date fecha_nacimiento, String telefono_casa, String telefono_celular, String telefono_trabajo, String correo_electronico, String lugar_trabajo, String contacto_trabajo, String direccion, String dpi, String nit, String notas, String procuracion) {
+    public Deudores_Carga_Masiva(Integer actor, Integer caso, Integer estado_judicial, Integer estatus_judicial, Integer estado_extrajudicial, Integer estatus_extrajudicial, String intension_pago, Integer garantia, Integer gestor, Double saldo, Double monto_inicial, String nombre_deudor, String no_cuenta, String antiguedad, String situacion_caso, Date fecha_recepcion, String cargado, String moneda, String anticipo, String cosecha, String no_juicio, Integer juzgado, Integer procurador, Integer notificador, Double monto_demanda, String otro_no_cuenta, Date fecha_nacimiento, String telefono_casa, String telefono_celular, String telefono_trabajo, String correo_electronico, String lugar_trabajo, String contacto_trabajo, String direccion, String dpi, String nit, String notas, String procuracion, Integer cuenta_principal_relacion, Integer deudor_cuenta_relacionada) {
         this.actor = actor;
         this.caso = caso;
         this.estado_judicial = estado_judicial;
@@ -85,6 +87,8 @@ public class Deudores_Carga_Masiva implements Serializable {
         this.nit = nit;
         this.notas = notas;
         this.procuracion = procuracion;
+        this.cuenta_principal_relacion = cuenta_principal_relacion;
+        this.deudor_cuenta_relacionada = deudor_cuenta_relacionada;
     }
 
     public Integer getActor() {
@@ -389,6 +393,22 @@ public class Deudores_Carga_Masiva implements Serializable {
 
     public void setProcuracion(String procuracion) {
         this.procuracion = procuracion;
+    }
+
+    public Integer getCuenta_principal_relacion() {
+        return cuenta_principal_relacion;
+    }
+
+    public void setCuenta_principal_relacion(Integer cuenta_principal_relacion) {
+        this.cuenta_principal_relacion = cuenta_principal_relacion;
+    }
+
+    public Integer getDeudor_cuenta_relacionada() {
+        return deudor_cuenta_relacionada;
+    }
+
+    public void setDeudor_cuenta_relacionada(Integer deudor_cuenta_relacionada) {
+        this.deudor_cuenta_relacionada = deudor_cuenta_relacionada;
     }
     
 }

@@ -356,6 +356,7 @@ public class ServiciosLexcom implements Serializable {
                 XSSFCell nit = row.getCell(35);
                 XSSFCell notas = row.getCell(36);
                 XSSFCell procuracion = row.getCell(37);
+                XSSFCell cuenta_relacionada = row.getCell(38);
 
                 Integer db_actor = 0;
                 try {
@@ -460,7 +461,15 @@ public class ServiciosLexcom implements Serializable {
                 String db_antiguedad = "";
                 if (antiguedad != null) {
                     db_antiguedad = antiguedad.toString().trim();
-                    if (!db_antiguedad.equals("ORO") && !db_antiguedad.equals("PLATA") && !db_antiguedad.equals("BRONCE")) {
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select a.antiguedad from antiguedad a where a.estado='VIGENTE' and trim(a.nombre)='" + db_antiguedad + "'");
+                    Integer antiguedad_l = 0;
+                    while(rs.next()) {
+                        antiguedad_l = rs.getInt(1);
+                    }
+                    rs.close();
+                    stmt.close();
+                    if (antiguedad_l == 0) {
                         throw new Exception("Error al calcular el campo Antigüedad en la linea: " + linea_error);
                     }
                 } else {
@@ -522,21 +531,29 @@ public class ServiciosLexcom implements Serializable {
                 String db_cosecha = "";
                 if (cosecha != null) {
                     db_cosecha = cosecha.toString().trim();
-                    if (!db_cosecha.equals("0 antes 31 dic 2008") && 
-                            !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t") && !db_cosecha.equals("2009 4to t") && 
-                            !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t") && !db_cosecha.equals("2010 4to t") && 
-                            !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t") && !db_cosecha.equals("2011 4to t") && 
-                            !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t") && !db_cosecha.equals("2012 4to t") && 
-                            !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t") && !db_cosecha.equals("2013 4to t") && 
-                            !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t") && !db_cosecha.equals("2014 4to t") && 
-                            !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t") && !db_cosecha.equals("2015 4to t") && 
-                            !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t") && !db_cosecha.equals("2016 4to t") && 
-                            !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t") && !db_cosecha.equals("2017 4to t") && 
-                            !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t") && !db_cosecha.equals("2018 4to t") && 
-                            !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t") && !db_cosecha.equals("2019 4to t") && 
-                            !db_cosecha.equals("2020 1er t") && !db_cosecha.equals("2020 2do t") && !db_cosecha.equals("2020 3er t") && !db_cosecha.equals("2020 4to t") && 
-                            !db_cosecha.equals("2021 1er t") && !db_cosecha.equals("2021 2do t") && !db_cosecha.equals("2021 3er t") && !db_cosecha.equals("2021 4to t") && 
-                            !db_cosecha.equals("2022 1er t") && !db_cosecha.equals("2022 2do t") && !db_cosecha.equals("2022 3er t") && !db_cosecha.equals("2022 4to t")) {
+                    if (!db_cosecha.equals("0 antes 31 dic 2008")
+                            && !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t") && !db_cosecha.equals("2009 4to t")
+                            && !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t") && !db_cosecha.equals("2010 4to t")
+                            && !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t") && !db_cosecha.equals("2011 4to t")
+                            && !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t") && !db_cosecha.equals("2012 4to t")
+                            && !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t") && !db_cosecha.equals("2013 4to t")
+                            && !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t") && !db_cosecha.equals("2014 4to t")
+                            && !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t") && !db_cosecha.equals("2015 4to t")
+                            && !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t") && !db_cosecha.equals("2016 4to t")
+                            && !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t") && !db_cosecha.equals("2017 4to t")
+                            && !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t") && !db_cosecha.equals("2018 4to t")
+                            && !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t") && !db_cosecha.equals("2019 4to t")
+                            && !db_cosecha.equals("2020 1er t") && !db_cosecha.equals("2020 2do t") && !db_cosecha.equals("2020 3er t") && !db_cosecha.equals("2020 4to t")
+                            && !db_cosecha.equals("2021 1er t") && !db_cosecha.equals("2021 2do t") && !db_cosecha.equals("2021 3er t") && !db_cosecha.equals("2021 4to t")
+                            && !db_cosecha.equals("2022 1er t") && !db_cosecha.equals("2022 2do t") && !db_cosecha.equals("2022 3er t") && !db_cosecha.equals("2022 4to t")
+                            && !db_cosecha.equals("2023 1er t") && !db_cosecha.equals("2023 2do t") && !db_cosecha.equals("2023 3er t") && !db_cosecha.equals("2023 4to t")
+                            && !db_cosecha.equals("2024 1er t") && !db_cosecha.equals("2024 2do t") && !db_cosecha.equals("2024 3er t") && !db_cosecha.equals("2024 4to t")
+                            && !db_cosecha.equals("2025 1er t") && !db_cosecha.equals("2025 2do t") && !db_cosecha.equals("2025 3er t") && !db_cosecha.equals("2025 4to t")
+                            && !db_cosecha.equals("2026 1er t") && !db_cosecha.equals("2026 2do t") && !db_cosecha.equals("2026 3er t") && !db_cosecha.equals("2026 4to t")
+                            && !db_cosecha.equals("2027 1er t") && !db_cosecha.equals("2027 2do t") && !db_cosecha.equals("2027 3er t") && !db_cosecha.equals("2027 4to t")
+                            && !db_cosecha.equals("2028 1er t") && !db_cosecha.equals("2028 2do t") && !db_cosecha.equals("2028 3er t") && !db_cosecha.equals("2028 4to t")
+                            && !db_cosecha.equals("2029 1er t") && !db_cosecha.equals("2029 2do t") && !db_cosecha.equals("2029 3er t") && !db_cosecha.equals("2029 4to t")
+                            && !db_cosecha.equals("2030 1er t") && !db_cosecha.equals("2030 2do t") && !db_cosecha.equals("2030 3er t") && !db_cosecha.equals("2030 4to t")) {
                         throw new Exception("Error al calcular el campo Cosecha en la linea: " + linea_error);
                     }
                 } else {
@@ -712,6 +729,37 @@ public class ServiciosLexcom implements Serializable {
                 } else {
                     db_procuracion = "-";
                 }
+                
+                Integer db_cuenta_principal_relacion = 0;
+                Integer db_deudor_cuenta_relacionada = 0;
+                try {
+                    db_deudor_cuenta_relacionada = Integer.parseInt(formatoInteger.format(Double.parseDouble(cuenta_relacionada.toString().trim())));
+                    if(db_deudor_cuenta_relacionada > 0) {
+                        db_cuenta_principal_relacion = 1;
+                        Integer deudor_relacionada = 0;
+                        Integer actor_relacionada = 0;
+                        Statement stmt = conn.createStatement();
+                        ResultSet rs = stmt.executeQuery("select d.deudor, d.actor from deudor d where d.deudor=" + db_deudor_cuenta_relacionada);
+                        while(rs.next()) {
+                            deudor_relacionada = rs.getInt(1);
+                            actor_relacionada = rs.getInt(2);
+                        }
+                        rs.close();
+                        stmt.close();
+                        if(deudor_relacionada == 0) {
+                            throw new Exception("Error al calcular el campo Cuenta Relacionada en la linea: " + linea_error + " => Deudor no existe.");
+                        } else {
+                            if(actor_relacionada != db_actor) {
+                                throw new Exception("Error al calcular el campo Cuenta Relacionada en la linea: " + linea_error + " => Actor distinto.");
+                            }
+                        }
+                    } else {
+                        db_cuenta_principal_relacion = 0;
+                        db_deudor_cuenta_relacionada = 0;
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Cuenta Relacionada en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
 
                 //Carga estructura DEUDORES.
                 Deudores_Carga_Masiva deu_car_mas = new Deudores_Carga_Masiva(
@@ -752,7 +800,16 @@ public class ServiciosLexcom implements Serializable {
                         db_dpi,
                         db_nit,
                         db_notas,
-                        db_procuracion);
+                        db_procuracion,
+                        db_cuenta_principal_relacion,
+                        db_deudor_cuenta_relacionada);
+                
+                String l_deudor_cuenta_relacionada;
+                if(deu_car_mas.getDeudor_cuenta_relacionada() == 0) {
+                    l_deudor_cuenta_relacionada = "NULL";
+                } else {
+                    l_deudor_cuenta_relacionada = deu_car_mas.getDeudor_cuenta_relacionada().toString();
+                }
 
                 //Carga de deudor
                 String cadenasql = "insert into deudor ("
@@ -808,14 +865,16 @@ public class ServiciosLexcom implements Serializable {
                         + "opcion_proximo_pago, "
                         + "sestado_extra, "
                         + "estatus_extra, "
-                        + "intencion_pago) values ("
+                        + "intencion_pago, "
+                        + "cuenta_principal_relacion, " 
+                        + "deudor_cuenta_relacionada) values ("
                         + deu_car_mas.getActor() + ",'"
                         + driver.quitar_simbolos(deu_car_mas.getMoneda()) + "','"
                         + driver.quitar_simbolos(deu_car_mas.getDpi()) + "','"
                         + driver.quitar_simbolos(deu_car_mas.getNit()) + "','"
                         + formatoDate1.format(deu_car_mas.getFecha_nacimiento()) + "','"
                         + driver.quitar_simbolos(deu_car_mas.getNombre_deudor()) + "','"
-                        + "Guatemalteco" + "','"
+                        + "GUATEMALTECO(A)" + "','"
                         + driver.quitar_simbolos(deu_car_mas.getTelefono_casa()) + "','"
                         + driver.quitar_simbolos(deu_car_mas.getTelefono_celular()) + "','"
                         + driver.quitar_simbolos(deu_car_mas.getDireccion()) + "',"
@@ -861,7 +920,9 @@ public class ServiciosLexcom implements Serializable {
                         + "NO" + "',"
                         + deu_car_mas.getEstado_extrajudicial() + ","
                         + deu_car_mas.getEstatus_extrajudicial() + ","
-                        + "4" + ")";
+                        + "4" + ","
+                        + deu_car_mas.getCuenta_principal_relacion() + ","
+                        + l_deudor_cuenta_relacionada + ")";
 
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
@@ -1059,6 +1120,7 @@ public class ServiciosLexcom implements Serializable {
                 XSSFCell no_juicio = row.getCell(58);
                 XSSFCell notificador = row.getCell(59);
                 XSSFCell monto_demanda = row.getCell(60);
+                XSSFCell cuenta_relacionada = row.getCell(61);
 
                 Integer db_deudor = 0;
                 try {
@@ -1428,21 +1490,29 @@ public class ServiciosLexcom implements Serializable {
                 String db_cosecha = "";
                 if (cosecha != null) {
                     db_cosecha = cosecha.toString().trim();
-                    if (!db_cosecha.equals("0 antes 31 dic 2008") && 
-                            !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t") && !db_cosecha.equals("2009 4to t") && 
-                            !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t") && !db_cosecha.equals("2010 4to t") && 
-                            !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t") && !db_cosecha.equals("2011 4to t") && 
-                            !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t") && !db_cosecha.equals("2012 4to t") && 
-                            !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t") && !db_cosecha.equals("2013 4to t") && 
-                            !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t") && !db_cosecha.equals("2014 4to t") && 
-                            !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t") && !db_cosecha.equals("2015 4to t") && 
-                            !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t") && !db_cosecha.equals("2016 4to t") && 
-                            !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t") && !db_cosecha.equals("2017 4to t") && 
-                            !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t") && !db_cosecha.equals("2018 4to t") && 
-                            !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t") && !db_cosecha.equals("2019 4to t") && 
-                            !db_cosecha.equals("2020 1er t") && !db_cosecha.equals("2020 2do t") && !db_cosecha.equals("2020 3er t") && !db_cosecha.equals("2020 4to t") && 
-                            !db_cosecha.equals("2021 1er t") && !db_cosecha.equals("2021 2do t") && !db_cosecha.equals("2021 3er t") && !db_cosecha.equals("2021 4to t") && 
-                            !db_cosecha.equals("2022 1er t") && !db_cosecha.equals("2022 2do t") && !db_cosecha.equals("2022 3er t") && !db_cosecha.equals("2022 4to t")) {
+                    if (!db_cosecha.equals("0 antes 31 dic 2008")
+                            && !db_cosecha.equals("2009 1er t") && !db_cosecha.equals("2009 2do t") && !db_cosecha.equals("2009 3er t") && !db_cosecha.equals("2009 4to t")
+                            && !db_cosecha.equals("2010 1er t") && !db_cosecha.equals("2010 2do t") && !db_cosecha.equals("2010 3er t") && !db_cosecha.equals("2010 4to t")
+                            && !db_cosecha.equals("2011 1er t") && !db_cosecha.equals("2011 2do t") && !db_cosecha.equals("2011 3er t") && !db_cosecha.equals("2011 4to t")
+                            && !db_cosecha.equals("2012 1er t") && !db_cosecha.equals("2012 2do t") && !db_cosecha.equals("2012 3er t") && !db_cosecha.equals("2012 4to t")
+                            && !db_cosecha.equals("2013 1er t") && !db_cosecha.equals("2013 2do t") && !db_cosecha.equals("2013 3er t") && !db_cosecha.equals("2013 4to t")
+                            && !db_cosecha.equals("2014 1er t") && !db_cosecha.equals("2014 2do t") && !db_cosecha.equals("2014 3er t") && !db_cosecha.equals("2014 4to t")
+                            && !db_cosecha.equals("2015 1er t") && !db_cosecha.equals("2015 2do t") && !db_cosecha.equals("2015 3er t") && !db_cosecha.equals("2015 4to t")
+                            && !db_cosecha.equals("2016 1er t") && !db_cosecha.equals("2016 2do t") && !db_cosecha.equals("2016 3er t") && !db_cosecha.equals("2016 4to t")
+                            && !db_cosecha.equals("2017 1er t") && !db_cosecha.equals("2017 2do t") && !db_cosecha.equals("2017 3er t") && !db_cosecha.equals("2017 4to t")
+                            && !db_cosecha.equals("2018 1er t") && !db_cosecha.equals("2018 2do t") && !db_cosecha.equals("2018 3er t") && !db_cosecha.equals("2018 4to t")
+                            && !db_cosecha.equals("2019 1er t") && !db_cosecha.equals("2019 2do t") && !db_cosecha.equals("2019 3er t") && !db_cosecha.equals("2019 4to t")
+                            && !db_cosecha.equals("2020 1er t") && !db_cosecha.equals("2020 2do t") && !db_cosecha.equals("2020 3er t") && !db_cosecha.equals("2020 4to t")
+                            && !db_cosecha.equals("2021 1er t") && !db_cosecha.equals("2021 2do t") && !db_cosecha.equals("2021 3er t") && !db_cosecha.equals("2021 4to t")
+                            && !db_cosecha.equals("2022 1er t") && !db_cosecha.equals("2022 2do t") && !db_cosecha.equals("2022 3er t") && !db_cosecha.equals("2022 4to t")
+                            && !db_cosecha.equals("2023 1er t") && !db_cosecha.equals("2023 2do t") && !db_cosecha.equals("2023 3er t") && !db_cosecha.equals("2023 4to t")
+                            && !db_cosecha.equals("2024 1er t") && !db_cosecha.equals("2024 2do t") && !db_cosecha.equals("2024 3er t") && !db_cosecha.equals("2024 4to t")
+                            && !db_cosecha.equals("2025 1er t") && !db_cosecha.equals("2025 2do t") && !db_cosecha.equals("2025 3er t") && !db_cosecha.equals("2025 4to t")
+                            && !db_cosecha.equals("2026 1er t") && !db_cosecha.equals("2026 2do t") && !db_cosecha.equals("2026 3er t") && !db_cosecha.equals("2026 4to t")
+                            && !db_cosecha.equals("2027 1er t") && !db_cosecha.equals("2027 2do t") && !db_cosecha.equals("2027 3er t") && !db_cosecha.equals("2027 4to t")
+                            && !db_cosecha.equals("2028 1er t") && !db_cosecha.equals("2028 2do t") && !db_cosecha.equals("2028 3er t") && !db_cosecha.equals("2028 4to t")
+                            && !db_cosecha.equals("2029 1er t") && !db_cosecha.equals("2029 2do t") && !db_cosecha.equals("2029 3er t") && !db_cosecha.equals("2029 4to t")
+                            && !db_cosecha.equals("2030 1er t") && !db_cosecha.equals("2030 2do t") && !db_cosecha.equals("2030 3er t") && !db_cosecha.equals("2030 4to t")) {
                         throw new Exception("Error al calcular el campo Cosecha en la linea: " + linea_error);
                     }
                 } else {
@@ -1494,7 +1564,15 @@ public class ServiciosLexcom implements Serializable {
                 String db_antiguedad = "";
                 if (antiguedad != null) {
                     db_antiguedad = antiguedad.toString().trim();
-                    if (!db_antiguedad.equals("ORO") && !db_antiguedad.equals("PLATA") && !db_antiguedad.equals("BRONCE")) {
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select a.antiguedad from antiguedad a where a.estado='VIGENTE' and trim(a.nombre)='" + db_antiguedad + "'");
+                    Integer antiguedad_l = 0;
+                    while(rs.next()) {
+                        antiguedad_l = rs.getInt(1);
+                    }
+                    rs.close();
+                    stmt.close();
+                    if (antiguedad_l == 0) {
                         throw new Exception("Error al calcular el campo Antigüedad en la linea: " + linea_error);
                     }
                 } else {
@@ -1633,6 +1711,37 @@ public class ServiciosLexcom implements Serializable {
                 } catch (Exception ex) {
                     throw new Exception("Error al calcular el campo Monto Inicial en la linea: " + linea_error + " Exception: " + ex.toString());
                 }
+                
+                Integer db_cuenta_principal_relacion = 0;
+                Integer db_deudor_cuenta_relacionada = 0;
+                try {
+                    db_deudor_cuenta_relacionada = Integer.parseInt(formatoInteger.format(Double.parseDouble(cuenta_relacionada.toString().trim())));
+                    if(db_deudor_cuenta_relacionada > 0) {
+                        db_cuenta_principal_relacion = 1;
+                        Integer deudor_relacionada = 0;
+                        Integer actor_relacionada = 0;
+                        Statement stmt = conn.createStatement();
+                        ResultSet rs = stmt.executeQuery("select d.deudor, d.actor from deudor d where d.deudor=" + db_deudor_cuenta_relacionada);
+                        while(rs.next()) {
+                            deudor_relacionada = rs.getInt(1);
+                            actor_relacionada = rs.getInt(2);
+                        }
+                        rs.close();
+                        stmt.close();
+                        if(deudor_relacionada == 0) {
+                            throw new Exception("Error al calcular el campo Cuenta Relacionada en la linea: " + linea_error + " => Deudor no existe.");
+                        } else {
+                            if(actor_relacionada != db_actor) {
+                                throw new Exception("Error al calcular el campo Cuenta Relacionada en la linea: " + linea_error + " => Actor distinto.");
+                            }
+                        }
+                    } else {
+                        db_cuenta_principal_relacion = 0;
+                        db_deudor_cuenta_relacionada = 0;
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Cuenta Relacionada en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
 
                 //Carga estructura DEUDORES.
                 Deudores_Actualizacion_Masiva deu_act_mas = new Deudores_Actualizacion_Masiva(
@@ -1696,7 +1805,9 @@ public class ServiciosLexcom implements Serializable {
                         db_juzgado,
                         db_no_juicio,
                         db_notificador,
-                        db_monto_demanda);
+                        db_monto_demanda,
+                        db_cuenta_principal_relacion,
+                        db_deudor_cuenta_relacionada);
 
                 // **************************** OBTENER ESTADO Y ESTADOS ACTUAL
                 Integer int_estado_judicial_actual = 0;
@@ -1740,6 +1851,13 @@ public class ServiciosLexcom implements Serializable {
                 }
                 rs.close();
                 stmt.close();
+
+                String l_deudor_cuenta_relacionada;
+                if(deu_act_mas.getDeudor_cuenta_relacionada() == 0) {
+                    l_deudor_cuenta_relacionada = "deudor_cuenta_relacionada=NULL ";
+                } else {
+                    l_deudor_cuenta_relacionada = "deudor_cuenta_relacionada=" + deu_act_mas.getDeudor_cuenta_relacionada() + " ";
+                }
 
                 //ACTUALIZACION DE LA TABLA DEUDOR.
                 cadenasql = "update deudor set "
@@ -1795,7 +1913,9 @@ public class ServiciosLexcom implements Serializable {
                         + "opcion_proximo_pago='" + deu_act_mas.getOpcion_proximo_pago() + "', "
                         + "sestado_extra=" + deu_act_mas.getEstado_extrajudicial() + ", "
                         + "estatus_extra=" + deu_act_mas.getEstatus_extrajudicial() + ", "
-                        + "intencion_pago=" + deu_act_mas.getIntencion_pago() + " "
+                        + "intencion_pago=" + deu_act_mas.getIntencion_pago() + ", "
+                        + "cuenta_principal_relacion=" + deu_act_mas.getCuenta_principal_relacion() + ", "
+                        + l_deudor_cuenta_relacionada
                         + "where deudor=" + deu_act_mas.getDeudor();
                 stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
@@ -2176,7 +2296,7 @@ public class ServiciosLexcom implements Serializable {
                 } else {
                     db_boleta_pago = "BOL-SYS";
                 }
-                
+
                 String db_descripcion = "";
                 if (descripcion != null) {
                     db_descripcion = descripcion.toString().trim();
@@ -4459,21 +4579,21 @@ public class ServiciosLexcom implements Serializable {
             }
             rs.close();
             stmt.close();
-            
-            for(Integer i=0; i < usuario_corporacion.length; i++) {
+
+            for (Integer i = 0; i < usuario_corporacion.length; i++) {
                 cadenasql = "select c.cooperacion from cooperacion c where c.nombre='" + usuario_corporacion[i] + "'";
                 System.out.println(cadenasql);
                 Integer id_corporacion = 0;
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery(cadenasql);
-                while(rs.next()) {
+                while (rs.next()) {
                     id_corporacion = rs.getInt(1);
                 }
                 rs.close();
                 stmt.close();
-                
+
                 cadenasql = "insert into usuario_corporacion (usuario, corporacion) values ("
-                        + usuario_temp + "," 
+                        + usuario_temp + ","
                         + id_corporacion + ")";
                 stmt = conn.createStatement();
                 System.out.println(cadenasql);
@@ -4579,25 +4699,25 @@ public class ServiciosLexcom implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             cadenasql = "delete from usuario_corporacion where usuario=" + id_usuario;
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
-            for(Integer i=0; i < usuario_corporacion.length; i++) {
+
+            for (Integer i = 0; i < usuario_corporacion.length; i++) {
                 cadenasql = "select c.cooperacion from cooperacion c where c.nombre='" + usuario_corporacion[i] + "'";
                 Integer id_corporacion = 0;
                 stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(cadenasql);
-                while(rs.next()) {
+                while (rs.next()) {
                     id_corporacion = rs.getInt(1);
                 }
                 rs.close();
                 stmt.close();
-                
+
                 cadenasql = "insert into usuario_corporacion (usuario, corporacion) values ("
-                        + id_usuario + "," 
+                        + id_usuario + ","
                         + id_corporacion + ")";
                 stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
@@ -5352,12 +5472,20 @@ public class ServiciosLexcom implements Serializable {
      * @param fecha_recepcion_d
      * @param anticipo_d
      * @param antiguedad_d
+     * @param fecha_proximo_pago_d,
+     * @param monto_proximo_pago_d,
      * @param saldo_d
      * @param convenio_pactado_d
      * @param cuota_convenio_d
      * @param costas_pagadas_d
      * @param situacion_caso_d
      * @param opcion_proximo_pago_d
+     * @param sestado_extra_d
+     * @param estatus_extra_d
+     * @param intencion_pago_d
+     * @param razon_deuda_d
+     * @param cuenta_principal_relacion_d
+     * @param deudor_cuenta_relacionada_d
      * @param poolConexion
      * @return
      */
@@ -5406,221 +5534,88 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "fecha_recepcion_d") Calendar fecha_recepcion_d,
             @WebParam(name = "anticipo_d") String anticipo_d,
             @WebParam(name = "antiguedad_d") String antiguedad_d,
+            @WebParam(name = "fecha_proximo_pago") Calendar fecha_proximo_pago_d,
+            @WebParam(name = "monto_proximo_pago") Double monto_proximo_pago_d,
             @WebParam(name = "saldo_d") Double saldo_d,
             @WebParam(name = "convenio_pactado_d") String convenio_pactado_d,
             @WebParam(name = "cuota_convenio_d") Double cuota_convenio_d,
             @WebParam(name = "costas_pagadas_d") String costas_pagadas_d,
             @WebParam(name = "situacion_caso_d") String situacion_caso_d,
             @WebParam(name = "opcion_proximo_pago_d") String opcion_proximo_pago_d,
+            @WebParam(name = "sestado_extra_d") Integer sestado_extra_d,
+            @WebParam(name = "estatus_extra_d") Integer estatus_extra_d,
+            @WebParam(name = "intencion_pago_d") Integer intencion_pago_d,
+            @WebParam(name = "razon_deuda_d") Integer razon_deuda_d,
+            @WebParam(name = "cuenta_principal_relacion_d") Integer cuenta_principal_relacion_d,
+            @WebParam(name = "deudor_cuenta_relacionada_d") String deudor_cuenta_relacionada_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_nacimiento_d.get(Calendar.DATE);
-            Integer mes = fecha_nacimiento_d.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_nacimiento_d.get(Calendar.YEAR);
-            String fecha_nac_d = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_ingreso_d.get(Calendar.DATE);
-            mes = fecha_ingreso_d.get(Calendar.MONTH) + 1;
-            ano = fecha_ingreso_d.get(Calendar.YEAR);
-            String fecha_ing_d = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_recepcion_d.get(Calendar.DATE);
-            mes = fecha_recepcion_d.get(Calendar.MONTH) + 1;
-            ano = fecha_recepcion_d.get(Calendar.YEAR);
-            String fecha_recep_d = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "insert into deudor ("
-                    + "actor,"
-                    + "moneda,"
-                    + "dpi,"
-                    + "nit,"
-                    + "fecha_nacimiento,"
-                    + "nombre,"
-                    + "nacionalidad,"
-                    + "telefono_casa,"
-                    + "telefono_celular,"
-                    + "direccion,"
-                    + "zona,"
-                    + "pais,"
-                    + "departamento,"
-                    + "sexo,"
-                    + "estado_civil,"
-                    + "fecha_ingreso,"
-                    + "profesion,"
-                    + "correo_electronico,"
-                    + "lugar_trabajo,"
-                    + "direccion_trabajo,"
-                    + "telefono_trabajo,"
-                    + "monto_inicial,"
-                    + "usuario,"
-                    + "sestado,"
-                    + "estatus,"
-                    + "no_cuenta,"
-                    + "garantia,"
-                    + "cargado,"
-                    + "estado,"
-                    + "descripcion,"
-                    + "codigo_contactabilidad,"
-                    + "caso,"
-                    + "PDF,"
-                    + "INV,"
-                    + "MAYCOM,"
-                    + "NITS,"
-                    + "cosecha,"
-                    + "no_cuenta_otro,"
-                    + "descripcion_adicional,"
-                    + "fecha_recepcion,"
-                    + "anticipo,"
-                    + "antiguedad,"
-                    + "fecha_proximo_pago,"
-                    + "monto_proximo_pago,"
-                    + "saldo,"
-                    + "convenio_pactado,"
-                    + "cuota_convenio,"
-                    + "costas_pagadas,"
-                    + "situacion_caso,"
-                    + "opcion_proximo_pago) values ('"
-                    + actor_d + "','"
-                    + moneda_d + "','"
-                    + dpi_d + "','"
-                    + nit_d + "','"
-                    + fecha_nac_d + "','"
-                    + nombre_d + "','"
-                    + nacionalidad_d + "','"
-                    + telefono_casa_d + "','"
-                    + telefono_celular_d + "','"
-                    + direccion_d + "','"
-                    + zona_d + "','"
-                    + pais_d + "','"
-                    + departamento_d + "','"
-                    + sexo_d + "','"
-                    + estado_civil_d + "','"
-                    + fecha_ing_d + "','"
-                    + profesion_d + "','"
-                    + correo_electronico_d + "','"
-                    + lugar_trabajo_d + "','"
-                    + direccion_trabajo_d + "','"
-                    + telefono_trabajo_d + "','"
-                    + monto_inicial_d + "','"
-                    + gestor_d + "','"
-                    + sestado_d + "','"
-                    + estatus_d + "','"
-                    + no_cuenta_d + "','"
-                    + garantia_d + "','"
-                    + cargado_d + "','"
-                    + estado_d + "','"
-                    + descripcion_d + "','"
-                    + codigo_contactabilidad_d.toString() + "','"
-                    + caso_d + "','"
-                    + PDF_d + "','"
-                    + INV_d + "','"
-                    + MAYCOM_d + "','"
-                    + NITS_d + "','"
-                    + cosecha_d + "','"
-                    + no_cuenta_otro_d + "','"
-                    + descripcion_adicional_d + "','"
-                    + fecha_recep_d + "','"
-                    + anticipo_d + "','"
-                    + antiguedad_d + "',"
-                    + "CURRENT_DATE()" + ",'"
-                    + "0.00" + "','"
-                    + saldo_d + "','"
-                    + convenio_pactado_d + "','"
-                    + cuota_convenio_d + "','"
-                    + costas_pagadas_d + "','"
-                    + situacion_caso_d + "','"
-                    + opcion_proximo_pago_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            String max_deudor = "";
-            cadenasql = "select max(d.deudor) from deudor d";
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                max_deudor = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "insert into juicio ("
-                    + "deudor,"
-                    + "juzgado,"
-                    + "fecha,"
-                    + "no_juicio,"
-                    + "monto,"
-                    + "descripcion,"
-                    + "procurador,"
-                    + "razon_notificacion,"
-                    + "notificador,"
-                    + "abogado_deudor,"
-                    + "sumario,"
-                    + "memorial,"
-                    + "procuracion,"
-                    + "fecha_admision_demanda,"
-                    + "deudor_notificado,"
-                    + "fecha_notificacion,"
-                    + "depositario,"
-                    + "tiempo_estimado) values ('"
-                    + max_deudor + "','"
-                    + "30" + "','"
-                    + "1900/01/01" + "','"
-                    + "0" + "','"
-                    + "0.00" + "','"
-                    + "-" + "','"
-                    + "66" + "','"
-                    + "-" + "','"
-                    + "0" + "','"
-                    + "-" + "','"
-                    + "-" + "','"
-                    + "1900/01/01" + "','"
-                    + "-" + "','"
-                    + "1900/01/01" + "','"
-                    + "NO" + "','"
-                    + "1900/01/01" + "','"
-                    + "-" + "','"
-                    + "0" + "')";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Actor: " + actor_d + " Moneda: " + moneda_d + " dpi:" + dpi_d + " nit:" + nit_d + " caso:" + caso_d.toString() + " PDF: " + PDF_d + " INV: " + INV_d + " MAYCOM: " + MAYCOM_d + " NITS: " + NITS_d + " cosecha: " + cosecha_d + "',"
-                    + "41" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Deudor registrado en el sistema.";
+            Deudor deudor = new Deudor();
+            resultado = deudor.Insertar(
+                    usuario_sys,
+                    actor_d,
+                    moneda_d,
+                    dpi_d,
+                    nit_d,
+                    fecha_nacimiento_d,
+                    nombre_d,
+                    nacionalidad_d,
+                    telefono_casa_d,
+                    telefono_celular_d,
+                    direccion_d,
+                    zona_d,
+                    pais_d,
+                    departamento_d,
+                    sexo_d,
+                    estado_civil_d,
+                    fecha_ingreso_d,
+                    profesion_d,
+                    correo_electronico_d,
+                    lugar_trabajo_d,
+                    direccion_trabajo_d,
+                    telefono_trabajo_d,
+                    monto_inicial_d,
+                    gestor_d,
+                    sestado_d,
+                    estatus_d,
+                    no_cuenta_d,
+                    garantia_d,
+                    cargado_d,
+                    estado_d,
+                    descripcion_d,
+                    codigo_contactabilidad_d,
+                    caso_d,
+                    PDF_d,
+                    INV_d,
+                    MAYCOM_d,
+                    NITS_d,
+                    cosecha_d,
+                    no_cuenta_otro_d,
+                    descripcion_adicional_d,
+                    fecha_recepcion_d,
+                    anticipo_d,
+                    antiguedad_d,
+                    fecha_proximo_pago_d,
+                    monto_proximo_pago_d,
+                    saldo_d,
+                    convenio_pactado_d,
+                    cuota_convenio_d,
+                    costas_pagadas_d,
+                    situacion_caso_d,
+                    opcion_proximo_pago_d,
+                    sestado_extra_d,
+                    estatus_extra_d,
+                    intencion_pago_d,
+                    razon_deuda_d,
+                    cuenta_principal_relacion_d,
+                    deudor_cuenta_relacionada_d,
+                    poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Insertar): " + ex.toString());
+            resultado = ex.toString();
         }
 
         return resultado;
@@ -5672,12 +5667,20 @@ public class ServiciosLexcom implements Serializable {
      * @param fecha_recepcion_d
      * @param anticipo_d
      * @param antiguedad_d
+     * @param fecha_proximo_pago_d
+     * @param monto_proximo_pago_d
      * @param saldo_d
      * @param convenio_pactado_d
      * @param cuota_convenio_d
      * @param costas_pagadas_d
      * @param situacion_caso_d
      * @param opcion_proximo_pago_d
+     * @param sestado_extra_d
+     * @param estatus_extra_d
+     * @param intencion_pago_d
+     * @param razon_deuda_d
+     * @param cuenta_principal_relacion_d
+     * @param deudor_cuenta_relacionada_d
      * @param poolConexion
      * @return
      */
@@ -5727,117 +5730,89 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "fecha_recepcion_d") Calendar fecha_recepcion_d,
             @WebParam(name = "anticipo_d") String anticipo_d,
             @WebParam(name = "antiguedad_d") String antiguedad_d,
+            @WebParam(name = "fecha_proximo_pago_d") Calendar fecha_proximo_pago_d,
+            @WebParam(name = "monto_proximo_pago_d") Double monto_proximo_pago_d,
             @WebParam(name = "saldo_d") Double saldo_d,
             @WebParam(name = "convenio_pactado_d") String convenio_pactado_d,
             @WebParam(name = "cuota_convenio_d") Double cuota_convenio_d,
             @WebParam(name = "costas_pagadas_d") String costas_pagadas_d,
             @WebParam(name = "situacion_caso_d") String situacion_caso_d,
             @WebParam(name = "opcion_proximo_pago_d") String opcion_proximo_pago_d,
+            @WebParam(name = "sestado_extra_d") Integer sestado_extra_d,
+            @WebParam(name = "estatus_extra_d") Integer estatus_extra_d,
+            @WebParam(name = "intencion_pago_d") Integer intencion_pago_d,
+            @WebParam(name = "razon_deuda_d") Integer razon_deuda_d,
+            @WebParam(name = "cuenta_principal_relacion_d") Integer cuenta_principal_relacion_d,
+            @WebParam(name = "deudor_cuenta_relacionada_d") String deudor_cuenta_relacionada_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_nacimiento_d.get(Calendar.DATE);
-            Integer mes = fecha_nacimiento_d.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_nacimiento_d.get(Calendar.YEAR);
-            String fecha_nac_d = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_ingreso_d.get(Calendar.DATE);
-            mes = fecha_ingreso_d.get(Calendar.MONTH) + 1;
-            ano = fecha_ingreso_d.get(Calendar.YEAR);
-            String fecha_ing_d = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_recepcion_d.get(Calendar.DATE);
-            mes = fecha_recepcion_d.get(Calendar.MONTH) + 1;
-            ano = fecha_recepcion_d.get(Calendar.YEAR);
-            String fecha_recep_d = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update deudor set "
-                    + "actor='" + actor_d + "', "
-                    + "dpi='" + dpi_d + "', "
-                    + "nit='" + nit_d + "', "
-                    + "fecha_nacimiento='" + fecha_nac_d + "', "
-                    + "nombre='" + nombre_d + "', "
-                    + "nacionalidad='" + nacionalidad_d + "', "
-                    + "telefono_casa='" + telefono_casa_d + "', "
-                    + "telefono_celular='" + telefono_celular_d + "', "
-                    + "direccion='" + direccion_d + "', "
-                    + "zona='" + zona_d + "', "
-                    + "pais='" + pais_d + "', "
-                    + "departamento='" + departamento_d + "', "
-                    + "sexo='" + sexo_d + "', "
-                    + "estado_civil='" + estado_civil_d + "', "
-                    + "moneda='" + moneda_d + "', "
-                    + "fecha_ingreso='" + fecha_ing_d + "', "
-                    + "profesion='" + profesion_d + "', "
-                    + "correo_electronico='" + correo_electronico_d + "', "
-                    + "lugar_trabajo='" + lugar_trabajo_d + "', "
-                    + "direccion_trabajo='" + direccion_trabajo_d + "', "
-                    + "telefono_trabajo='" + telefono_trabajo_d + "', "
-                    + "monto_inicial='" + monto_inicial_d + "', "
-                    + "usuario='" + gestor_d + "', "
-                    + "sestado='" + sestado_d + "', "
-                    + "estatus='" + estatus_d + "', "
-                    + "no_cuenta='" + no_cuenta_d + "', "
-                    + "garantia='" + garantia_d + "', "
-                    + "cargado='" + cargado_d + "', "
-                    + "descripcion='" + descripcion_d + "', "
-                    + "caso='" + caso_d.toString() + "', "
-                    + "PDF='" + PDF_d + "', "
-                    + "INV='" + INV_d + "', "
-                    + "MAYCOM='" + MAYCOM_d + "', "
-                    + "NITS='" + NITS_d + "', "
-                    + "cosecha='" + cosecha_d + "', "
-                    + "antiguedad='" + antiguedad_d + "', "
-                    + "no_cuenta_otro='" + no_cuenta_otro_d + "', "
-                    + "costas_pagadas='" + costas_pagadas_d + "', "
-                    + "descripcion_adicional='" + descripcion_adicional_d + "', "
-                    + "convenio_pactado='" + convenio_pactado_d + "', "
-                    + "cuota_convenio='" + cuota_convenio_d + "', "
-                    + "fecha_recepcion='" + fecha_recep_d + "', "
-                    + "situacion_caso='" + situacion_caso_d + "', "
-                    + "opcion_proximo_pago='" + opcion_proximo_pago_d + "', "
-                    + "saldo='" + saldo_d + "', "
-                    + "anticipo='" + anticipo_d + "' "
-                    + "where deudor=" + id_deudor;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Deudor:" + id_deudor + " Actor: " + actor_d + " Moneda: " + moneda_d + " dpi:" + dpi_d + " nit:" + nit_d + " caso:" + caso_d.toString() + " PDF: " + PDF_d + " INV: " + INV_d + " MAYCOM: " + MAYCOM_d + " NITS: " + NITS_d + " cosecha: " + cosecha_d + "',"
-                    + "42" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Deudor modificado en el sistema.";
+            Deudor deudor = new Deudor();
+            resultado = deudor.Modificar(
+                    usuario_sys,
+                    id_deudor,
+                    actor_d,
+                    moneda_d,
+                    dpi_d,
+                    nit_d,
+                    fecha_nacimiento_d,
+                    nombre_d,
+                    nacionalidad_d,
+                    telefono_casa_d,
+                    telefono_celular_d,
+                    direccion_d,
+                    zona_d,
+                    pais_d,
+                    departamento_d,
+                    sexo_d,
+                    estado_civil_d,
+                    fecha_ingreso_d,
+                    profesion_d,
+                    correo_electronico_d,
+                    lugar_trabajo_d,
+                    direccion_trabajo_d,
+                    telefono_trabajo_d,
+                    monto_inicial_d,
+                    gestor_d,
+                    sestado_d,
+                    estatus_d,
+                    no_cuenta_d,
+                    garantia_d,
+                    cargado_d,
+                    estado_d,
+                    descripcion_d,
+                    codigo_contactabilidad_d,
+                    caso_d,
+                    PDF_d,
+                    INV_d,
+                    MAYCOM_d,
+                    NITS_d,
+                    cosecha_d,
+                    no_cuenta_otro_d,
+                    descripcion_adicional_d,
+                    fecha_recepcion_d,
+                    anticipo_d,
+                    antiguedad_d,
+                    fecha_proximo_pago_d,
+                    monto_proximo_pago_d,
+                    saldo_d,
+                    convenio_pactado_d,
+                    cuota_convenio_d,
+                    costas_pagadas_d,
+                    situacion_caso_d,
+                    opcion_proximo_pago_d,
+                    sestado_extra_d,
+                    estatus_extra_d,
+                    intencion_pago_d,
+                    razon_deuda_d,
+                    cuenta_principal_relacion_d,
+                    deudor_cuenta_relacionada_d,
+                    poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Modificar): " + ex.toString());
+            resultado = ex.toString();
         }
 
         return resultado;
@@ -5856,50 +5831,14 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_deudor") Integer id_deudor,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update deudor set "
-                    + "estado='" + "ELIMINADO" + "', "
-                    + "cargado='" + "DESCARGADO" + "' "
-                    + "where deudor=" + id_deudor;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "DEUDOR: " + id_deudor + "',"
-                    + "43" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Deudor eliminado en el sistema.";
+            Deudor deudor = new Deudor();
+            resultado = deudor.Eliminar(usuario_sys, id_deudor, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Eliminar): " + ex.toString());
+            resultado = ex.toString();
         }
 
         return resultado;
@@ -5918,50 +5857,14 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_deudor") Integer id_deudor,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update deudor set "
-                    + "estado='" + "VIGENTE" + "', "
-                    + "cargado='" + "CARGADO" + "' "
-                    + "where deudor=" + id_deudor;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "DEUDOR: " + id_deudor + "',"
-                    + "44" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Deudor activado en el sistema.";
+            Deudor deudor = new Deudor();
+            resultado = deudor.Activar(usuario_sys, id_deudor, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Deudor_Activar): " + ex.toString());
+            resultado = ex.toString();
         }
 
         return resultado;
@@ -14120,7 +14023,7 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
-    
+
     /**
      *
      * @param usuario_sys
@@ -14372,7 +14275,7 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
-    
+
     /**
      *
      * @param usuario_sys
@@ -14624,7 +14527,7 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
-    
+
     /**
      *
      * @param usuario_sys
@@ -14650,7 +14553,7 @@ public class ServiciosLexcom implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-                
+
             for (Integer i = 0; i < lst_tipo_codigo_resultado_contacto.length; i++) {
                 String[] tipo_codigo_resultado_contacto = lst_tipo_codigo_resultado_contacto[i].split(",");
                 Integer tipo_codigo_resultado = Integer.parseInt(tipo_codigo_resultado_contacto[0]);
@@ -14701,15 +14604,15 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
-    
+
     /**
      * @param poolConexion
      * @return
      */
     @WebMethod(operationName = "getMonitor")
     public String[][] getMonitor(
-        @WebParam(name = "poolConexion") String poolConexion) {
-        
+            @WebParam(name = "poolConexion") String poolConexion) {
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String[][] resultado;
@@ -14719,34 +14622,34 @@ public class ServiciosLexcom implements Serializable {
             resultado[0][0] = "fecha_ultima_gestion";
             resultado[0][1] = "hora_ultima_gestion";
             resultado[0][2] = "numero_gestion";
-            
+
             String cadenasql = "select max(e.fecha) from evento e";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(cadenasql);
-            while(rs.next()) {
+            while (rs.next()) {
                 resultado[1][0] = rs.getString(1);
             }
             rs.close();
             stmt.close();
-            
+
             cadenasql = "select max(e.hora) from evento e where e.fecha='" + resultado[1][0] + "'";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(cadenasql);
-            while(rs.next()) {
+            while (rs.next()) {
                 resultado[1][1] = rs.getString(1);
             }
             rs.close();
             stmt.close();
-            
+
             cadenasql = "select count(*) from evento e";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(cadenasql);
-            while(rs.next()) {
+            while (rs.next()) {
                 resultado[1][2] = rs.getString(1);
             }
             rs.close();
             stmt.close();
-            
+
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(getMonitor): " + ex.toString());
             resultado = new String[1][1];
@@ -14758,7 +14661,7 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
-    
+
     /**
      *
      * @param usuario_sys
@@ -14816,7 +14719,7 @@ public class ServiciosLexcom implements Serializable {
                 XSSFCell codigo_resultado = row.getCell(8);
                 XSSFCell contacto = row.getCell(9);
                 XSSFCell descripcion = row.getCell(10);
-                
+
                 Integer db_deudor = 0;
                 try {
                     db_deudor = Integer.parseInt(formatoInteger.format(Double.parseDouble(deudor.toString().trim())));
@@ -14828,13 +14731,13 @@ public class ServiciosLexcom implements Serializable {
                     }
                     rs.close();
                     stmt.close();
-                    if(!existe) {
+                    if (!existe) {
                         throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error);
                     }
                 } catch (Exception ex) {
                     throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error + " Exception: " + ex.toString());
                 }
-                
+
                 Integer db_usuario = 0;
                 try {
                     String db_usuario_nombre = usuario.toString().trim();
@@ -14847,8 +14750,8 @@ public class ServiciosLexcom implements Serializable {
                     }
                     rs.close();
                     stmt.close();
-                    
-                    if(!existe) {
+
+                    if (!existe) {
                         throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error);
                     }
                 } catch (Exception ex) {
@@ -14873,23 +14776,23 @@ public class ServiciosLexcom implements Serializable {
                     if (db_hora.equals("")) {
                         throw new Exception("Error al calcular el campo Hora (Espacio en blanco) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                     } else {
-                        if(db_hora.length() != 8) {
+                        if (db_hora.length() != 8) {
                             throw new Exception("Error al calcular el campo Hora (longitud diferente a 8) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                         } else {
                             try {
                                 Integer hora_num = Integer.parseInt(db_hora.substring(0, 2));
                                 Integer minuto_num = Integer.parseInt(db_hora.substring(3, 5));
                                 Integer segundo_num = Integer.parseInt(db_hora.substring(6, 8));
-                                if(hora_num < 0 && hora_num > 23) {
+                                if (hora_num < 0 && hora_num > 23) {
                                     throw new Exception("Error al calcular el campo Hora (hora) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                                 }
-                                if(minuto_num < 0 && minuto_num > 59) {
+                                if (minuto_num < 0 && minuto_num > 59) {
                                     throw new Exception("Error al calcular el campo Hora (minuto) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                                 }
-                                if(segundo_num < 0 && segundo_num > 59) {
+                                if (segundo_num < 0 && segundo_num > 59) {
                                     throw new Exception("Error al calcular el campo Hora (segundo) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
                                 }
-                            } catch(Exception ex_hora) {
+                            } catch (Exception ex_hora) {
                                 throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error + ", ex_hora" + " Valor: " + db_hora);
                             }
                         }
@@ -14910,13 +14813,13 @@ public class ServiciosLexcom implements Serializable {
                     }
                     rs.close();
                     stmt.close();
-                    if(!existe) {
+                    if (!existe) {
                         throw new Exception("Error al calcular el campo Código de Resultado Usuario en la linea: " + linea_error + " Valor: " + db_codigo_contactabilidad_nombre);
                     }
                 } catch (Exception ex) {
                     throw new Exception("Error al calcular el campo Código de Resultado en la linea: " + linea_error + " Exception: " + ex.toString());
                 }
-                
+
                 String db_contacto = "";
                 if (contacto != null) {
                     db_contacto = contacto.toString().trim();
@@ -14924,14 +14827,14 @@ public class ServiciosLexcom implements Serializable {
                         throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
                     } else {
                         System.out.println("VALOR_2: " + db_contacto);
-                        if(!db_contacto.equals("SI") && !db_contacto.equals("NO")) {
+                        if (!db_contacto.equals("SI") && !db_contacto.equals("NO")) {
                             throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
                         }
                     }
                 } else {
                     throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
                 }
-                
+
                 String db_descripcion = "";
                 if (descripcion != null) {
                     db_descripcion = descripcion.toString().trim();
@@ -14971,7 +14874,7 @@ public class ServiciosLexcom implements Serializable {
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
                 stmt.close();
-                
+
                 //Inserta el evento en la bitacora de eventos del sistema.
                 cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                         + usuario_sys + ","
@@ -15005,7 +14908,7 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
-    
+
     /**
      * @param usuario_sys
      * @param nombre_d
@@ -15021,7 +14924,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "poolConexion") String poolConexion) {
 
         String resultado = "";
-        
+
         try {
             Antiguedad antiguedad = new Antiguedad();
             resultado = antiguedad.Insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
@@ -15050,7 +14953,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "poolConexion") String poolConexion) {
 
         String resultado = "";
-        
+
         try {
             Antiguedad antiguedad = new Antiguedad();
             resultado = antiguedad.Modificar(usuario_sys, id_antiguedad, nombre_d, descripcion_d, poolConexion);
@@ -15075,7 +14978,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "poolConexion") String poolConexion) {
 
         String resultado = "";
-        
+
         try {
             Antiguedad antiguedad = new Antiguedad();
             resultado = antiguedad.Eliminar(usuario_sys, id_antiguedad, poolConexion);
@@ -15100,7 +15003,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "poolConexion") String poolConexion) {
 
         String resultado = "";
-        
+
         try {
             Antiguedad antiguedad = new Antiguedad();
             resultado = antiguedad.Activar(usuario_sys, id_antiguedad, poolConexion);
@@ -15111,5 +15014,5 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
-    
+
 }
