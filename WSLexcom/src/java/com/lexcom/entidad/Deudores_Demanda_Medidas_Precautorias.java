@@ -1,9 +1,9 @@
-package com.lexcom;
+package com.lexcom.entidad;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Deudores_Demanda_Deligenciar_Medidas implements Serializable {
+public class Deudores_Demanda_Medidas_Precautorias implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -35,7 +35,7 @@ public class Deudores_Demanda_Deligenciar_Medidas implements Serializable {
     private String medida_otros;
     private Date fecha_otros;
 
-    public Deudores_Demanda_Deligenciar_Medidas(Integer deudor, Integer nuevo_estado_judicial, Integer nuevo_estatus_judicial, String situacion_caso, String procuracion, Integer juzgado, String no_juicio, Integer notificador, Integer procurador, String razon_notificacion, String arraigo, Date fecha_arraigo, String banco, Date fecha_banco, String finca, String letra_finca, Date fecha_finca, String tramite_finca, String salario, String empresa_salario, Date fecha_salario, String vehiculo, String medida_vehiculo, Date fecha_vehiculo, String otros, String medida_otros, Date fecha_otros) {
+    public Deudores_Demanda_Medidas_Precautorias(Integer deudor, Integer nuevo_estado_judicial, Integer nuevo_estatus_judicial, String situacion_caso, String procuracion, Integer juzgado, String no_juicio, Integer notificador, Integer procurador, String razon_notificacion, String arraigo, Date fecha_arraigo, String banco, Date fecha_banco, String finca, String letra_finca, Date fecha_finca, String tramite_finca, String salario, String empresa_salario, Date fecha_salario, String vehiculo, String medida_vehiculo, Date fecha_vehiculo, String otros, String medida_otros, Date fecha_otros) {
         this.deudor = deudor;
         this.nuevo_estado_judicial = nuevo_estado_judicial;
         this.nuevo_estatus_judicial = nuevo_estatus_judicial;

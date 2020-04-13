@@ -1,4 +1,4 @@
-package com.lexcom;
+package com.lexcom.entidad;
 
 import java.io.Serializable;
 

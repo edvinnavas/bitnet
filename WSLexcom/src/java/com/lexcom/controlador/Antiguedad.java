@@ -1,29 +1,28 @@
-package com.lexcom;
+package com.lexcom.controlador;
 
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Statement;
 
 public class Antiguedad implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
-    public Antiguedad () {
-        
+
+    public Antiguedad() {
+
     }
-    
-    public String Insertar (
+
+    public String antiguedad_insertar(
             Integer usuario_sys,
             String nombre_d,
             String descripcion_d,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
             conn.setAutoCommit(false);
 
             String cadenasql = "insert into antiguedad (nombre,estado,descripcion) values ('"
@@ -33,8 +32,7 @@ public class Antiguedad implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
+            
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -44,8 +42,7 @@ public class Antiguedad implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
+            
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -66,8 +63,8 @@ public class Antiguedad implements Serializable {
 
         return resultado;
     }
-    
-    public String Modificar (
+
+    public String antiguedad_modificar(
             Integer usuario_sys,
             Integer id_antiguedad,
             String nombre_d,
@@ -79,7 +76,6 @@ public class Antiguedad implements Serializable {
         String resultado = "";
 
         try {
-            //Modo transaccion.
             conn.setAutoCommit(false);
 
             String cadenasql = "update antiguedad set "
@@ -89,8 +85,7 @@ public class Antiguedad implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
+            
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -100,8 +95,7 @@ public class Antiguedad implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
+            
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -122,18 +116,17 @@ public class Antiguedad implements Serializable {
 
         return resultado;
     }
-    
-    public String Eliminar (
-        Integer usuario_sys,
-        Integer id_antiguedad,
-        String poolConexion) {
-        
+
+    public String antiguedad_eliminar(
+            Integer usuario_sys,
+            Integer id_antiguedad,
+            String poolConexion) {
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
             conn.setAutoCommit(false);
 
             String cadenasql = "update antiguedad set "
@@ -142,8 +135,7 @@ public class Antiguedad implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
+            
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -153,8 +145,7 @@ public class Antiguedad implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
+            
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -175,18 +166,17 @@ public class Antiguedad implements Serializable {
 
         return resultado;
     }
-    
-    public String Activar (
-        Integer usuario_sys,
-        Integer id_antiguedad,
-        String poolConexion) {
-        
+
+    public String antiguedad_activar(
+            Integer usuario_sys,
+            Integer id_antiguedad,
+            String poolConexion) {
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
             conn.setAutoCommit(false);
 
             String cadenasql = "update antiguedad set "
@@ -195,8 +185,7 @@ public class Antiguedad implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
+            
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -206,8 +195,7 @@ public class Antiguedad implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
+            
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -228,5 +216,5 @@ public class Antiguedad implements Serializable {
 
         return resultado;
     }
-    
+
 }

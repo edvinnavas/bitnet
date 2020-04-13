@@ -1,5 +1,8 @@
-package com.lexcom;
+package com.lexcom.controlador;
 
+import com.lexcom.rotacion.Lista;
+import com.lexcom.rotacion.Lista3;
+import com.lexcom.rotacion.Nodo;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoDeudoresActualizacion" pageWidth="4650" pageHeight="842" orientation="Landscape" columnWidth="4650" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="25f30453-a8f0-49bc-a183-0c7084720d0a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoDeudoresActualizacion" pageWidth="4725" pageHeight="842" orientation="Landscape" columnWidth="4725" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="25f30453-a8f0-49bc-a183-0c7084720d0a">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="corporacion" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -78,7 +85,8 @@ j.juzgado,
 j.no_juicio,
 j.notificador,
 j.monto,
-ifnull(d.deudor_cuenta_relacionada,0) deudor_cuenta_relacionada
+case when d.cuenta_principal_relacion=1 then 'SI'when d.cuenta_principal_relacion=0 then 'NO' end cuenta_principal_relacion,
+d.deudor_cuenta_relacionada
 from
 deudor d
 left join juicio j on (d.deudor=j.deudor)
@@ -333,8 +341,12 @@ d.cargado like '$P!{cargado}']]>
 		<property name="com.jaspersoft.studio.field.label" value="monto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
 	</field>
+	<field name="cuenta_principal_relacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cuenta_principal_relacion"/>
+	</field>
 	<field name="deudor_cuenta_relacionada" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="deudor_cuenta_relacionada"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
 	</field>
 	<columnHeader>
 		<band height="21">
@@ -1260,8 +1272,8 @@ d.cargado like '$P!{cargado}']]>
 				<text><![CDATA[Monto demanda]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="4575" y="0" width="75" height="21" uuid="718ff918-ee39-4b2d-9035-efb9d1b16967">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1c3808ae-a9de-443d-94cb-cc2379629236"/>
+				<reportElement stretchType="RelativeToTallestObject" x="4575" y="0" width="75" height="21" uuid="813be71d-43cd-4f81-b01d-182b1c51e2ff">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25750529-d73c-4fa9-97d8-8313202f6b7c"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1272,7 +1284,24 @@ d.cargado like '$P!{cargado}']]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Serif" size="8" isBold="true"/>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta principal rel.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="4650" y="0" width="75" height="21" uuid="a65091ab-8b1c-4a1d-9d6d-1bfead04a3e0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dac2e94f-fb00-4d13-9495-68725ca59fd6"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cuenta relacionada]]></text>
 			</staticText>
@@ -2203,9 +2232,26 @@ d.cargado like '$P!{cargado}']]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#0.###">
-				<reportElement stretchType="RelativeToTallestObject" x="4575" y="0" width="75" height="11" uuid="9f031276-4e11-4cb8-be1e-e8703e55ca7a">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1c3808ae-a9de-443d-94cb-cc2379629236"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="4575" y="0" width="75" height="11" uuid="aa7196df-3303-4171-8341-de1e7186a7c8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25750529-d73c-4fa9-97d8-8313202f6b7c"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuenta_principal_relacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="4650" y="0" width="75" height="11" uuid="cdc3ebad-7fc5-4861-baf1-cb7e49aeeac2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dac2e94f-fb00-4d13-9495-68725ca59fd6"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -2216,7 +2262,7 @@ d.cargado like '$P!{cargado}']]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Serif" size="8" isBold="false"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{deudor_cuenta_relacionada}]]></textFieldExpression>
 			</textField>

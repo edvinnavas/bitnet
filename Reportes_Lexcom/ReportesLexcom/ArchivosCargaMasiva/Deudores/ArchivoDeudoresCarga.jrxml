@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoDeudoresCarga" pageWidth="3900" pageHeight="842" columnWidth="3900" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2341d4c8-977c-465a-9eed-12e7b2456cae">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArchivoDeudoresCarga" pageWidth="4000" pageHeight="842" columnWidth="4000" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2341d4c8-977c-465a-9eed-12e7b2456cae">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<queryString language="SQL">
 		<![CDATA[select
 1 Actor,
@@ -51,7 +44,8 @@
 0 Notificador,
 0.00 Monto_demanda,
 '-' Procuracion,
-0 Cuenta_relacionada]]>
+'NO' cuenta_principal_relacion,
+0 deudor_cuenta_relacionada]]>
 	</queryString>
 	<field name="Actor" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="Actor"/>
@@ -167,8 +161,11 @@
 	<field name="Procuracion" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Procuracion"/>
 	</field>
-	<field name="Cuenta_relacionada" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.label" value="Cuenta_relacionada"/>
+	<field name="cuenta_principal_relacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cuenta_principal_relacion"/>
+	</field>
+	<field name="deudor_cuenta_relacionada" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="deudor_cuenta_relacionada"/>
 	</field>
 	<columnHeader>
 		<band height="11">
@@ -671,8 +668,9 @@
 				<text><![CDATA[Procuración]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3800" y="0" width="100" height="11" uuid="22f4b3ac-db77-4bc6-8352-50d681eda862">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8578a527-fb42-4c31-8288-1f908b18efd6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3800" y="0" width="100" height="11" uuid="255c7e15-d82f-4144-b43e-93c2e1253806">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9c96f5a-580c-4ca0-9ceb-59fd276da134"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -681,7 +679,23 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Serif" size="8" isBold="true"/>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta principal rel.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="3900" y="0" width="100" height="11" uuid="1c4db50f-08c5-417e-8bc3-dd422d62c30c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fcf2acdd-02ca-4d87-b065-e40c53f51c6f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cuenta relacionada]]></text>
 			</staticText>
@@ -1189,8 +1203,25 @@
 				<textFieldExpression><![CDATA[$F{Procuracion}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3800" y="0" width="100" height="11" uuid="15538f53-3434-4577-8a99-995ccc86669e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8578a527-fb42-4c31-8288-1f908b18efd6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="3800" y="0" width="100" height="11" uuid="aa5ebef8-fa90-4fb7-89a3-5e77307bb061">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9c96f5a-580c-4ca0-9ceb-59fd276da134"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuenta_principal_relacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="3900" y="0" width="100" height="11" uuid="58521c41-2046-4d2c-931d-efcd540fb7ab">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fcf2acdd-02ca-4d87-b065-e40c53f51c6f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box rightPadding="2">
 					<topPen lineWidth="1.0"/>
@@ -1198,10 +1229,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Serif" size="8"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Cuenta_relacionada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{deudor_cuenta_relacionada}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

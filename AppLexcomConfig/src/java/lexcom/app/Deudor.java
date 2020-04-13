@@ -392,7 +392,7 @@ public class Deudor implements Serializable {
             this.cbxIntencionPago = false;
             this.cbxRazonDeuda = false;
             this.chkCuentaPrincipalRelacion = false;
-            this.txtCuentaRelacionada = true;
+            this.txtCuentaRelacionada = false;
 
             this.btnAceptar = false;
             this.btnCancelar = false;
@@ -592,12 +592,16 @@ public class Deudor implements Serializable {
                     this.razon_deuda_d = Integer.parseInt(vector_result[i][53]);
                     if (vector_result[i][54].equals("1")) {
                         this.cuenta_principal_relacion_d = true;
-                        this.txtCuentaRelacionada = false;
+                        this.txtCuentaRelacionada = true;
                     } else {
                         this.cuenta_principal_relacion_d = false;
-                        this.txtCuentaRelacionada = true;
+                        this.txtCuentaRelacionada = false;
                     }
-                    this.deudor_cuenta_relacionada_d = Integer.parseInt(vector_result[i][55]);
+                    if(this.cuenta_principal_relacion_d) {
+                        this.deudor_cuenta_relacionada_d = 0;
+                    } else {
+                        this.deudor_cuenta_relacionada_d = Integer.parseInt(vector_result[i][55]);
+                    }
                 }
 
                 this.cbxActor = false;
@@ -1480,10 +1484,10 @@ public class Deudor implements Serializable {
     public void activar_desactivar_relacionada() {
         try {
             if (this.cuenta_principal_relacion_d) {
-                this.txtCuentaRelacionada = false;
+                this.txtCuentaRelacionada = true;
             } else {
                 this.deudor_cuenta_relacionada_d = 0;
-                this.txtCuentaRelacionada = true;
+                this.txtCuentaRelacionada = false;
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
@@ -1515,7 +1519,7 @@ public class Deudor implements Serializable {
                                                                                     if (this.estatus_extra_d != null) {
                                                                                         if (this.estatus_d != null) {
                                                                                             if (!this.nombre_d.equals("")) {
-                                                                                                if (validar_cuenta_relacionada(this.actor_d, this.cuenta_principal_relacion_d, this.deudor_cuenta_relacionada_d)) {
+                                                                                                if (this.validar_cuenta_relacionada()) {
                                                                                                     String PDF = "";
                                                                                                     if (this.PDF_d) {
                                                                                                         PDF = "SI";
@@ -1629,14 +1633,14 @@ public class Deudor implements Serializable {
                                                                                                             this.intencion_pago_d,
                                                                                                             this.razon_deuda_d,
                                                                                                             cuenta_principal_relacion,
-                                                                                                            this.deudor_cuenta_relacionada_d.toString(),
+                                                                                                            this.deudor_cuenta_relacionada_d,
                                                                                                             this.ambiente);
                                                                                                     this.constructor();
                                                                                                     RequestContext.getCurrentInstance().execute("PF('dtblWidgetDeu').clearFilters();");
 
                                                                                                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
                                                                                                 } else {
-                                                                                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El número de cuenta relacionada no existe."));
+                                                                                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El número de cuenta relacionada no existe, la cuenta no es principal o la corporación de la cuenta es diferente."));
                                                                                                 }
                                                                                             } else {
                                                                                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Debe ingresar el nombre del deudor."));
@@ -1731,7 +1735,7 @@ public class Deudor implements Serializable {
                                                                                     if (this.estatus_extra_d != null) {
                                                                                         if (this.estatus_d != null) {
                                                                                             if (!this.nombre_d.equals("")) {
-                                                                                                if (validar_cuenta_relacionada(this.actor_d, this.cuenta_principal_relacion_d, this.deudor_cuenta_relacionada_d)) {
+                                                                                                if (this.validar_cuenta_relacionada()) {
                                                                                                     String PDF = "";
                                                                                                 if (this.PDF_d) {
                                                                                                     PDF = "SI";
@@ -1846,14 +1850,14 @@ public class Deudor implements Serializable {
                                                                                                         this.intencion_pago_d,
                                                                                                         this.razon_deuda_d,
                                                                                                         cuenta_principal_relacion,
-                                                                                                        this.deudor_cuenta_relacionada_d.toString(),
+                                                                                                        this.deudor_cuenta_relacionada_d,
                                                                                                         this.ambiente);
                                                                                                 this.constructor();
                                                                                                 RequestContext.getCurrentInstance().execute("PF('dtblWidgetDeu').clearFilters();");
 
                                                                                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
                                                                                                 } else {
-                                                                                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El número de cuenta relacionada no existe."));
+                                                                                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El número de cuenta relacionada no existe, la cuenta no es principal o la corporación de la cuenta es diferente."));
                                                                                                 }
                                                                                             } else {
                                                                                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Debe ingresar el nombre del deudor."));
@@ -1969,17 +1973,23 @@ public class Deudor implements Serializable {
         }
     }
 
-    private Boolean validar_cuenta_relacionada(Integer actor, Boolean cuenta_principal_relacion, Integer deudor) {
+    private Boolean validar_cuenta_relacionada() {
         Driver driver = new Driver();
         Boolean resultado = false;
 
         try {
-            if(cuenta_principal_relacion) {
-                String deudor_relacionado = driver.getString("select d.deudor from deudor d where d.deudor=" + deudor, ambiente);
-                String actor_relacionado = driver.getString("select d.actor from deudor d where d.deudor=" + deudor, ambiente);
+            if(!this.cuenta_principal_relacion_d && this.deudor_cuenta_relacionada_d != 0) {
+                String corporacion_deudor = driver.getString("select a.cooperacion from actor a where a.actor=" + this.actor_d, ambiente);
+                String deudor_relacionado = driver.getString("select d.deudor from deudor d where d.deudor=" + this.deudor_cuenta_relacionada_d, ambiente);
+                String corporacion_relacionado = driver.getString("select a.cooperacion from deudor d left join actor a on (d.actor=a.actor) where d.deudor=" + this.deudor_cuenta_relacionada_d, ambiente);
+                String deudor_relacionado_principal = driver.getString("select d.cuenta_principal_relacion from deudor d where d.deudor=" + this.deudor_cuenta_relacionada_d, ambiente);
                 if (!deudor_relacionado.equals("")) {
-                    if(Integer.parseInt(actor_relacionado) == actor) {
-                        resultado = true;
+                    if(corporacion_deudor.trim().equals(corporacion_relacionado.trim())) {
+                        if(deudor_relacionado_principal.trim().equals("1")) {
+                            resultado = true;
+                        } else {
+                            resultado = false;
+                        }
                     } else {
                         resultado = false;
                     }

@@ -1,4 +1,4 @@
-package com.lexcom;
+package com.lexcom.rotacion;
 
 import java.io.Serializable;
 

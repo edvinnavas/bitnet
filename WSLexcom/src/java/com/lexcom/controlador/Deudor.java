@@ -1,4 +1,4 @@
-package com.lexcom;
+package com.lexcom.controlador;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -7,14 +7,14 @@ import java.sql.Statement;
 import java.util.Calendar;
 
 public class Deudor implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
-    public Deudor () {
-        
+
+    public Deudor() {
+
     }
-    
-    public String Insertar(
+
+    public String deudor_insertar(
             Integer usuario_sys,
             Integer actor_d,
             String moneda_d,
@@ -71,7 +71,7 @@ public class Deudor implements Serializable {
             Integer intencion_pago_d,
             Integer razon_deuda_d,
             Integer cuenta_principal_relacion_d,
-            String deudor_cuenta_relacionada_d,
+            Integer deudor_cuenta_relacionada_d,
             String poolConexion) {
 
         Driver driver = new Driver();
@@ -79,7 +79,6 @@ public class Deudor implements Serializable {
         String resultado = "";
 
         try {
-            //Modo transaccion.
             conn.setAutoCommit(false);
 
             Integer dia = fecha_nacimiento_d.get(Calendar.DATE);
@@ -96,67 +95,63 @@ public class Deudor implements Serializable {
             mes = fecha_recepcion_d.get(Calendar.MONTH) + 1;
             ano = fecha_recepcion_d.get(Calendar.YEAR);
             String fecha_recep_d = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-            
-            if(cuenta_principal_relacion_d == 0) {
-                deudor_cuenta_relacionada_d = "NULL";
-            }
 
             String cadenasql = "insert into deudor ("
-                    + "actor,"
-                    + "moneda,"
-                    + "dpi,"
-                    + "nit,"
-                    + "fecha_nacimiento,"
-                    + "nombre,"
-                    + "nacionalidad,"
-                    + "telefono_casa,"
-                    + "telefono_celular,"
-                    + "direccion,"
-                    + "zona,"
-                    + "pais,"
-                    + "departamento,"
-                    + "sexo,"
-                    + "estado_civil,"
-                    + "fecha_ingreso,"
-                    + "profesion,"
-                    + "correo_electronico,"
-                    + "lugar_trabajo,"
-                    + "direccion_trabajo,"
-                    + "telefono_trabajo,"
-                    + "monto_inicial,"
-                    + "usuario,"
-                    + "sestado,"
-                    + "estatus,"
-                    + "no_cuenta,"
-                    + "garantia,"
-                    + "cargado,"
-                    + "estado,"
-                    + "descripcion,"
-                    + "codigo_contactabilidad,"
-                    + "caso,"
-                    + "PDF,"
-                    + "INV,"
-                    + "MAYCOM,"
-                    + "NITS,"
-                    + "cosecha,"
-                    + "no_cuenta_otro,"
-                    + "descripcion_adicional,"
-                    + "fecha_recepcion,"
-                    + "anticipo,"
-                    + "antiguedad,"
-                    + "fecha_proximo_pago,"
-                    + "monto_proximo_pago,"
-                    + "saldo,"
-                    + "convenio_pactado,"
-                    + "cuota_convenio,"
-                    + "costas_pagadas,"
-                    + "situacion_caso,"
-                    + "opcion_proximo_pago,"
-                    + "sestado_extra,"
-                    + "estatus_extra,"
-                    + "intencion_pago,"
-                    + "razon_deuda,"
-                    + "cuenta_principal_relacion,"
+                    + "actor, "
+                    + "moneda, "
+                    + "dpi, "
+                    + "nit, "
+                    + "fecha_nacimiento, "
+                    + "nombre, "
+                    + "nacionalidad, "
+                    + "telefono_casa, "
+                    + "telefono_celular, "
+                    + "direccion, "
+                    + "zona, "
+                    + "pais, "
+                    + "departamento, "
+                    + "sexo, "
+                    + "estado_civil, "
+                    + "fecha_ingreso, "
+                    + "profesion, "
+                    + "correo_electronico, "
+                    + "lugar_trabajo, "
+                    + "direccion_trabajo, "
+                    + "telefono_trabajo, "
+                    + "monto_inicial, "
+                    + "usuario, "
+                    + "sestado, "
+                    + "estatus, "
+                    + "no_cuenta, "
+                    + "garantia, "
+                    + "cargado, "
+                    + "estado, "
+                    + "descripcion, "
+                    + "codigo_contactabilidad, "
+                    + "caso, "
+                    + "PDF, "
+                    + "INV, "
+                    + "MAYCOM, "
+                    + "NITS, "
+                    + "cosecha, "
+                    + "no_cuenta_otro, "
+                    + "descripcion_adicional, "
+                    + "fecha_recepcion, "
+                    + "anticipo, "
+                    + "antiguedad, "
+                    + "fecha_proximo_pago, "
+                    + "monto_proximo_pago, "
+                    + "saldo, "
+                    + "convenio_pactado, "
+                    + "cuota_convenio, "
+                    + "costas_pagadas, "
+                    + "situacion_caso, "
+                    + "opcion_proximo_pago, "
+                    + "sestado_extra, "
+                    + "estatus_extra, "
+                    + "intencion_pago, "
+                    + "razon_deuda, "
+                    + "cuenta_principal_relacion, "
                     + "deudor_cuenta_relacionada) values ("
                     + actor_d + ",'"
                     + moneda_d + "','"
@@ -268,10 +263,9 @@ public class Deudor implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             cadenasql = "";
 
-            //Inserta el evento en la bitacora de eventos del sistema.
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -282,7 +276,6 @@ public class Deudor implements Serializable {
             stmt.executeUpdate(cadenasql);
             stmt.close();
 
-            //Commit hacia la base de datos y cierra conexion.
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -303,8 +296,8 @@ public class Deudor implements Serializable {
 
         return resultado;
     }
-    
-    public String Modificar (
+
+    public String deudor_modificar(
             Integer usuario_sys,
             Integer id_deudor,
             Integer actor_d,
@@ -362,7 +355,7 @@ public class Deudor implements Serializable {
             Integer intencion_pago_d,
             Integer razon_deuda_d,
             Integer cuenta_principal_relacion_d,
-            String deudor_cuenta_relacionada_d,
+            Integer deudor_cuenta_relacionada_d,
             String poolConexion) {
 
         Driver driver = new Driver();
@@ -370,7 +363,6 @@ public class Deudor implements Serializable {
         String resultado = "";
 
         try {
-            //Modo transaccion.
             conn.setAutoCommit(false);
 
             Integer dia = fecha_nacimiento_d.get(Calendar.DATE);
@@ -388,10 +380,6 @@ public class Deudor implements Serializable {
             ano = fecha_recepcion_d.get(Calendar.YEAR);
             String fecha_recep_d = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
 
-            if(cuenta_principal_relacion_d == 0) {
-                deudor_cuenta_relacionada_d = "NULL";
-            }
-            
             String cadenasql = "update deudor set "
                     + "actor=" + actor_d + ", "
                     + "moneda='" + moneda_d + "', "
@@ -454,7 +442,6 @@ public class Deudor implements Serializable {
             stmt.executeUpdate(cadenasql);
             stmt.close();
 
-            //Inserta el evento en la bitacora de eventos del sistema.
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -465,7 +452,6 @@ public class Deudor implements Serializable {
             stmt.executeUpdate(cadenasql);
             stmt.close();
 
-            //Commit hacia la base de datos y cierra conexion.
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -486,18 +472,17 @@ public class Deudor implements Serializable {
 
         return resultado;
     }
-    
-    public String Eliminar (
+
+    public String deudor_eliminar(
             Integer usuario_sys,
             Integer id_deudor,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
             conn.setAutoCommit(false);
 
             String cadenasql = "update deudor set "
@@ -508,7 +493,6 @@ public class Deudor implements Serializable {
             stmt.executeUpdate(cadenasql);
             stmt.close();
 
-            //Inserta el evento en la bitacora de eventos del sistema.
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -519,7 +503,6 @@ public class Deudor implements Serializable {
             stmt.executeUpdate(cadenasql);
             stmt.close();
 
-            //Commit hacia la base de datos y cierra conexion.
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -540,18 +523,17 @@ public class Deudor implements Serializable {
 
         return resultado;
     }
-    
-    public String Activar (
-        Integer usuario_sys,
+
+    public String deudor_activar(
+            Integer usuario_sys,
             Integer id_deudor,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
 
         try {
-            //Modo transaccion.
             conn.setAutoCommit(false);
 
             String cadenasql = "update deudor set "
@@ -562,7 +544,6 @@ public class Deudor implements Serializable {
             stmt.executeUpdate(cadenasql);
             stmt.close();
 
-            //Inserta el evento en la bitacora de eventos del sistema.
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -573,7 +554,6 @@ public class Deudor implements Serializable {
             stmt.executeUpdate(cadenasql);
             stmt.close();
 
-            //Commit hacia la base de datos y cierra conexion.
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -594,5 +574,5 @@ public class Deudor implements Serializable {
 
         return resultado;
     }
-    
+
 }
