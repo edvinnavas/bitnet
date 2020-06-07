@@ -175,6 +175,8 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         jPanel29 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         AreConvenioPactado = new javax.swing.JTextArea();
+        jLabel45 = new javax.swing.JLabel();
+        txtTipoConvenio = new javax.swing.JTextField();
         jPanel20 = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         cbxEstadoExtra = new javax.swing.JComboBox();
@@ -843,20 +845,32 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         AreConvenioPactado.setRows(5);
         jScrollPane2.setViewportView(AreConvenioPactado);
 
+        jLabel45.setText("Tipo convenio");
+
+        txtTipoConvenio.setBackground(new java.awt.Color(-256,true));
+        txtTipoConvenio.setEditable(false);
+
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
         jPanel29Layout.setHorizontalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel29Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel29Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                    .addComponent(jLabel45, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTipoConvenio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addComponent(jLabel45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTipoConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -4408,6 +4422,10 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         com.lexcom.driver.EstadoExtra DEstadoExtra = new com.lexcom.driver.EstadoExtra(this.conn, this.usuario);
         com.lexcom.driver.StatusExtra DStatusExtra = new com.lexcom.driver.StatusExtra(this.conn, this.usuario);
         
+        com.lexcom.driver.Convenio DConvenio = new com.lexcom.driver.Convenio(this.conn, this.usuario);
+        Integer id_convenio = DConvenio.dar_convenio_activo(this.deudor);
+        com.lexcom.driver.Convenio convenio_resultado = DConvenio.obtener(id_convenio);
+        
         //Habilitar componentes de fechas para poder cargar la fecha.
         this.dccFechaUltimoPago.setEnabled(true);
         this.dccMemorial.setEnabled(true);
@@ -4464,7 +4482,13 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         this.AreConvenioPactado.setText(resultado.convenio_pactado);
         this.areSituacionCaso.setText(resultado.situacion_caso);
         this.areNotas.setText(resultado.descripcion);
-
+        
+        if(convenio_resultado.tipo_convenio == null) {
+            this.txtTipoConvenio.setText("SIN CONVENIO ACTIVO");
+        } else {
+            this.txtTipoConvenio.setText(convenio_resultado.tipo_convenio);
+        }
+        
         if (resultado.PDF.equals("SI")) {
             this.chkPDF.setSelected(true);
         } else {
@@ -4777,6 +4801,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
@@ -4871,6 +4896,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTextField txtTelefonoCasa;
     private javax.swing.JTextField txtTelefonoCelular;
     private javax.swing.JTextField txtTelefonoTrabajo;
+    private javax.swing.JTextField txtTipoConvenio;
     // End of variables declaration//GEN-END:variables
 
     @Override

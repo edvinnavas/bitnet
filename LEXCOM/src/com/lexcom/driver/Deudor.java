@@ -66,6 +66,7 @@ public class Deudor {
     public Integer estatus_extra;
     public Integer intencion_pago;
     public Integer razon_deuda;
+    public String cuenta_principal_relacion;
 
     public Deudor(Connection conn, Integer usuario_sys) {
         this.conn = conn;
@@ -524,7 +525,8 @@ public class Deudor {
                 + "u.sestado_extra, "
                 + "u.estatus_extra, "
                 + "u.intencion_pago, "
-                + "u.razon_deuda "
+                + "u.razon_deuda, "
+                + "if(u.cuenta_principal_relacion=1,'SI','NO') "
                 + "from deudor u where u.deudor=" + seleccion.toString();
         try {
             try (Statement stmt = this.conn.createStatement(); ResultSet rs = stmt.executeQuery(cadenasql)) {
@@ -582,6 +584,7 @@ public class Deudor {
                     this.estatus_extra = rs.getInt(51);
                     this.intencion_pago = rs.getInt(52);
                     this.razon_deuda = rs.getInt(53);
+                    this.cuenta_principal_relacion = rs.getString(54);
                 }
             }
         } catch (SQLException ex) {

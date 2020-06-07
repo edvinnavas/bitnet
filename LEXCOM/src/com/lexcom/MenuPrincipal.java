@@ -17,20 +17,15 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 
     String user = "usuario_gcj";
     String pass = "gcj123";
-    String url = "";
+    String url = "jdbc:mysql://192.168.2.3:3306/gcj_test";
     
     Connection conn;
     Integer usuario;
     Thread hilo;
     Boolean hilo_corriendo;
 
-    public MenuPrincipal(String ambiente) {
+    public MenuPrincipal() {
         try {
-            if(ambiente.equals("PRUEBAS")) {
-                url = "jdbc:mysql://192.168.2.3:3306/gcj_test";
-            }else {
-                url = "jdbc:mysql://192.168.2.3:3306/gcj";
-            }
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection(url, user, pass);
 //            Properties properties = new Properties();
@@ -64,8 +59,8 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
             
             this.setExtendedState(this.MAXIMIZED_BOTH);
             com.lexcom.driver.Usuario DUsuario = new com.lexcom.driver.Usuario(conn, this.usuario);
-            this.setTitle("APP-LEXCOM-DESKTOP-" + ambiente + " - " + DUsuario.obtener_nombre(this.usuario));
-            this.jLabel1.setText("AMBIENTE DE " + ambiente + ".");
+            this.setTitle("APP-LEXCOM-DESKTOP-PRUEBAS - " + DUsuario.obtener_nombre(this.usuario));
+            this.jLabel1.setText("AMBIENTE DE PRUEBAS.");
 
             this.MenuEntidades.setVisible(false);
             this.MenuReportes.setVisible(false);

@@ -1284,6 +1284,91 @@ public class Expediente {
 
         return this.modelo;
     }
+    
+    public DefaultTableModel obtener_tabla_cuenta_relacionada(DefaultTableModel modelo, Integer deudor) {
+        this.deudor = deudor;
+        Integer numeroColumnas = 0;
+
+        this.modelo = modelo;
+        try {
+            while (this.modelo.getRowCount() > 0) {
+                this.modelo.removeRow(0);
+            }
+
+            Integer cuenta_principal_relacion = 0;
+            Integer deudor_cuenta_relacionada = 0;
+            String cadenasql = "SELECT "
+                    + "d.cuenta_principal_relacion, "
+                    + "d.deudor_cuenta_relacionada "
+                    + ""
+                    + "FROM "
+                    + "deudor d "
+                    + "WHERE "
+                    + "d.deudor=" + deudor;
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(cadenasql);
+            while (rs.next()) {
+                cuenta_principal_relacion = rs.getInt(1);
+                deudor_cuenta_relacionada = rs.getInt(2);
+            }
+            rs.close();
+            stmt.close();
+            
+            if (cuenta_principal_relacion == 1) {
+                cadenasql = "select "
+                        + "d.deudor, "
+                        + "a.nombre, "
+                        + "d.caso, "
+                        + "d.nombre, "
+                        + "u.nombre, "
+                        + "g.nombre, "
+                        + "d.no_cuenta, "
+                        + "d.cargado "
+                        + "from "
+                        + "deudor d "
+                        + "left join actor a on (d.actor=a.actor) "
+                        + "left join usuario u on (d.usuario=u.usuario) "
+                        + "left join garantia g on (d.garantia=g.garantia) "
+                        + "where "
+                        + "d.deudor_cuenta_relacionada=" + deudor;
+            } else {
+                cadenasql = "select "
+                        + "d.deudor, "
+                        + "a.nombre, "
+                        + "d.caso, "
+                        + "d.nombre, "
+                        + "u.nombre, "
+                        + "g.nombre, "
+                        + "d.no_cuenta, "
+                        + "d.cargado "
+                        + "from "
+                        + "deudor d "
+                        + "left join actor a on (d.actor=a.actor) "
+                        + "left join usuario u on (d.usuario=u.usuario) "
+                        + "left join garantia g on (d.garantia=g.garantia) "
+                        + "where "
+                        + "d.deudor=" + deudor_cuenta_relacionada;
+            }
+            
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(cadenasql);
+            ResultSetMetaData metaDatos = rs.getMetaData();
+            numeroColumnas = metaDatos.getColumnCount();
+            while (rs.next()) {
+                Object[] fila = new Object[numeroColumnas];
+                for (int i = 0; i < numeroColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                this.modelo.addRow(fila);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        return this.modelo;
+    }
 
     public String modificar_deudor(
             Integer deudor,
