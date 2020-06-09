@@ -4211,9 +4211,13 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         this.areNotas.setText(resultado.descripcion);
         
         if(convenio_resultado.tipo_convenio == null) {
-            this.txtTipoConvenio.setText("SIN CONVENIO ACTIVO");
+            this.txtTipoConvenio.setText("SIN CONVENIO");
+            this.txtTipoConvenio.setBackground(Color.lightGray);
+            this.txtTipoConvenio.setForeground(Color.BLACK);
         } else {
             this.txtTipoConvenio.setText(convenio_resultado.tipo_convenio);
+            this.txtTipoConvenio.setBackground(Color.YELLOW);
+            this.txtTipoConvenio.setForeground(Color.BLACK);
         }
 
         if (resultado.PDF.equals("SI")) {

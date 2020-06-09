@@ -156,12 +156,11 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="11" pref="11" max="11" attributes="0"/>
-                              <Component id="jLayeredPane4" min="-2" pref="419" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="11" pref="11" max="11" attributes="0"/>
-                              <Component id="jLayeredPane5" min="-2" pref="419" max="-2" attributes="0"/>
+                              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLayeredPane4" min="-2" pref="419" max="-2" attributes="0"/>
+                                  <Component id="jLayeredPane5" min="-2" pref="419" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -868,12 +867,11 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="11" pref="11" max="11" attributes="0"/>
-                              <Component id="jLayeredPane7" min="-2" pref="417" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="11" pref="11" max="11" attributes="0"/>
-                              <Component id="jLayeredPane8" min="-2" pref="417" max="-2" attributes="0"/>
+                              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLayeredPane7" min="-2" pref="417" max="-2" attributes="0"/>
+                                  <Component id="jLayeredPane8" min="-2" pref="417" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1343,34 +1341,36 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="14" pref="14" max="14" attributes="0"/>
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="17" pref="17" max="17" attributes="0"/>
-                                  <Component id="dccFechaNac" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <EmptySpace min="60" pref="60" max="60" attributes="0"/>
-                                  <Component id="chkPDF" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="5" pref="5" max="5" attributes="0"/>
+                                  <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="chkINV" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
-                                          <EmptySpace min="40" pref="40" max="40" attributes="0"/>
-                                          <Component id="chkMAYCOM" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="17" pref="17" max="17" attributes="0"/>
+                                          <Component id="dccFechaNac" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <EmptySpace min="60" pref="60" max="60" attributes="0"/>
+                                          <Component id="chkPDF" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="5" pref="5" max="5" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="chkINV" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="40" pref="40" max="40" attributes="0"/>
+                                                  <Component id="chkMAYCOM" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="3" pref="3" max="3" attributes="0"/>
+                                          <Component id="chkNITS" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="83" pref="83" max="83" attributes="0"/>
+                                          <Component id="txtDpi" min="-2" pref="200" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="87" pref="87" max="87" attributes="0"/>
+                                          <Component id="txtNit" min="-2" pref="200" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="3" pref="3" max="3" attributes="0"/>
-                                  <Component id="chkNITS" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="14" pref="14" max="14" attributes="0"/>
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="83" pref="83" max="83" attributes="0"/>
-                                  <Component id="txtDpi" min="-2" pref="200" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="14" pref="14" max="14" attributes="0"/>
-                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="87" pref="87" max="87" attributes="0"/>
-                                  <Component id="txtNit" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1894,7 +1894,7 @@
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jScrollPane15" pref="1055" max="32767" attributes="0"/>
+                              <Component id="jScrollPane15" pref="1054" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -2041,7 +2041,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane18" alignment="0" pref="1054" max="32767" attributes="0"/>
+                          <Component id="jScrollPane18" alignment="0" pref="1053" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnPagosAgregar1" min="-2" pref="75" max="-2" attributes="0"/>
                               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
@@ -2181,7 +2181,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane5" alignment="0" pref="1054" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" alignment="0" pref="1053" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnJuiciosAgregar" min="-2" pref="75" max="-2" attributes="0"/>
                               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
@@ -2323,7 +2323,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane11" alignment="0" pref="1054" max="32767" attributes="0"/>
+                          <Component id="jScrollPane11" alignment="0" pref="1053" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnDescuentosAgregar" min="-2" pref="75" max="-2" attributes="0"/>
                               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
@@ -2457,7 +2457,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane12" alignment="0" pref="1054" max="32767" attributes="0"/>
+                          <Component id="jScrollPane12" alignment="0" pref="1053" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnAumentosAgregar" min="-2" pref="75" max="-2" attributes="0"/>
                               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
@@ -2591,7 +2591,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane13" alignment="0" pref="1054" max="32767" attributes="0"/>
+                          <Component id="jScrollPane13" alignment="0" pref="1053" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnFiadoresAgregar" min="-2" pref="75" max="-2" attributes="0"/>
                               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
@@ -2749,7 +2749,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane14" alignment="0" pref="1054" max="32767" attributes="0"/>
+                          <Component id="jScrollPane14" alignment="0" pref="1053" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnReferenciasAgregar" min="-2" pref="75" max="-2" attributes="0"/>
                               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
@@ -2907,7 +2907,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane19" alignment="0" pref="1054" max="32767" attributes="0"/>
+                          <Component id="jScrollPane19" alignment="0" pref="1053" max="32767" attributes="0"/>
                           <Component id="btnDigitalizacionVer" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -2998,7 +2998,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane20" alignment="0" pref="1054" max="32767" attributes="0"/>
+                          <Component id="jScrollPane20" alignment="0" pref="1053" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnConvenioAgregar" min="-2" pref="75" max="-2" attributes="0"/>
                               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
