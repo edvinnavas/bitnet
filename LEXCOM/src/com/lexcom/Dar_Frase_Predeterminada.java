@@ -8,7 +8,6 @@ public class Dar_Frase_Predeterminada extends javax.swing.JDialog {
     Connection conn;
     Integer usuario;
     Integer accion;
-    String tipo;
     String frase;
     
     public Dar_Frase_Predeterminada(java.awt.Frame parent, boolean modal, Connection conn, Integer usuario, Integer accion) {
@@ -20,9 +19,13 @@ public class Dar_Frase_Predeterminada extends javax.swing.JDialog {
     }
 
     public void set_tipo(String tipo) {
+        this.cbxTipo.setSelectedItem(tipo);
+        this.cargar_frases();
+    }
+    
+    private void cargar_frases() {
         try {
-            this.cbxTipo.setSelectedItem(tipo);
-            String cadenasql = "SELECT f.nombre AS NOMBRE, f.frase AS FRASE FROM frase_predeterminada f WHERE f.tipo='" + tipo + "'";
+            String cadenasql = "select f.nombre NOMBRE, f.frase FRASE from frase_predeterminada f where f.estado='VIGENTE' and f.tipo='" + this.cbxTipo.getSelectedItem().toString() + "' order by f.nombre";
             com.lexcom.driver.Datos DDatos = new com.lexcom.driver.Datos(this.conn);
             this.tblFrases.setModel(DDatos.obtener_tabla(cadenasql));
         } catch(Exception ex) {
@@ -67,6 +70,11 @@ public class Dar_Frase_Predeterminada extends javax.swing.JDialog {
         jLabel1.setText("Tipo");
 
         cbxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CONVENIO", "SITUACION CASO", "PROCURACION", "GESTION" }));
+        cbxTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTipoActionPerformed(evt);
+            }
+        });
 
         tblFrases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,6 +160,10 @@ public class Dar_Frase_Predeterminada extends javax.swing.JDialog {
         this.frase = "";
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
+        this.cargar_frases();
+    }//GEN-LAST:event_cbxTipoActionPerformed
     
     public String dar_frase() {
         return frase;
