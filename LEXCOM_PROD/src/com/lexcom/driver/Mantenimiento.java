@@ -552,38 +552,29 @@ public class Mantenimiento {
     }
     
     public void migrar_fecha_telefono_celular() {
+        Integer contador = 1;
         try {
             String cadenasql = "select "
-                    + "de.deudor Deudor, "
-                    + "trim(replace(de.telefono_celular,'-','')) Telefono_celular, "
-                    + "de.descripcion Notas "
-                    + "from "
-                    + "deudor de "
-                    + "where "
-                    + "de.deudor not in (select "
-                    + "d.deudor "
-                    + "from "
-                    + "deudor d "
-                    + "where "
-                    + "length(trim(replace(d.telefono_celular,'-',''))) = 8 and "
-                    + "trim(replace(d.telefono_celular,'-','')) regexp '^[0-9]+$')";
+                    + "de.deudor, "
+                    + "de.telefono_celular, "
+                    + "de.descripcion "
+                    + "from deudor de "
+                    + "where de.deudor not in (select d.deudor from deudor d where (length(trim(replace(d.telefono_celular,'-',''))) = 8 and trim(replace(d.telefono_celular,'-','')) regexp '^[0-9]+$') or (d.telefono_celular='0'))";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(cadenasql);
             while(rs.next()) {
                 Integer deudor = rs.getInt(1);
                 String telefono_celular = rs.getString(2);
                 String notas = rs.getString(3);
-                
-                if(telefono_celular.trim().equals("")) {
-                    telefono_celular = "0";
-                }
                 notas = "- TELEFONO_CELULAR: {" + telefono_celular + "}\n" + notas;
                 
                 cadenasql = "update deudor set telefono_celular='0', descripcion='" + notas + "' where deudor=" + deudor;
                 Statement stmt1 = conn.createStatement();
-                System.out.println("ACTUALIZAR NO. DEUDOR: " + deudor);
+                System.out.println("ACTUALIZAR ID-DEUDOR: " + deudor + "CONTADOR: " + contador);
                 stmt1.executeUpdate(cadenasql);
                 stmt1.close();
+                
+                contador++;
             }
             rs.close();
             stmt.close();
