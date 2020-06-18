@@ -37,6 +37,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 //            conn = DriverManager.getConnection(url, properties);
                     
 //            com.lexcom.driver.Mantenimiento DMantenimiento = new com.lexcom.driver.Mantenimiento(this.conn);
+//            DMantenimiento.migrar_fecha_telefono_celular();
 //            DMantenimiento.agregar_pagos_deudor();
 //            DMantenimiento.agregar_historio_cobros();
 //            DMantenimiento.agregar_historio_administrativo();
@@ -162,9 +163,9 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18));
         jLabel1.setForeground(new java.awt.Color(-65536,true));
-        jLabel1.setText("AMBIENTE DE PRUEBAS.");
+        jLabel1.setText("AMBIENTE DE PRODUCCIÓN.");
         jLabel1.setBounds(10, 10, 600, 24);
         desktopPane.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 

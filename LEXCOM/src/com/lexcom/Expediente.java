@@ -3,7 +3,6 @@ package com.lexcom;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -533,10 +532,9 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jTabbedPane1.addTab("General", jPanel25);
@@ -549,16 +547,16 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         txtTelefonoCasa.setBounds(115, 20, 200, 20);
         jLayeredPane6.add(txtTelefonoCasa, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel9.setText("Teléfono celular");
-        jLabel9.setBounds(335, 23, 76, 14);
+        jLabel9.setText("Contacto principal");
+        jLabel9.setBounds(335, 23, 90, 14);
         jLayeredPane6.add(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        txtTelefonoCelular.setBounds(435, 20, 200, 20);
+        txtTelefonoCelular.setBounds(445, 20, 200, 20);
         jLayeredPane6.add(txtTelefonoCelular, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel20.setText("Correo electrónico");
-        jLabel20.setBounds(655, 23, 88, 14);
+        jLabel20.setBounds(665, 23, 88, 14);
         jLayeredPane6.add(jLabel20, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        txtCorreoElectronico.setBounds(760, 20, 200, 20);
+        txtCorreoElectronico.setBounds(770, 20, 200, 20);
         jLayeredPane6.add(txtCorreoElectronico, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel22.setText("Lugar de trabajo");
@@ -568,15 +566,15 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         jLayeredPane6.add(txtLugarTrabajo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel21.setText("Contacto trabajo");
-        jLabel21.setBounds(335, 48, 82, 14);
+        jLabel21.setBounds(335, 48, 90, 14);
         jLayeredPane6.add(jLabel21, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        txtDireccionTrabajo.setBounds(435, 45, 200, 20);
+        txtDireccionTrabajo.setBounds(445, 45, 200, 20);
         jLayeredPane6.add(txtDireccionTrabajo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel24.setText("Teléfono trabajo");
-        jLabel24.setBounds(655, 48, 80, 14);
+        jLabel24.setBounds(665, 48, 80, 14);
         jLayeredPane6.add(jLabel24, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        txtTelefonoTrabajo.setBounds(760, 45, 200, 20);
+        txtTelefonoTrabajo.setBounds(770, 45, 200, 20);
         jLayeredPane6.add(txtTelefonoTrabajo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel52.setText("Dirección");
@@ -774,10 +772,9 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel27Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(jLayeredPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLayeredPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLayeredPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jTabbedPane1.addTab("Judicial", jPanel27);
@@ -807,29 +804,29 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel10)
-                .addGap(17, 17, 17)
-                .addComponent(dccFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(chkPDF)
-                .addGap(5, 5, 5)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkINV)
                     .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(chkMAYCOM)))
-                .addGap(3, 3, 3)
-                .addComponent(chkNITS))
-            .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel8)
-                .addGap(83, 83, 83)
-                .addComponent(txtDpi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel7)
-                .addGap(87, 87, 87)
-                .addComponent(txtNit, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel10)
+                        .addGap(17, 17, 17)
+                        .addComponent(dccFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(chkPDF)
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkINV)
+                            .addGroup(jPanel22Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(chkMAYCOM)))
+                        .addGap(3, 3, 3)
+                        .addComponent(chkNITS))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(83, 83, 83)
+                        .addComponent(txtDpi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(87, 87, 87)
+                        .addComponent(txtNit, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1163,7 +1160,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 1055, Short.MAX_VALUE)
+                        .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnPagosAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1249,7 +1246,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(btnPagosAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -1337,7 +1334,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnJuiciosAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -1423,7 +1420,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(btnDescuentosAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -1509,7 +1506,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addComponent(btnAumentosAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -1595,7 +1592,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(btnFiadoresAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -1686,7 +1683,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addComponent(btnReferenciasAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -1751,7 +1748,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane19, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane19, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
                     .addComponent(btnDigitalizacionVer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -1827,7 +1824,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane20, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane20, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addComponent(btnConvenioAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -3111,139 +3108,160 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             com.lexcom.driver.Garantia DGarantia = new com.lexcom.driver.Garantia(this.conn, this.usuario);
             com.lexcom.driver.Intencion_Pago DIntencion_Pago = new com.lexcom.driver.Intencion_Pago(this.conn, this.usuario);
             com.lexcom.driver.Razon_Deuda DRazon_Deuda = new com.lexcom.driver.Razon_Deuda(this.conn, this.usuario);
-
             com.lexcom.driver.EstadoExtra DEstadoExtra = new com.lexcom.driver.EstadoExtra(this.conn, this.usuario);
             com.lexcom.driver.StatusExtra DStatusExtra = new com.lexcom.driver.StatusExtra(this.conn, this.usuario);
-            String PDF = "";
-            if (this.chkPDF.isSelected()) {
-                PDF = "SI";
-            } else {
-                PDF = "NO";
-            }
-            String INV = "";
-            if (this.chkINV.isSelected()) {
-                INV = "SI";
-            } else {
-                INV = "NO";
-            }
-            String MAYCOM = "";
-            if (this.chkMAYCOM.isSelected()) {
-                MAYCOM = "SI";
-            } else {
-                MAYCOM = "NO";
-            }
-            String NITS = "";
-            if (this.chkNITS.isSelected()) {
-                NITS = "SI";
-            } else {
-                NITS = "NO";
-            }
-            String opcion_proximo_pago = "";
-            if (this.chkProximoPago.isSelected()) {
-                opcion_proximo_pago = "SI";
-            } else {
-                opcion_proximo_pago = "NO";
-            }
 
-            Gestion_Obligatoria a = new Gestion_Obligatoria(
-                    this,
-                    true,
-                    this.conn,
-                    this.usuario,
-                    this.cbxEstado.getSelectedItem().toString(),
-                    this.cbxStatus.getSelectedItem().toString(),
-                    this.cbxEstadoExtra.getSelectedItem().toString(),
-                    this.cbxStatusExtra.getSelectedItem().toString(),
-                    this.cbxIntencionPago.getSelectedItem().toString(),
-                    this.cbxRazonDeuda.getSelectedItem().toString(),
-                    this.deudor);
-            a.setTitle("GESTION OBLIGATORIA");
-            Dimension ventana = a.getSize();
-            Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-            a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-            a.setVisible(true);
-
-            if (a.estado_judicial != null && a.status_judicial != null && a.estado_extrajudicial != null && a.status_extrajudicial != null && a.intencion_pago != null && a.razon_deuda != null) {
-                this.cbxEstado.setSelectedItem(a.estado_judicial);
-                this.cbxStatus.setSelectedItem(a.status_judicial);
-                this.cbxEstadoExtra.setSelectedItem(a.estado_extrajudicial);
-                this.cbxStatusExtra.setSelectedItem(a.status_extrajudicial);
-                this.cbxIntencionPago.setSelectedItem(a.intencion_pago);
-                this.cbxRazonDeuda.setSelectedItem(a.razon_deuda);
-
-                String resultado = drive.modificar_deudor(
-                        this.deudor,
-                        DActor.obtener_indice(this.cbxActor.getSelectedItem().toString()),
-                        this.cbxMoneda.getSelectedItem().toString(),
-                        this.txtDpi.getText(),
-                        this.txtNit.getText(),
-                        this.dccFechaNac.getSelectedDate(),
-                        this.txtNombre.getText(),
-                        this.txtTelefonoCasa.getText(),
-                        this.txtTelefonoCelular.getText(),
-                        this.areDireccion.getText(),
-                        this.dccFechaRecepcion.getSelectedDate(),
-                        this.txtCorreoElectronico.getText(),
-                        this.txtLugarTrabajo.getText(),
-                        this.txtDireccionTrabajo.getText(),
-                        this.txtTelefonoTrabajo.getText(),
-                        Double.parseDouble(this.spnMontoInicial.getValue().toString()),
-                        DUsuario.obtener_indice(this.cbxGestor.getSelectedItem().toString()),
-                        DEstado.obtener_indice(this.cbxEstado.getSelectedItem().toString()),
-                        DStatus.obtener_indice(this.cbxStatus.getSelectedItem().toString()),
-                        this.txtNoCuenta.getText(),
-                        DGarantia.obtener_indice(this.cbxGarantia.getSelectedItem().toString()),
-                        this.cbxCargado.getSelectedItem().toString(),
-                        "VIGENTE",
-                        PDF,
-                        INV,
-                        MAYCOM,
-                        NITS,
-                        Double.parseDouble(this.spnSaldo.getValue().toString()),
-                        this.dccFechaProximoPago.getSelectedDate(),
-                        Integer.parseInt(txtCaso.getText()),
-                        this.AreConvenioPactado.getText(),
-                        Double.parseDouble(this.spnCuotaConvenio.getValue().toString()),
-                        this.txtOtroNoCuenta.getText(),
-                        this.areSituacionCaso.getText(),
-                        opcion_proximo_pago,
-                        this.cbxAnticipo.getSelectedItem().toString(),
-                        DEstadoExtra.obtener_indice(this.cbxEstadoExtra.getSelectedItem().toString()),
-                        DStatusExtra.obtener_indice(this.cbxStatusExtra.getSelectedItem().toString()),
-                        this.areNotas.getText(),
-                        DIntencion_Pago.obtener_indice(this.cbxIntencionPago.getSelectedItem().toString()),
-                        DRazon_Deuda.obtener_indice(this.cbxRazonDeuda.getSelectedItem().toString()),
-                        this.cbxAntiguedad.getSelectedItem().toString());
-
-                com.lexcom.driver.Juicio DJuicio = new com.lexcom.driver.Juicio(this.conn, this.usuario);
-                Integer juicio = DJuicio.dar_juicio(this.deudor);
-
-                if (juicio != 0) {
-                    com.lexcom.driver.Juzgado DJuzgado = new com.lexcom.driver.Juzgado(this.conn, this.usuario);
-                    com.lexcom.driver.Usuario DProcurador = new com.lexcom.driver.Usuario(this.conn, this.usuario);
-
-                    resultado = drive.modificar_juicio(
-                            this.deudor,
-                            juicio,
-                            DProcurador.obtener_indice(this.cbxProcurador.getSelectedItem().toString()),
-                            DJuzgado.obtener_indice(this.cbxJuzgado.getSelectedItem().toString()),
-                            this.dccFechaJuicio.getSelectedDate(),
-                            this.areRazonNotificacion.getText(),
-                            this.txtNoJuicio.getText(),
-                            Integer.parseInt(this.spnNotificador.getValue().toString()),
-                            this.txtAbogadoDeudor.getText(),
-                            this.txtSumario.getText(),
-                            this.dccMemorial.getSelectedDate(),
-                            this.areDescripcionProcuracion.getText(),
-                            this.cbxNotificado.getSelectedItem().toString(),
-                            this.dccFechaNotificacion.getSelectedDate(),
-                            Double.parseDouble(spnMontoDemanda.getValue().toString()));
+            // Valida telefono_celular.
+            Boolean telefono_celular_valido = false;
+            Long numero_celular = new Long(0);
+            try {
+                numero_celular = Long.parseLong(this.txtTelefonoCelular.getText().trim());
+                if (numero_celular == 0 || (numero_celular >= 10000000 && numero_celular <= 99999999)) {
+                    telefono_celular_valido = true;
                 }
-
-                String[] mensaje = resultado.split(",");
-                JOptionPane.showMessageDialog(null, mensaje[1]);
+            } catch (Exception ex) {
+                telefono_celular_valido = false;
             }
-        } catch (NumberFormatException | HeadlessException ex) {
+
+            // Valida telefono_celular y correo_electronico.
+            if (telefono_celular_valido == true) {
+                if (this.txtCorreoElectronico.getText().trim().equals("-") || drive.validar_correo_electronico(this.txtCorreoElectronico.getText().trim()) == 1) {
+                    String PDF = "";
+                    if (this.chkPDF.isSelected()) {
+                        PDF = "SI";
+                    } else {
+                        PDF = "NO";
+                    }
+                    String INV = "";
+                    if (this.chkINV.isSelected()) {
+                        INV = "SI";
+                    } else {
+                        INV = "NO";
+                    }
+                    String MAYCOM = "";
+                    if (this.chkMAYCOM.isSelected()) {
+                        MAYCOM = "SI";
+                    } else {
+                        MAYCOM = "NO";
+                    }
+                    String NITS = "";
+                    if (this.chkNITS.isSelected()) {
+                        NITS = "SI";
+                    } else {
+                        NITS = "NO";
+                    }
+                    String opcion_proximo_pago = "";
+                    if (this.chkProximoPago.isSelected()) {
+                        opcion_proximo_pago = "SI";
+                    } else {
+                        opcion_proximo_pago = "NO";
+                    }
+
+                    Gestion_Obligatoria a = new Gestion_Obligatoria(
+                            this,
+                            true,
+                            this.conn,
+                            this.usuario,
+                            this.cbxEstado.getSelectedItem().toString(),
+                            this.cbxStatus.getSelectedItem().toString(),
+                            this.cbxEstadoExtra.getSelectedItem().toString(),
+                            this.cbxStatusExtra.getSelectedItem().toString(),
+                            this.cbxIntencionPago.getSelectedItem().toString(),
+                            this.cbxRazonDeuda.getSelectedItem().toString(),
+                            this.deudor);
+                    a.setTitle("GESTION OBLIGATORIA");
+                    Dimension ventana = a.getSize();
+                    Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+                    a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+                    a.setVisible(true);
+
+                    if (a.estado_judicial != null && a.status_judicial != null && a.estado_extrajudicial != null && a.status_extrajudicial != null && a.intencion_pago != null && a.razon_deuda != null) {
+                        this.cbxEstado.setSelectedItem(a.estado_judicial);
+                        this.cbxStatus.setSelectedItem(a.status_judicial);
+                        this.cbxEstadoExtra.setSelectedItem(a.estado_extrajudicial);
+                        this.cbxStatusExtra.setSelectedItem(a.status_extrajudicial);
+                        this.cbxIntencionPago.setSelectedItem(a.intencion_pago);
+                        this.cbxRazonDeuda.setSelectedItem(a.razon_deuda);
+
+                        String resultado = drive.modificar_deudor(
+                                this.deudor,
+                                DActor.obtener_indice(this.cbxActor.getSelectedItem().toString()),
+                                this.cbxMoneda.getSelectedItem().toString(),
+                                this.txtDpi.getText(),
+                                this.txtNit.getText(),
+                                this.dccFechaNac.getSelectedDate(),
+                                this.txtNombre.getText(),
+                                this.txtTelefonoCasa.getText(),
+                                this.txtTelefonoCelular.getText().trim(),
+                                this.areDireccion.getText(),
+                                this.dccFechaRecepcion.getSelectedDate(),
+                                this.txtCorreoElectronico.getText().trim(),
+                                this.txtLugarTrabajo.getText(),
+                                this.txtDireccionTrabajo.getText(),
+                                this.txtTelefonoTrabajo.getText(),
+                                Double.parseDouble(this.spnMontoInicial.getValue().toString()),
+                                DUsuario.obtener_indice(this.cbxGestor.getSelectedItem().toString()),
+                                DEstado.obtener_indice(this.cbxEstado.getSelectedItem().toString()),
+                                DStatus.obtener_indice(this.cbxStatus.getSelectedItem().toString()),
+                                this.txtNoCuenta.getText(),
+                                DGarantia.obtener_indice(this.cbxGarantia.getSelectedItem().toString()),
+                                this.cbxCargado.getSelectedItem().toString(),
+                                "VIGENTE",
+                                PDF,
+                                INV,
+                                MAYCOM,
+                                NITS,
+                                Double.parseDouble(this.spnSaldo.getValue().toString()),
+                                this.dccFechaProximoPago.getSelectedDate(),
+                                Integer.parseInt(txtCaso.getText()),
+                                this.AreConvenioPactado.getText(),
+                                Double.parseDouble(this.spnCuotaConvenio.getValue().toString()),
+                                this.txtOtroNoCuenta.getText(),
+                                this.areSituacionCaso.getText(),
+                                opcion_proximo_pago,
+                                this.cbxAnticipo.getSelectedItem().toString(),
+                                DEstadoExtra.obtener_indice(this.cbxEstadoExtra.getSelectedItem().toString()),
+                                DStatusExtra.obtener_indice(this.cbxStatusExtra.getSelectedItem().toString()),
+                                this.areNotas.getText(),
+                                DIntencion_Pago.obtener_indice(this.cbxIntencionPago.getSelectedItem().toString()),
+                                DRazon_Deuda.obtener_indice(this.cbxRazonDeuda.getSelectedItem().toString()),
+                                this.cbxAntiguedad.getSelectedItem().toString());
+
+                        com.lexcom.driver.Juicio DJuicio = new com.lexcom.driver.Juicio(this.conn, this.usuario);
+                        Integer juicio = DJuicio.dar_juicio(this.deudor);
+
+                        if (juicio != 0) {
+                            com.lexcom.driver.Juzgado DJuzgado = new com.lexcom.driver.Juzgado(this.conn, this.usuario);
+                            com.lexcom.driver.Usuario DProcurador = new com.lexcom.driver.Usuario(this.conn, this.usuario);
+
+                            resultado = drive.modificar_juicio(
+                                    this.deudor,
+                                    juicio,
+                                    DProcurador.obtener_indice(this.cbxProcurador.getSelectedItem().toString()),
+                                    DJuzgado.obtener_indice(this.cbxJuzgado.getSelectedItem().toString()),
+                                    this.dccFechaJuicio.getSelectedDate(),
+                                    this.areRazonNotificacion.getText(),
+                                    this.txtNoJuicio.getText(),
+                                    Integer.parseInt(this.spnNotificador.getValue().toString()),
+                                    this.txtAbogadoDeudor.getText(),
+                                    this.txtSumario.getText(),
+                                    this.dccMemorial.getSelectedDate(),
+                                    this.areDescripcionProcuracion.getText(),
+                                    this.cbxNotificado.getSelectedItem().toString(),
+                                    this.dccFechaNotificacion.getSelectedDate(),
+                                    Double.parseDouble(spnMontoDemanda.getValue().toString()));
+                        }
+
+                        String[] mensaje = resultado.split(",");
+                        JOptionPane.showMessageDialog(null, mensaje[1]);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Formato del campo correo electrónico no es valido.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El teléfono celular deber ser 0 o un valor entero de 8 digitos.");
+            }
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.toString());
         }
     }//GEN-LAST:event_jButton1ActionPerformed

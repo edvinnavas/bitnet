@@ -97,7 +97,9 @@ public class Convenio {
                     + "monto_cuota,"
                     + "frecuencia,"
                     + "fecha_pago_inicial,"
-                    + "observacion"
+                    + "observacion, "
+                    + "fecha_activacion, "
+                    + "fecha_terminacion "
                     + ") value ("
                     + deudor.toString() + ","
                     + "CURRENT_DATE()" + ",'"
@@ -118,7 +120,9 @@ public class Convenio {
                     + monto_cuota.toString() + ",'"
                     + frecuencia + "','"
                     + dia_pago_i + "','"
-                    + observacion + "')";
+                    + observacion + "',"
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_DATE()" + ")";
             Statement stmt = this.conn.createStatement();
             stmt.executeUpdate(cadenasql);
             
@@ -350,6 +354,15 @@ public class Convenio {
                 stmt.close();
             }
             
+            if (estado.equals("ACTIVO")) {
+                cadenasql = "update convenio set "
+                        + "fecha_activacion=CURRENT_DATE() "
+                        + "where convenio=" + convenio.toString();
+                stmt = this.conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
+            
             if (estado.equals("ANULADO") || estado.equals("TERMINADO")) {
                 cadenasql = "update convenio_detalle set "
                         + "estado_promesa='INCUMPLIDO' "
@@ -361,6 +374,13 @@ public class Convenio {
                 cadenasql = "update deudor set "
                         + "opcion_proximo_pago='NO' "
                         + "where deudor=" + deudor;
+                stmt = this.conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+
+                cadenasql = "update convenio set "
+                        + "fecha_terminacion=CURRENT_DATE() "
+                        + "where convenio=" + convenio.toString();
                 stmt = this.conn.createStatement();
                 stmt.executeUpdate(cadenasql);
                 stmt.close();

@@ -36,6 +36,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 //            conn = DriverManager.getConnection(url, properties);
                     
 //            com.lexcom.driver.Mantenimiento DMantenimiento = new com.lexcom.driver.Mantenimiento(this.conn);
+//            DMantenimiento.migrar_fecha_telefono_celular();
 //            DMantenimiento.agregar_pagos_deudor();
 //            DMantenimiento.agregar_historio_cobros();
 //            DMantenimiento.agregar_historio_administrativo();

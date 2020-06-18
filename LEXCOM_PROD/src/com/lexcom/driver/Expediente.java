@@ -2294,4 +2294,23 @@ public class Expediente {
         return resultado;
     }
     
+    public Integer validar_correo_electronico(String correo_electronico) {
+        Integer resultado = 0;
+        
+        try {
+            String cadenasql = "select lower('" + correo_electronico + "') regexp '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\\\.[a-zA-Z]{2,63}$' EsCorreo";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(cadenasql);
+            while(rs.next()) {
+                resultado = rs.getInt(1);
+            }
+            rs.close();
+            stmt.close();
+        } catch(Exception ex) {
+            System.out.println(ex.toString());
+        }
+        
+        return resultado;
+    }
+    
 }
