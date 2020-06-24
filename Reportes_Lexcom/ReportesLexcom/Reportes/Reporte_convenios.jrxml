@@ -258,7 +258,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Reporte revisión convenios]]></text>
 			</staticText>
 			<textField pattern="MMMM d, yyyy">
-				<reportElement x="3375" y="0" width="299" height="33" uuid="1de63854-28bc-4c99-ab57-f05d4bda9a3f">
+				<reportElement x="3375" y="0" width="300" height="33" uuid="1de63854-28bc-4c99-ab57-f05d4bda9a3f">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
