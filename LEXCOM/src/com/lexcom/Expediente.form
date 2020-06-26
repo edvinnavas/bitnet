@@ -3041,19 +3041,31 @@
                 <Component class="javax.swing.JTable" name="TblConvenio">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="8" rowCount="0">
-                        <Column editable="false" title="CONVENIO" type="java.lang.Object"/>
-                        <Column editable="false" title="FECHA_CREACION" type="java.lang.Object"/>
-                        <Column editable="false" title="ESTADO" type="java.lang.Object"/>
-                        <Column editable="false" title="FECHA_PAGO" type="java.lang.Object"/>
-                        <Column editable="false" title="TOTAL_DEUDA" type="java.lang.Object"/>
-                        <Column editable="false" title="NO_CUOTAS" type="java.lang.Object"/>
-                        <Column editable="false" title="FRECUENCIA" type="java.lang.Object"/>
-                        <Column editable="false" title="CUOTA" type="java.lang.Object"/>
+                      <Table columnCount="10" rowCount="0">
+                        <Column editable="false" title="Id convenio" type="java.lang.Object"/>
+                        <Column editable="false" title="Tipo" type="java.lang.Object"/>
+                        <Column editable="false" title="Estado" type="java.lang.Object"/>
+                        <Column editable="false" title="F. negociaci&#xf3;n" type="java.lang.Object"/>
+                        <Column editable="false" title="F. activaci&#xf3;n" type="java.lang.Object"/>
+                        <Column editable="false" title="F. terminaci&#xf3;n" type="java.lang.Object"/>
+                        <Column editable="false" title="Total deuda" type="java.lang.Object"/>
+                        <Column editable="false" title="No. cuotas" type="java.lang.Object"/>
+                        <Column editable="false" title="Frecuencia" type="java.lang.Object"/>
+                        <Column editable="false" title="Cuota" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>

@@ -1769,11 +1769,11 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
 
             },
             new String [] {
-                "CONVENIO", "FECHA_CREACION", "ESTADO", "FECHA_PAGO", "TOTAL_DEUDA", "NO_CUOTAS", "FRECUENCIA", "CUOTA"
+                "Id convenio", "Tipo", "Estado", "F. negociación", "F. activación", "F. terminación", "Total deuda", "No. cuotas", "Frecuencia", "Cuota"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

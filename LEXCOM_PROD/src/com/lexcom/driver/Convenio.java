@@ -35,6 +35,7 @@ public class Convenio {
     public String frecuencia;
     public Calendar fecha_pago_inicial;
     public String observacion;
+    public Calendar fecha_activacion;
     
     public List<Nodo_Convenio_Detalle> promesas;
 
@@ -73,7 +74,7 @@ public class Convenio {
         Integer mes = fecha_pago_inicial.get(Calendar.MONTH) + 1;
         Integer ano = fecha_pago_inicial.get(Calendar.YEAR);
         String dia_pago_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
+        
         try {
             conn.setAutoCommit(false);
             
@@ -444,7 +445,8 @@ public class Convenio {
                     + "monto_cuota, "
                     + "frecuencia, "
                     + "fecha_pago_inicial, "
-                    + "observacion "
+                    + "observacion, "
+                    + "fecha_activacion "
                     + "from "
                     + "convenio u "
                     + "where u.convenio=" + seleccion.toString();
@@ -471,6 +473,7 @@ public class Convenio {
                 this.frecuencia = rs.getString(18);
                 this.fecha_pago_inicial = this.DateToCalendar(rs.getDate(19));
                 this.observacion = rs.getString(20);
+                this.fecha_activacion = this.DateToCalendar(rs.getDate(21));
             }
             rs.close();
             stmt.close();

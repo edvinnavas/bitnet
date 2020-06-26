@@ -781,17 +781,24 @@ public class Convenio extends javax.swing.JDialog {
             anio = actual.getYear() + 1900;
             fecha_actual = dia.toString() + "/" + mes.toString() + "/" + anio.toString();
         } else {
-            try {
+            if(this.cbxEstado.getSelectedItem().equals("ACTIVO")) {
+                dia = actual.getDate();
+                mes = actual.getMonth() + 1;
+                anio = actual.getYear() + 1900;
+                fecha_actual = dia.toString() + "/" + mes.toString() + "/" + anio.toString();
+            } else {
+                try {
                 com.lexcom.driver.Convenio drive = new com.lexcom.driver.Convenio(this.conn, this.usuario);
                 drive.obtener(this.seleccion);
-                Calendar fecha_creacion_t = drive.fecha_creacion;
+                Calendar fecha_creacion_t = drive.fecha_activacion;
                 actual  = fecha_creacion_t.getTime();
                 dia = actual.getDate();
                 mes = actual.getMonth() + 1;
                 anio = actual.getYear() + 1900;
                 fecha_actual = dia.toString() + "/" + mes.toString() + "/" + anio.toString();
-            } catch(Exception ex) {
-                System.out.println(ex.toString());
+                } catch(Exception ex) {
+                    System.out.println(ex.toString());
+                }
             }
         }
         

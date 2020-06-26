@@ -1246,14 +1246,16 @@ public class Expediente {
         this.deudor = deudor;
         Integer numeroColumnas = 0;
         String cadenasql = "SELECT "
-                + "c.convenio AS CONVENIO, "
-                + "DATE_FORMAT(c.fecha_creacion,'%d/%m/%Y') AS FECHA_CREACION, "
-                + "c.estado AS ESTADO, "
-                + "DATE_FORMAT(c.fecha_pago_inicial,'%d/%m/%Y') AS FECHA_PAGO, "
-                + "CONCAT('Q', FORMAT(c.total_pagar, 2)) AS TOTAL_DEUDA, "
-                + "c.numero_cuotas AS NO_CUOTAS, "
-                + "c.frecuencia AS FRECUENCIA, "
-                + "CONCAT('Q', FORMAT(c.monto_cuota, 2)) AS CUOTA "
+                + "c.convenio Id_convenio, "
+                + "c.tipo_convenio Tipo, "
+                + "c.estado Estado, "
+                + "DATE_FORMAT(c.fecha_creacion,'%d/%m/%Y') F_negociacion, "
+                + "DATE_FORMAT(c.fecha_activacion,'%d/%m/%Y') F_activacion, "
+                + "DATE_FORMAT(c.fecha_terminacion,'%d/%m/%Y') F_terminacion, "
+                + "CONCAT('Q. ', FORMAT(c.total_pagar, 2)) total_deuda, "
+                + "c.numero_cuotas No_cuotas, "
+                + "c.frecuencia Frecuencia, "
+                + "CONCAT('Q. ', FORMAT(c.monto_cuota, 2)) Cuota "
                 + "FROM "
                 + "convenio c "
                 + "WHERE "
@@ -1266,19 +1268,19 @@ public class Expediente {
             while (this.modelo.getRowCount() > 0) {
                 this.modelo.removeRow(0);
             }
-
-            try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(cadenasql)) {
-                ResultSetMetaData metaDatos = rs.getMetaData();
-                numeroColumnas = metaDatos.getColumnCount();
-                while (rs.next()) {
-                    Object[] fila = new Object[numeroColumnas];
-                    for (int i = 0; i < numeroColumnas; i++) {
-                        fila[i] = rs.getObject(i + 1);
-                    }
-                    this.modelo.addRow(fila);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(cadenasql);
+            ResultSetMetaData metaDatos = rs.getMetaData();
+            numeroColumnas = metaDatos.getColumnCount();
+            while (rs.next()) {
+                Object[] fila = new Object[numeroColumnas];
+                for (int i = 0; i < numeroColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
                 }
+                this.modelo.addRow(fila);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println(ex);
         }
 

@@ -3,7 +3,6 @@ package com.lexcom;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -1770,11 +1769,11 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
 
             },
             new String [] {
-                "CONVENIO", "FECHA_CREACION", "ESTADO", "FECHA_PAGO", "TOTAL_DEUDA", "NO_CUOTAS", "FRECUENCIA", "CUOTA"
+                "Id convenio", "Tipo", "Estado", "F. negociación", "F. activación", "F. terminación", "Total deuda", "No. cuotas", "Frecuencia", "Cuota"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -3262,7 +3261,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             } else {
                 JOptionPane.showMessageDialog(null, "El teléfono celular deber ser 0 o un valor entero de 8 digitos.");
             }
-        } catch (NumberFormatException | HeadlessException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.toString());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
