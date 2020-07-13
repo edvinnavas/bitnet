@@ -1495,9 +1495,22 @@ public class Deudor implements Serializable {
     }
 
     private void insertar() {
+        Driver driver = new Driver();
         String resultado;
 
         try {
+            // Valida telefono_celular.
+            Boolean telefono_celular_valido = false;
+            Long numero_celular = new Long(0);
+            try {
+                numero_celular = Long.parseLong(this.telefono_celular_d);
+                if (numero_celular == 0 || (numero_celular >= 10000000 && numero_celular <= 99999999)) {
+                    telefono_celular_valido = true;
+                }
+            } catch (Exception ex) {
+                telefono_celular_valido = false;
+            }
+
             if (this.nacionalidad_d != null) {
                 if (this.sexo_d != null) {
                     if (this.estado_civil_d != null) {
@@ -1520,125 +1533,132 @@ public class Deudor implements Serializable {
                                                                                         if (this.estatus_d != null) {
                                                                                             if (!this.nombre_d.equals("")) {
                                                                                                 if (this.validar_cuenta_relacionada()) {
-                                                                                                    String PDF = "";
-                                                                                                    if (this.PDF_d) {
-                                                                                                        PDF = "SI";
-                                                                                                    } else {
-                                                                                                        PDF = "NO";
-                                                                                                    }
-                                                                                                    String INV = "";
-                                                                                                    if (this.INV_d) {
-                                                                                                        INV = "SI";
-                                                                                                    } else {
-                                                                                                        INV = "NO";
-                                                                                                    }
-                                                                                                    String MAYCOM = "";
-                                                                                                    if (this.MAYCOM_d) {
-                                                                                                        MAYCOM = "SI";
-                                                                                                    } else {
-                                                                                                        MAYCOM = "NO";
-                                                                                                    }
-                                                                                                    String NITS = "";
-                                                                                                    if (this.NITS_d) {
-                                                                                                        NITS = "SI";
-                                                                                                    } else {
-                                                                                                        NITS = "NO";
-                                                                                                    }
-                                                                                                    String opcion_proximo_pago = "";
-                                                                                                    if (this.opcion_proximo_pago_d) {
-                                                                                                        opcion_proximo_pago = "SI";
-                                                                                                    } else {
-                                                                                                        opcion_proximo_pago = "NO";
-                                                                                                    }
-                                                                                                    Integer cuenta_principal_relacion;
-                                                                                                    if (this.cuenta_principal_relacion_d) {
-                                                                                                        cuenta_principal_relacion = 1;
-                                                                                                    } else {
-                                                                                                        cuenta_principal_relacion = 0;
-                                                                                                    }
+                                                                                                    if (telefono_celular_valido == true) {
+                                                                                                        if (this.correo_electronico_d.equals("-") || driver.getInt("select lower('" + correo_electronico_d + "') regexp '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\\\.[a-zA-Z]{2,63}$' EsCorreo", this.ambiente) == 1) {
+                                                                                                            String PDF = "";
+                                                                                                            if (this.PDF_d) {
+                                                                                                                PDF = "SI";
+                                                                                                            } else {
+                                                                                                                PDF = "NO";
+                                                                                                            }
+                                                                                                            String INV = "";
+                                                                                                            if (this.INV_d) {
+                                                                                                                INV = "SI";
+                                                                                                            } else {
+                                                                                                                INV = "NO";
+                                                                                                            }
+                                                                                                            String MAYCOM = "";
+                                                                                                            if (this.MAYCOM_d) {
+                                                                                                                MAYCOM = "SI";
+                                                                                                            } else {
+                                                                                                                MAYCOM = "NO";
+                                                                                                            }
+                                                                                                            String NITS = "";
+                                                                                                            if (this.NITS_d) {
+                                                                                                                NITS = "SI";
+                                                                                                            } else {
+                                                                                                                NITS = "NO";
+                                                                                                            }
+                                                                                                            String opcion_proximo_pago = "";
+                                                                                                            if (this.opcion_proximo_pago_d) {
+                                                                                                                opcion_proximo_pago = "SI";
+                                                                                                            } else {
+                                                                                                                opcion_proximo_pago = "NO";
+                                                                                                            }
+                                                                                                            Integer cuenta_principal_relacion;
+                                                                                                            if (this.cuenta_principal_relacion_d) {
+                                                                                                                cuenta_principal_relacion = 1;
+                                                                                                            } else {
+                                                                                                                cuenta_principal_relacion = 0;
+                                                                                                            }
 
-                                                                                                    GregorianCalendar gregory1 = new GregorianCalendar();
-                                                                                                    gregory1.set(this.fecha_nacimiento_d.getYear() + 1900, this.fecha_nacimiento_d.getMonth(), this.fecha_nacimiento_d.getDate());
-                                                                                                    XMLGregorianCalendar gre_fecha_nacimiento_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory1);
+                                                                                                            GregorianCalendar gregory1 = new GregorianCalendar();
+                                                                                                            gregory1.set(this.fecha_nacimiento_d.getYear() + 1900, this.fecha_nacimiento_d.getMonth(), this.fecha_nacimiento_d.getDate());
+                                                                                                            XMLGregorianCalendar gre_fecha_nacimiento_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory1);
 
-                                                                                                    GregorianCalendar gregory2 = new GregorianCalendar();
-                                                                                                    gregory2.set(this.fecha_ingreso_d.getYear() + 1900, this.fecha_ingreso_d.getMonth(), this.fecha_ingreso_d.getDate());
-                                                                                                    XMLGregorianCalendar gre_fecha_ingreso_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory2);
+                                                                                                            GregorianCalendar gregory2 = new GregorianCalendar();
+                                                                                                            gregory2.set(this.fecha_ingreso_d.getYear() + 1900, this.fecha_ingreso_d.getMonth(), this.fecha_ingreso_d.getDate());
+                                                                                                            XMLGregorianCalendar gre_fecha_ingreso_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory2);
 
-                                                                                                    GregorianCalendar gregory3 = new GregorianCalendar();
-                                                                                                    gregory3.set(this.fecha_recepcion_d.getYear() + 1900, this.fecha_recepcion_d.getMonth(), this.fecha_recepcion_d.getDate());
-                                                                                                    XMLGregorianCalendar gre_fecha_recepcion_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
+                                                                                                            GregorianCalendar gregory3 = new GregorianCalendar();
+                                                                                                            gregory3.set(this.fecha_recepcion_d.getYear() + 1900, this.fecha_recepcion_d.getMonth(), this.fecha_recepcion_d.getDate());
+                                                                                                            XMLGregorianCalendar gre_fecha_recepcion_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
 
-                                                                                                    GregorianCalendar gregory4 = new GregorianCalendar();
-                                                                                                    gregory4.set(this.fecha_proximo_pago_d.getYear() + 1900, this.fecha_proximo_pago_d.getMonth(), this.fecha_proximo_pago_d.getDate());
-                                                                                                    XMLGregorianCalendar gre_fecha_proximo_pago_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
+                                                                                                            GregorianCalendar gregory4 = new GregorianCalendar();
+                                                                                                            gregory4.set(this.fecha_proximo_pago_d.getYear() + 1900, this.fecha_proximo_pago_d.getMonth(), this.fecha_proximo_pago_d.getDate());
+                                                                                                            XMLGregorianCalendar gre_fecha_proximo_pago_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
 
-                                                                                                    Driver driver = new Driver();
-                                                                                                    Servicio servicio = new Servicio();
-                                                                                                    Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-                                                                                                    resultado = servicio.deudorInsertar(
-                                                                                                            id_usuario,
-                                                                                                            this.actor_d,
-                                                                                                            this.moneda_d,
-                                                                                                            this.dpi_d,
-                                                                                                            this.nit_d,
-                                                                                                            gre_fecha_nacimiento_d,
-                                                                                                            this.nombre_d,
-                                                                                                            this.nacionalidad_d,
-                                                                                                            this.telefono_casa_d,
-                                                                                                            this.telefono_celular_d,
-                                                                                                            this.direccion_d,
-                                                                                                            this.zona_d,
-                                                                                                            this.pais_d,
-                                                                                                            this.departamento_d,
-                                                                                                            this.sexo_d,
-                                                                                                            this.estado_civil_d,
-                                                                                                            gre_fecha_ingreso_d,
-                                                                                                            this.profesion_d,
-                                                                                                            this.correo_electronico_d,
-                                                                                                            this.lugar_trabajo_d,
-                                                                                                            this.direccion_trabajo_d,
-                                                                                                            this.telefono_trabajo_d,
-                                                                                                            this.monto_inicial_d,
-                                                                                                            this.gestor_d,
-                                                                                                            this.sestado_d,
-                                                                                                            this.estatus_d,
-                                                                                                            this.no_cuenta_d,
-                                                                                                            this.garantia_d,
-                                                                                                            this.cargado_d,
-                                                                                                            this.estado_d,
-                                                                                                            this.descripcion_d,
-                                                                                                            this.codigo_contactabilidad_d,
-                                                                                                            this.caso_d,
-                                                                                                            PDF,
-                                                                                                            INV,
-                                                                                                            MAYCOM,
-                                                                                                            NITS,
-                                                                                                            this.cosecha_d,
-                                                                                                            this.no_cuenta_otro_d,
-                                                                                                            this.descripcion_adicional_d,
-                                                                                                            gre_fecha_recepcion_d,
-                                                                                                            this.anticipo_d,
-                                                                                                            this.antiguedad_d,
-                                                                                                            gre_fecha_proximo_pago_d,
-                                                                                                            this.monto_proximo_pago_d,
-                                                                                                            this.saldo_d,
-                                                                                                            this.convenio_pactado_d,
-                                                                                                            this.cuota_convenio_d,
-                                                                                                            this.costas_pagadas_d,
-                                                                                                            this.situacion_caso_d,
-                                                                                                            opcion_proximo_pago,
-                                                                                                            this.sestado_extra_d,
-                                                                                                            this.estatus_extra_d,
-                                                                                                            this.intencion_pago_d,
-                                                                                                            this.razon_deuda_d,
-                                                                                                            cuenta_principal_relacion,
-                                                                                                            this.deudor_cuenta_relacionada_d,
-                                                                                                            this.ambiente);
-                                                                                                    this.constructor();
-                                                                                                    RequestContext.getCurrentInstance().execute("PF('dtblWidgetDeu').clearFilters();");
+                                                                                                            Servicio servicio = new Servicio();
+                                                                                                            Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
+                                                                                                            resultado = servicio.deudorInsertar(
+                                                                                                                    id_usuario,
+                                                                                                                    this.actor_d,
+                                                                                                                    this.moneda_d,
+                                                                                                                    this.dpi_d,
+                                                                                                                    this.nit_d,
+                                                                                                                    gre_fecha_nacimiento_d,
+                                                                                                                    this.nombre_d,
+                                                                                                                    this.nacionalidad_d,
+                                                                                                                    this.telefono_casa_d,
+                                                                                                                    this.telefono_celular_d,
+                                                                                                                    this.direccion_d,
+                                                                                                                    this.zona_d,
+                                                                                                                    this.pais_d,
+                                                                                                                    this.departamento_d,
+                                                                                                                    this.sexo_d,
+                                                                                                                    this.estado_civil_d,
+                                                                                                                    gre_fecha_ingreso_d,
+                                                                                                                    this.profesion_d,
+                                                                                                                    this.correo_electronico_d,
+                                                                                                                    this.lugar_trabajo_d,
+                                                                                                                    this.direccion_trabajo_d,
+                                                                                                                    this.telefono_trabajo_d,
+                                                                                                                    this.monto_inicial_d,
+                                                                                                                    this.gestor_d,
+                                                                                                                    this.sestado_d,
+                                                                                                                    this.estatus_d,
+                                                                                                                    this.no_cuenta_d,
+                                                                                                                    this.garantia_d,
+                                                                                                                    this.cargado_d,
+                                                                                                                    this.estado_d,
+                                                                                                                    this.descripcion_d,
+                                                                                                                    this.codigo_contactabilidad_d,
+                                                                                                                    this.caso_d,
+                                                                                                                    PDF,
+                                                                                                                    INV,
+                                                                                                                    MAYCOM,
+                                                                                                                    NITS,
+                                                                                                                    this.cosecha_d,
+                                                                                                                    this.no_cuenta_otro_d,
+                                                                                                                    this.descripcion_adicional_d,
+                                                                                                                    gre_fecha_recepcion_d,
+                                                                                                                    this.anticipo_d,
+                                                                                                                    this.antiguedad_d,
+                                                                                                                    gre_fecha_proximo_pago_d,
+                                                                                                                    this.monto_proximo_pago_d,
+                                                                                                                    this.saldo_d,
+                                                                                                                    this.convenio_pactado_d,
+                                                                                                                    this.cuota_convenio_d,
+                                                                                                                    this.costas_pagadas_d,
+                                                                                                                    this.situacion_caso_d,
+                                                                                                                    opcion_proximo_pago,
+                                                                                                                    this.sestado_extra_d,
+                                                                                                                    this.estatus_extra_d,
+                                                                                                                    this.intencion_pago_d,
+                                                                                                                    this.razon_deuda_d,
+                                                                                                                    cuenta_principal_relacion,
+                                                                                                                    this.deudor_cuenta_relacionada_d,
+                                                                                                                    this.ambiente);
+                                                                                                            this.constructor();
+                                                                                                            RequestContext.getCurrentInstance().execute("PF('dtblWidgetDeu').clearFilters();");
 
-                                                                                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
+                                                                                                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
+                                                                                                        } else {
+                                                                                                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El correo electrónico no es valido."));
+                                                                                                        }
+                                                                                                    } else {
+                                                                                                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El teléfono celular en el campo contacto principal no es valido."));
+                                                                                                    }
                                                                                                 } else {
                                                                                                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El número de cuenta relacionada no existe, la cuenta no es principal o la corporación de la cuenta es diferente."));
                                                                                                 }
@@ -1711,9 +1731,22 @@ public class Deudor implements Serializable {
     }
 
     private void modificar() {
+        Driver driver = new Driver();
         String resultado;
 
         try {
+            // Valida telefono_celular.
+            Boolean telefono_celular_valido = false;
+            Long numero_celular = new Long(0);
+            try {
+                numero_celular = Long.parseLong(this.telefono_celular_d);
+                if (numero_celular == 0 || (numero_celular >= 10000000 && numero_celular <= 99999999)) {
+                    telefono_celular_valido = true;
+                }
+            } catch (Exception ex) {
+                telefono_celular_valido = false;
+            }
+
             if (this.nacionalidad_d != null) {
                 if (this.sexo_d != null) {
                     if (this.estado_civil_d != null) {
@@ -1736,126 +1769,133 @@ public class Deudor implements Serializable {
                                                                                         if (this.estatus_d != null) {
                                                                                             if (!this.nombre_d.equals("")) {
                                                                                                 if (this.validar_cuenta_relacionada()) {
-                                                                                                    String PDF = "";
-                                                                                                if (this.PDF_d) {
-                                                                                                    PDF = "SI";
-                                                                                                } else {
-                                                                                                    PDF = "NO";
-                                                                                                }
-                                                                                                String INV = "";
-                                                                                                if (this.INV_d) {
-                                                                                                    INV = "SI";
-                                                                                                } else {
-                                                                                                    INV = "NO";
-                                                                                                }
-                                                                                                String MAYCOM = "";
-                                                                                                if (this.MAYCOM_d) {
-                                                                                                    MAYCOM = "SI";
-                                                                                                } else {
-                                                                                                    MAYCOM = "NO";
-                                                                                                }
-                                                                                                String NITS = "";
-                                                                                                if (this.NITS_d) {
-                                                                                                    NITS = "SI";
-                                                                                                } else {
-                                                                                                    NITS = "NO";
-                                                                                                }
-                                                                                                String opcion_proximo_pago = "";
-                                                                                                if (this.opcion_proximo_pago_d) {
-                                                                                                    opcion_proximo_pago = "SI";
-                                                                                                } else {
-                                                                                                    opcion_proximo_pago = "NO";
-                                                                                                }
-                                                                                                Integer cuenta_principal_relacion;
-                                                                                                if (this.cuenta_principal_relacion_d) {
-                                                                                                    cuenta_principal_relacion = 1;
-                                                                                                } else {
-                                                                                                    cuenta_principal_relacion = 0;
-                                                                                                }
+                                                                                                    if (telefono_celular_valido == true) {
+                                                                                                        if (this.correo_electronico_d.equals("-") || driver.getInt("select lower('" + correo_electronico_d + "') regexp '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\\\.[a-zA-Z]{2,63}$' EsCorreo", this.ambiente) == 1) {
+                                                                                                            String PDF = "";
+                                                                                                            if (this.PDF_d) {
+                                                                                                                PDF = "SI";
+                                                                                                            } else {
+                                                                                                                PDF = "NO";
+                                                                                                            }
+                                                                                                            String INV = "";
+                                                                                                            if (this.INV_d) {
+                                                                                                                INV = "SI";
+                                                                                                            } else {
+                                                                                                                INV = "NO";
+                                                                                                            }
+                                                                                                            String MAYCOM = "";
+                                                                                                            if (this.MAYCOM_d) {
+                                                                                                                MAYCOM = "SI";
+                                                                                                            } else {
+                                                                                                                MAYCOM = "NO";
+                                                                                                            }
+                                                                                                            String NITS = "";
+                                                                                                            if (this.NITS_d) {
+                                                                                                                NITS = "SI";
+                                                                                                            } else {
+                                                                                                                NITS = "NO";
+                                                                                                            }
+                                                                                                            String opcion_proximo_pago = "";
+                                                                                                            if (this.opcion_proximo_pago_d) {
+                                                                                                                opcion_proximo_pago = "SI";
+                                                                                                            } else {
+                                                                                                                opcion_proximo_pago = "NO";
+                                                                                                            }
+                                                                                                            Integer cuenta_principal_relacion;
+                                                                                                            if (this.cuenta_principal_relacion_d) {
+                                                                                                                cuenta_principal_relacion = 1;
+                                                                                                            } else {
+                                                                                                                cuenta_principal_relacion = 0;
+                                                                                                            }
 
-                                                                                                GregorianCalendar gregory1 = new GregorianCalendar();
-                                                                                                gregory1.set(this.fecha_nacimiento_d.getYear() + 1900, this.fecha_nacimiento_d.getMonth(), this.fecha_nacimiento_d.getDate());
-                                                                                                XMLGregorianCalendar gre_fecha_nacimiento_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory1);
+                                                                                                            GregorianCalendar gregory1 = new GregorianCalendar();
+                                                                                                            gregory1.set(this.fecha_nacimiento_d.getYear() + 1900, this.fecha_nacimiento_d.getMonth(), this.fecha_nacimiento_d.getDate());
+                                                                                                            XMLGregorianCalendar gre_fecha_nacimiento_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory1);
 
-                                                                                                GregorianCalendar gregory2 = new GregorianCalendar();
-                                                                                                gregory2.set(this.fecha_ingreso_d.getYear() + 1900, this.fecha_ingreso_d.getMonth(), this.fecha_ingreso_d.getDate());
-                                                                                                XMLGregorianCalendar gre_fecha_ingreso_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory2);
+                                                                                                            GregorianCalendar gregory2 = new GregorianCalendar();
+                                                                                                            gregory2.set(this.fecha_ingreso_d.getYear() + 1900, this.fecha_ingreso_d.getMonth(), this.fecha_ingreso_d.getDate());
+                                                                                                            XMLGregorianCalendar gre_fecha_ingreso_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory2);
 
-                                                                                                GregorianCalendar gregory3 = new GregorianCalendar();
-                                                                                                gregory3.set(this.fecha_recepcion_d.getYear() + 1900, this.fecha_recepcion_d.getMonth(), this.fecha_recepcion_d.getDate());
-                                                                                                XMLGregorianCalendar gre_fecha_recepcion_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
+                                                                                                            GregorianCalendar gregory3 = new GregorianCalendar();
+                                                                                                            gregory3.set(this.fecha_recepcion_d.getYear() + 1900, this.fecha_recepcion_d.getMonth(), this.fecha_recepcion_d.getDate());
+                                                                                                            XMLGregorianCalendar gre_fecha_recepcion_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
 
-                                                                                                GregorianCalendar gregory4 = new GregorianCalendar();
-                                                                                                gregory4.set(this.fecha_proximo_pago_d.getYear() + 1900, this.fecha_proximo_pago_d.getMonth(), this.fecha_proximo_pago_d.getDate());
-                                                                                                XMLGregorianCalendar gre_fecha_proximo_pago_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
+                                                                                                            GregorianCalendar gregory4 = new GregorianCalendar();
+                                                                                                            gregory4.set(this.fecha_proximo_pago_d.getYear() + 1900, this.fecha_proximo_pago_d.getMonth(), this.fecha_proximo_pago_d.getDate());
+                                                                                                            XMLGregorianCalendar gre_fecha_proximo_pago_d = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregory3);
 
-                                                                                                Driver driver = new Driver();
-                                                                                                Servicio servicio = new Servicio();
-                                                                                                Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
-                                                                                                resultado = servicio.deudorModificar(
-                                                                                                        id_usuario,
-                                                                                                        this.selectedDeudor.getDeudor(),
-                                                                                                        this.actor_d,
-                                                                                                        this.moneda_d,
-                                                                                                        this.dpi_d,
-                                                                                                        this.nit_d,
-                                                                                                        gre_fecha_nacimiento_d,
-                                                                                                        this.nombre_d,
-                                                                                                        this.nacionalidad_d,
-                                                                                                        this.telefono_casa_d,
-                                                                                                        this.telefono_celular_d,
-                                                                                                        this.direccion_d,
-                                                                                                        this.zona_d,
-                                                                                                        this.pais_d,
-                                                                                                        this.departamento_d,
-                                                                                                        this.sexo_d,
-                                                                                                        this.estado_civil_d,
-                                                                                                        gre_fecha_ingreso_d,
-                                                                                                        this.profesion_d,
-                                                                                                        this.correo_electronico_d,
-                                                                                                        this.lugar_trabajo_d,
-                                                                                                        this.direccion_trabajo_d,
-                                                                                                        this.telefono_trabajo_d,
-                                                                                                        this.monto_inicial_d,
-                                                                                                        this.gestor_d,
-                                                                                                        this.sestado_d,
-                                                                                                        this.estatus_d,
-                                                                                                        this.no_cuenta_d,
-                                                                                                        this.garantia_d,
-                                                                                                        this.cargado_d,
-                                                                                                        this.estado_d,
-                                                                                                        this.descripcion_d,
-                                                                                                        this.codigo_contactabilidad_d,
-                                                                                                        this.caso_d,
-                                                                                                        PDF,
-                                                                                                        INV,
-                                                                                                        MAYCOM,
-                                                                                                        NITS,
-                                                                                                        this.cosecha_d,
-                                                                                                        this.no_cuenta_otro_d,
-                                                                                                        this.descripcion_adicional_d,
-                                                                                                        gre_fecha_recepcion_d,
-                                                                                                        this.anticipo_d,
-                                                                                                        this.antiguedad_d,
-                                                                                                        gre_fecha_proximo_pago_d,
-                                                                                                        this.monto_proximo_pago_d,
-                                                                                                        this.saldo_d,
-                                                                                                        this.convenio_pactado_d,
-                                                                                                        this.cuota_convenio_d,
-                                                                                                        this.costas_pagadas_d,
-                                                                                                        this.situacion_caso_d,
-                                                                                                        opcion_proximo_pago,
-                                                                                                        this.sestado_extra_d,
-                                                                                                        this.estatus_extra_d,
-                                                                                                        this.intencion_pago_d,
-                                                                                                        this.razon_deuda_d,
-                                                                                                        cuenta_principal_relacion,
-                                                                                                        this.deudor_cuenta_relacionada_d,
-                                                                                                        this.ambiente);
-                                                                                                this.constructor();
-                                                                                                RequestContext.getCurrentInstance().execute("PF('dtblWidgetDeu').clearFilters();");
+                                                                                                            Servicio servicio = new Servicio();
+                                                                                                            Integer id_usuario = driver.getInt("select u.usuario from usuario u where u.nombre = '" + this.usuario + "'", this.ambiente);
+                                                                                                            resultado = servicio.deudorModificar(
+                                                                                                                    id_usuario,
+                                                                                                                    this.selectedDeudor.getDeudor(),
+                                                                                                                    this.actor_d,
+                                                                                                                    this.moneda_d,
+                                                                                                                    this.dpi_d,
+                                                                                                                    this.nit_d,
+                                                                                                                    gre_fecha_nacimiento_d,
+                                                                                                                    this.nombre_d,
+                                                                                                                    this.nacionalidad_d,
+                                                                                                                    this.telefono_casa_d,
+                                                                                                                    this.telefono_celular_d,
+                                                                                                                    this.direccion_d,
+                                                                                                                    this.zona_d,
+                                                                                                                    this.pais_d,
+                                                                                                                    this.departamento_d,
+                                                                                                                    this.sexo_d,
+                                                                                                                    this.estado_civil_d,
+                                                                                                                    gre_fecha_ingreso_d,
+                                                                                                                    this.profesion_d,
+                                                                                                                    this.correo_electronico_d,
+                                                                                                                    this.lugar_trabajo_d,
+                                                                                                                    this.direccion_trabajo_d,
+                                                                                                                    this.telefono_trabajo_d,
+                                                                                                                    this.monto_inicial_d,
+                                                                                                                    this.gestor_d,
+                                                                                                                    this.sestado_d,
+                                                                                                                    this.estatus_d,
+                                                                                                                    this.no_cuenta_d,
+                                                                                                                    this.garantia_d,
+                                                                                                                    this.cargado_d,
+                                                                                                                    this.estado_d,
+                                                                                                                    this.descripcion_d,
+                                                                                                                    this.codigo_contactabilidad_d,
+                                                                                                                    this.caso_d,
+                                                                                                                    PDF,
+                                                                                                                    INV,
+                                                                                                                    MAYCOM,
+                                                                                                                    NITS,
+                                                                                                                    this.cosecha_d,
+                                                                                                                    this.no_cuenta_otro_d,
+                                                                                                                    this.descripcion_adicional_d,
+                                                                                                                    gre_fecha_recepcion_d,
+                                                                                                                    this.anticipo_d,
+                                                                                                                    this.antiguedad_d,
+                                                                                                                    gre_fecha_proximo_pago_d,
+                                                                                                                    this.monto_proximo_pago_d,
+                                                                                                                    this.saldo_d,
+                                                                                                                    this.convenio_pactado_d,
+                                                                                                                    this.cuota_convenio_d,
+                                                                                                                    this.costas_pagadas_d,
+                                                                                                                    this.situacion_caso_d,
+                                                                                                                    opcion_proximo_pago,
+                                                                                                                    this.sestado_extra_d,
+                                                                                                                    this.estatus_extra_d,
+                                                                                                                    this.intencion_pago_d,
+                                                                                                                    this.razon_deuda_d,
+                                                                                                                    cuenta_principal_relacion,
+                                                                                                                    this.deudor_cuenta_relacionada_d,
+                                                                                                                    this.ambiente);
+                                                                                                            this.constructor();
+                                                                                                            RequestContext.getCurrentInstance().execute("PF('dtblWidgetDeu').clearFilters();");
 
-                                                                                                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
+                                                                                                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", resultado));
+                                                                                                        } else {
+                                                                                                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El correo electrónico no es valido."));
+                                                                                                        }
+                                                                                                    } else {
+                                                                                                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El teléfono celular en el campo contacto principal no es valido."));
+                                                                                                    }
                                                                                                 } else {
                                                                                                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "El número de cuenta relacionada no existe, la cuenta no es principal o la corporación de la cuenta es diferente."));
                                                                                                 }
@@ -2005,7 +2045,7 @@ public class Deudor implements Serializable {
 
         return resultado;
     }
-
+    
     public String getUsuario() {
         return usuario;
     }

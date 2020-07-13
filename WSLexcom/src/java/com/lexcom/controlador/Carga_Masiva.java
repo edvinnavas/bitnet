@@ -383,14 +383,20 @@ public class Carga_Masiva implements Serializable {
 
                 String db_telefono_celular = "";
                 if (telefono_celular != null) {
-                    db_telefono_celular = telefono_celular.toString().trim();
-                    if (db_telefono_celular.equals("")) {
-                        db_telefono_celular = "-";
+                    try {
+                        Long db_telefono_celular_long = Long.parseLong(telefono_celular.toString().trim());
+                        if (db_telefono_celular_long == 0 || (db_telefono_celular_long >= 10000000 && db_telefono_celular_long <= 99999999)) {
+                            db_telefono_celular = db_telefono_celular_long.toString();
+                        } else {
+                            throw new Exception("Error al calcular el campo Telefono Celular en la linea: " + linea_error);
+                        }
+                    } catch (Exception ex) {
+                        throw new Exception("Error al calcular el campo Telefono Celular en la linea: " + linea_error + " Exception: " + ex.toString());
                     }
                 } else {
-                    db_telefono_celular = "-";
+                    throw new Exception("Error al calcular el campo Telefono Celular en la linea: " + linea_error);
                 }
-
+                
                 String db_telefono_trabajo = "";
                 if (telefono_trabajo != null) {
                     db_telefono_trabajo = telefono_trabajo.toString().trim();
@@ -402,13 +408,23 @@ public class Carga_Masiva implements Serializable {
                 }
 
                 String db_correo_electronico = "";
+                Integer esCorreo = 0;
                 if (correo_electronico != null) {
-                    db_correo_electronico = correo_electronico.toString().trim();
-                    if (db_correo_electronico.equals("")) {
-                        db_correo_electronico = "-";
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select lower('" + correo_electronico.toString().trim() + "') regexp '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\\\.[a-zA-Z]{2,63}$' EsCorreo");
+                    while (rs.next()) {
+                        esCorreo = rs.getInt(1);
+                    }
+                    rs.close();
+                    stmt.close();
+                    
+                    if(correo_electronico.toString().trim().equals("-") || esCorreo == 1) {
+                        db_correo_electronico = correo_electronico.toString().trim();
+                    } else {
+                        throw new Exception("Error al calcular el campo Correo Electrónico en la linea: " + linea_error);
                     }
                 } else {
-                    db_correo_electronico = "-";
+                    throw new Exception("Error al calcular el campo Correo Electrónico en la linea: " + linea_error);
                 }
 
                 String db_lugar_trabajo = "";
@@ -969,14 +985,20 @@ public class Carga_Masiva implements Serializable {
 
                 String db_telefono_celular = "";
                 if (telefono_celular != null) {
-                    db_telefono_celular = telefono_celular.toString().trim();
-                    if (db_telefono_celular.equals("")) {
-                        db_telefono_celular = "-";
+                    try {
+                        Long db_telefono_celular_long = Long.parseLong(telefono_celular.toString().trim());
+                        if (db_telefono_celular_long == 0 || (db_telefono_celular_long >= 10000000 && db_telefono_celular_long <= 99999999)) {
+                            db_telefono_celular = db_telefono_celular_long.toString();
+                        } else {
+                            throw new Exception("Error al calcular el campo Telefono Celular en la linea: " + linea_error);
+                        }
+                    } catch (Exception ex) {
+                        throw new Exception("Error al calcular el campo Telefono Celular en la linea: " + linea_error + " Exception: " + ex.toString());
                     }
                 } else {
-                    db_telefono_celular = "-";
+                    throw new Exception("Error al calcular el campo Telefono Celular en la linea: " + linea_error);
                 }
-
+                
                 String db_direccion = "";
                 if (direccion != null) {
                     db_direccion = direccion.toString().trim();
@@ -1057,13 +1079,23 @@ public class Carga_Masiva implements Serializable {
                 }
 
                 String db_correo_electronico = "";
+                Integer esCorreo = 0;
                 if (correo_electronico != null) {
-                    db_correo_electronico = correo_electronico.toString().trim();
-                    if (db_correo_electronico.equals("")) {
-                        db_correo_electronico = "-";
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select lower('" + correo_electronico.toString().trim() + "') regexp '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\\\.[a-zA-Z]{2,63}$' EsCorreo");
+                    while (rs.next()) {
+                        esCorreo = rs.getInt(1);
+                    }
+                    rs.close();
+                    stmt.close();
+                    
+                    if(correo_electronico.toString().trim().equals("-") || esCorreo == 1) {
+                        db_correo_electronico = correo_electronico.toString().trim();
+                    } else {
+                        throw new Exception("Error al calcular el campo Correo Electrónico en la linea: " + linea_error);
                     }
                 } else {
-                    db_correo_electronico = "-";
+                    throw new Exception("Error al calcular el campo Correo Electrónico en la linea: " + linea_error);
                 }
 
                 String db_lugar_trabajo = "";
