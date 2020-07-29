@@ -255,11 +255,17 @@ public class acceso_menu implements Serializable {
                     case "Tipo Codigo Resultado Contacto":
                         Tipo_Codigo_Resultado_Contacto = listucha.get(i).getVer();
                         break;
+                    case "Carga gestion cobros":
+                        Carga_gestion_cobros = listucha.get(i).getVer();
+                        break;
                     case "Antiguedades":
                         Antiguedades = listucha.get(i).getVer();
                         break;
+                    case "Monitor":
+                        Monitor = listucha.get(i).getVer();
+                        break;
                     default:
-                        System.out.println("Not in 10, 20 or 30");
+                        System.out.println("Not in 10, 20 or 30 => " + listucha.get(i).getMenu());
                 }
             }
         } catch (Exception ex) {
@@ -332,6 +338,8 @@ public class acceso_menu implements Serializable {
     public String Intencion_Pago;
     public String Razon_Deuda;
     public String Tipo_Codigo_Resultado_Contacto;
+    public String Carga_gestion_cobros;
     public String Antiguedades;
+    public String Monitor;
 
 }

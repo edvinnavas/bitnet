@@ -34,7 +34,7 @@ public class Driver implements Serializable {
 
     public Connection closeConn() {
         try {
-            if(conn != null) {
+            if (conn != null) {
                 conn.close();
                 conn = null;
             }
@@ -47,12 +47,12 @@ public class Driver implements Serializable {
 
     public String[][] rotacion_automatica(Integer sys, Integer tipo_cartera) {
         String[][] resultado = null;
-        
+
         try {
             this.generar_rotacion(tipo_cartera);
             Integer numero_filas = this.cartera.getLongitud_lista();
             resultado = new String[numero_filas + 1][18];
-            
+
             Integer fila = 0;
             resultado[fila][0] = "Deudor";
             resultado[fila][1] = "Caso";
@@ -120,9 +120,9 @@ public class Driver implements Serializable {
                     + "TABLA.CUOTA, "
                     + "TABLA.GESTOR, "
                     + "TABLA.TIPO_GESTOR, "
-                    + "TABLA.ESTADO_JUDICIAL, " 
-                    + "TABLA.STATUS_JUDICIAL, " 
-                    + "TABLA.ESTADO_EXTRAJUDICIAL, " 
+                    + "TABLA.ESTADO_JUDICIAL, "
+                    + "TABLA.STATUS_JUDICIAL, "
+                    + "TABLA.ESTADO_EXTRAJUDICIAL, "
                     + "TABLA.STATUS_EXTRAJUDICIAL, "
                     + "TABLA.ACTOR ACTOR "
                     + "FROM (select "
@@ -134,9 +134,9 @@ public class Driver implements Serializable {
                     + "d.nombre NOMBRE_DEUDOR, "
                     + "d.monto_inicial MONTO_INICIAL, "
                     + "g.nombre GARANTIA, "
-                    + "s.nombre ESTADO_JUDICIAL, " 
-                    + "e.nombre STATUS_JUDICIAL, " 
-                    + "se.nombre ESTADO_EXTRAJUDICIAL, " 
+                    + "s.nombre ESTADO_JUDICIAL, "
+                    + "e.nombre STATUS_JUDICIAL, "
+                    + "se.nombre ESTADO_EXTRAJUDICIAL, "
                     + "ee.nombre STATUS_EXTRAJUDICIAL, "
                     + "if(d.cuota_convenio>0.00,d.fecha_proximo_pago,'-') FECHA_PROXIMO_PAGO, "
                     + "if(d.cuota_convenio>0.00,d.cuota_convenio,'-') CUOTA, "
@@ -147,9 +147,9 @@ public class Driver implements Serializable {
                     + "from "
                     + "deudor d "
                     + "left join garantia g on (d.garantia=g.garantia) "
-                    + "left join sestado s on (d.sestado=s.sestado) " 
-                    + "left join estatus e on (d.estatus=e.estatus) " 
-                    + "left join sestado_extra se on (d.sestado_extra=se.sestado_extra) " 
+                    + "left join sestado s on (d.sestado=s.sestado) "
+                    + "left join estatus e on (d.estatus=e.estatus) "
+                    + "left join sestado_extra se on (d.sestado_extra=se.sestado_extra) "
                     + "left join estatus_extra ee on (d.estatus_extra=ee.estatus_extra) "
                     + "left join codigo_contactabilidad c on (d.codigo_contactabilidad=c.codigo_contactabilidad) "
                     + "left join actor a on (d.actor=a.actor) "
@@ -169,9 +169,9 @@ public class Driver implements Serializable {
                     + "d.nombre NOMBRE_DEUDOR, "
                     + "d.monto_inicial MONTO_INICIAL, "
                     + "g.nombre GARANTIA, "
-                    + "s.nombre ESTADO_JUDICIAL, " 
-                    + "e.nombre STATUS_JUDICIAL, " 
-                    + "se.nombre ESTADO_EXTRAJUDICIAL, " 
+                    + "s.nombre ESTADO_JUDICIAL, "
+                    + "e.nombre STATUS_JUDICIAL, "
+                    + "se.nombre ESTADO_EXTRAJUDICIAL, "
                     + "ee.nombre STATUS_EXTRAJUDICIAL, "
                     + "if(d.cuota_convenio>0.00,d.fecha_proximo_pago,'-') FECHA_PROXIMO_PAGO, "
                     + "if(d.cuota_convenio>0.00,d.cuota_convenio,'-') CUOTA, "
@@ -182,9 +182,9 @@ public class Driver implements Serializable {
                     + "from "
                     + "deudor d "
                     + "left join garantia g on (d.garantia=g.garantia) "
-                    + "left join sestado s on (d.sestado=s.sestado) " 
-                    + "left join estatus e on (d.estatus=e.estatus) " 
-                    + "left join sestado_extra se on (d.sestado_extra=se.sestado_extra) " 
+                    + "left join sestado s on (d.sestado=s.sestado) "
+                    + "left join estatus e on (d.estatus=e.estatus) "
+                    + "left join sestado_extra se on (d.sestado_extra=se.sestado_extra) "
                     + "left join estatus_extra ee on (d.estatus_extra=ee.estatus_extra) "
                     + "left join codigo_contactabilidad c on (d.codigo_contactabilidad=c.codigo_contactabilidad) "
                     + "left join actor a on (d.actor=a.actor) "
@@ -225,11 +225,11 @@ public class Driver implements Serializable {
             stmt = conn.createStatement();
             rs = stmt.executeQuery(cadenasql);
             while (rs.next()) {
-                asignacion_actual.insertar(rs.getInt(1),rs.getInt(2),rs.getInt(3));
+                asignacion_actual.insertar(rs.getInt(1), rs.getInt(2), rs.getInt(3));
             }
             rs.close();
             stmt.close();
-            
+
             this.cartera.setConn(conn);
             this.cartera.rotacion(tipo_cartera, asignacion_actual);
         } catch (Exception ex) {
@@ -239,7 +239,7 @@ public class Driver implements Serializable {
 
     public String quitar_simbolos(String cadena) {
         String resultado = "";
-        
+
         try {
             resultado = cadena.replaceAll("\"", "");
             resultado = resultado.replaceAll("'", "");
@@ -270,7 +270,7 @@ public class Driver implements Serializable {
 
     public Double valida_double(String monto) {
         Double resultado = 0.00;
-        
+
         try {
             if (monto == null) {
                 monto = "0.00";
@@ -286,12 +286,12 @@ public class Driver implements Serializable {
 
     public Integer valida_integer(String caso) {
         Integer resultado = 0;
-        
+
         try {
             if (caso == null) {
                 caso = "0";
             }
-            
+
             resultado = Integer.parseInt(caso);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-Driver(valida_integer): " + ex.toString());
@@ -303,7 +303,7 @@ public class Driver implements Serializable {
 
     public String valida_fecha_hoy(String fecha) {
         String resultado = "";
-        
+
         try {
             if (fecha == null) {
                 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -311,7 +311,7 @@ public class Driver implements Serializable {
                 Date date = new Date();
                 fecha = formatoFecha.format(date);
             }
-            
+
             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
             formatoFecha.setLenient(false);
             formatoFecha.parse(fecha);
@@ -329,12 +329,12 @@ public class Driver implements Serializable {
 
     public String valida_fecha_pasado(String fecha) {
         String resultado = "";
-        
+
         try {
             if (fecha == null) {
                 fecha = "1900-01-01";
             }
-            
+
             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
             formatoFecha.setLenient(false);
             formatoFecha.parse(fecha);
@@ -354,7 +354,7 @@ public class Driver implements Serializable {
             if (sexo == null) {
                 sexo = "-";
             }
-            
+
             if (sexo.equals("MASCULINO") || sexo.equals("FEMENINO") || sexo.equals("-")) {
                 resultado = sexo;
             } else {
@@ -392,7 +392,7 @@ public class Driver implements Serializable {
             System.out.println("ERROR => WS-Driver(valida_estado_civil): " + ex.toString());
             resultado = "-";
         }
-        
+
         return resultado;
     }
 
@@ -418,7 +418,7 @@ public class Driver implements Serializable {
 
     public Boolean valido_arraigo(String medida) {
         Boolean resultado = false;
-        
+
         try {
             String medidas[] = {"PEDIDO", "NO PEDIDO", "DECRETADO", "NO DECRETADO", "DILIGENCIADO"};
 
@@ -437,7 +437,7 @@ public class Driver implements Serializable {
 
     public Boolean valido_banco(String medida) {
         Boolean resultado = false;
-        
+
         try {
             String medidas[] = {"PEDIDO", "NO PEDIDO", "DECRETADO", "NO DECRETADO", "DILIGENCIADO"};
 
@@ -456,7 +456,7 @@ public class Driver implements Serializable {
 
     public Boolean valido_finca(String medida) {
         Boolean resultado = false;
-        
+
         try {
             String medidas[] = {"PENDIENTE", "EN TRAMITE", "EN REGISTRO", "PEDIDO", "NO PEDIDO", "DECRETADO", "NO DECRETADO", "ANOTADA"};
 
@@ -475,7 +475,7 @@ public class Driver implements Serializable {
 
     public Boolean valido_otro(String medida) {
         Boolean resultado = false;
-        
+
         try {
             String medidas[] = {"PEDIDO", "NO PEDIDO", "DECRETADO", "NO DECRETADO", "DILIGENCIADO"};
 
@@ -494,7 +494,7 @@ public class Driver implements Serializable {
 
     public Boolean valido_salario(String medida) {
         Boolean resultado = false;
-        
+
         try {
             String medidas[] = {"PEDIDO", "NO PEDIDO", "DECRETADO", "NO DECRETADO", "DILIGENCIADO", "NO LABORA"};
 
@@ -507,13 +507,13 @@ public class Driver implements Serializable {
             System.out.println("ERROR => WS-Driver(valido_salario): " + ex.toString());
             resultado = false;
         }
-        
+
         return resultado;
     }
 
     public Boolean valido_vehiculo(String medida) {
         Boolean resultado = false;
-        
+
         try {
             String medidas[] = {"PEDIDO", "NO PEDIDO", "DECRETADO", "NO DECRETADO", "DILIGENCIADO"};
 
@@ -529,17 +529,17 @@ public class Driver implements Serializable {
 
         return resultado;
     }
-    
+
     public Calendar DateToCalendar(Date date) {
         Calendar cal = Calendar.getInstance();
-        
+
         try {
             cal.setTime(date);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-Driver(DateToCalendar): " + ex.toString());
             cal = Calendar.getInstance();
         }
-        
+
         return cal;
     }
 

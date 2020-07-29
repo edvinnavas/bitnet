@@ -32,7 +32,7 @@ public class Antiguedad implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -42,7 +42,7 @@ public class Antiguedad implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -85,7 +85,7 @@ public class Antiguedad implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -95,7 +95,7 @@ public class Antiguedad implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -135,7 +135,7 @@ public class Antiguedad implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -145,7 +145,7 @@ public class Antiguedad implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             conn.commit();
             conn.setAutoCommit(true);
 
@@ -185,7 +185,7 @@ public class Antiguedad implements Serializable {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
                     + usuario_sys + ","
                     + "CURRENT_DATE()" + ","
@@ -195,18 +195,18 @@ public class Antiguedad implements Serializable {
             stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
-            
+
             conn.commit();
             conn.setAutoCommit(true);
 
             resultado = "Antigüedad activa en el sistema.";
         } catch (Exception ex) {
             try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Eliminar): " + ex.toString());
+                System.out.println("ERROR => WS-ServiciosLexcom(antiguedad_activar): " + ex.toString());
                 conn.rollback();
                 resultado = ex.toString();
             } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Antiguedad_Eliminar - rollback): " + ex1.toString());
+                System.out.println("ERROR => WS-ServiciosLexcom(antiguedad_activar - rollback): " + ex1.toString());
                 resultado = ex1.toString();
             }
         } finally {

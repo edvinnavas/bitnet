@@ -4,29 +4,45 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import com.lexcom.controlador.Actor;
-import com.lexcom.entidad.Deudores_Gestion_Cobro;
 import com.lexcom.controlador.Driver;
 import com.lexcom.controlador.Antiguedad;
+import com.lexcom.controlador.Aumento;
+import com.lexcom.controlador.Banco;
 import com.lexcom.controlador.Carga_Masiva;
+import com.lexcom.controlador.Cartera;
+import com.lexcom.controlador.Codigo_Resultado;
+import com.lexcom.controlador.Constantes;
+import com.lexcom.controlador.Convenio;
 import com.lexcom.controlador.Corporacion;
+import com.lexcom.controlador.Descuento;
 import com.lexcom.controlador.Deudor;
+import com.lexcom.controlador.Estado_Estatus_Extrajudicial;
+import com.lexcom.controlador.Estado_Estatus_Judicial;
+import com.lexcom.controlador.Estado_Extrajudicial;
+import com.lexcom.controlador.Estado_Judicial;
+import com.lexcom.controlador.Estatus_Extrajudicial;
+import com.lexcom.controlador.Estatus_Judicial;
+import com.lexcom.controlador.Expediente;
+import com.lexcom.controlador.Fiador;
+import com.lexcom.controlador.Frase_Predeterminada;
+import com.lexcom.controlador.Garantia;
+import com.lexcom.controlador.Intencion_Pago;
+import com.lexcom.controlador.Juicio;
+import com.lexcom.controlador.Juzgado;
+import com.lexcom.controlador.Pago;
+import com.lexcom.controlador.Promesa_Pago;
+import com.lexcom.controlador.Razon_Deuda;
+import com.lexcom.controlador.Referencia;
 import com.lexcom.controlador.Reporte;
+import com.lexcom.controlador.Rol;
+import com.lexcom.controlador.Tipo_Aumento;
+import com.lexcom.controlador.Tipo_Codigo_Resultado;
+import com.lexcom.controlador.Tipo_Codigo_Resultado_Codigo_Resultado;
+import com.lexcom.controlador.Tipo_Codigo_Resultado_Codigo_Resultado_Contacto;
+import com.lexcom.controlador.Tipo_Descuento;
 import com.lexcom.controlador.Usuario;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import jcifs.smb.SmbFile;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @WebService(serviceName = "ServiciosLexcom")
 public class ServiciosLexcom implements Serializable {
@@ -79,7 +95,6 @@ public class ServiciosLexcom implements Serializable {
     }
 
     /**
-     *
      * @param usuario_sys
      * @param cartera
      * @param poolConexion
@@ -150,7 +165,7 @@ public class ServiciosLexcom implements Serializable {
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Actualizacion_Masiva_Deudores): " + ex.toString());
         }
-        
+
         return resultado;
     }
 
@@ -336,9 +351,9 @@ public class ServiciosLexcom implements Serializable {
             resultado = usuario.usuario_insertar(usuario_sys, nombre_completo_d, nombre_d, contrasena_d, recontrasena_d, descripcion_d, gestor_d, procurador_d, asistente_d, digitador_d, investigador_d, tipo_usuario_d, reinicio, rol, usuario_corporacion, poolConexion);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Usuario_Insertar): " + ex.toString());
-            
+
         }
-        
+
         return resultado;
     }
 
@@ -387,7 +402,7 @@ public class ServiciosLexcom implements Serializable {
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Usuario_Modificar): " + ex.toString());
         }
-        
+
         return resultado;
     }
 
@@ -410,7 +425,7 @@ public class ServiciosLexcom implements Serializable {
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Usuario_Eliminar): " + ex.toString());
         }
-        
+
         return resultado;
     }
 
@@ -485,7 +500,7 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
-    
+
     /**
      * @param usuario_sys
      * @param nombre_d
@@ -499,7 +514,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "nombre_d") String nombre_d,
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
-        
+
         String resultado = "";
         try {
             Corporacion corporacion = new Corporacion();
@@ -507,7 +522,7 @@ public class ServiciosLexcom implements Serializable {
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Corporacion_Insertar): " + ex.toString());
         }
-        
+
         return resultado;
     }
 
@@ -526,7 +541,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "nombre_d") String nombre_d,
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
-        
+
         String resultado = "";
         try {
             Corporacion corporacion = new Corporacion();
@@ -534,7 +549,7 @@ public class ServiciosLexcom implements Serializable {
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Corporacion_Modificar): " + ex.toString());
         }
-        
+
         return resultado;
     }
 
@@ -549,7 +564,7 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "usuario_sys") Integer usuario_sys,
             @WebParam(name = "id_corporacion") Integer id_corporacion,
             @WebParam(name = "poolConexion") String poolConexion) {
-        
+
         String resultado = "";
         try {
             Corporacion corporacion = new Corporacion();
@@ -608,12 +623,12 @@ public class ServiciosLexcom implements Serializable {
 
         String resultado = "";
         try {
-            Actor actor =  new Actor();
+            Actor actor = new Actor();
             resultado = actor.actor_insertar(usuario_sys, nombre_d, nit_d, telefono_d, descripcion_d, corporacion_d, digitalizados_d, poolConexion);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Actor_Insertar): " + ex.toString());
         }
-        
+
         return resultado;
     }
 
@@ -643,13 +658,13 @@ public class ServiciosLexcom implements Serializable {
 
         String resultado = "";
         try {
-            Actor actor =  new Actor();
+            Actor actor = new Actor();
             resultado = actor.actor_modificar(usuario_sys, id_actor, nombre_d, nit_d, telefono_d, descripcion_d, corporacion_d, digitalizados_d, poolConexion);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Actor_Modificar): " + ex.toString());
-            
+
         }
-        
+
         return resultado;
     }
 
@@ -664,15 +679,15 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "usuario_sys") Integer usuario_sys,
             @WebParam(name = "id_actor") Integer id_actor,
             @WebParam(name = "poolConexion") String poolConexion) {
-        
+
         String resultado = "";
         try {
-            Actor actor =  new Actor();
+            Actor actor = new Actor();
             resultado = actor.actor_eliminar(usuario_sys, id_actor, poolConexion);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Actor_Eliminar): " + ex.toString());
         }
-        
+
         return resultado;
     }
 
@@ -690,12 +705,12 @@ public class ServiciosLexcom implements Serializable {
 
         String resultado = "";
         try {
-            Actor actor =  new Actor();
+            Actor actor = new Actor();
             resultado = actor.actor_activar(usuario_sys, id_actor, poolConexion);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Actor_Activar): " + ex.toString());
         }
-        
+
         return resultado;
     }
 
@@ -1137,7 +1152,6 @@ public class ServiciosLexcom implements Serializable {
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -1151,57 +1165,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into juzgado (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "45" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Juzgado registrado en el sistema.";
+            Juzgado juzgado = new Juzgado();
+            resultado = juzgado.juzgado_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_juzgado
      * @param nombre_d
@@ -1217,57 +1192,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update juzgado set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where juzgado=" + id_juzgado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Juzgado: " + id_juzgado + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "46" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Juzgado modificado en el sistema.";
+            Juzgado juzgado = new Juzgado();
+            resultado = juzgado.juzgado_modificar(usuario_sys, id_juzgado, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_juzgado
      * @param poolConexion
@@ -1279,56 +1215,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_juzgado") Integer id_juzgado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update juzgado set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where juzgado=" + id_juzgado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "JUZGADO: " + id_juzgado + "',"
-                    + "47" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Juzgado eliminado en el sistema.";
+            Juzgado juzgado = new Juzgado();
+            resultado = juzgado.juzgado_eliminar(usuario_sys, id_juzgado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_juzgado
      * @param poolConexion
@@ -1340,56 +1238,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_juzgado") Integer id_juzgado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update juzgado set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where juzgado=" + id_juzgado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "JUZGADO: " + id_juzgado + "',"
-                    + "48" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Juzgado activado en el sistema.";
+            Juzgado juzgado = new Juzgado();
+            resultado = juzgado.juzgado_activar(usuario_sys, id_juzgado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Juzgado_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -1403,57 +1263,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into garantia (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "49" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Garantía registrada en el sistema.";
+            Garantia garantia = new Garantia();
+            resultado = garantia.garantia_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_garantia
      * @param nombre_d
@@ -1469,57 +1290,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update garantia set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where garantia=" + id_garantia;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Garantia: " + id_garantia + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "50" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Garantía modificada en el sistema.";
+            Garantia garantia = new Garantia();
+            resultado = garantia.garantia_modificar(usuario_sys, id_garantia, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_garantia
      * @param poolConexion
@@ -1531,56 +1313,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_garantia") Integer id_garantia,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update garantia set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where garantia=" + id_garantia;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "GARANTÍA: " + id_garantia + "',"
-                    + "51" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Garantía eliminada en el sistema.";
+            Garantia garantia = new Garantia();
+            resultado = garantia.garantia_eliminar(usuario_sys, id_garantia, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_garantia
      * @param poolConexion
@@ -1592,56 +1336,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_garantia") Integer id_garantia,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update garantia set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where garantia=" + id_garantia;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "GARANTÍA: " + id_garantia + "',"
-                    + "52" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Garantía activada en el sistema.";
+            Garantia garantia = new Garantia();
+            resultado = garantia.garantia_activar(usuario_sys, id_garantia, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Garantia_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -1655,57 +1361,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into banco (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "53" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Banco registrado en el sistema.";
+            Banco banco = new Banco();
+            resultado = banco.banco_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Banco_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Banco_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Banco_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_banco
      * @param nombre_d
@@ -1721,57 +1388,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update banco set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where banco=" + id_banco;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Banco: " + id_banco + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "54" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Banco modificado en el sistema.";
+            Banco banco = new Banco();
+            resultado = banco.banco_modificar(usuario_sys, id_banco, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Banco_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Banco_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Banco_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_banco
      * @param poolConexion
@@ -1783,56 +1411,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_banco") Integer id_banco,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update banco set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where banco=" + id_banco;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "BANCO: " + id_banco + "',"
-                    + "55" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Banco eliminado en el sistema.";
+            Banco banco = new Banco();
+            resultado = banco.banco_eliminar(usuario_sys, id_banco, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Banco_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Banco_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Banco_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_banco
      * @param poolConexion
@@ -1844,56 +1434,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_banco") Integer id_banco,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update banco set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where banco=" + id_banco;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "BANCO: " + id_banco + "',"
-                    + "56" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Banco activado en el sistema.";
+            Banco banco = new Banco();
+            resultado = banco.banco_activar(usuario_sys, id_banco, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Banco_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Banco_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Banco_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -1907,57 +1459,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into sestado (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "57" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado judicial registrado en el sistema.";
+            Estado_Judicial estado_judicial = new Estado_Judicial();
+            resultado = estado_judicial.estado_judicial_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Estado_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_sestado
      * @param nombre_d
@@ -1973,57 +1486,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update sestado set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where sestado=" + id_sestado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Estado: " + id_sestado + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "58" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado judicial modificado en el sistema.";
+            Estado_Judicial estado_judicial = new Estado_Judicial();
+            resultado = estado_judicial.estado_judicial_modificar(usuario_sys, id_sestado, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Estado_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_sestado
      * @param poolConexion
@@ -2035,56 +1509,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_sestado") Integer id_sestado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update sestado set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where sestado=" + id_sestado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "ESTADO: " + id_sestado + "',"
-                    + "59" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado judicial eliminado en el sistema.";
+            Estado_Judicial estado_judicial = new Estado_Judicial();
+            resultado = estado_judicial.estado_judicial_eliminar(usuario_sys, id_sestado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Estado_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_sestado
      * @param poolConexion
@@ -2096,56 +1532,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_sestado") Integer id_sestado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update sestado set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where sestado=" + id_sestado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "ESTADO: " + id_sestado + "',"
-                    + "60" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado judicial activado en el sistema.";
+            Estado_Judicial estado_judicial = new Estado_Judicial();
+            resultado = estado_judicial.estado_judicial_activar(usuario_sys, id_sestado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Estado_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -2159,57 +1557,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into estatus (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "61" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Status judicial registrado en el sistema.";
+            Estatus_Judicial estatus_judicial = new Estatus_Judicial();
+            resultado = estatus_judicial.estatus_judicial_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Status_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Status_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Status_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_estatus
      * @param nombre_d
@@ -2225,57 +1584,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update estatus set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where estatus=" + id_estatus;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Status: " + id_estatus + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "62" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Status judicial modificado en el sistema.";
+            Estatus_Judicial estatus_judicial = new Estatus_Judicial();
+            resultado = estatus_judicial.estatus_judicial_modificar(usuario_sys, id_estatus, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Status_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Status_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Status_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_estatus
      * @param poolConexion
@@ -2287,56 +1607,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_estatus") Integer id_estatus,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update estatus set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where estatus=" + id_estatus;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "STATUS: " + id_estatus + "',"
-                    + "63" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Status judicial eliminado en el sistema.";
+            Estatus_Judicial estatus_judicial = new Estatus_Judicial();
+            resultado = estatus_judicial.estatus_judicial_eliminar(usuario_sys, id_estatus, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Status_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Status_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Status_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_estatus
      * @param poolConexion
@@ -2348,56 +1630,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_estatus") Integer id_estatus,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update estatus set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where estatus=" + id_estatus;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "STATUS: " + id_estatus + "',"
-                    + "64" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Status judicial activado en el sistema.";
+            Estatus_Judicial estatus_judicial = new Estatus_Judicial();
+            resultado = estatus_judicial.estatus_judicial_activar(usuario_sys, id_estatus, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Status_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Status_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Status_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -2411,57 +1655,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into tipo_descuento (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "65" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo de descuento registrado en el sistema.";
+            Tipo_Descuento tipo_descuento = new Tipo_Descuento();
+            resultado = tipo_descuento.tipo_descuento_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_descuento
      * @param nombre_d
@@ -2477,57 +1682,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_descuento set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where tipo_descuento=" + id_tipo_descuento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Tipo_Descuento: " + id_tipo_descuento + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "66" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo de descuento modificado en el sistema.";
+            Tipo_Descuento tipo_descuento = new Tipo_Descuento();
+            resultado = tipo_descuento.tipo_descuento_modificar(usuario_sys, id_tipo_descuento, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_descuento
      * @param poolConexion
@@ -2539,56 +1705,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_descuento") Integer id_tipo_descuento,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_descuento set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where tipo_descuento=" + id_tipo_descuento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "TIPO DESCUENTO: " + id_tipo_descuento + "',"
-                    + "67" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo de descuento eliminado en el sistema.";
+            Tipo_Descuento tipo_descuento = new Tipo_Descuento();
+            resultado = tipo_descuento.tipo_descuento_eliminar(usuario_sys, id_tipo_descuento, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_descuento
      * @param poolConexion
@@ -2600,56 +1728,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_descuento") Integer id_tipo_descuento,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_descuento set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where tipo_descuento=" + id_tipo_descuento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "TIPO_DESCUENTO: " + id_tipo_descuento + "',"
-                    + "68" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo de descuento activado en el sistema.";
+            Tipo_Descuento tipo_descuento = new Tipo_Descuento();
+            resultado = tipo_descuento.tipo_descuento_activar(usuario_sys, id_tipo_descuento, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Descuento_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -2663,57 +1753,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into tipo_aumento (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "69" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo de aumento registrado en el sistema.";
+            Tipo_Aumento tipo_aumento = new Tipo_Aumento();
+            resultado = tipo_aumento.tipo_aumento_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_aumento
      * @param nombre_d
@@ -2729,57 +1780,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_aumento set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where tipo_aumento=" + id_tipo_aumento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Tipo_Aumento: " + id_tipo_aumento + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "70" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo de aumento modificado en el sistema.";
+            Tipo_Aumento tipo_aumento = new Tipo_Aumento();
+            resultado = tipo_aumento.tipo_aumento_modificar(usuario_sys, id_tipo_aumento, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_aumento
      * @param poolConexion
@@ -2791,56 +1803,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_aumento") Integer id_tipo_aumento,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_aumento set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where tipo_aumento=" + id_tipo_aumento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "TIPO AUMENTO: " + id_tipo_aumento + "',"
-                    + "71" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo de aumento eliminado en el sistema.";
+            Tipo_Aumento tipo_aumento = new Tipo_Aumento();
+            resultado = tipo_aumento.tipo_aumento_eliminar(usuario_sys, id_tipo_aumento, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_aumento
      * @param poolConexion
@@ -2852,56 +1826,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_aumento") Integer id_tipo_aumento,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_aumento set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where tipo_aumento=" + id_tipo_aumento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "TIPO_AUMENTO: " + id_tipo_aumento + "',"
-                    + "72" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo de aumento activado en el sistema.";
+            Tipo_Aumento tipo_aumento = new Tipo_Aumento();
+            resultado = tipo_aumento.tipo_aumento_activar(usuario_sys, id_tipo_aumento, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Aumento_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param tipo_d
@@ -2917,58 +1853,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "frase_d") String frase_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into frase_predeterminada (nombre,tipo,frase,estado) values ('"
-                    + nombre_d + "','"
-                    + tipo_d + "','"
-                    + frase_d + "','"
-                    + "VIGENTE" + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " tipo: " + tipo_d + " frase: " + frase_d + "',"
-                    + "73" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Frase predeterminada registrada en el sistema.";
+            Frase_Predeterminada frase_predeterminada = new Frase_Predeterminada();
+            resultado = frase_predeterminada.frase_predeterminada_insertar(usuario_sys, nombre_d, tipo_d, frase_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_frase_predeterminada
      * @param nombre_d
@@ -2986,58 +1882,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "frase_d") String frase_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update frase_predeterminada set "
-                    + "nombre='" + nombre_d + "', "
-                    + "tipo='" + tipo_d + "', "
-                    + "frase='" + frase_d + "' "
-                    + "where frase_predeterminada=" + id_frase_predeterminada;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Predefinida_Modificar: " + id_frase_predeterminada + "Nombre: " + nombre_d + " tipo: " + tipo_d + " frase: " + frase_d + "',"
-                    + "74" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Frase predeterminada modificada en el sistema.";
+            Frase_Predeterminada frase_predeterminada = new Frase_Predeterminada();
+            resultado = frase_predeterminada.frase_predeterminada_modificar(usuario_sys, id_frase_predeterminada, nombre_d, tipo_d, frase_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_frase_predeterminada
      * @param poolConexion
@@ -3049,56 +1905,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_aumento") Integer id_frase_predeterminada,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update frase_predeterminada set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where frase_predeterminada=" + id_frase_predeterminada;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "FRASE_PREDETERMINADA: " + id_frase_predeterminada + "',"
-                    + "75" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Frase predeterminada eliminada en el sistema.";
+            Frase_Predeterminada frase_predeterminada = new Frase_Predeterminada();
+            resultado = frase_predeterminada.frase_predeterminada_eliminar(usuario_sys, id_frase_predeterminada, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_frase_predeterminada
      * @param poolConexion
@@ -3110,56 +1928,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_aumento") Integer id_frase_predeterminada,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update frase_predeterminada set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where frase_predeterminada=" + id_frase_predeterminada;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "FRASE_PREDETERMINADA: " + id_frase_predeterminada + "',"
-                    + "76" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Frase predeterminada activada en el sistema.";
+            Frase_Predeterminada frase_predeterminada = new Frase_Predeterminada();
+            resultado = frase_predeterminada.frase_predeterminada_activar(usuario_sys, id_frase_predeterminada, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Frase_Predeterminada_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param codigo_d
      * @param nombre_d
@@ -3175,58 +1955,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into codigo_contactabilidad (codigo,nombre,estado,descripcion) values ('"
-                    + codigo_d + "','"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Codigo Resultado: " + codigo_d + " Nombre: " + nombre_d + " Descripción: " + descripcion_d + "',"
-                    + "77" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Codigo de resultado registrado en el sistema.";
+            Codigo_Resultado codigo_resultado = new Codigo_Resultado();
+            resultado = codigo_resultado.codigo_resultado_insertar(usuario_sys, codigo_d, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_codigo_contactabilidad
      * @param codigo_d
@@ -3244,58 +1984,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update codigo_contactabilidad set "
-                    + "codigo='" + codigo_d + "', "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where codigo_contactabilidad=" + id_codigo_contactabilidad;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Codigo_Contactabilidad: " + id_codigo_contactabilidad + "Codigo: " + codigo_d + " Nombre: " + nombre_d + " Descripción: " + descripcion_d + "',"
-                    + "78" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Codigo de resultado modificado en el sistema.";
+            Codigo_Resultado codigo_resultado = new Codigo_Resultado();
+            resultado = codigo_resultado.codigo_resultado_modificar(usuario_sys, id_codigo_contactabilidad, codigo_d, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_codigo_contactabilidad
      * @param poolConexion
@@ -3307,56 +2007,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_aumento") Integer id_codigo_contactabilidad,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update codigo_contactabilidad set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where codigo_contactabilidad=" + id_codigo_contactabilidad;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "CODIGO_CONTACTABILIDAD: " + id_codigo_contactabilidad + "',"
-                    + "79" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Codigo de resultado eliminado en el sistema.";
+            Codigo_Resultado codigo_resultado = new Codigo_Resultado();
+            resultado = codigo_resultado.codigo_resultado_eliminar(usuario_sys, id_codigo_contactabilidad, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_codigo_contactabilidad
      * @param poolConexion
@@ -3368,56 +2030,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_aumento") Integer id_codigo_contactabilidad,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update codigo_contactabilidad set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where codigo_contactabilidad=" + id_codigo_contactabilidad;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "CODIGO_CONTACTABILIDAD: " + id_codigo_contactabilidad + "',"
-                    + "80" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Codigo de resultado activado en el sistema.";
+            Codigo_Resultado codigo_resultado = new Codigo_Resultado();
+            resultado = codigo_resultado.codigo_resultado_activar(usuario_sys, id_codigo_contactabilidad, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param usuario
@@ -3449,249 +2073,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "razon_deuda") Integer razon_deuda,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into deudor_historial_cobros (deudor, fecha, hora, usuario, codigo_contactabilidad, descripcion, contacto) values ("
-                    + deudor + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ","
-                    + usuario + ","
-                    + codigo_contactabiliad + ",'"
-                    + descripcion + "','"
-                    + contacto + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            // **************************** ACTUALIZAR DEUDOR
-            cadenasql = "update deudor set "
-                    + "codigo_contactabilidad=" + codigo_contactabiliad + ", "
-                    + "sestado=" + estado_judicial + ", "
-                    + "estatus=" + estatus_judicial + ", "
-                    + "sestado_extra=" + estado_extrajudicial + ", "
-                    + "estatus_extra=" + estatus_extrajudicial + ", "
-                    + "intencion_pago=" + intencion_pago + ", "
-                    + "razon_deuda=" + razon_deuda + " "
-                    + "where deudor=" + deudor;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Gestion Cobros Insertar: Codigo Resultado: " + codigo_contactabiliad + " Descripción: " + descripcion + "',"
-                    + "81" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            // **************************** OBTENER ESTADO Y ESTADOS ACTUAL
-            String nombre_deudor = "";
-            cadenasql = "select d.nombre from deudor d where d.deudor=" + deudor;
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                nombre_deudor = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-            stmt.close();
-
-            Integer int_estado_judicial_actual = 0;
-            String str_estado_judicial_actual = "";
-            Integer int_status_judicial_actual = 0;
-            String str_status_judicial_actual = "";
-            Integer int_estado_extrajudicial_actual = 0;
-            String str_estado_extrajudicial_actual = "";
-            Integer int_status_extrajudicial_actual = 0;
-            String str_status_extrajudicial_actual = "";
-            cadenasql = "select "
-                    + "d.sestado, "
-                    + "s.nombre, "
-                    + "d.estatus, "
-                    + "e.nombre, "
-                    + "d.sestado_extra, "
-                    + "sx.nombre, "
-                    + "d.estatus_extra, "
-                    + "ex.nombre "
-                    + "from "
-                    + "deudor d "
-                    + "left join sestado s on (d.sestado=s.sestado) "
-                    + "left join estatus e on (d.estatus=e.estatus) "
-                    + "left join sestado_extra sx on (d.sestado_extra=sx.sestado_extra) "
-                    + "left join estatus_extra ex on (d.estatus_extra=ex.estatus_extra) where d.deudor=" + deudor;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                int_estado_judicial_actual = rs.getInt(1);
-                str_estado_judicial_actual = rs.getString(2);
-                int_status_judicial_actual = rs.getInt(3);
-                str_status_judicial_actual = rs.getString(4);
-                int_estado_extrajudicial_actual = rs.getInt(5);
-                str_estado_extrajudicial_actual = rs.getString(6);
-                int_status_extrajudicial_actual = rs.getInt(7);
-                str_status_extrajudicial_actual = rs.getString(8);
-            }
-            rs.close();
-            stmt.close();
-            stmt.close();
-
-            String nombre_usuario = "";
-            cadenasql = "select u.nombre from usuario u where u.usuario=" + usuario;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                nombre_usuario = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-            stmt.close();
-
-            // **************************** INSERTA EN EL WORKFLOW JUDICIAL SI CAMBIARON
-            if (!(estado_judicial == int_estado_judicial_actual && estatus_judicial == int_status_judicial_actual)) {
-                String str_sestado_judicial_nuevo = "";
-                cadenasql = "select s.nombre from sestado s where s.sestado=" + estado_judicial;
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(cadenasql);
-                while (rs.next()) {
-                    str_sestado_judicial_nuevo = rs.getString(1);
-                }
-                rs.close();
-                stmt.close();
-                stmt.close();
-
-                String str_estatus_judicial_nuevo = "";
-                cadenasql = "select e.nombre from estatus e where e.estatus=" + estatus_judicial;
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(cadenasql);
-                while (rs.next()) {
-                    str_estatus_judicial_nuevo = rs.getString(1);
-                }
-                rs.close();
-                stmt.close();
-                stmt.close();
-
-                cadenasql = "insert into historial_estatus ("
-                        + "fecha, "
-                        + "estatus, "
-                        + "nombre_estatus, "
-                        + "sestado, "
-                        + "nombre_sestado, "
-                        + "antiguo_estatus, "
-                        + "antiguo_nombre_estatus, "
-                        + "antiguo_sestado, "
-                        + "antiguo_nombre_sestado, "
-                        + "deudor, "
-                        + "deudor_nombre,"
-                        + "usuario, "
-                        + "usuario_nombre) values ("
-                        + "NOW()" + ",'"
-                        + estatus_judicial + "','"
-                        + str_estatus_judicial_nuevo + "','"
-                        + estado_judicial + "','"
-                        + str_sestado_judicial_nuevo + "','"
-                        + int_status_judicial_actual.toString() + "','"
-                        + str_status_judicial_actual + "','"
-                        + int_estado_judicial_actual.toString() + "','"
-                        + str_estado_judicial_actual + "','"
-                        + deudor + "','"
-                        + nombre_deudor + "','"
-                        + usuario + "','"
-                        + nombre_usuario + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            // **************************** INSERTA EN EL WORKFLOW EXTRAJUDICIAL SI CAMBIARON
-            if (!(estado_extrajudicial == int_estado_extrajudicial_actual && estatus_extrajudicial == int_status_extrajudicial_actual)) {
-                String str_sestado_extrajudicial_nuevo = "";
-                cadenasql = "select s.nombre from sestado_extra s where s.sestado_extra=" + estado_extrajudicial;
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(cadenasql);
-                while (rs.next()) {
-                    str_sestado_extrajudicial_nuevo = rs.getString(1);
-                }
-                rs.close();
-                stmt.close();
-                stmt.close();
-
-                String str_estatus_extrajudicial_nuevo = "";
-                cadenasql = "select e.nombre from estatus_extra e where e.estatus_extra=" + estatus_extrajudicial;
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(cadenasql);
-                while (rs.next()) {
-                    str_estatus_extrajudicial_nuevo = rs.getString(1);
-                }
-                rs.close();
-                stmt.close();
-                stmt.close();
-
-                cadenasql = "insert into historial_estatus_extra ("
-                        + "fecha, "
-                        + "estatus_extra, "
-                        + "nombre_estatus_extra, "
-                        + "sestado_extra, "
-                        + "nombre_sestado_extra, "
-                        + "antiguo_estatus_extra, "
-                        + "antiguo_nombre_estatus_extra, "
-                        + "antiguo_sestado_extra, "
-                        + "antiguo_nombre_sestado_extra, "
-                        + "deudor, "
-                        + "deudor_nombre, "
-                        + "usuario, "
-                        + "usuario_nombre) values ("
-                        + "NOW()" + ",'"
-                        + estatus_extrajudicial + "','"
-                        + str_estatus_extrajudicial_nuevo + "','"
-                        + estado_extrajudicial + "','"
-                        + str_sestado_extrajudicial_nuevo + "','"
-                        + int_status_extrajudicial_actual.toString() + "','"
-                        + str_status_extrajudicial_actual + "','"
-                        + int_estado_extrajudicial_actual.toString() + "','"
-                        + str_estado_extrajudicial_actual + "','"
-                        + deudor.toString() + "','"
-                        + nombre_deudor + "','"
-                        + usuario + "','"
-                        + nombre_usuario + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Gestión de cobro registrada en el sistema.";
+            Expediente expediente = new Expediente();
+            resultado = expediente.Gestion_Cobros_Insertar(usuario_sys, deudor, usuario, codigo_contactabiliad, descripcion, contacto, estado_extrajudicial, estatus_extrajudicial, estado_judicial, estatus_judicial, intencion_pago, razon_deuda, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Cobros_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Cobros_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Cobros_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param usuario
@@ -3709,60 +2102,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into deudor_historial_administrativo (deudor, fecha, hora, usuario, codigo_contactabilidad, descripcion) values ('"
-                    + deudor.toString() + "',"
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + usuario.toString() + "','"
-                    + codigo_contactabiliad.toString() + "','"
-                    + descripcion + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Gestion Adminstración Insertar: Codigo Resultado: " + codigo_contactabiliad + " Descripción: " + descripcion + "',"
-                    + "82" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Gestión administrativa registrada en el sistema.";
+            Expediente expediente = new Expediente();
+            resultado = expediente.Gestion_Administracion_Insertar(usuario_sys, deudor, usuario, codigo_contactabiliad, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Administracion_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Administracion_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Administracion_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param usuario
@@ -3780,60 +2131,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into deudor_historial_juridico (deudor, fecha, hora, usuario, codigo_contactabilidad, descripcion) values ('"
-                    + deudor.toString() + "',"
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + usuario.toString() + "','"
-                    + codigo_contactabiliad.toString() + "','"
-                    + descripcion + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Gestion Jurídico Insertar: Código Resultado: " + codigo_contactabiliad + " Descripción: " + descripcion + "',"
-                    + "83" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Gestión Jurídica registrada en el sistema.";
+            Expediente expediente = new Expediente();
+            resultado = expediente.Gestion_Juridico_Insertar(usuario_sys, deudor, usuario, codigo_contactabiliad, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Juridico_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Juridico_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Gestion_Juridico_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param banco
@@ -3855,66 +2164,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha.get(Calendar.DATE);
-            Integer mes = fecha.get(Calendar.MONTH) + 1;
-            Integer ano = fecha.get(Calendar.YEAR);
-            String fecha_pago = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "insert into pago (deudor, banco, fecha, no_boleta, monto, descripcion, fecha_registro) values ('"
-                    + deudor.toString() + "','"
-                    + banco.toString() + "','"
-                    + fecha_pago + "','"
-                    + no_boleta + "','"
-                    + monto.toString() + "','"
-                    + descripcion + "',"
-                    + "CURRENT_DATE()" + ")";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Pago:= Deudor: " + deudor.toString() + " Banco: " + banco.toString() + " Fecha pago: " + fecha_pago + " No Boleta: " + no_boleta + " Monto: " + monto.toString() + " Descripcion: " + descripcion + "',"
-                    + "84" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Pago registrado en el sistema.";
+            Pago pago = new Pago();
+            resultado = pago.pago_insertar(usuario_sys, deudor, banco, fecha, no_boleta, monto, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Pago_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Pago_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Pago_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_pago
      * @param deudor
@@ -3938,66 +2199,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha.get(Calendar.DATE);
-            Integer mes = fecha.get(Calendar.MONTH) + 1;
-            Integer ano = fecha.get(Calendar.YEAR);
-            String fecha_pago = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update pago set "
-                    + "deudor='" + deudor.toString() + "', "
-                    + "banco='" + banco.toString() + "', "
-                    + "fecha='" + fecha_pago + "', "
-                    + "no_boleta='" + no_boleta + "', "
-                    + "monto='" + monto + "', "
-                    + "descripcion='" + descripcion + "' "
-                    + "where pago=" + id_pago.toString();
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Pago: " + id_pago + " Deudor: " + deudor.toString() + " Banco: " + banco.toString() + " Fecha pago: " + fecha_pago + " No Boleta: " + no_boleta + " Monto: " + monto.toString() + " Descripcion: " + descripcion + "',"
-                    + "85" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Pago modificado en el sistema.";
+            Pago pago = new Pago();
+            resultado = pago.pago_modificar(usuario_sys, id_pago, deudor, banco, fecha, no_boleta, monto, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Pago_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Pago_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Pago_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_pago
      * @param poolConexion
@@ -4009,54 +2222,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_pago") Integer id_pago,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from pago where pago=" + id_pago;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "PAGO: " + id_pago + "',"
-                    + "86" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Pago eliminado en el sistema.";
+            Pago pago = new Pago();
+            resultado = pago.pago_eliminar(usuario_sys, id_pago, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Pago_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Pago_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Pago_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param fecha_ingreso
@@ -4082,71 +2259,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "monto") Double monto,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_ingreso.get(Calendar.DATE);
-            Integer mes = fecha_ingreso.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_ingreso.get(Calendar.YEAR);
-            String fecha_ingreso_t = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_pago.get(Calendar.DATE);
-            mes = fecha_pago.get(Calendar.MONTH) + 1;
-            ano = fecha_pago.get(Calendar.YEAR);
-            String fecha_pago_t = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "insert into promesa_pago (fecha_ingreso, fecha_pago, hora_pago, estado_promesa, observacion, monto, deudor) values ('"
-                    + fecha_ingreso_t + "','"
-                    + fecha_pago_t + "','"
-                    + hora_pago.toString() + ":" + minuto_pago.toString() + ":0" + "','"
-                    + estado_promesa + "','"
-                    + observacion + "','"
-                    + monto + "','"
-                    + deudor.toString() + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Promesa Pago:= Deudor: " + deudor.toString() + " Fecha ingreso: " + fecha_ingreso + " Fecha pago: " + fecha_pago_t + " Hora pago: " + hora_pago.toString() + " Estado Promesa: " + estado_promesa + " Observacion: " + observacion + " Monto: " + "',"
-                    + "87" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Promesa de pago registrada en el sistema.";
+            Promesa_Pago promesa_pago = new Promesa_Pago();
+            resultado = promesa_pago.promesa_pago_insertar(usuario_sys, deudor, fecha_ingreso, fecha_pago, hora_pago, minuto_pago, estado_promesa, observacion, monto, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_promesa_pago
      * @param deudor
@@ -4174,72 +2298,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "monto") Double monto,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_ingreso.get(Calendar.DATE);
-            Integer mes = fecha_ingreso.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_ingreso.get(Calendar.YEAR);
-            String fecha_ingreso_t = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_pago.get(Calendar.DATE);
-            mes = fecha_pago.get(Calendar.MONTH) + 1;
-            ano = fecha_pago.get(Calendar.YEAR);
-            String fecha_pago_t = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update promesa_pago set "
-                    + "deudor='" + deudor.toString() + "', "
-                    + "fecha_ingreso='" + fecha_ingreso_t + "', "
-                    + "fecha_pago='" + fecha_pago_t + "', "
-                    + "hora_pago='" + hora_pago.toString() + ":" + minuto_pago.toString() + ":0" + "', "
-                    + "estado_promesa='" + estado_promesa + "', "
-                    + "observacion='" + observacion + "', "
-                    + "monto='" + monto + "' "
-                    + "where promesa_pago=" + id_promesa_pago.toString();
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Promesa_Pago: " + id_promesa_pago + " Deudor: " + deudor.toString() + " Fecha ingreso: " + fecha_ingreso + " Fecha pago: " + fecha_pago_t + " Hora pago: " + hora_pago.toString() + " Estado Promesa: " + estado_promesa + " Observacion: " + observacion + " Monto: " + "',"
-                    + "88" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Promesa de pago modificada en el sistema.";
+            Promesa_Pago promesa_pago = new Promesa_Pago();
+            resultado = promesa_pago.promesa_pago_modificar(usuario_sys, id_promesa_pago, deudor, fecha_ingreso, fecha_pago, hora_pago, minuto_pago, estado_promesa, observacion, monto, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_promesa_pago
      * @param poolConexion
@@ -4251,54 +2321,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_promesa_pago") Integer id_promesa_pago,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from promesa_pago where promesa_pago=" + id_promesa_pago;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "PROMESA_PAGO: " + id_promesa_pago + "',"
-                    + "89" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Promesa de pago eliminada en el sistema.";
+            Promesa_Pago promesa_pago = new Promesa_Pago();
+            resultado = promesa_pago.promesa_pago_eliminar(usuario_sys, id_promesa_pago, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Promesa_Pago_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_juicio
      * @param deudor
@@ -4358,194 +2392,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "tiempo_estimado") String tiempo_estimado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha.get(Calendar.DATE);
-            Integer mes = fecha.get(Calendar.MONTH) + 1;
-            Integer ano = fecha.get(Calendar.YEAR);
-            String fecha_juicio = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = memorial.get(Calendar.DATE);
-            mes = memorial.get(Calendar.MONTH) + 1;
-            ano = memorial.get(Calendar.YEAR);
-            String fecha_memorial = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_admision_demanda.get(Calendar.DATE);
-            mes = fecha_admision_demanda.get(Calendar.MONTH) + 1;
-            ano = fecha_admision_demanda.get(Calendar.YEAR);
-            String fecha_admision = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_notificacion.get(Calendar.DATE);
-            mes = fecha_notificacion.get(Calendar.MONTH) + 1;
-            ano = fecha_notificacion.get(Calendar.YEAR);
-            String fecha_noti = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update juicio set "
-                    + "deudor='" + deudor + "', "
-                    + "juzgado='" + juzgado + "', "
-                    + "fecha='" + fecha_juicio + "', "
-                    + "no_juicio='" + no_juicio + "', "
-                    + "monto='" + monto.toString() + "', "
-                    + "descripcion='" + descripcion + "', "
-                    + "procurador='" + procurador.toString() + "', "
-                    + "razon_notificacion='" + razon_notificacion + "', "
-                    + "notificador='" + notificador.toString() + "', "
-                    + "abogado_deudor='" + abogado_deudor + "', "
-                    + "sumario='" + sumario + "', "
-                    + "memorial='" + fecha_memorial + "', "
-                    + "procuracion='" + procuracion + "', "
-                    + "fecha_admision_demanda='" + fecha_admision + "', "
-                    + "deudor_notificado='" + deudor_notificado + "', "
-                    + "fecha_notificacion='" + fecha_noti + "', "
-                    + "depositario='" + depositario + "', "
-                    + "tiempo_estimado='" + tiempo_estimado + "' "
-                    + "where juicio=" + id_juicio;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "delete from juicio_arraigo where juicio=" + id_juicio;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "delete from juicio_banco where juicio=" + id_juicio;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "delete from juicio_finca where juicio=" + id_juicio;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "delete from juicio_salario where juicio=" + id_juicio;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "delete from juicio_vehiculo where juicio=" + id_juicio;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "delete from juicio_otros where juicio=" + id_juicio;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            for (Integer i = 0; i < modelo_arraigo.length; i++) {
-                cadenasql = "insert into juicio_arraigo (juicio, correlativo, arraigo, deligenciado) values ('"
-                        + id_juicio + "','"
-                        + i.toString() + "','"
-                        + modelo_arraigo[i][0] + "','"
-                        + modelo_arraigo[i][1] + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            for (Integer i = 0; i < modelo_banco.length; i++) {
-                cadenasql = "insert into juicio_banco (juicio, correlativo, bancos, deligenciado) values ('"
-                        + id_juicio + "','"
-                        + i.toString() + "','"
-                        + modelo_banco[i][0] + "','"
-                        + modelo_banco[i][1] + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            for (Integer i = 0; i < modelo_finca.length; i++) {
-                cadenasql = "insert into juicio_finca (juicio, correlativo, finca, letra, deligenciado, tramite) values ('"
-                        + id_juicio + "','"
-                        + i.toString() + "','"
-                        + modelo_finca[i][0] + "','"
-                        + modelo_finca[i][1] + "','"
-                        + modelo_finca[i][2] + "','"
-                        + modelo_finca[i][3] + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            for (Integer i = 0; i < modelo_salario.length; i++) {
-                cadenasql = "insert into juicio_salario (juicio, correlativo, salario, empresa, deligenciado) values ('"
-                        + id_juicio + "','"
-                        + i.toString() + "','"
-                        + modelo_salario[i][0] + "','"
-                        + modelo_salario[i][1] + "','"
-                        + modelo_salario[i][2] + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            for (Integer i = 0; i < modelo_vehiculo.length; i++) {
-                cadenasql = "insert into juicio_vehiculo (juicio, correlativo, vehiculo, medida, deligenciado) values ('"
-                        + id_juicio + "','"
-                        + i.toString() + "','"
-                        + modelo_vehiculo[i][0] + "','"
-                        + modelo_vehiculo[i][1] + "','"
-                        + modelo_vehiculo[i][2] + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            for (Integer i = 0; i < modelo_otros.length; i++) {
-                cadenasql = "insert into juicio_otros (juicio, correlativo, otros, medida, deligenciado) values ('"
-                        + id_juicio + "','"
-                        + i.toString() + "','"
-                        + modelo_otros[i][0] + "','"
-                        + modelo_otros[i][1] + "','"
-                        + modelo_otros[i][2] + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Juicio: " + id_juicio + " Deudor: " + deudor + " juzgado: " + juzgado.toString() + " fecha " + fecha_juicio + " no_juicio: " + no_juicio + " monto: " + monto.toString() + " notificador: " + notificador + " abogado_deudor: " + abogado_deudor + " sumario: " + sumario + " memorial: " + fecha_memorial + " fecha_adminision_demanda: " + fecha_admision + " deudor_notificado: " + deudor_notificado + " fecha_notificacion: " + fecha_noti + " depositario: " + depositario + " tiempo_estamado: " + tiempo_estimado + "',"
-                    + "91" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Juicio modificado en el sistema.";
+            Juicio juicio = new Juicio();
+            resultado = juicio.juicio_modificar(usuario_sys, id_juicio, deudor, juzgado, fecha, no_juicio, monto, descripcion, modelo_arraigo, modelo_banco, modelo_finca, modelo_salario, modelo_vehiculo, modelo_otros, procurador, razon_notificacion, notificador, abogado_deudor, sumario, memorial, procuracion, fecha_admision_demanda, deudor_notificado, fecha_notificacion, depositario, tiempo_estimado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_juicio
      * @param poolConexion
@@ -4557,54 +2415,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_juicio") Integer id_juicio,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from juicio where juicio=" + id_juicio;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "JUICIO: " + id_juicio + "',"
-                    + "92" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Juicio eliminado en el sistema.";
+            Juicio juicio = new Juicio();
+            resultado = juicio.juicio_eliminar(usuario_sys, id_juicio, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param tipo_descuento
@@ -4624,64 +2446,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha.get(Calendar.DATE);
-            Integer mes = fecha.get(Calendar.MONTH) + 1;
-            Integer ano = fecha.get(Calendar.YEAR);
-            String fecha_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "insert into descuento (deudor, tipo_descuento, fecha, monto, descripcion) values ('"
-                    + deudor.toString() + "','"
-                    + tipo_descuento.toString() + "','"
-                    + fecha_i + "','"
-                    + monto.toString() + "','"
-                    + descripcion + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Descuento:= Deudor: " + deudor + " fecha_pago: " + fecha_i + " monto: " + monto.toString() + "',"
-                    + "93" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Descuento registrado en el sistema.";
+            Descuento descuento = new Descuento();
+            resultado = descuento.descuento_insertar(usuario_sys, deudor, tipo_descuento, fecha, monto, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_descuento
      * @param deudor
@@ -4703,65 +2479,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha.get(Calendar.DATE);
-            Integer mes = fecha.get(Calendar.MONTH) + 1;
-            Integer ano = fecha.get(Calendar.YEAR);
-            String fecha_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update descuento set "
-                    + "deudor='" + deudor.toString() + "', "
-                    + "tipo_descuento='" + tipo_descuento.toString() + "', "
-                    + "fecha='" + fecha_i + "', "
-                    + "monto='" + monto + "', "
-                    + "descripcion='" + descripcion + "' "
-                    + "where descuento=" + id_descuento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Descuento: " + id_descuento + " Deudor: " + deudor + " fecha_pago: " + fecha_i + " monto: " + monto.toString() + "',"
-                    + "94" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Descuento modificado en el sistema.";
+            Descuento descuento = new Descuento();
+            resultado = descuento.descuento_modificar(usuario_sys, id_descuento, deudor, tipo_descuento, fecha, monto, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_descuento
      * @param poolConexion
@@ -4773,54 +2502,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_descuento") Integer id_descuento,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from descuento where descuento=" + id_descuento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "DESCUENTO: " + id_descuento + "',"
-                    + "95" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Descuento eliminado en el sistema.";
+            Descuento descuento = new Descuento();
+            resultado = descuento.descuento_eliminar(usuario_sys, id_descuento, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Descuento_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param tipo_aumento
@@ -4840,64 +2533,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha.get(Calendar.DATE);
-            Integer mes = fecha.get(Calendar.MONTH) + 1;
-            Integer ano = fecha.get(Calendar.YEAR);
-            String fecha_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "insert into aumento (deudor, tipo_aumento, fecha, monto, descripcion) values ('"
-                    + deudor.toString() + "','"
-                    + tipo_aumento.toString() + "','"
-                    + fecha_i + "','"
-                    + monto.toString() + "','"
-                    + descripcion + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Aumento:= Deudor: " + deudor + " fecha_pago: " + fecha_i + " monto: " + monto.toString() + "',"
-                    + "96" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Aumento registrado en el sistema.";
+            Aumento aumento = new Aumento();
+            resultado = aumento.aumento_insertar(usuario_sys, deudor, tipo_aumento, fecha, monto, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_aumento
      * @param deudor
@@ -4919,65 +2566,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha.get(Calendar.DATE);
-            Integer mes = fecha.get(Calendar.MONTH) + 1;
-            Integer ano = fecha.get(Calendar.YEAR);
-            String fecha_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update aumento set "
-                    + "deudor='" + deudor.toString() + "', "
-                    + "tipo_aumento='" + tipo_aumento.toString() + "', "
-                    + "fecha='" + fecha_i + "', "
-                    + "monto='" + monto + "', "
-                    + "descripcion='" + descripcion + "' "
-                    + "where aumento=" + id_aumento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Aumento: " + id_aumento + " Deudor: " + deudor + " fecha_pago: " + fecha_i + " monto: " + monto.toString() + "',"
-                    + "97" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Aumento modificado en el sistema.";
+            Aumento aumento = new Aumento();
+            resultado = aumento.aumento_modificar(usuario_sys, id_aumento, deudor, tipo_aumento, fecha, monto, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_aumento
      * @param poolConexion
@@ -4989,54 +2589,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_aumento") Integer id_aumento,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from aumento where aumento=" + id_aumento;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "AUMENTO: " + id_aumento + "',"
-                    + "98" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Aumento eliminado en el sistema.";
+            Aumento aumento = new Aumento();
+            resultado = aumento.aumento_eliminar(usuario_sys, id_aumento, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Aumento_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param dpi
@@ -5078,91 +2642,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_nacimiento.get(Calendar.DATE);
-            Integer mes = fecha_nacimiento.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_nacimiento.get(Calendar.YEAR);
-            String fecha = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "insert into fiador ("
-                    + "deudor,"
-                    + "dpi,"
-                    + "nit,"
-                    + "fecha_nacimiento,"
-                    + "nombre,"
-                    + "nacionalidad,"
-                    + "telefono,"
-                    + "direccion,"
-                    + "zona,"
-                    + "pais,"
-                    + "departamento,"
-                    + "sexo,"
-                    + "estado_civil,"
-                    + "profesion,"
-                    + "correo_electronico,"
-                    + "descripcion) values ('"
-                    + deudor.toString() + "','"
-                    + dpi + "','"
-                    + nit + "','"
-                    + fecha + "','"
-                    + nombre + "','"
-                    + nacionalidad + "','"
-                    + telefono + "','"
-                    + direccion + "','"
-                    + zona.toString() + "','"
-                    + pais + "','"
-                    + departamento + "','"
-                    + sexo + "','"
-                    + estado_civil + "','"
-                    + profesion + "','"
-                    + correo_electronico + "','"
-                    + descripcion + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Fiador registrado=> Deudor: " + deudor + " dpi:" + dpi + " nit:" + nit + "',"
-                    + "99" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Fiador registrado en el sistema.";
+            Fiador fiador = new Fiador();
+            resultado = fiador.fiador_insertar(usuario_sys, deudor, dpi, nit, fecha_nacimiento, nombre, nacionalidad, telefono, direccion, zona, pais, departamento, sexo, estado_civil, profesion, correo_electronico, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_fiador
      * @param deudor
@@ -5206,76 +2697,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_nacimiento.get(Calendar.DATE);
-            Integer mes = fecha_nacimiento.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_nacimiento.get(Calendar.YEAR);
-            String fecha = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update fiador set "
-                    + "deudor='" + deudor + "', "
-                    + "dpi='" + dpi + "', "
-                    + "nit='" + nit + "', "
-                    + "fecha_nacimiento='" + fecha + "', "
-                    + "nombre='" + nombre + "', "
-                    + "nacionalidad='" + nacionalidad + "', "
-                    + "telefono='" + telefono + "', "
-                    + "direccion='" + direccion + "', "
-                    + "zona='" + zona + "', "
-                    + "pais='" + pais + "', "
-                    + "departamento='" + departamento + "', "
-                    + "sexo='" + sexo + "', "
-                    + "estado_civil='" + estado_civil + "', "
-                    + "profesion='" + profesion + "', "
-                    + "correo_electronico='" + correo_electronico + "', "
-                    + "descripcion='" + descripcion + "' "
-                    + "where fiador=" + id_fiador;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Aumento: " + id_fiador + " Deudor: " + deudor + " dpi:" + dpi + " nit:" + nit + "',"
-                    + "100" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Aumento modificado en el sistema.";
+            Fiador fiador = new Fiador();
+            resultado = fiador.fiador_modificar(usuario_sys, id_fiador, deudor, dpi, nit, fecha_nacimiento, nombre, nacionalidad, telefono, direccion, zona, pais, departamento, sexo, estado_civil, profesion, correo_electronico, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_fiador
      * @param poolConexion
@@ -5287,54 +2720,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_fiador") Integer id_fiador,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from fiador where fiador=" + id_fiador;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "FIADOR: " + id_fiador + "',"
-                    + "101" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Fiador eliminado en el sistema.";
+            Fiador fiador = new Fiador();
+            resultado = fiador.fiador_eliminar(usuario_sys, id_fiador, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Fiador_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param dpi
@@ -5376,91 +2773,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_nacimiento.get(Calendar.DATE);
-            Integer mes = fecha_nacimiento.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_nacimiento.get(Calendar.YEAR);
-            String fecha = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "insert into referencia ("
-                    + "deudor,"
-                    + "dpi,"
-                    + "nit,"
-                    + "fecha_nacimiento,"
-                    + "nombre,"
-                    + "nacionalidad,"
-                    + "telefono,"
-                    + "direccion,"
-                    + "zona,"
-                    + "pais,"
-                    + "departamento,"
-                    + "sexo,"
-                    + "estado_civil,"
-                    + "profesion,"
-                    + "correo_electronico,"
-                    + "descripcion) values ('"
-                    + deudor.toString() + "','"
-                    + dpi + "','"
-                    + nit + "','"
-                    + fecha + "','"
-                    + nombre + "','"
-                    + nacionalidad + "','"
-                    + telefono + "','"
-                    + direccion + "','"
-                    + zona.toString() + "','"
-                    + pais + "','"
-                    + departamento + "','"
-                    + sexo + "','"
-                    + estado_civil + "','"
-                    + profesion + "','"
-                    + correo_electronico + "','"
-                    + descripcion + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Referencia registrado=> Deudor: " + deudor + " dpi:" + dpi + " nit:" + nit + "',"
-                    + "102" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Referencia registrada en el sistema.";
+            Referencia referencia = new Referencia();
+            resultado = referencia.referencia_insertar(usuario_sys, deudor, dpi, nit, fecha_nacimiento, nombre, nacionalidad, telefono, direccion, zona, pais, departamento, sexo, estado_civil, profesion, correo_electronico, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_referencia
      * @param deudor
@@ -5504,76 +2828,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion") String descripcion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_nacimiento.get(Calendar.DATE);
-            Integer mes = fecha_nacimiento.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_nacimiento.get(Calendar.YEAR);
-            String fecha = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update referencia set "
-                    + "deudor='" + deudor + "', "
-                    + "dpi='" + dpi + "', "
-                    + "nit='" + nit + "', "
-                    + "fecha_nacimiento='" + fecha + "', "
-                    + "nombre='" + nombre + "', "
-                    + "nacionalidad='" + nacionalidad + "', "
-                    + "telefono='" + telefono + "', "
-                    + "direccion='" + direccion + "', "
-                    + "zona='" + zona + "', "
-                    + "pais='" + pais + "', "
-                    + "departamento='" + departamento + "', "
-                    + "sexo='" + sexo + "', "
-                    + "estado_civil='" + estado_civil + "', "
-                    + "profesion='" + profesion + "', "
-                    + "correo_electronico='" + correo_electronico + "', "
-                    + "descripcion='" + descripcion + "' "
-                    + "where referencia=" + id_referencia;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Referencia: " + id_referencia + " Deudor: " + deudor + " dpi:" + dpi + " nit:" + nit + "',"
-                    + "103" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Referencia modificada en el sistema.";
+            Referencia referencia = new Referencia();
+            resultado = referencia.referencia_modificar(usuario_sys, id_referencia, deudor, dpi, nit, fecha_nacimiento, nombre, nacionalidad, telefono, direccion, zona, pais, departamento, sexo, estado_civil, profesion, correo_electronico, descripcion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_referencia
      * @param poolConexion
@@ -5585,54 +2851,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_referencia") Integer id_referencia,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from referencia where referencia=" + id_referencia;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "REFERENCIA: " + id_referencia + "',"
-                    + "104" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Referencia eliminada en el sistema.";
+            Referencia referencia = new Referencia();
+            resultado = referencia.referencia_eliminar(usuario_sys, id_referencia, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Referencia_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param actor
@@ -5714,109 +2944,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "anticipo") String anticipo,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_nacimiento.get(Calendar.DATE);
-            Integer mes = fecha_nacimiento.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_nacimiento.get(Calendar.YEAR);
-            String fecha_nac = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_recepcion.get(Calendar.DATE);
-            mes = fecha_recepcion.get(Calendar.MONTH) + 1;
-            ano = fecha_recepcion.get(Calendar.YEAR);
-            String fecha_rec = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_proximo_pago.get(Calendar.DATE);
-            mes = fecha_proximo_pago.get(Calendar.MONTH) + 1;
-            ano = fecha_proximo_pago.get(Calendar.YEAR);
-            String fecha_prox_pago = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            if (opcion_proximo_pago.equals("NO")) {
-                cuota_convenio = 0.00;
-                fecha_prox_pago = "1900/01/01";
-            }
-
-            String cadenasql = "update deudor set "
-                    + "actor='" + actor + "', "
-                    + "dpi='" + dpi + "', "
-                    + "nit='" + nit + "', "
-                    + "fecha_nacimiento='" + fecha_nac + "', "
-                    + "nombre='" + nombre + "', "
-                    + "telefono_casa='" + telefono_casa + "', "
-                    + "telefono_celular='" + telefono_celular + "', "
-                    + "direccion='" + direccion + "', "
-                    + "moneda='" + moneda + "', "
-                    + "fecha_recepcion='" + fecha_rec + "', "
-                    + "correo_electronico='" + correo_electronico + "', "
-                    + "lugar_trabajo='" + lugar_trabajo + "', "
-                    + "direccion_trabajo='" + direccion_trabajo + "', "
-                    + "telefono_trabajo='" + telefono_trabajo + "', "
-                    + "monto_inicial='" + monto_inicial + "', "
-                    + "usuario='" + gestor + "', "
-                    + "sestado='" + sestado + "', "
-                    + "estatus='" + estatus + "', "
-                    + "no_cuenta='" + no_cuenta + "', "
-                    + "garantia='" + garantia + "', "
-                    + "cargado='" + cargado + "', "
-                    + "PDF='" + PDF + "', "
-                    + "INV='" + INV + "', "
-                    + "MAYCOM='" + MAYCOM + "', "
-                    + "NITS='" + NITS + "', "
-                    + "saldo='" + saldo + "', "
-                    + "caso='" + caso + "', "
-                    + "convenio_pactado='" + convenio_pactado + "', "
-                    + "cuota_convenio='" + cuota_convenio + "', "
-                    + "no_cuenta_otro='" + no_cuenta_otro + "', "
-                    + "situacion_caso='" + situacion_caso + "', "
-                    + "opcion_proximo_pago='" + opcion_proximo_pago + "', "
-                    + "fecha_proximo_pago='" + fecha_prox_pago + "', "
-                    + "anticipo='" + anticipo + "' "
-                    + "where deudor=" + deudor.toString();
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Expediente Deudor Modificar=> Deudor: " + deudor + " Actor: " + actor + " Moneda: " + moneda + " dpi:" + dpi + " nit:" + nit + " PDF: " + PDF + " INV: " + INV + " MAYCOM: " + MAYCOM + " NITS: " + NITS + " Anticipo: " + anticipo + "',"
-                    + "105" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "EXITO";
+            Expediente Expediente = new Expediente();
+            resultado = Expediente.Modificar_Deudor_Expediente(usuario_sys, deudor, actor, moneda, dpi, nit, fecha_nacimiento, nombre, telefono_casa, telefono_celular, direccion, fecha_recepcion, correo_electronico, lugar_trabajo, direccion_trabajo, telefono_trabajo, monto_inicial, gestor, sestado, estatus, no_cuenta, garantia, cargado, estado, PDF, INV, MAYCOM, NITS, saldo, fecha_proximo_pago, caso, convenio_pactado, cuota_convenio, no_cuenta_otro, situacion_caso, opcion_proximo_pago, anticipo, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Modificar_Deudor_Expediente): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Modificar_Deudor_Expediente - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Modificar_Deudor_Expediente): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param juicio
@@ -5856,84 +2995,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "monto") Double monto,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha.get(Calendar.DATE);
-            Integer mes = fecha.get(Calendar.MONTH) + 1;
-            Integer ano = fecha.get(Calendar.YEAR);
-            String fecha_juicio = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = memorial.get(Calendar.DATE);
-            mes = memorial.get(Calendar.MONTH) + 1;
-            ano = memorial.get(Calendar.YEAR);
-            String fecha_memorial = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_notificacion.get(Calendar.DATE);
-            mes = fecha_notificacion.get(Calendar.MONTH) + 1;
-            ano = fecha_notificacion.get(Calendar.YEAR);
-            String fecha_noti = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update juicio set "
-                    + "deudor='" + deudor + "', "
-                    + "juzgado='" + juzgado + "', "
-                    + "fecha='" + fecha_juicio + "', "
-                    + "no_juicio='" + no_juicio + "', "
-                    + "procurador='" + procurador.toString() + "', "
-                    + "razon_notificacion='" + razon_notificacion + "', "
-                    + "notificador='" + notificador.toString() + "', "
-                    + "abogado_deudor='" + abogado_deudor + "', "
-                    + "sumario='" + sumario + "', "
-                    + "procuracion='" + procuracion + "', "
-                    + "deudor_notificado='" + deudor_notificado + "', "
-                    + "fecha_notificacion='" + fecha_noti + "', "
-                    + "memorial='" + fecha_memorial + "', "
-                    + "monto='" + monto + "' "
-                    + "where juicio=" + juicio;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Expediente Juicio Modificar=>  Deudor: " + deudor + " juzgado: " + juzgado.toString() + " fecha " + fecha_juicio + " no_juicio: " + no_juicio + " notificador: " + notificador + " abogado_deudor: " + abogado_deudor + " sumario: " + sumario + " memorial: " + fecha_memorial + " Procuración: " + procuracion + "',"
-                    + "106" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "EXITO";
+            Expediente Expediente = new Expediente();
+            resultado = Expediente.Modificar_Juicio_Expediente(usuario_sys, deudor, juicio, procurador, juzgado, fecha, razon_notificacion, no_juicio, notificador, abogado_deudor, sumario, memorial, procuracion, deudor_notificado, fecha_notificacion, monto, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Modificar_Juicio_Expediente): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Modificar_Juicio_Expediente - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Modificar_Juicio_Expediente): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param poolConexion
@@ -5945,70 +3018,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "deudor") Integer deudor,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String[][] resultado = null;
-
         try {
-            String servidor = "";
-            String cadenasql_1 = "select c.valor from constantes c where c.constantes=2";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql_1);
-            while (rs.next()) {
-                servidor = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
-            String carpeta = "";
-            String cadenasql_2 = "select a.digitalizados from actor a left join deudor d on (a.actor=d.actor) where d.deudor=" + deudor;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql_2);
-            while (rs.next()) {
-                carpeta = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
-            String caso = "";
-            String cadenasql_3 = "select d.caso from deudor d where d.deudor=" + deudor;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql_3);
-            while (rs.next()) {
-                caso = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
-            String Directorio = servidor + "/" + carpeta + "/" + caso + "/";
-            SmbFile f = new SmbFile(Directorio);
-            if (f.exists()) {
-                SmbFile[] ficheros = f.listFiles();
-                resultado = new String[ficheros.length][3];
-                for (Integer i = 0; i < ficheros.length; i++) {
-                    resultado[i][0] = i.toString();
-                    resultado[i][1] = ficheros[i].getName();
-                    resultado[i][2] = ficheros[i].getPath();
-                }
-            } else {
-                resultado = new String[1][1];
-                resultado[0][0] = "*** ERROR: NO EXISTE DIRECTORIO ***";
-            }
-
+            Expediente Expediente = new Expediente();
+            resultado = Expediente.Lista_Archivos_Digitalizados(usuario_sys, deudor, poolConexion);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Lista_Archivos_Digitalizados): " + ex.toString());
-            resultado = new String[1][1];
-            resultado[0][0] = "*** ERROR *** : " + ex.toString();
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param usuario
      * @param menus_no_asignados
@@ -6024,83 +3045,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "menus_asignados") String[] menus_asignados,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            for (Integer i = 0; i < menus_no_asignados.length; i++) {
-                String cadenasql = "select m.menu from menu m where m.nombre='" + menus_no_asignados[i] + "'";
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(cadenasql);
-                Integer menu = 0;
-                while (rs.next()) {
-                    menu = rs.getInt(1);
-                }
-                rs.close();
-                stmt.close();
-
-                cadenasql = "update permiso_usuario_uno set ver='NO' where usuario=" + usuario + " and menu=" + menu;
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            for (Integer i = 0; i < menus_asignados.length; i++) {
-                String cadenasql = "select m.menu from menu m where m.nombre='" + menus_asignados[i] + "'";
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(cadenasql);
-                Integer menu = 0;
-                while (rs.next()) {
-                    menu = rs.getInt(1);
-                }
-                rs.close();
-                stmt.close();
-
-                cadenasql = "update permiso_usuario_uno set ver='SI' where usuario=" + usuario + " and menu=" + menu;
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            String cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Permisos Usuario Uno Modificar=>  usuario: " + usuario + "',"
-                    + "108" + ")";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Permisos del usuario modificados.";
+            Usuario usuario_entidad = new Usuario();
+            resultado = usuario_entidad.Permisos_Usuario_Uno_Modificar(usuario_sys, usuario_sys, menus_no_asignados, menus_asignados, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Uno_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Uno_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Uno_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param usuario
      * @param menu
@@ -6123,61 +3079,19 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "activar") String activar,
             @WebParam(name = "ver") String ver,
             @WebParam(name = "poolConexion") String poolConexion) {
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
+        
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update permiso_usuario set "
-                    + "nuevo='" + nuevo + "', "
-                    + "modificar='" + modificar + "', "
-                    + "eliminar='" + eliminar + "', "
-                    + "activar='" + modificar + "', "
-                    + "ver='" + ver + "' "
-                    + "where usuario=" + usuario + " and "
-                    + " menu = " + menu;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Permiso Modificar=>  usuario: " + usuario + " menu: " + menu + " nuevo: '" + nuevo + "' modificar: '" + modificar + "' eliminar: '" + eliminar + "' activar: '" + activar + "' ver :'" + ver + "'   "
-                    + "108" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "EXITO";
+            Usuario usuario_entidad = new Usuario();
+            resultado = usuario_entidad.Permisos_Usuario_Modificar(usuario_sys, usuario, menu, nuevo, modificar, eliminar, activar, ver, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -6191,57 +3105,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into sestado_extra (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "112" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado extrajudicial registrado en el sistema.";
+            Estado_Extrajudicial estado_extrajudicial = new Estado_Extrajudicial();
+            resultado = estado_extrajudicial.estado_extrajudicial_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_sestado
      * @param nombre_d
@@ -6257,57 +3132,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update sestado_extra set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where sestado_extra=" + id_sestado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Estado: " + id_sestado + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "113" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado extrajudicial modificado en el sistema.";
+            Estado_Extrajudicial estado_extrajudicial = new Estado_Extrajudicial();
+            resultado = estado_extrajudicial.estado_extrajudicial_modificar(usuario_sys, id_sestado, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_sestado
      * @param poolConexion
@@ -6319,56 +3155,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_sestado") Integer id_sestado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update sestado_extra set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where sestado_extra=" + id_sestado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "ESTADO: " + id_sestado + "',"
-                    + "114" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado extrajudicial eliminado en el sistema.";
+            Estado_Extrajudicial estado_extrajudicial = new Estado_Extrajudicial();
+            resultado = estado_extrajudicial.estado_extrajudicial_eliminar(usuario_sys, id_sestado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_sestado
      * @param poolConexion
@@ -6380,56 +3178,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_sestado") Integer id_sestado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update sestado_extra set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where sestado_extra=" + id_sestado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "ESTADO: " + id_sestado + "',"
-                    + "115" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado extrajudicial activado en el sistema.";
+            Estado_Extrajudicial estado_extrajudicial = new Estado_Extrajudicial();
+            resultado = estado_extrajudicial.estado_extrajudicial_activar(usuario_sys, id_sestado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -6443,57 +3203,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into estatus_extra (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "116" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Status extrajudicial registrado en el sistema.";
+            Estatus_Extrajudicial estatus_extrajudicial = new Estatus_Extrajudicial();
+            resultado = estatus_extrajudicial.estatus_extrajudicial_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(StatusExtra_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(StatusExtra_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_estatus
      * @param nombre_d
@@ -6509,57 +3230,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update estatus_extra set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where estatus_extra=" + id_estatus;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Status: " + id_estatus + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "117" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Status extrajudicial modificado en el sistema.";
+            Estatus_Extrajudicial estatus_extrajudicial = new Estatus_Extrajudicial();
+            resultado = estatus_extrajudicial.estatus_extrajudicial_modificar(usuario_sys, id_estatus, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(StatusExtra_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(StatusExtra_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_estatus
      * @param poolConexion
@@ -6571,56 +3253,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_estatus") Integer id_estatus,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update estatus_extra set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where estatus_extra=" + id_estatus;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "STATUS: " + id_estatus + "',"
-                    + "118" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Status extrajudicial eliminado en el sistema.";
+            Estatus_Extrajudicial estatus_extrajudicial = new Estatus_Extrajudicial();
+            resultado = estatus_extrajudicial.estatus_extrajudicial_eliminar(usuario_sys, id_estatus, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(StatusExtra_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(StatusExtra_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_estatus
      * @param poolConexion
@@ -6632,56 +3276,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_estatus") Integer id_estatus,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update estatus_extra set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where estatus_extra=" + id_estatus;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "STATUS: " + id_estatus + "',"
-                    + "119" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Status extrajudicial activado en el sistema.";
+            Estatus_Extrajudicial estatus_extrajudicial = new Estatus_Extrajudicial();
+            resultado = estatus_extrajudicial.estatus_extrajudicial_activar(usuario_sys, id_estatus, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(StatusExtra_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(StatusExtra_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(EstadoExtra_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param estado_d
      * @param estatus
@@ -6695,61 +3301,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "estatus") Integer[] estatus,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from estado_status_judicial where sestado=" + estado_d;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            for (Integer i = 0; i < estatus.length; i++) {
-                cadenasql = "insert into estado_status_judicial (sestado,estatus) values (" + estado_d + "," + estatus[i].toString() + ")";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "ESTADO: " + estado_d + "',"
-                    + "120" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado-Status judicial guardado en el sistema.";
+            Estado_Estatus_Judicial estado_estatus_judicial = new Estado_Estatus_Judicial();
+            resultado = estado_estatus_judicial.Estado_Status_Judicial(usuario_sys, estado_d, estatus, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Judicial): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Judicial - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Judicial): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param estado_d
      * @param estatus
@@ -6763,61 +3326,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "estatus") Integer[] estatus,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from estado_status_extrajudicial where sestado_extra=" + estado_d;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            for (Integer i = 0; i < estatus.length; i++) {
-                cadenasql = "insert into estado_status_extrajudicial (sestado_extra,estatus_extra) values (" + estado_d + "," + estatus[i].toString() + ")";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "ESTADO: " + estado_d + "',"
-                    + "121" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Estado-Status extrajudicial guardado en el sistema.";
+            Estado_Estatus_Extrajudicial estado_estatus_extrajudicial = new Estado_Estatus_Extrajudicial();
+            resultado = estado_estatus_extrajudicial.Estado_Status_Extrajudicial(usuario_sys, estado_d, estatus, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Extrajudicial): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Extrajudicial - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Extrajudicial): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param estado_estatus
      * @param poolConexion
@@ -6828,57 +3348,19 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "usuario_sys") Integer usuario_sys,
             @WebParam(name = "estatus") String[] estado_estatus,
             @WebParam(name = "poolConexion") String poolConexion) {
-
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
+        
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            for (Integer i = 0; i < estado_estatus.length; i++) {
-                String[] registro = estado_estatus[i].split(",");
-                String cadenasql = "update estado_status_extrajudicial set permite_estado_judicial=" + registro[2] + " where sestado_extra=" + registro[0] + " and estatus_extra=" + registro[1];
-                Statement stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            String cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "MODIFICACION ESTADO-STATUS PERMITE" + "',"
-                    + "122" + ")";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Configuración bloqueo Estado-Status extrajudicial guardado en el sistema.";
+            Estado_Estatus_Extrajudicial estado_estatus_extrajudicial = new Estado_Estatus_Extrajudicial();
+            resultado = estado_estatus_extrajudicial.Estado_Status_Extra_Permite(usuario_sys, estado_estatus, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Extra_Permite): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Extra_Permite - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Estado_Status_Extra_Permite): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param constantes
      * @param poolConexion
@@ -6890,61 +3372,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "constantes") String[] constantes,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            for (Integer i = 0; i < constantes.length; i++) {
-                String[] constante = constantes[i].split(",");
-
-                if (constante[0].trim().equals("1")) {
-                    constante[1] = "\\\\\\\\192.168.2.1\\\\discodered\\\\EXPEDIENTES ELECTRONICO";
-                }
-
-                String cadenasql = "update constantes set valor='" + constante[1] + "' where constantes=" + constante[0];
-                Statement stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            String cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "CONSTANTES MODIFICACION" + "',"
-                    + "123" + ")";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Constantes modificadas en el sistema.";
+            Constantes constantes_entidad = new Constantes();
+            resultado = constantes_entidad.Constantes_Modificar(usuario_sys, constantes, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Constantes_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Constantes_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Constantes_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -6958,57 +3397,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into tipo_codigo_contactabilidad (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "124" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo codigo de resultado registrado en el sistema.";
+            Tipo_Codigo_Resultado tipo_codigo_resultado = new Tipo_Codigo_Resultado();
+            resultado = tipo_codigo_resultado.tipo_codigo_resultado_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_codigo_contactabilidad
      * @param nombre_d
@@ -7024,57 +3424,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_codigo_contactabilidad set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where tipo_codigo_contactabilidad=" + id_tipo_codigo_contactabilidad;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Tipo_Codigo_Resultado: " + id_tipo_codigo_contactabilidad + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "125" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo codigo de resultado modificado en el sistema.";
+            Tipo_Codigo_Resultado tipo_codigo_resultado = new Tipo_Codigo_Resultado();
+            resultado = tipo_codigo_resultado.tipo_codigo_resultado_modificar(usuario_sys, id_tipo_codigo_contactabilidad, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_codigo_contactabilidad
      * @param poolConexion
@@ -7086,56 +3447,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_codigo_contactabilidad") Integer id_tipo_codigo_contactabilidad,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_codigo_contactabilidad set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where tipo_codigo_contactabilidad=" + id_tipo_codigo_contactabilidad;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "TIPO CODIGO RESULTADO: " + id_tipo_codigo_contactabilidad + "',"
-                    + "126" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo codigo de resultado eliminado en el sistema.";
+            Tipo_Codigo_Resultado tipo_codigo_resultado = new Tipo_Codigo_Resultado();
+            resultado = tipo_codigo_resultado.tipo_codigo_resultado_eliminar(usuario_sys, id_tipo_codigo_contactabilidad, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_tipo_codigo_contactabilidad
      * @param poolConexion
@@ -7147,56 +3470,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_tipo_codigo_contactabilidad") Integer id_tipo_codigo_contactabilidad,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update tipo_codigo_contactabilidad set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where tipo_codigo_contactabilidad=" + id_tipo_codigo_contactabilidad;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "TIPO_CODIGO_RESULTADO: " + id_tipo_codigo_contactabilidad + "',"
-                    + "127" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Tipo codigo de resultado activado en el sistema.";
+            Tipo_Codigo_Resultado tipo_codigo_resultado = new Tipo_Codigo_Resultado();
+            resultado = tipo_codigo_resultado.tipo_codigo_resultado_activar(usuario_sys, id_tipo_codigo_contactabilidad, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param tipo_codigo_resultado
      * @param codigo_resultado
@@ -7210,61 +3495,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "codigo_resultado") Integer[] codigo_resultado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from tipo_codigo_codigo where tipo_codigo_contactabilidad=" + tipo_codigo_resultado;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            for (Integer i = 0; i < codigo_resultado.length; i++) {
-                cadenasql = "insert into tipo_codigo_codigo (tipo_codigo_contactabilidad,codigo_contactabilidad) values (" + tipo_codigo_resultado + "," + codigo_resultado[i].toString() + ")";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "TIPO_CODIGO_RESULTADO: " + tipo_codigo_resultado + "',"
-                    + "128" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "TipoCodigoResultado-CodigoResultado guardado en el sistema.";
+            Tipo_Codigo_Resultado_Codigo_Resultado tipo_codigo_resultado_codigo_resultado = new Tipo_Codigo_Resultado_Codigo_Resultado();
+            resultado = tipo_codigo_resultado_codigo_resultado.Tipo_Codigo_Resultado_Codigo_Resultado(usuario_sys, tipo_codigo_resultado, codigo_resultado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(TipoCodigo_Codigo_Resultado): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(TipoCodigo_Codigo_Resultado - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_usuario
      * @param contrasena_vieja
@@ -7280,58 +3522,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "contrasena_nueva") String contrasena_nueva,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-        String cadenasql = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            cadenasql = "update usuario set "
-                    + "reinicio=1, "
-                    + "contrasena='" + contrasena_nueva + "' "
-                    + "where usuario=" + id_usuario;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Usuario: " + id_usuario + "contraseña_antigua: " + contrasena_vieja + "',"
-                    + "129)";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Contraseña reiniciada.";
+            Usuario usuario = new Usuario();
+            resultado = usuario.Reiniciar_Contrasena(usuario_sys, id_usuario, contrasena_vieja, contrasena_nueva, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Reiniciar_Contrasena): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString() + " " + cadenasql;
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Reiniciar_Contrasena - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Reiniciar_Contrasena): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param usuario
      * @param menus_no_asignados
@@ -7347,83 +3549,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "menus_asignados") String[] menus_asignados,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            for (Integer i = 0; i < menus_no_asignados.length; i++) {
-                String cadenasql = "select m.menu from menu m where m.nombre='" + menus_no_asignados[i] + "'";
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(cadenasql);
-                Integer menu = 0;
-                while (rs.next()) {
-                    menu = rs.getInt(1);
-                }
-                rs.close();
-                stmt.close();
-
-                cadenasql = "update rol_menu set ver='NO' where rol=" + usuario + " and menu=" + menu;
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            for (Integer i = 0; i < menus_asignados.length; i++) {
-                String cadenasql = "select m.menu from menu m where m.nombre='" + menus_asignados[i] + "'";
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(cadenasql);
-                Integer menu = 0;
-                while (rs.next()) {
-                    menu = rs.getInt(1);
-                }
-                rs.close();
-                stmt.close();
-
-                cadenasql = "update rol_menu set ver='SI' where rol=" + usuario + " and menu=" + menu;
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            String cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Rol Menu Modificar=>  usuario: " + usuario + "',"
-                    + "130" + ")";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Permisos del Rol modificados.";
+            Rol rol = new Rol();
+            resultado = rol.Permisos_Rol_Modificar(usuario_sys, usuario, menus_no_asignados, menus_asignados, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Rol_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Rol_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Rol_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -7437,78 +3574,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into rol (nombre,descripcion) values ('"
-                    + nombre_d + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "select max(rol) from rol";
-            int rolact = 0;
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                rolact = rs.getInt(1);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "select m.menu from menu m ";
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-
-            while (rs.next()) {
-                cadenasql = "insert into rol_menu (rol,menu,ver) values ('" + rolact + "','" + rs.getString(1) + "','NO')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-            }
-            rs.close();
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "131" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Rol registrado en el sistema.";
+            Rol rol = new Rol();
+            resultado = rol.rol_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Rol_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Rol_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Rol_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_rol
      * @param nombre_d
@@ -7524,57 +3601,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update rol set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where rol=" + id_rol;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Rol: " + id_rol + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "132" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Rol modificado en el sistema.";
+            Rol rol = new Rol();
+            resultado = rol.rol_modificar(usuario_sys, id_rol, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Rol_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Rol_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Rol_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_rol
      * @param poolConexion
@@ -7586,49 +3624,12 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_rol") Integer id_rol,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update rol set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where juzgado=" + id_rol;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "JUZGADO: " + id_rol + "',"
-                    + "133" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Rol eliminado en el sistema.";
+            Rol rol = new Rol();
+            resultado = rol.rol_eliminar(usuario_sys, id_rol, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Rol_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Rol_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Rol_Eliminar): " + ex.toString());
         }
 
         return resultado;
@@ -7662,64 +3663,12 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "nits") String nits,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            cargado = driver.quitar_simbolos(cargado);
-            anticipo = driver.quitar_simbolos(anticipo);
-            pdf = driver.quitar_simbolos(pdf);
-            inv = driver.quitar_simbolos(inv);
-            maycom = driver.quitar_simbolos(maycom);
-            nits = driver.quitar_simbolos(nits);
-
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update deudor set "
-                    + "garantia=" + garantia + ", "
-                    + "cargado='" + cargado + "', "
-                    + "anticipo='" + anticipo + "', "
-                    + "saldo=" + saldo + ", "
-                    + "pdf='" + pdf + "', "
-                    + "inv='" + inv + "', "
-                    + "maycom='" + maycom + "', "
-                    + "nits='" + nits + "' "
-                    + "where "
-                    + "deudor=" + deudor;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Deudor: " + deudor + "|Garantía: " + garantia + "|Cargado: " + cargado + "|Anticipo: " + anticipo + "|Saldo: " + saldo + "|PDF: " + pdf + "|INV: " + inv + "|MAYCOM: " + maycom + "|NITS: " + nits + "',"
-                    + "134" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Expediente-Caso guardado en el sistema.";
+            Expediente expediente = new Expediente();
+            resultado = expediente.Guardar_Expediente_Caso(usuario_sys, deudor, garantia, cargado, anticipo, saldo, pdf, inv, maycom, nits, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Caso): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Caso - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Caso): " + ex.toString());
         }
 
         return resultado;
@@ -7765,179 +3714,12 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "razon_deuda") Integer razon_deuda,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            telefono_casa = driver.quitar_simbolos(telefono_casa);
-            telefono_celular = driver.quitar_simbolos(telefono_celular);
-            correo_electronico = driver.quitar_simbolos(correo_electronico);
-            lugar_trabajo = driver.quitar_simbolos(lugar_trabajo);
-            contacto_trabajo = driver.quitar_simbolos(contacto_trabajo);
-            telefono_trabajo = driver.quitar_simbolos(telefono_trabajo);
-            dpi = driver.quitar_simbolos(dpi);
-            nit = driver.quitar_simbolos(nit);
-            direccion = driver.quitar_simbolos(direccion);
-            notas = driver.quitar_simbolos(notas);
-
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            // **************************** OBTENER ESTADO Y ESTADOS ACTUAL
-            Integer int_estado_judicial_actual = 0;
-            String str_estado_judicial_actual = "";
-            Integer int_status_judicial_actual = 0;
-            String str_status_judicial_actual = "";
-            Integer int_estado_extrajudicial_actual = 0;
-            String str_estado_extrajudicial_actual = "";
-            Integer int_status_extrajudicial_actual = 0;
-            String str_status_extrajudicial_actual = "";
-            String nombre_deudor = "";
-            String cadenasql = "select "
-                    + "d.sestado, "
-                    + "s.nombre, "
-                    + "d.estatus, "
-                    + "e.nombre, "
-                    + "d.sestado_extra, "
-                    + "sx.nombre, "
-                    + "d.estatus_extra, "
-                    + "ex.nombre, "
-                    + "d.nombre "
-                    + "from "
-                    + "deudor d "
-                    + "left join sestado s on (d.sestado=s.sestado) "
-                    + "left join estatus e on (d.estatus=e.estatus) "
-                    + "left join sestado_extra sx on (d.sestado_extra=sx.sestado_extra) "
-                    + "left join estatus_extra ex on (d.estatus_extra=ex.estatus_extra) where d.deudor=" + deudor.toString();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                int_estado_judicial_actual = rs.getInt(1);
-                str_estado_judicial_actual = rs.getString(2);
-                int_status_judicial_actual = rs.getInt(3);
-                str_status_judicial_actual = rs.getString(4);
-                int_estado_extrajudicial_actual = rs.getInt(5);
-                str_estado_extrajudicial_actual = rs.getString(6);
-                int_status_extrajudicial_actual = rs.getInt(7);
-                str_status_extrajudicial_actual = rs.getString(8);
-                nombre_deudor = rs.getString(9);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "update deudor set "
-                    + "sestado_extra=" + estado_extra + ", "
-                    + "estatus_extra=" + status_extra + ", "
-                    + "telefono_casa='" + telefono_casa + "', "
-                    + "telefono_celular='" + telefono_celular + "', "
-                    + "correo_electronico='" + correo_electronico + "', "
-                    + "lugar_trabajo='" + lugar_trabajo + "', "
-                    + "direccion_trabajo='" + contacto_trabajo + "', "
-                    + "telefono_trabajo='" + telefono_trabajo + "', "
-                    + "dpi='" + dpi + "', "
-                    + "nit='" + nit + "', "
-                    + "intencion_pago=" + intension_pago + ", "
-                    + "direccion='" + direccion + "', "
-                    + "descripcion='" + notas + "', "
-                    + "razon_deuda=" + razon_deuda + " "
-                    + "where "
-                    + "deudor=" + deudor;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            String usuario_nombre = "";
-            cadenasql = "select u.nombre from usuario u where u.usuario=" + usuario_sys;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                usuario_nombre = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
-            // **************************** INSERTA EN EL WORKFLOW EXTRAJUDICIAL SI CAMBIARON
-            if (!(estado_extra == int_estado_extrajudicial_actual && status_extra == int_status_extrajudicial_actual)) {
-                String str_sestado_extrajudicial_nuevo = "";
-                cadenasql = "select s.nombre from sestado_extra s where s.sestado_extra=" + estado_extra.toString();
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(cadenasql);
-                while (rs.next()) {
-                    str_sestado_extrajudicial_nuevo = rs.getString(1);
-                }
-                rs.close();
-                stmt.close();
-
-                String str_estatus_extrajudicial_nuevo = "";
-                cadenasql = "select e.nombre from estatus_extra e where e.estatus_extra=" + status_extra.toString();
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(cadenasql);
-                while (rs.next()) {
-                    str_estatus_extrajudicial_nuevo = rs.getString(1);
-                }
-                rs.close();
-                stmt.close();
-
-                cadenasql = "insert into historial_estatus_extra ("
-                        + "fecha, "
-                        + "estatus_extra, "
-                        + "nombre_estatus_extra, "
-                        + "sestado_extra, "
-                        + "nombre_sestado_extra, "
-                        + "antiguo_estatus_extra, "
-                        + "antiguo_nombre_estatus_extra, "
-                        + "antiguo_sestado_extra, "
-                        + "antiguo_nombre_sestado_extra, "
-                        + "deudor, "
-                        + "deudor_nombre, "
-                        + "usuario, "
-                        + "usuario_nombre) values ("
-                        + "NOW()" + ",'"
-                        + status_extra.toString() + "','"
-                        + str_estatus_extrajudicial_nuevo + "','"
-                        + estado_extra.toString() + "','"
-                        + str_sestado_extrajudicial_nuevo + "','"
-                        + int_status_extrajudicial_actual.toString() + "','"
-                        + str_status_extrajudicial_actual + "','"
-                        + int_estado_extrajudicial_actual.toString() + "','"
-                        + str_estado_extrajudicial_actual + "','"
-                        + deudor.toString() + "','"
-                        + nombre_deudor + "','"
-                        + usuario_sys + "','"
-                        + usuario_nombre + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Deudor: " + deudor + "|Estado Extrajudicial: " + estado_extra + "|Status Extrajudicial: " + status_extra + "|Teléfono casa: " + telefono_casa + "|Teléfono celular: " + telefono_celular + "|Correo electrónico: " + correo_electronico + "|Lugar de Trabajo: " + lugar_trabajo + "|Contacto Trabajo: " + contacto_trabajo + "|Teléfono Trabajo: " + telefono_trabajo + "|DPI: " + dpi + "|NIT: " + nit + "|Intensión pago: " + intension_pago + "|Dirección: " + direccion + "|Notas: " + notas + "|Razón deuda: " + razon_deuda + "',"
-                    + "135" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Expediente-Extrajudicial guardado en el sistema.";
+            Expediente expediente = new Expediente();
+            resultado = expediente.Guardar_Expediente_Extrajudicial(usuario_sys, deudor, estado_extra, status_extra, telefono_casa, telefono_celular, correo_electronico, lugar_trabajo, contacto_trabajo, telefono_trabajo, dpi, nit, intension_pago, direccion, notas, razon_deuda, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Extrajudicial): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Extrajudicial - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Extrajudicial): " + ex.toString());
         }
 
         return resultado;
@@ -7987,215 +3769,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "razon_notificacion") String razon_notificacion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            no_juicio = driver.quitar_simbolos(no_juicio);
-            abogado_deudor = driver.quitar_simbolos(abogado_deudor);
-            sumario = driver.quitar_simbolos(sumario);
-            deudor_notificado = driver.quitar_simbolos(deudor_notificado);
-            procuracion = driver.quitar_simbolos(procuracion);
-            situacion_caso = driver.quitar_simbolos(situacion_caso);
-            razon_notificacion = driver.quitar_simbolos(razon_notificacion);
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            // **************************** OBTENER ESTADO Y ESTADOS ACTUAL
-            Integer int_estado_judicial_actual = 0;
-            String str_estado_judicial_actual = "";
-            Integer int_status_judicial_actual = 0;
-            String str_status_judicial_actual = "";
-            Integer int_estado_extrajudicial_actual = 0;
-            String str_estado_extrajudicial_actual = "";
-            Integer int_status_extrajudicial_actual = 0;
-            String str_status_extrajudicial_actual = "";
-            String nombre_deudor = "";
-            String cadenasql = "select "
-                    + "d.sestado, "
-                    + "s.nombre, "
-                    + "d.estatus, "
-                    + "e.nombre, "
-                    + "d.sestado_extra, "
-                    + "sx.nombre, "
-                    + "d.estatus_extra, "
-                    + "ex.nombre, "
-                    + "d.nombre "
-                    + "from "
-                    + "deudor d "
-                    + "left join sestado s on (d.sestado=s.sestado) "
-                    + "left join estatus e on (d.estatus=e.estatus) "
-                    + "left join sestado_extra sx on (d.sestado_extra=sx.sestado_extra) "
-                    + "left join estatus_extra ex on (d.estatus_extra=ex.estatus_extra) where d.deudor=" + deudor.toString();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                int_estado_judicial_actual = rs.getInt(1);
-                str_estado_judicial_actual = rs.getString(2);
-                int_status_judicial_actual = rs.getInt(3);
-                str_status_judicial_actual = rs.getString(4);
-                int_estado_extrajudicial_actual = rs.getInt(5);
-                str_estado_extrajudicial_actual = rs.getString(6);
-                int_status_extrajudicial_actual = rs.getInt(7);
-                str_status_extrajudicial_actual = rs.getString(8);
-                nombre_deudor = rs.getString(9);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "update deudor set "
-                    + "sestado=" + estado_judicial + ", "
-                    + "estatus=" + status_judicial + ", "
-                    + "situacion_caso='" + situacion_caso + "' "
-                    + "where "
-                    + "deudor=" + deudor;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "select j.juicio from juicio j where j.deudor=" + deudor;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            Integer id_juicio = 0;
-            while (rs.next()) {
-                id_juicio = rs.getInt(1);
-            }
-            rs.close();
-            stmt.close();
-
-            Integer dia = fecha_juicio.get(Calendar.DATE);
-            Integer mes = fecha_juicio.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_juicio.get(Calendar.YEAR);
-            String fecha_juicio_t = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = fecha_notificacion.get(Calendar.DATE);
-            mes = fecha_notificacion.get(Calendar.MONTH) + 1;
-            ano = fecha_notificacion.get(Calendar.YEAR);
-            String fecha_noti = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            dia = memorial.get(Calendar.DATE);
-            mes = memorial.get(Calendar.MONTH) + 1;
-            ano = memorial.get(Calendar.YEAR);
-            String fecha_memorial = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            cadenasql = "update juicio set "
-                    + "juzgado=" + juzgado + ", "
-                    + "fecha='" + fecha_juicio_t + "', "
-                    + "no_juicio='" + no_juicio + "', "
-                    + "procurador=" + procurador + ", "
-                    + "razon_notificacion='" + razon_notificacion + "', "
-                    + "notificador=" + notificador + ", "
-                    + "abogado_deudor='" + abogado_deudor + "', "
-                    + "sumario='" + sumario + "', "
-                    + "procuracion='" + procuracion + "', "
-                    + "deudor_notificado='" + deudor_notificado + "', "
-                    + "fecha_notificacion='" + fecha_noti + "', "
-                    + "memorial='" + fecha_memorial + "', "
-                    + "monto=" + monto_demanda + " "
-                    + "where juicio=" + id_juicio;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            String usuario_nombre = "";
-            cadenasql = "select u.nombre from usuario u where u.usuario=" + usuario_sys;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                usuario_nombre = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
-            // **************************** INSERTA EN EL WORKFLOW JUDICIAL SI CAMBIARON
-            if (!(estado_judicial == int_estado_judicial_actual && status_judicial == int_status_judicial_actual)) {
-                String str_sestado_judicial_nuevo = "";
-                cadenasql = "select s.nombre from sestado s where s.sestado=" + estado_judicial.toString();
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(cadenasql);
-                while (rs.next()) {
-                    str_sestado_judicial_nuevo = rs.getString(1);
-                }
-                rs.close();
-                stmt.close();
-
-                String str_estatus_judicial_nuevo = "";
-                cadenasql = "select e.nombre from estatus e where e.estatus=" + status_judicial.toString();
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(cadenasql);
-                while (rs.next()) {
-                    str_estatus_judicial_nuevo = rs.getString(1);
-                }
-                rs.close();
-                stmt.close();
-
-                cadenasql = "insert into historial_estatus ("
-                        + "fecha, "
-                        + "estatus, "
-                        + "nombre_estatus, "
-                        + "sestado, "
-                        + "nombre_sestado, "
-                        + "antiguo_estatus, "
-                        + "antiguo_nombre_estatus, "
-                        + "antiguo_sestado, "
-                        + "antiguo_nombre_sestado, "
-                        + "deudor, "
-                        + "deudor_nombre,"
-                        + "usuario, "
-                        + "usuario_nombre) values ("
-                        + "NOW()" + ",'"
-                        + status_judicial.toString() + "','"
-                        + str_estatus_judicial_nuevo + "','"
-                        + estado_judicial.toString() + "','"
-                        + str_sestado_judicial_nuevo + "','"
-                        + int_status_judicial_actual.toString() + "','"
-                        + str_status_judicial_actual + "','"
-                        + int_estado_judicial_actual.toString() + "','"
-                        + str_estado_judicial_actual + "','"
-                        + deudor.toString() + "','"
-                        + nombre_deudor + "','"
-                        + usuario_sys + "','"
-                        + usuario_nombre + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Deudor: " + deudor + "Juicio: " + id_juicio + "|Estado Judicial: " + estado_judicial + "|Status Judicial: " + status_judicial + "|Situación caso: " + situacion_caso + "|Juzgado: " + juzgado + "|Fecha juicio: " + fecha_juicio_t + "|No. juicio: " + no_juicio + "|Procurador: " + procurador + "|Razon notificación: " + razon_notificacion + "|Notificador: " + notificador + "|Abogado deudor: " + abogado_deudor + "|Sumario: " + sumario + "|Procuracion: " + procuracion + "|Deudor notificado: " + deudor_notificado + "|Fecha notificación: " + fecha_noti + "|Memorial: " + fecha_memorial + "|Monto demanda: " + monto_demanda + "',"
-                    + "136" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Expediente-Judicial guardado en el sistema.";
+            Expediente expediente = new Expediente();
+            resultado = expediente.Guardar_Expediente_Judical(usuario_sys, deudor, estado_judicial, status_judicial, procurador, fecha_juicio, juzgado, no_juicio, notificador, abogado_deudor, sumario, memorial, deudor_notificado, fecha_notificacion, monto_demanda, procuracion, situacion_caso, razon_notificacion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Judical): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Judical - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Guardar_Expediente_Judical): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -8209,57 +3794,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into cartera (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + "|Descripcion: " + descripcion_d + "',"
-                    + "137" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Cartera registrada en el sistema.";
+            Cartera cartera = new Cartera();
+            resultado = cartera.cartera_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_cartera
      * @param nombre_d
@@ -8275,57 +3821,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update cartera set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where cartera=" + id_cartera;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_Cartera: " + id_cartera + "|Nombre: " + nombre_d + "|Ddescripcion: " + descripcion_d + "',"
-                    + "138" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Cartera modificada en el sistema.";
+            Cartera cartera = new Cartera();
+            resultado = cartera.cartera_modificar(usuario_sys, id_cartera, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_cartera
      * @param poolConexion
@@ -8337,56 +3844,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_cartera") Integer id_cartera,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update cartera set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where cartera=" + id_cartera;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "CARTERA: " + id_cartera + "',"
-                    + "139" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Cartera eliminada en el sistema.";
+            Cartera cartera = new Cartera();
+            resultado = cartera.cartera_eliminar(usuario_sys, id_cartera, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_cartera
      * @param poolConexion
@@ -8398,56 +3867,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_cartera") Integer id_cartera,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update cartera set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where cartera=" + id_cartera;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "CARTERA: " + id_cartera + "',"
-                    + "140" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Cartera activada en el sistema.";
+            Cartera cartera = new Cartera();
+            resultado = cartera.cartera_activar(usuario_sys, id_cartera, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Cartera_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param permisos
      * @param poolConexion
@@ -8459,67 +3890,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_cartera") String[] permisos,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            for (Integer i = 0; i < permisos.length; i++) {
-                String[] usuario_permiso = permisos[i].trim().split(",");
-                Integer usuario = Integer.parseInt(usuario_permiso[0]);
-                String permiso = usuario_permiso[1];
-
-                String cadenasql = "select p.ver from permiso_usuario_uno p where p.usuario=" + usuario + " and p.menu=28";
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(cadenasql);
-                Boolean existe = false;
-                while (rs.next()) {
-                    rs.getString(1);
-                    existe = true;
-                }
-                rs.close();
-                stmt.close();
-
-                if (existe) {
-                    cadenasql = "update permiso_usuario_uno set ver='" + permiso + "' where usuario=" + usuario + " and menu=28";
-                    stmt = conn.createStatement();
-                    stmt.executeUpdate(cadenasql);
-                    stmt.close();
-                } else {
-                    cadenasql = "insert into permiso_usuario_uno (usuario,menu,ver) values (" + usuario + ",28,'" + permiso + "')";
-                    stmt = conn.createStatement();
-                    stmt.executeUpdate(cadenasql);
-                    stmt.close();
-                }
-            }
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Permisos de usuario asignados en la opción de menu Expediente.";
+            Usuario usuario = new Usuario();
+            resultado = usuario.Permiso_Expediente(usuario_sys, permisos, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Permiso_Expediente): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Permiso_Expediente - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Permiso_Expediente): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param deudor
      * @param tipo_convenio
@@ -8567,133 +3949,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "observacion") String observacion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_pago_inicial.get(Calendar.DATE);
-            Integer mes = fecha_pago_inicial.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_pago_inicial.get(Calendar.YEAR);
-            String dia_pago_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "insert into convenio ("
-                    + "deudor, "
-                    + "fecha_creacion, "
-                    + "tipo_convenio, "
-                    + "estado, "
-                    + "saldo, "
-                    + "interes, "
-                    + "mora, "
-                    + "gasto_otros, "
-                    + "rebaja_interes, "
-                    + "subtotal_pagar, "
-                    + "costas, "
-                    + "monto_costas, "
-                    + "total, "
-                    + "cuota_inicial, "
-                    + "total_pagar, "
-                    + "numero_cuotas, "
-                    + "monto_cuota, "
-                    + "frecuencia, "
-                    + "fecha_pago_inicial, "
-                    + "observacion) value ("
-                    + deudor + ","
-                    + "CURRENT_DATE()" + ",'"
-                    + tipo_convenio + "','"
-                    + estado + "',"
-                    + saldo + ","
-                    + interes + ","
-                    + mora + ","
-                    + gasto_otros + ","
-                    + rebaja_interes + ","
-                    + subtotal_pagar + ","
-                    + costas + ","
-                    + monto_costas + ","
-                    + total + ","
-                    + cuota_inicial + ","
-                    + total_pagar + ","
-                    + numero_cuotas + ","
-                    + monto_cuota + ",'"
-                    + frecuencia + "','"
-                    + dia_pago_i + "','"
-                    + observacion + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "select max(c.convenio) from convenio c";
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            Integer id_convenio = 0;
-            while (rs.next()) {
-                id_convenio = rs.getInt(1);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "update deudor set convenio_pactado='" + observacion + "' where deudor=" + deudor.toString();
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Convenio registrado=> Convenio: " + id_convenio + " "
-                    + "Deudor: " + deudor + " "
-                    + "Tipo_Convenio: " + tipo_convenio + " "
-                    + "Estado: " + estado + " "
-                    + "Saldo: " + saldo + " "
-                    + "Interes: " + interes + " "
-                    + "Mora: " + mora + " "
-                    + "Gastos_Otros: " + gasto_otros + " "
-                    + "Rebaja_Interes: " + rebaja_interes + " "
-                    + "SubTotal: " + subtotal_pagar + " "
-                    + "Costas: " + costas + " "
-                    + "Monto_Costas: " + monto_costas + " "
-                    + "Total: " + total + " "
-                    + "Cuota_Inicial: " + cuota_inicial + " "
-                    + "Total_Pagar: " + total_pagar + " "
-                    + "Numero_Cuotas: " + numero_cuotas + " "
-                    + "Monto_Cuota: " + monto_cuota + " "
-                    + "Frecuencia: " + frecuencia + " "
-                    + "Fecha_Pago_Inicial: " + dia_pago_i + " "
-                    + "Observacion: " + observacion + "',"
-                    + "109" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Convenio de pago registrado en el sistema.";
+            Convenio convenio = new Convenio();
+            resultado = convenio.Convenio_Insertar(usuario_sys, deudor, tipo_convenio, estado, saldo, interes, mora, gasto_otros, rebaja_interes, subtotal_pagar, costas, monto_costas, total, cuota_inicial, total_pagar, numero_cuotas, monto_cuota, frecuencia, fecha_pago_inicial, observacion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_convenio
      * @param deudor
@@ -8743,103 +4010,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "observacion") String observacion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_pago_inicial.get(Calendar.DATE);
-            Integer mes = fecha_pago_inicial.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_pago_inicial.get(Calendar.YEAR);
-            String dia_pago_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update convenio set "
-                    + "deudor=" + deudor.toString() + ", "
-                    + "tipo_convenio='" + tipo_convenio + "', "
-                    + "estado='" + estado + "', "
-                    + "saldo=" + saldo.toString() + ", "
-                    + "interes=" + interes.toString() + ", "
-                    + "mora=" + mora.toString() + ", "
-                    + "gasto_otros=" + gasto_otros.toString() + ", "
-                    + "rebaja_interes=" + rebaja_interes.toString() + ", "
-                    + "subtotal_pagar=" + subtotal_pagar.toString() + ", "
-                    + "costas=" + costas.toString() + ", "
-                    + "monto_costas=" + monto_costas.toString() + ", "
-                    + "total=" + total.toString() + ", "
-                    + "cuota_inicial=" + cuota_inicial.toString() + ", "
-                    + "total_pagar=" + total_pagar.toString() + ", "
-                    + "numero_cuotas=" + numero_cuotas.toString() + ", "
-                    + "monto_cuota=" + monto_cuota.toString() + ", "
-                    + "frecuencia='" + frecuencia + "', "
-                    + "fecha_pago_inicial='" + dia_pago_i + "', "
-                    + "observacion='" + observacion + "' "
-                    + "where convenio=" + id_convenio;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "update deudor set convenio_pactado='" + observacion + "' where deudor=" + deudor;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Convenio de pago modificado=> Convenio: " + id_convenio + " "
-                    + "Deudor: " + deudor + " "
-                    + "Tipo_Cconvenio: " + tipo_convenio + " "
-                    + "Estado: " + estado + " "
-                    + "Saldo: " + saldo + " "
-                    + "Interes: " + interes + " "
-                    + "Mora: " + mora + " "
-                    + "Gastos_Otros: " + gasto_otros + " "
-                    + "Rebaja_Interes: " + rebaja_interes + " "
-                    + "SubTotal: " + subtotal_pagar + " "
-                    + "Costas: " + costas + " "
-                    + "Monto_Costas: " + monto_costas + " "
-                    + "Total: " + total + " "
-                    + "Cuota_Inicial: " + cuota_inicial + " "
-                    + "Total_Pagar: " + total_pagar + " "
-                    + "Numero_Cuotas: " + numero_cuotas + " "
-                    + "Monto_Cuota: " + monto_cuota + " "
-                    + "Frecuencia: " + frecuencia + " "
-                    + "Fecha_Pago_Inicial: " + dia_pago_i + " "
-                    + "Observacion: " + observacion + "',"
-                    + "110" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Convenio de pago modificado en el sistema.";
+            Convenio convenio = new Convenio();
+            resultado = convenio.Convenio_Modificar(usuario_sys, id_convenio, deudor, tipo_convenio, estado, saldo, interes, mora, gasto_otros, rebaja_interes, subtotal_pagar, costas, monto_costas, total, cuota_inicial, total_pagar, numero_cuotas, monto_cuota, frecuencia, fecha_pago_inicial, observacion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_convenio
      * @param estado
@@ -8853,140 +4035,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "estado") String estado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update convenio set "
-                    + "estado='" + estado + "' "
-                    + "where convenio=" + id_convenio;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "select c.deudor, cuota_inicial, fecha_pago_inicial, monto_cuota from convenio c where c.convenio=" + id_convenio;
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            Integer deudor = 0;
-            Double cuota_inicial = 0.00;
-            Date fecha_pago_inicial = new Date();
-            Double monto_cuota = 0.00;
-            while (rs.next()) {
-                deudor = rs.getInt(1);
-                cuota_inicial = rs.getDouble(2);
-                fecha_pago_inicial = rs.getDate(3);
-                monto_cuota = rs.getDouble(4);
-            }
-            rs.close();
-            stmt.close();
-
-            if (estado.equals("ACTIVO")) {
-                Integer max_id_promesa_pago = 0;
-
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-                if (cuota_inicial > 0.00) {
-                    cadenasql = "insert into convenio_detalle ("
-                            + "convenio, "
-                            + "promesa_pago, "
-                            + "fecha_pago, "
-                            + "hora_pago, "
-                            + "estado_promesa, "
-                            + "monto, "
-                            + "observacion) value ("
-                            + id_convenio + ","
-                            + max_id_promesa_pago + ",'"
-                            + dateFormat.format(fecha_pago_inicial) + "','"
-                            + "23:59:59" + "','"
-                            + "PENDIENTE" + "',"
-                            + cuota_inicial + ",'"
-                            + "Promesa de pago creada automáticamente: PAGO INICIAL." + "')";
-                    stmt = conn.createStatement();
-                    stmt.executeUpdate(cadenasql);
-                    stmt.close();
-
-                    max_id_promesa_pago++;
-                }
-                cadenasql = "insert into convenio_detalle ("
-                        + "convenio, "
-                        + "promesa_pago, "
-                        + "fecha_pago, "
-                        + "hora_pago, "
-                        + "estado_promesa, "
-                        + "monto, "
-                        + "observacion) value ("
-                        + id_convenio + ","
-                        + max_id_promesa_pago + ",'"
-                        + dateFormat.format(fecha_pago_inicial) + "','"
-                        + "23:59:59" + "','"
-                        + "PENDIENTE" + "',"
-                        + monto_cuota + ",'"
-                        + "Promesa de pago creada automáticamente: PRIMERA CUOTA." + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-
-                if (max_id_promesa_pago == 0) {
-                    cadenasql = "update deudor set opcion_proximo_pago='SI', fecha_proximo_pago='" + dateFormat.format(fecha_pago_inicial) + "', cuota_convenio=" + monto_cuota + " where deudor=" + deudor;
-                } else {
-                    cadenasql = "update deudor set opcion_proximo_pago='SI', fecha_proximo_pago='" + dateFormat.format(fecha_pago_inicial) + "', cuota_convenio=" + cuota_inicial + " where deudor=" + deudor;
-                }
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-
-            }
-            if (estado.equals("ANULADO") || estado.equals("TERMINADO")) {
-                cadenasql = "update convenio_detalle set estado_promesa='INCUMPLIDO' where convenio=" + id_convenio + " and estado_promesa='PENDIENTE'";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-
-                cadenasql = "update deudor set opcion_proximo_pago='NO' where deudor=" + deudor;
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Convenio de pago modificar estado=> Convenio: " + id_convenio + " Estado: " + estado + "',"
-                    + "111" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Convenio estado modificado en el sistema.";
+            Convenio convenio = new Convenio();
+            resultado = convenio.Convenio_Modificar_Estado(usuario_sys, id_convenio, estado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Modificar_Estado): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Modificar_Estado - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Modificar_Estado): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_convenio
      * @param fecha_pago
@@ -9008,107 +4068,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "observacion") String observacion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_pago.get(Calendar.DATE);
-            Integer mes = fecha_pago.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_pago.get(Calendar.YEAR);
-            String fecha_pago_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "select max(cd.promesa_pago) from convenio_detalle cd where cd.convenio=" + id_convenio;
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            Integer max_id_promesa_pago = 0;
-            while (rs.next()) {
-                max_id_promesa_pago = rs.getInt(1);
-            }
-            rs.close();
-            stmt.close();
-
-            max_id_promesa_pago++;
-
-            cadenasql = "insert into convenio_detalle ("
-                    + "convenio, "
-                    + "promesa_pago, "
-                    + "fecha_pago, "
-                    + "hora_pago, "
-                    + "estado_promesa, "
-                    + "monto, "
-                    + "observacion) value ("
-                    + id_convenio + ","
-                    + max_id_promesa_pago + ",'"
-                    + fecha_pago_i + "','"
-                    + hora_pago + "','"
-                    + estado_promesa + "',"
-                    + monto + ",'"
-                    + observacion + "')";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "select c.deudor from convenio c where c.convenio=" + id_convenio;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            Integer deudor = 0;
-            while (rs.next()) {
-                deudor = rs.getInt(1);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "update deudor set opcion_proximo_pago='SI', fecha_proximo_pago='" + fecha_pago_i + "', cuota_convenio=" + monto + " where deudor=" + deudor;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Promesa de pago insertar=> Deudor: " + deudor + " "
-                    + "Convenio: " + id_convenio + " "
-                    + "Promesa pago: " + max_id_promesa_pago + " "
-                    + "Fecha pago: " + fecha_pago_i + " "
-                    + "Hora pago: " + hora_pago + " "
-                    + "Estado promesa pago: " + estado_promesa + " "
-                    + "Monto: " + monto + " "
-                    + "Observacion: " + observacion + "',"
-                    + "141" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Promesa de pago registrada en el sistema.";
+            Convenio convenio = new Convenio();
+            resultado = convenio.Convenio_Detalle_Insertar(usuario_sys, id_convenio, fecha_pago, hora_pago, estado_promesa, monto, observacion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_convenio
      * @param id_promesa_pago
@@ -9132,71 +4103,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "observacion") String observacion,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            Integer dia = fecha_pago.get(Calendar.DATE);
-            Integer mes = fecha_pago.get(Calendar.MONTH) + 1;
-            Integer ano = fecha_pago.get(Calendar.YEAR);
-            String fecha_pago_i = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-
-            String cadenasql = "update convenio_detalle set "
-                    + "fecha_pago='" + fecha_pago_i + "', "
-                    + "hora_pago='" + hora_pago + "', "
-                    + "estado_promesa='" + estado_promesa + "', "
-                    + "monto=" + monto + ", "
-                    + "observacion='" + observacion + "' "
-                    + "where convenio=" + id_convenio + " and promesa_pago=" + id_promesa_pago;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Promesa de pago modificar=> Convenio: " + id_convenio + " "
-                    + "Promesa pago: " + id_promesa_pago + " "
-                    + "Fecha pago: " + fecha_pago_i + " "
-                    + "Hora pago: " + hora_pago + " "
-                    + "Estado promesa pago: " + estado_promesa + " "
-                    + "Monto: " + monto + " "
-                    + "Observacion: " + observacion + "',"
-                    + "142" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Promesa de pago modificada en el sistema.";
+            Convenio convenio = new Convenio();
+            resultado = convenio.Convenio_Detalle_Modificar(usuario_sys, id_convenio, id_promesa_pago, fecha_pago, hora_pago, estado_promesa, monto, observacion, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_convenio
      * @param id_promesa_pago
@@ -9212,86 +4130,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "estado") String estado,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update convenio_detalle set "
-                    + "estado_promesa='" + estado + "' "
-                    + "where convenio=" + id_convenio + " and promesa_pago=" + id_promesa_pago;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            cadenasql = "select c.deudor from convenio c where c.convenio=" + id_convenio;
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            Integer deudor = 0;
-            while (rs.next()) {
-                deudor = rs.getInt(1);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "select fecha_pago, monto from convenio_detalle cd where cd.estado_promesa='PENDIENTE' and cd.convenio=" + id_convenio;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            String opcion_proximo_pago = "NO";
-            Date fecha_pago = new Date();
-            Double monto_cuota = 0.00;
-            while (rs.next()) {
-                opcion_proximo_pago = "SI";
-                fecha_pago = rs.getDate(1);
-                monto_cuota = rs.getDouble(2);
-            }
-            rs.close();
-            stmt.close();
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            cadenasql = "update deudor set opcion_proximo_pago='" + opcion_proximo_pago + "', fecha_proximo_pago='" + dateFormat.format(fecha_pago) + "', cuota_convenio=" + monto_cuota + " where deudor=" + deudor;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Promesa de pago modificar estado=> Convenio: " + id_convenio + " Promesa Pago: " + id_promesa_pago + " Estado: " + estado + "',"
-                    + "143" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "El estado de la promesa de pago ha sido modificada.";
+            Convenio convenio = new Convenio();
+            resultado = convenio.Convenio_Detalle_Modificar_Estado(usuario_sys, id_convenio, id_promesa_pago, estado, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Modificar_Estado): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Modificar_Estado - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Convenio_Detalle_Modificar_Estado): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -9305,57 +4155,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into intencion_pago (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "144" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Intención pago registrada en el sistema.";
+            Intencion_Pago intencion_pago = new Intencion_Pago();
+            resultado = intencion_pago.intencion_pago_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_intencion_pago
      * @param nombre_d
@@ -9371,57 +4182,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update intencion_pago set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where intencion_pago=" + id_intencion_pago;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_IntencionPago: " + id_intencion_pago + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "145" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Intención pago modificado en el sistema.";
+            Intencion_Pago intencion_pago = new Intencion_Pago();
+            resultado = intencion_pago.intencion_pago_modificar(usuario_sys, id_intencion_pago, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_intencion_pago
      * @param poolConexion
@@ -9433,56 +4205,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_intencion_pago") Integer id_intencion_pago,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update intencion_pago set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where intencion_pago=" + id_intencion_pago;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "IntensiónPago: " + id_intencion_pago + "',"
-                    + "146" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Intención de pago eliminado en el sistema.";
+            Intencion_Pago intencion_pago = new Intencion_Pago();
+            resultado = intencion_pago.intencion_pago_eliminar(usuario_sys, id_intencion_pago, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_intencion_pago
      * @param poolConexion
@@ -9494,56 +4228,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_intencion_pago") Integer id_intencion_pago,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update intencion_pago set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where intencion_pago=" + id_intencion_pago;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "IntenciónPago: " + id_intencion_pago + "',"
-                    + "147" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Intención pago activado en el sistema.";
+            Intencion_Pago intencion_pago = new Intencion_Pago();
+            resultado = intencion_pago.intencion_pago_activar(usuario_sys, id_intencion_pago, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Intencion_Pago_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param nombre_d
      * @param descripcion_d
@@ -9557,57 +4253,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "insert into razon_deuda (nombre,estado,descripcion) values ('"
-                    + nombre_d + "','"
-                    + "VIGENTE" + "','"
-                    + descripcion_d + "')";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "148" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Razón deuda registrada en el sistema.";
+            Razon_Deuda razon_deuda = new Razon_Deuda();
+            resultado = razon_deuda.razon_deuda_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Insertar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Insertar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Insertar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_razon_deuda
      * @param nombre_d
@@ -9623,57 +4280,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "descripcion_d") String descripcion_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update razon_deuda set "
-                    + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
-                    + "where razon_deuda=" + id_razon_deuda;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Id_RazonDeuda: " + id_razon_deuda + " Nombre: " + nombre_d + " descripcion: " + descripcion_d + "',"
-                    + "149" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Razon deuda modificada en el sistema.";
+            Razon_Deuda razon_deuda = new Razon_Deuda();
+            resultado = razon_deuda.razon_deuda_modificar(usuario_sys, id_razon_deuda, nombre_d, descripcion_d, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Modificar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Modificar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Modificar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_razon_deuda
      * @param poolConexion
@@ -9685,56 +4303,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_razon_deuda") Integer id_razon_deuda,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update razon_deuda set "
-                    + "estado='" + "ELIMINADO" + "' "
-                    + "where razon_deuda=" + id_razon_deuda;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "RazónDeuda: " + id_razon_deuda + "',"
-                    + "150" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Razón deuda eliminado en el sistema.";
+            Razon_Deuda razon_deuda = new Razon_Deuda();
+            resultado = razon_deuda.razon_deuda_eliminar(usuario_sys, id_razon_deuda, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Eliminar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Eliminar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Eliminar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param id_razon_deuda
      * @param poolConexion
@@ -9746,56 +4326,18 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "id_razon_deuda") Integer id_razon_deuda,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "update razon_deuda set "
-                    + "estado='" + "VIGENTE" + "' "
-                    + "where razon_deuda=" + id_razon_deuda;
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "IntenciónPago: " + id_razon_deuda + "',"
-                    + "151" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Razón deuda activado en el sistema.";
+            Razon_Deuda razon_deuda = new Razon_Deuda();
+            resultado = razon_deuda.razon_deuda_activar(usuario_sys, id_razon_deuda, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Activar): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Activar - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Razon_Deuda_Activar): " + ex.toString());
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param lst_tipo_codigo_resultado_contacto
      * @param poolConexion
@@ -9807,65 +4349,12 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "lst_tipo_codigo_resultado_contacto") String[] lst_tipo_codigo_resultado_contacto,
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
         String resultado = "";
-
         try {
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            String cadenasql = "delete from tipo_codigo_codigo where tipo_codigo_contactabilidad > 0";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            for (Integer i = 0; i < lst_tipo_codigo_resultado_contacto.length; i++) {
-                String[] tipo_codigo_resultado_contacto = lst_tipo_codigo_resultado_contacto[i].split(",");
-                Integer tipo_codigo_resultado = Integer.parseInt(tipo_codigo_resultado_contacto[0]);
-                Integer codigo_resultado = Integer.parseInt(tipo_codigo_resultado_contacto[1]);
-                String contacto = tipo_codigo_resultado_contacto[2];
-
-                cadenasql = "insert into tipo_codigo_codigo ("
-                        + "tipo_codigo_contactabilidad,"
-                        + "codigo_contactabilidad,"
-                        + "contacto) values ("
-                        + tipo_codigo_resultado + ","
-                        + codigo_resultado + ",'"
-                        + contacto + "')";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Inserta el evento en la bitacora de eventos del sistema.
-            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                    + usuario_sys + ","
-                    + "CURRENT_DATE()" + ","
-                    + "CURRENT_TIME()" + ",'"
-                    + "Tipo_Codigo_Resultado_Contacto: Usuario(" + usuario_sys + ")" + "',"
-                    + "152" + ")";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cadenasql);
-            stmt.close();
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Contacto de los códigos de resultado actualizado.";
+            Tipo_Codigo_Resultado_Codigo_Resultado_Contacto tipo_codigo_resultado_codigo_resultado_contacto = new Tipo_Codigo_Resultado_Codigo_Resultado_Contacto();
+            resultado = tipo_codigo_resultado_codigo_resultado_contacto.Tipo_Codigo_Resultado_Contacto(usuario_sys, lst_tipo_codigo_resultado_contacto, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Resultado_Contacto): " + ex.toString());
-                conn.rollback();
-                resultado = ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Resultado_Contacto - rollback): " + ex1.toString());
-                resultado = ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Tipo_Codigo_Resultado_Contacto): " + ex.toString());
         }
 
         return resultado;
@@ -9879,57 +4368,18 @@ public class ServiciosLexcom implements Serializable {
     public String[][] getMonitor(
             @WebParam(name = "poolConexion") String poolConexion) {
 
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
-        String[][] resultado;
-
+        String[][] resultado = null;
         try {
-            resultado = new String[2][3];
-            resultado[0][0] = "fecha_ultima_gestion";
-            resultado[0][1] = "hora_ultima_gestion";
-            resultado[0][2] = "numero_gestion";
-
-            String cadenasql = "select max(e.fecha) from evento e";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                resultado[1][0] = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "select max(e.hora) from evento e where e.fecha='" + resultado[1][0] + "'";
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                resultado[1][1] = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
-            cadenasql = "select count(*) from evento e";
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(cadenasql);
-            while (rs.next()) {
-                resultado[1][2] = rs.getString(1);
-            }
-            rs.close();
-            stmt.close();
-
+            Reporte reporte = new Reporte();
+            resultado = reporte.getMonitor();
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(getMonitor): " + ex.toString());
-            resultado = new String[1][1];
-            resultado[0][0] = "*** ERROR *** : " + ex.toString();
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
         }
 
         return resultado;
     }
 
     /**
-     *
      * @param usuario_sys
      * @param archivo
      * @param poolConexion
@@ -9942,234 +4392,11 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "poolConexion") String poolConexion) {
 
         String resultado = null;
-        Integer linea_error = 1;
-        Integer filas;
-
-        Driver driver = new Driver();
-        Connection conn = driver.getConn(poolConexion);
-
         try {
-            //Formatos Integer, Double y Date.
-            DecimalFormat formatoInteger = new DecimalFormat("#");
-            DecimalFormat formatoDouble = new DecimalFormat("#0.00");
-            SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat formatoDate1 = new SimpleDateFormat("yyyy-MM-dd");
-            formatoDate.setLenient(false);
-            formatoDate1.setLenient(false);
-
-            //Modo transaccion.
-            conn.setAutoCommit(false);
-
-            //Selecciona el archivo excel para leerlo.
-            File excel = new File(archivo);
-            FileInputStream fis = new FileInputStream(excel);
-            XSSFWorkbook wb = new XSSFWorkbook(fis);
-            XSSFSheet ws = wb.getSheetAt(0);
-
-            filas = ws.getLastRowNum() + 1;
-
-            for (Integer i = 1; i < filas; i++) {
-                linea_error = i + 1;
-
-                XSSFRow row = ws.getRow(i);
-
-                //LEER CAMPOS DEL ARCHIVO EXCEL.
-                XSSFCell corporacion = row.getCell(0);
-                XSSFCell actor = row.getCell(1);
-                XSSFCell deudor = row.getCell(2);
-                XSSFCell caso = row.getCell(3);
-                XSSFCell cargado = row.getCell(4);
-                XSSFCell usuario = row.getCell(5);
-                XSSFCell fecha = row.getCell(6);
-                XSSFCell hora = row.getCell(7);
-                XSSFCell codigo_resultado = row.getCell(8);
-                XSSFCell contacto = row.getCell(9);
-                XSSFCell descripcion = row.getCell(10);
-
-                Integer db_deudor = 0;
-                try {
-                    db_deudor = Integer.parseInt(formatoInteger.format(Double.parseDouble(deudor.toString().trim())));
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("select d.deudor from deudor d where d.deudor=" + db_deudor);
-                    Boolean existe = false;
-                    while (rs.next()) {
-                        existe = true;
-                    }
-                    rs.close();
-                    stmt.close();
-                    if (!existe) {
-                        throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error);
-                    }
-                } catch (Exception ex) {
-                    throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error + " Exception: " + ex.toString());
-                }
-
-                Integer db_usuario = 0;
-                try {
-                    String db_usuario_nombre = usuario.toString().trim();
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("select u.usuario from usuario u where u.nombre='" + db_usuario_nombre + "'");
-                    Boolean existe = false;
-                    while (rs.next()) {
-                        db_usuario = rs.getInt(1);
-                        existe = true;
-                    }
-                    rs.close();
-                    stmt.close();
-
-                    if (!existe) {
-                        throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error);
-                    }
-                } catch (Exception ex) {
-                    throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error + " Exception: " + ex.toString());
-                }
-
-                Date db_fecha = new Date(1900, 0, 1);
-                if (fecha != null) {
-                    try {
-                        db_fecha = fecha.getDateCellValue();
-                        formatoDate.format(db_fecha);
-                    } catch (Exception ex) {
-                        throw new Exception("Error al calcular el campo Fecha de gestión en la linea: " + linea_error + " Exception: " + ex.toString());
-                    }
-                } else {
-                    throw new Exception("Error al calcular el campo Fecha de gestión en la linea: " + linea_error);
-                }
-
-                String db_hora = "";
-                if (hora != null) {
-                    db_hora = hora.toString().trim();
-                    if (db_hora.equals("")) {
-                        throw new Exception("Error al calcular el campo Hora (Espacio en blanco) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
-                    } else {
-                        if (db_hora.length() != 8) {
-                            throw new Exception("Error al calcular el campo Hora (longitud diferente a 8) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
-                        } else {
-                            try {
-                                Integer hora_num = Integer.parseInt(db_hora.substring(0, 2));
-                                Integer minuto_num = Integer.parseInt(db_hora.substring(3, 5));
-                                Integer segundo_num = Integer.parseInt(db_hora.substring(6, 8));
-                                if (hora_num < 0 && hora_num > 23) {
-                                    throw new Exception("Error al calcular el campo Hora (hora) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
-                                }
-                                if (minuto_num < 0 && minuto_num > 59) {
-                                    throw new Exception("Error al calcular el campo Hora (minuto) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
-                                }
-                                if (segundo_num < 0 && segundo_num > 59) {
-                                    throw new Exception("Error al calcular el campo Hora (segundo) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
-                                }
-                            } catch (Exception ex_hora) {
-                                throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error + ", ex_hora" + " Valor: " + db_hora);
-                            }
-                        }
-                    }
-                } else {
-                    throw new Exception("Error al calcular el campo Hora (NULL) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
-                }
-
-                Integer db_codigo_contactabilidad = 0;
-                try {
-                    String db_codigo_contactabilidad_nombre = codigo_resultado.toString().trim();
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("select cc.codigo_contactabilidad from codigo_contactabilidad cc where cc.codigo='" + db_codigo_contactabilidad_nombre + "'");
-                    Boolean existe = false;
-                    while (rs.next()) {
-                        db_codigo_contactabilidad = rs.getInt(1);
-                        existe = true;
-                    }
-                    rs.close();
-                    stmt.close();
-                    if (!existe) {
-                        throw new Exception("Error al calcular el campo Código de Resultado Usuario en la linea: " + linea_error + " Valor: " + db_codigo_contactabilidad_nombre);
-                    }
-                } catch (Exception ex) {
-                    throw new Exception("Error al calcular el campo Código de Resultado en la linea: " + linea_error + " Exception: " + ex.toString());
-                }
-
-                String db_contacto = "";
-                if (contacto != null) {
-                    db_contacto = contacto.toString().trim();
-                    if (db_contacto.equals("")) {
-                        throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
-                    } else {
-                        System.out.println("VALOR_2: " + db_contacto);
-                        if (!db_contacto.equals("SI") && !db_contacto.equals("NO")) {
-                            throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
-                        }
-                    }
-                } else {
-                    throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
-                }
-
-                String db_descripcion = "";
-                if (descripcion != null) {
-                    db_descripcion = descripcion.toString().trim();
-                    if (db_descripcion.equals("")) {
-                        throw new Exception("Error al calcular el campo Descripción de gestión en la linea: " + linea_error);
-                    }
-                } else {
-                    throw new Exception("Error al calcular el campo Descripción de gestión en la linea: " + linea_error);
-                }
-
-                //Carga estructura DEUDORES.
-                Deudores_Gestion_Cobro deu_ges_cob = new Deudores_Gestion_Cobro(
-                        db_deudor,
-                        db_fecha,
-                        db_hora,
-                        db_usuario,
-                        db_codigo_contactabilidad,
-                        db_descripcion,
-                        db_contacto);
-
-                //Cargar pagos al sistema.
-                String cadenasql = "insert deudor_historial_cobros ("
-                        + "deudor, "
-                        + "fecha, "
-                        + "hora, "
-                        + "usuario, "
-                        + "codigo_contactabilidad, "
-                        + "descripcion, "
-                        + "contacto) values ("
-                        + deu_ges_cob.getDeudor() + ",'"
-                        + formatoDate1.format(deu_ges_cob.getFecha()) + "','"
-                        + deu_ges_cob.getHora() + "',"
-                        + deu_ges_cob.getUsuario() + ","
-                        + deu_ges_cob.getCodigo_contactabilidad() + ",'"
-                        + deu_ges_cob.getDescripcion() + "','"
-                        + deu_ges_cob.getContacto() + "')";
-                Statement stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-
-                //Inserta el evento en la bitacora de eventos del sistema.
-                cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
-                        + usuario_sys + ","
-                        + "CURRENT_DATE()" + ","
-                        + "CURRENT_TIME()" + ",'"
-                        + "Carga masiva gestión cobros=[Deudor: " + deu_ges_cob.getDeudor() + ", Corporación: " + corporacion.toString().trim() + ", Actor: " + actor.toString().trim() + ", Caso: " + caso.toString().trim() + ", Cargado: " + cargado.toString().trim() + ", Código Resultado: " + codigo_resultado.toString().trim() + "]" + "',"
-                        + "153" + ")";
-                stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
-                stmt.close();
-            }
-
-            //Commit hacia la base de datos y cierra conexion.
-            conn.commit();
-            conn.setAutoCommit(true);
-
-            resultado = "Carga masiva gestión de cobros exitosa.";
+            Carga_Masiva carga_masiva = new Carga_Masiva();
+            resultado = carga_masiva.carga_gestiones_cobros(usuario_sys, archivo, poolConexion);
         } catch (Exception ex) {
-            try {
-                System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros): " + ex.toString());
-                conn.rollback();
-                resultado = "Error linea(" + linea_error + "): " + ex.toString();
-            } catch (Exception ex1) {
-                System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros - rollback): " + ex1.toString());
-                resultado = "ERROR ROLLBACK: " + ex1.toString();
-            }
-        } finally {
-            conn = driver.closeConn();
-            driver = null;
+            System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros): " + ex.toString());
         }
 
         return resultado;

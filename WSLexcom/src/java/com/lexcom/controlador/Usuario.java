@@ -239,10 +239,10 @@ public class Usuario implements Serializable {
     }
 
     public String usuario_eliminar(
-            Integer usuario_sys, 
-            Integer id_usuario, 
+            Integer usuario_sys,
+            Integer id_usuario,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
@@ -289,10 +289,10 @@ public class Usuario implements Serializable {
     }
 
     public String usuario_activar(
-            Integer usuario_sys, 
-            Integer id_usuario, 
+            Integer usuario_sys,
+            Integer id_usuario,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
@@ -339,10 +339,10 @@ public class Usuario implements Serializable {
     }
 
     public String logueo(
-            String usuario, 
-            String contrasena, 
+            String usuario,
+            String contrasena,
             String poolConexion) {
-        
+
         String resultado = "index";
 
         Driver driver = new Driver();
@@ -373,11 +373,11 @@ public class Usuario implements Serializable {
     }
 
     public String logueo_cambio(
-            String usuario, 
-            String contrasena, 
-            String new_contrasena, 
+            String usuario,
+            String contrasena,
+            String new_contrasena,
             String poolConexion) {
-        
+
         String resultado = "index";
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
@@ -407,6 +407,261 @@ public class Usuario implements Serializable {
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Logueo_cambio): " + ex.toString());
             resultado = "index" + ex.toString();
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
+    public String Permisos_Usuario_Uno_Modificar(
+            Integer usuario_sys,
+            Integer usuario,
+            String[] menus_no_asignados,
+            String[] menus_asignados,
+            String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            conn.setAutoCommit(false);
+
+            for (Integer i = 0; i < menus_no_asignados.length; i++) {
+                String cadenasql = "select m.menu from menu m where m.nombre='" + menus_no_asignados[i] + "'";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(cadenasql);
+                Integer menu = 0;
+                while (rs.next()) {
+                    menu = rs.getInt(1);
+                }
+                rs.close();
+                stmt.close();
+
+                cadenasql = "update permiso_usuario_uno set ver='NO' where usuario=" + usuario + " and menu=" + menu;
+                stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
+
+            for (Integer i = 0; i < menus_asignados.length; i++) {
+                String cadenasql = "select m.menu from menu m where m.nombre='" + menus_asignados[i] + "'";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(cadenasql);
+                Integer menu = 0;
+                while (rs.next()) {
+                    menu = rs.getInt(1);
+                }
+                rs.close();
+                stmt.close();
+
+                cadenasql = "update permiso_usuario_uno set ver='SI' where usuario=" + usuario + " and menu=" + menu;
+                stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
+
+            String cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "Permisos Usuario Uno Modificar=>  usuario: " + usuario + "',"
+                    + "108" + ")";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Permisos del usuario modificados.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Uno_Modificar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Uno_Modificar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
+    public String Permisos_Usuario_Modificar(
+            Integer usuario_sys,
+            Integer usuario,
+            Integer menu,
+            String nuevo,
+            String modificar,
+            String eliminar,
+            String activar,
+            String ver,
+            String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            conn.setAutoCommit(false);
+
+            String cadenasql = "update permiso_usuario set "
+                    + "nuevo='" + nuevo + "', "
+                    + "modificar='" + modificar + "', "
+                    + "eliminar='" + eliminar + "', "
+                    + "activar='" + modificar + "', "
+                    + "ver='" + ver + "' "
+                    + "where usuario=" + usuario + " and "
+                    + " menu = " + menu;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "Permiso Modificar=>  usuario: " + usuario + " menu: " + menu + " nuevo: '" + nuevo + "' modificar: '" + modificar + "' eliminar: '" + eliminar + "' activar: '" + activar + "' ver :'" + ver + "'   "
+                    + "108" + ")";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "EXITO";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Modificar): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Permisos_Usuario_Modificar - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
+    public String Reiniciar_Contrasena(
+            Integer usuario_sys,
+            Integer id_usuario,
+            String contrasena_vieja,
+            String contrasena_nueva,
+            String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            conn.setAutoCommit(false);
+
+            String cadenasql = "update usuario set "
+                    + "reinicio=1, "
+                    + "contrasena='" + contrasena_nueva + "' "
+                    + "where usuario=" + id_usuario;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                    + usuario_sys + ","
+                    + "CURRENT_DATE()" + ","
+                    + "CURRENT_TIME()" + ",'"
+                    + "Id_Usuario: " + id_usuario + "contraseña_antigua: " + contrasena_vieja + "',"
+                    + "129)";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Contraseña reiniciada.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Reiniciar_Contrasena): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Reiniciar_Contrasena - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
+    public String Permiso_Expediente(
+            Integer usuario_sys,
+            String[] permisos,
+            String poolConexion) {
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+        String resultado = "";
+
+        try {
+            conn.setAutoCommit(false);
+
+            for (Integer i = 0; i < permisos.length; i++) {
+                String[] usuario_permiso = permisos[i].trim().split(",");
+                Integer usuario = Integer.parseInt(usuario_permiso[0]);
+                String permiso = usuario_permiso[1];
+
+                String cadenasql = "select p.ver from permiso_usuario_uno p where p.usuario=" + usuario + " and p.menu=28";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(cadenasql);
+                Boolean existe = false;
+                while (rs.next()) {
+                    rs.getString(1);
+                    existe = true;
+                }
+                rs.close();
+                stmt.close();
+
+                if (existe) {
+                    cadenasql = "update permiso_usuario_uno set ver='" + permiso + "' where usuario=" + usuario + " and menu=28";
+                    stmt = conn.createStatement();
+                    stmt.executeUpdate(cadenasql);
+                    stmt.close();
+                } else {
+                    cadenasql = "insert into permiso_usuario_uno (usuario,menu,ver) values (" + usuario + ",28,'" + permiso + "')";
+                    stmt = conn.createStatement();
+                    stmt.executeUpdate(cadenasql);
+                    stmt.close();
+                }
+            }
+
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Permisos de usuario asignados en la opción de menu Expediente.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Permiso_Expediente): " + ex.toString());
+                conn.rollback();
+                resultado = ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Permiso_Expediente - rollback): " + ex1.toString());
+                resultado = ex1.toString();
+            }
         } finally {
             conn = driver.closeConn();
             driver = null;

@@ -13,11 +13,11 @@ public class Corporacion implements Serializable {
     }
 
     public String corporacion_insertar(
-            Integer usuario_sys, 
-            String nombre_d, 
-            String descripcion_d, 
+            Integer usuario_sys,
+            String nombre_d,
+            String descripcion_d,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
@@ -65,12 +65,12 @@ public class Corporacion implements Serializable {
     }
 
     public String corporacion_modificar(
-            Integer usuario_sys, 
-            Integer id_corporacion, 
-            String nombre_d, 
-            String descripcion_d, 
+            Integer usuario_sys,
+            Integer id_corporacion,
+            String nombre_d,
+            String descripcion_d,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
@@ -118,10 +118,10 @@ public class Corporacion implements Serializable {
     }
 
     public String corporacion_eliminar(
-            Integer usuario_sys, 
-            Integer id_corporacion, 
+            Integer usuario_sys,
+            Integer id_corporacion,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";
@@ -168,10 +168,10 @@ public class Corporacion implements Serializable {
     }
 
     public String corporacion_activar(
-            Integer usuario_sys, 
-            Integer id_corporacion, 
+            Integer usuario_sys,
+            Integer id_corporacion,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = "";

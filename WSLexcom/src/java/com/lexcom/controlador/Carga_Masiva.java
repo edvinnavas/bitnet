@@ -6,6 +6,7 @@ import com.lexcom.entidad.Deudores_Demanda_Caratula;
 import com.lexcom.entidad.Deudores_Demanda_Deligenciar_Medidas;
 import com.lexcom.entidad.Deudores_Demanda_Medidas_Precautorias;
 import com.lexcom.entidad.Deudores_Demanda_Presentar_Demanda;
+import com.lexcom.entidad.Deudores_Gestion_Cobro;
 import com.lexcom.entidad.Deudores_Pagos_Masivos;
 import com.lexcom.entidad.Deudores_Rotacion;
 import java.io.File;
@@ -35,10 +36,10 @@ public class Carga_Masiva implements Serializable {
     }
 
     public String carga_masiva_deudoroes(
-            Integer usuario_sys, 
-            String archivo, 
+            Integer usuario_sys,
+            String archivo,
             String poolConexion) {
-        
+
         String resultado = null;
         Integer linea_error = 1;
         Integer filas;
@@ -396,7 +397,7 @@ public class Carga_Masiva implements Serializable {
                 } else {
                     throw new Exception("Error al calcular el campo Telefono Celular en la linea: " + linea_error);
                 }
-                
+
                 String db_telefono_trabajo = "";
                 if (telefono_trabajo != null) {
                     db_telefono_trabajo = telefono_trabajo.toString().trim();
@@ -417,8 +418,8 @@ public class Carga_Masiva implements Serializable {
                     }
                     rs.close();
                     stmt.close();
-                    
-                    if(correo_electronico.toString().trim().equals("-") || esCorreo == 1) {
+
+                    if (correo_electronico.toString().trim().equals("-") || esCorreo == 1) {
                         db_correo_electronico = correo_electronico.toString().trim();
                     } else {
                         throw new Exception("Error al calcular el campo Correo Electrónico en la linea: " + linea_error);
@@ -503,7 +504,7 @@ public class Carga_Masiva implements Serializable {
                     if (!cuenta_principal_relacion_str.equals("SI") && !cuenta_principal_relacion_str.equals("NO")) {
                         throw new Exception("Error al calcular el campo Cuenta principal rel. en la linea: " + linea_error);
                     } else {
-                        if(cuenta_principal_relacion_str.equals("SI")) {
+                        if (cuenta_principal_relacion_str.equals("SI")) {
                             db_cuenta_principal_relacion = 1;
                         } else {
                             db_cuenta_principal_relacion = 0;
@@ -512,7 +513,7 @@ public class Carga_Masiva implements Serializable {
                 } else {
                     throw new Exception("Error al calcular el campo Cuenta principal rel. en la linea: " + linea_error);
                 }
-                
+
                 Integer db_deudor_cuenta_relacionada = 0;
                 try {
                     db_deudor_cuenta_relacionada = Integer.parseInt(formatoInteger.format(Double.parseDouble(deudor_cuenta_relacionada.toString().trim())));
@@ -543,13 +544,13 @@ public class Carga_Masiva implements Serializable {
                             rs.close();
                             stmt.close();
 
-                            if(deudor_relacionado == 0) {
+                            if (deudor_relacionado == 0) {
                                 throw new Exception("Error al calcular el campo Cuenta relacionada en la linea: " + linea_error + " => Cuenta deudor no existe.");
                             }
                             if (corporacion_relacionada != corporacion_cuenta) {
                                 throw new Exception("Error al calcular el campo Cuenta relacionada en la linea: " + linea_error + " => Corporación distinta.");
-                            } 
-                            if(cuenta_principal_relacionada != 1) {
+                            }
+                            if (cuenta_principal_relacionada != 1) {
                                 throw new Exception("Error al calcular el campo Cuenta relacionada en la linea: " + linea_error + " => Cuenta relacionada no es principal.");
                             }
                         }
@@ -800,10 +801,10 @@ public class Carga_Masiva implements Serializable {
     }
 
     public String actualizacion_masiva_deudores(
-            Integer usuario_sys, 
-            String archivo, 
+            Integer usuario_sys,
+            String archivo,
             String poolConexion) {
-        
+
         String resultado = null;
         Integer linea_error = 1;
         Integer filas;
@@ -998,7 +999,7 @@ public class Carga_Masiva implements Serializable {
                 } else {
                     throw new Exception("Error al calcular el campo Telefono Celular en la linea: " + linea_error);
                 }
-                
+
                 String db_direccion = "";
                 if (direccion != null) {
                     db_direccion = direccion.toString().trim();
@@ -1088,8 +1089,8 @@ public class Carga_Masiva implements Serializable {
                     }
                     rs.close();
                     stmt.close();
-                    
-                    if(correo_electronico.toString().trim().equals("-") || esCorreo == 1) {
+
+                    if (correo_electronico.toString().trim().equals("-") || esCorreo == 1) {
                         db_correo_electronico = correo_electronico.toString().trim();
                     } else {
                         throw new Exception("Error al calcular el campo Correo Electrónico en la linea: " + linea_error);
@@ -1509,7 +1510,7 @@ public class Carga_Masiva implements Serializable {
                     if (!cuenta_principal_relacion_str.equals("SI") && !cuenta_principal_relacion_str.equals("NO")) {
                         throw new Exception("Error al calcular el campo Cuenta principal rel. en la linea: " + linea_error);
                     } else {
-                        if(cuenta_principal_relacion_str.equals("SI")) {
+                        if (cuenta_principal_relacion_str.equals("SI")) {
                             db_cuenta_principal_relacion = 1;
                         } else {
                             db_cuenta_principal_relacion = 0;
@@ -1518,7 +1519,7 @@ public class Carga_Masiva implements Serializable {
                 } else {
                     throw new Exception("Error al calcular el campo Cuenta principal rel. en la linea: " + linea_error);
                 }
-                
+
                 Integer db_deudor_cuenta_relacionada = 0;
                 try {
                     db_deudor_cuenta_relacionada = Integer.parseInt(formatoInteger.format(Double.parseDouble(deudor_cuenta_relacionada.toString().trim())));
@@ -1549,13 +1550,13 @@ public class Carga_Masiva implements Serializable {
                             rs.close();
                             stmt.close();
 
-                            if(deudor_relacionado == 0) {
+                            if (deudor_relacionado == 0) {
                                 throw new Exception("Error al calcular el campo Cuenta relacionada en la linea: " + linea_error + " => Cuenta deudor no existe.");
                             }
                             if (corporacion_relacionada != corporacion_cuenta) {
                                 throw new Exception("Error al calcular el campo Cuenta relacionada en la linea: " + linea_error + " => Corporación distinta.");
-                            } 
-                            if(cuenta_principal_relacionada != 1) {
+                            }
+                            if (cuenta_principal_relacionada != 1) {
                                 throw new Exception("Error al calcular el campo Cuenta relacionada en la linea: " + linea_error + " => Cuenta relacionada no es principal.");
                             }
                         }
@@ -1671,7 +1672,7 @@ public class Carga_Masiva implements Serializable {
                 }
                 rs.close();
                 stmt.close();
-                
+
                 // **************************** ACTUALIZACION DE LA TABLA DEUDOR. ****************************
                 cadenasql = "update deudor set "
                         + "actor=" + deu_act_mas.getActor() + ", "
@@ -1898,10 +1899,10 @@ public class Carga_Masiva implements Serializable {
     }
 
     public String carga_rotacion_cartera(
-            Integer usuario_sys, 
-            String archivo, 
+            Integer usuario_sys,
+            String archivo,
             String poolConexion) {
-        
+
         Driver driver = new Driver();
         Connection conn = driver.getConn(poolConexion);
         String resultado = null;
@@ -1997,10 +1998,10 @@ public class Carga_Masiva implements Serializable {
     }
 
     public String carga_pagos_masivos(
-            Integer usuario_sys, 
-            String archivo, 
+            Integer usuario_sys,
+            String archivo,
             String poolConexion) {
-        
+
         String resultado = null;
         Integer linea_error = 1;
         Integer filas;
@@ -2176,10 +2177,10 @@ public class Carga_Masiva implements Serializable {
     }
 
     public String carga_masiva_presentar_demanda(
-            Integer usuario_sys, 
-            String archivo, 
+            Integer usuario_sys,
+            String archivo,
             String poolConexion) {
-        
+
         String resultado = null;
         Integer linea_error = 1;
         Integer filas;
@@ -2420,10 +2421,10 @@ public class Carga_Masiva implements Serializable {
     }
 
     public String carga_masiva_caratula(
-            Integer usuario_sys, 
-            String archivo, 
+            Integer usuario_sys,
+            String archivo,
             String poolConexion) {
-        
+
         String resultado = null;
         Integer linea_error = 1;
         Integer filas;
@@ -2834,10 +2835,10 @@ public class Carga_Masiva implements Serializable {
     }
 
     public String carga_masiva_medidas_precautorias(
-            Integer usuario_sys, 
-            String archivo, 
+            Integer usuario_sys,
+            String archivo,
             String poolConexion) {
-        
+
         String resultado = null;
         Integer linea_error = 1;
         Integer filas;
@@ -3519,10 +3520,10 @@ public class Carga_Masiva implements Serializable {
     }
 
     public String carga_masiva_deligenciar_medidas(
-            Integer usuario_sys, 
-            String archivo, 
+            Integer usuario_sys,
+            String archivo,
             String poolConexion) {
-        
+
         String resultado = null;
         Integer linea_error = 1;
         Integer filas;
@@ -4193,6 +4194,237 @@ public class Carga_Masiva implements Serializable {
                 resultado = "Error linea(" + linea_error + "): " + ex.toString();
             } catch (Exception ex1) {
                 System.out.println("ERROR => WS-ServiciosLexcom(Carga_Masiva_Deligenciar_Medidas - rollback): " + ex1.toString());
+                resultado = "ERROR ROLLBACK: " + ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
+    
+    public String carga_gestiones_cobros(
+            Integer usuario_sys,
+            String archivo,
+            String poolConexion) {
+
+        String resultado = null;
+        Integer linea_error = 1;
+        Integer filas;
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+
+        try {
+            DecimalFormat formatoInteger = new DecimalFormat("#");
+            DecimalFormat formatoDouble = new DecimalFormat("#0.00");
+            SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoDate1 = new SimpleDateFormat("yyyy-MM-dd");
+            formatoDate.setLenient(false);
+            formatoDate1.setLenient(false);
+
+            conn.setAutoCommit(false);
+
+            File excel = new File(archivo);
+            FileInputStream fis = new FileInputStream(excel);
+            XSSFWorkbook wb = new XSSFWorkbook(fis);
+            XSSFSheet ws = wb.getSheetAt(0);
+
+            filas = ws.getLastRowNum() + 1;
+
+            for (Integer i = 1; i < filas; i++) {
+                linea_error = i + 1;
+
+                XSSFRow row = ws.getRow(i);
+
+                XSSFCell corporacion = row.getCell(0);
+                XSSFCell actor = row.getCell(1);
+                XSSFCell deudor = row.getCell(2);
+                XSSFCell caso = row.getCell(3);
+                XSSFCell cargado = row.getCell(4);
+                XSSFCell usuario = row.getCell(5);
+                XSSFCell fecha = row.getCell(6);
+                XSSFCell hora = row.getCell(7);
+                XSSFCell codigo_resultado = row.getCell(8);
+                XSSFCell contacto = row.getCell(9);
+                XSSFCell descripcion = row.getCell(10);
+
+                Integer db_deudor = 0;
+                try {
+                    db_deudor = Integer.parseInt(formatoInteger.format(Double.parseDouble(deudor.toString().trim())));
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select d.deudor from deudor d where d.deudor=" + db_deudor);
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    if (!existe) {
+                        throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Deudor en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+
+                Integer db_usuario = 0;
+                try {
+                    String db_usuario_nombre = usuario.toString().trim();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select u.usuario from usuario u where u.nombre='" + db_usuario_nombre + "'");
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        db_usuario = rs.getInt(1);
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+
+                    if (!existe) {
+                        throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Usuario en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+
+                Date db_fecha = new Date(1900, 0, 1);
+                if (fecha != null) {
+                    try {
+                        db_fecha = fecha.getDateCellValue();
+                        formatoDate.format(db_fecha);
+                    } catch (Exception ex) {
+                        throw new Exception("Error al calcular el campo Fecha de gestión en la linea: " + linea_error + " Exception: " + ex.toString());
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Fecha de gestión en la linea: " + linea_error);
+                }
+
+                String db_hora = "";
+                if (hora != null) {
+                    db_hora = hora.toString().trim();
+                    if (db_hora.equals("")) {
+                        throw new Exception("Error al calcular el campo Hora (Espacio en blanco) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                    } else {
+                        if (db_hora.length() != 8) {
+                            throw new Exception("Error al calcular el campo Hora (longitud diferente a 8) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                        } else {
+                            try {
+                                Integer hora_num = Integer.parseInt(db_hora.substring(0, 2));
+                                Integer minuto_num = Integer.parseInt(db_hora.substring(3, 5));
+                                Integer segundo_num = Integer.parseInt(db_hora.substring(6, 8));
+                                if (hora_num < 0 && hora_num > 23) {
+                                    throw new Exception("Error al calcular el campo Hora (hora) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                                }
+                                if (minuto_num < 0 && minuto_num > 59) {
+                                    throw new Exception("Error al calcular el campo Hora (minuto) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                                }
+                                if (segundo_num < 0 && segundo_num > 59) {
+                                    throw new Exception("Error al calcular el campo Hora (segundo) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                                }
+                            } catch (Exception ex_hora) {
+                                throw new Exception("Error al calcular el campo Hora de gestión en la linea: " + linea_error + ", ex_hora" + " Valor: " + db_hora);
+                            }
+                        }
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Hora (NULL) de gestión en la linea: " + linea_error + " Valor: " + db_hora);
+                }
+
+                Integer db_codigo_contactabilidad = 0;
+                try {
+                    String db_codigo_contactabilidad_nombre = codigo_resultado.toString().trim();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select cc.codigo_contactabilidad from codigo_contactabilidad cc where cc.codigo='" + db_codigo_contactabilidad_nombre + "'");
+                    Boolean existe = false;
+                    while (rs.next()) {
+                        db_codigo_contactabilidad = rs.getInt(1);
+                        existe = true;
+                    }
+                    rs.close();
+                    stmt.close();
+                    if (!existe) {
+                        throw new Exception("Error al calcular el campo Código de Resultado Usuario en la linea: " + linea_error + " Valor: " + db_codigo_contactabilidad_nombre);
+                    }
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Código de Resultado en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+
+                String db_contacto = "";
+                if (contacto != null) {
+                    db_contacto = contacto.toString().trim();
+                    if (db_contacto.equals("")) {
+                        throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                    } else {
+                        System.out.println("VALOR_2: " + db_contacto);
+                        if (!db_contacto.equals("SI") && !db_contacto.equals("NO")) {
+                            throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                        }
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Contacto de gestión en la linea: " + linea_error);
+                }
+
+                String db_descripcion = "";
+                if (descripcion != null) {
+                    db_descripcion = descripcion.toString().trim();
+                    if (db_descripcion.equals("")) {
+                        throw new Exception("Error al calcular el campo Descripción de gestión en la linea: " + linea_error);
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Descripción de gestión en la linea: " + linea_error);
+                }
+
+                Deudores_Gestion_Cobro deu_ges_cob = new Deudores_Gestion_Cobro(
+                        db_deudor,
+                        db_fecha,
+                        db_hora,
+                        db_usuario,
+                        db_codigo_contactabilidad,
+                        db_descripcion,
+                        db_contacto);
+
+                String cadenasql = "insert deudor_historial_cobros ("
+                        + "deudor, "
+                        + "fecha, "
+                        + "hora, "
+                        + "usuario, "
+                        + "codigo_contactabilidad, "
+                        + "descripcion, "
+                        + "contacto) values ("
+                        + deu_ges_cob.getDeudor() + ",'"
+                        + formatoDate1.format(deu_ges_cob.getFecha()) + "','"
+                        + deu_ges_cob.getHora() + "',"
+                        + deu_ges_cob.getUsuario() + ","
+                        + deu_ges_cob.getCodigo_contactabilidad() + ",'"
+                        + deu_ges_cob.getDescripcion() + "','"
+                        + deu_ges_cob.getContacto() + "')";
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+
+                cadenasql = "insert into evento (usuario,fecha,hora,descripcion,tipo_evento) values ("
+                        + usuario_sys + ","
+                        + "CURRENT_DATE()" + ","
+                        + "CURRENT_TIME()" + ",'"
+                        + "Carga masiva gestión cobros=[Deudor: " + deu_ges_cob.getDeudor() + ", Corporación: " + corporacion.toString().trim() + ", Actor: " + actor.toString().trim() + ", Caso: " + caso.toString().trim() + ", Cargado: " + cargado.toString().trim() + ", Código Resultado: " + codigo_resultado.toString().trim() + "]" + "',"
+                        + "153" + ")";
+                stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
+
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Carga masiva gestión de cobros exitosa.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros): " + ex.toString());
+                conn.rollback();
+                resultado = "Error linea(" + linea_error + "): " + ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(Carga_Gestiones_Cobros - rollback): " + ex1.toString());
                 resultado = "ERROR ROLLBACK: " + ex1.toString();
             }
         } finally {

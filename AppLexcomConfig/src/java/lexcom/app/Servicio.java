@@ -860,5 +860,17 @@ public class Servicio implements Serializable {
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
         return port.antiguedadActivar(usuarioSys, idAntiguedad, poolConexion);
     }
+
+    public String cargaGestionesCobros(java.lang.Integer usuarioSys, java.lang.String archivo, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.cargaGestionesCobros(usuarioSys, archivo, poolConexion);
+    }
+
+    public java.util.List<lexcom.ws.StringArray> getMonitor(java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.getMonitor(poolConexion);
+    }
     
 }

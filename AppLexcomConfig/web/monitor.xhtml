@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:panel id="panelMonitor" header="MONITOR BASES DE DATOS." style="font-size:12px; font-weight:bold;">
+                <h:form id="formMonitor">
+                    <p:growl id="mensaje" showDetail="true"/>
+                    <p:panelGrid columns="2">
+                        <f:facet name="header">
+                            <p:outputLabel value="Ambiente de producción."/>
+                        </f:facet>
+                        <p:outputLabel value="Nombre base de datos."/>
+                        <p:inputText id="nombre_db_produccion" value="#{Monitor.nombre_db_produccion}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="URL base de datos."/>
+                        <p:inputText id="url_db_produccion" value="#{Monitor.url_db_produccion}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Usuario base de datos."/>
+                        <p:inputText id="usuario_db_produccion" value="#{Monitor.usuario_db_produccion}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Fecha última gestión."/>
+                        <p:inputText id="fecha_ultima_gestion_produccion" value="#{Monitor.fecha_ultima_gestion_produccion}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Hora última gestión."/>
+                        <p:inputText id="hora_ultima_gestion_produccion" value="#{Monitor.hora_ultima_gestion_produccion}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Número de gestiones."/>
+                        <p:inputText id="numero_gestion_produccion" value="#{Monitor.numero_gestion_produccion}" readonly="true" style="width: 400px;">
+                            <f:convertNumber type="number"/>
+                        </p:inputText>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2">
+                        <f:facet name="header">
+                            <p:outputLabel value="Ambiente de pruebas."/>
+                        </f:facet>
+                        <p:outputLabel value="Nombre base de datos."/>
+                        <p:inputText id="nombre_db_test" value="#{Monitor.nombre_db_test}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="URL base de datos."/>
+                        <p:inputText id="url_db_test" value="#{Monitor.url_db_test}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Usuario base de datos."/>
+                        <p:inputText id="usuario_db_test" value="#{Monitor.usuario_db_test}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Fecha última gestión."/>
+                        <p:inputText id="fecha_ultima_gestion_test" value="#{Monitor.fecha_ultima_gestion_test}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Hora última gestión."/>
+                        <p:inputText id="hora_ultima_gestion_test" value="#{Monitor.hora_ultima_gestion_test}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Número de gestiones."/>
+                        <p:inputText id="numero_gestion_test" value="#{Monitor.numero_gestion_test}" readonly="true" style="width: 400px;">
+                            <f:convertNumber type="number"/>
+                        </p:inputText>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2">
+                        <f:facet name="header">
+                            <p:outputLabel value="Ambiente de replica"/>
+                        </f:facet>
+                        <p:outputLabel value="Nombre base de datos."/>
+                        <p:inputText id="nombre_db_replica" value="#{Monitor.nombre_db_replica}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="URL base de datos."/>
+                        <p:inputText id="url_db_replica" value="#{Monitor.url_db_replica}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Usuario base de datos."/>
+                        <p:inputText id="usuario_db_replica" value="#{Monitor.usuario_db_replica}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Fecha última gestión."/>
+                        <p:inputText id="fecha_ultima_gestion_replica" value="#{Monitor.fecha_ultima_gestion_replica}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Hora última gestión."/>
+                        <p:inputText id="hora_ultima_gestion_replica" value="#{Monitor.hora_ultima_gestion_replica}" readonly="true" style="width: 400px;"/>
+                        <p:outputLabel value="Número de gestiones."/>
+                        <p:inputText id="numero_gestion_replica" value="#{Monitor.numero_gestion_replica}" readonly="true" style="width: 400px;">
+                            <f:convertNumber type="number"/>
+                        </p:inputText>
+                    </p:panelGrid>
+                    <p:commandButton id="btnActualizar" value="Actualizar" actionListener="#{Monitor.obtener_monitor}" update="panelMonitor"/>
+
+                    <p:blockUI widgetVar="blocker" block="panelMonitor" trigger="btnActualizar">
+                        <h:panelGrid columns="1">
+                            <img src="imagenes/ajax-loader.gif" alt=""/>
+                        </h:panelGrid>
+                    </p:blockUI>
+                </h:form>
+            </p:panel>
+        </ui:composition>
+    </h:body>
+</html>

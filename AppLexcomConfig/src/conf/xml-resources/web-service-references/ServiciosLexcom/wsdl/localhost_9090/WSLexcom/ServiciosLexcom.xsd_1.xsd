@@ -665,20 +665,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Usuario_Activar">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="id_usuario" type="xs:int" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Usuario_ActivarResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="EstadoExtra_Eliminar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -702,6 +688,20 @@
 </xs:complexType>
 
 <xs:complexType name="Referencia_EliminarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Usuario_Activar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_usuario" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Usuario_ActivarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -751,35 +751,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="EstadoExtra_Insertar">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="nombre_d" type="xs:string" minOccurs="0"/>
-<xs:element name="descripcion_d" type="xs:string" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="EstadoExtra_InsertarResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Carga_Masiva_Deligenciar_Medidas">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="archivo" type="xs:string" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Carga_Masiva_Deligenciar_MedidasResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="Rotacion_Automatica">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -805,6 +776,35 @@
 </xs:complexType>
 
 <xs:complexType name="Razon_Deuda_ModificarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EstadoExtra_Insertar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre_d" type="xs:string" minOccurs="0"/>
+<xs:element name="descripcion_d" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="EstadoExtra_InsertarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Carga_Masiva_Deligenciar_Medidas">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="archivo" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Carga_Masiva_Deligenciar_MedidasResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -1042,22 +1042,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Status_Modificar">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="id_estatus" type="xs:int" minOccurs="0"/>
-<xs:element name="nombre_d" type="xs:string" minOccurs="0"/>
-<xs:element name="descripcion_d" type="xs:string" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Status_ModificarResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="Convenio_Modificar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -1091,14 +1075,17 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="SqlTransaccion">
+<xs:complexType name="Status_Modificar">
 <xs:sequence>
-<xs:element name="cadenasql" type="xs:string" minOccurs="0"/>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_estatus" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre_d" type="xs:string" minOccurs="0"/>
+<xs:element name="descripcion_d" type="xs:string" minOccurs="0"/>
 <xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="SqlTransaccionResponse">
+<xs:complexType name="Status_ModificarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -1113,6 +1100,19 @@
 </xs:complexType>
 
 <xs:complexType name="Razon_Deuda_EliminarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SqlTransaccion">
+<xs:sequence>
+<xs:element name="cadenasql" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SqlTransaccionResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -1154,6 +1154,20 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="Corporacion_Activar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_corporacion" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Corporacion_ActivarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="Fiador_Insertar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -1178,20 +1192,6 @@
 </xs:complexType>
 
 <xs:complexType name="Fiador_InsertarResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Corporacion_Activar">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="id_corporacion" type="xs:int" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Corporacion_ActivarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -1624,20 +1624,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Carga_Gestiones_Cobros">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="archivo" type="xs:string" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Carga_Gestiones_CobrosResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="Descuento_Insertar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -1651,6 +1637,20 @@
 </xs:complexType>
 
 <xs:complexType name="Descuento_InsertarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Carga_Gestiones_Cobros">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="archivo" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Carga_Gestiones_CobrosResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -1686,6 +1686,20 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="Tipo_Codigo_Resultado_Activar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_tipo_codigo_contactabilidad" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Tipo_Codigo_Resultado_ActivarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="Frase_Predeterminada_Insertar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -1697,20 +1711,6 @@
 </xs:complexType>
 
 <xs:complexType name="Frase_Predeterminada_InsertarResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Tipo_Codigo_Resultado_Activar">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="id_tipo_codigo_contactabilidad" type="xs:int" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Tipo_Codigo_Resultado_ActivarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -1760,19 +1760,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Reporte">
-<xs:sequence>
-<xs:element name="cadenasql" type="xs:string" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="ReporteResponse">
-<xs:sequence>
-<xs:element name="return" type="ns1:stringArray" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="Rol_Modificar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -1786,6 +1773,19 @@
 <xs:complexType name="Rol_ModificarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Reporte">
+<xs:sequence>
+<xs:element name="cadenasql" type="xs:string" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ReporteResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:stringArray" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -2001,20 +2001,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Antiguedad_Eliminar">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="id_antiguedad" type="xs:int" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Antiguedad_EliminarResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="Gestion_Administracion_Insertar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -2044,6 +2030,20 @@
 </xs:complexType>
 
 <xs:complexType name="Frase_Predeterminada_ModificarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Antiguedad_Eliminar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_antiguedad" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Antiguedad_EliminarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -2406,20 +2406,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Pago_Eliminar">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="id_pago" type="xs:int" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Pago_EliminarResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="Convenio_Detalle_Insertar">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -2434,6 +2420,20 @@
 </xs:complexType>
 
 <xs:complexType name="Convenio_Detalle_InsertarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Pago_Eliminar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_pago" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Pago_EliminarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -2845,20 +2845,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Status_Activar">
-<xs:sequence>
-<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
-<xs:element name="id_estatus" type="xs:int" minOccurs="0"/>
-<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Status_ActivarResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="Carga_Masiva_Caratula">
 <xs:sequence>
 <xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
@@ -2884,6 +2870,20 @@
 </xs:complexType>
 
 <xs:complexType name="Garantia_ModificarResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Status_Activar">
+<xs:sequence>
+<xs:element name="usuario_sys" type="xs:int" minOccurs="0"/>
+<xs:element name="id_estatus" type="xs:int" minOccurs="0"/>
+<xs:element name="poolConexion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Status_ActivarResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
