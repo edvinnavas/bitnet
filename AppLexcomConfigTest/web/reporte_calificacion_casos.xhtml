@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formReporteDeudoresContactados">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel id="panelReporteDeudoresContactados" header="Reporte calificación de casos" style="width:60%; font-size:10px; font-weight:bold;">
+                    <h:panelGrid columns="2" style="width:100%;">
+                        <p:outputLabel value="Actor"/>
+                        <p:selectOneMenu id="somActor" value="#{Reporte_Calificacion_Casos.actor}" style="width:400px;">
+                            <f:selectItems value="#{Reporte_Calificacion_Casos.lst_actores}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton id="btnGenerar" value="Generar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{Reporte_Calificacion_Casos.generar_reporte}" styleClass="ui-priority-primary" icon="ui-icon-arrowthick-1-s">
+                            <p:fileDownload value="#{Reporte_Calificacion_Casos.file}"/>
+                        </p:commandButton>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

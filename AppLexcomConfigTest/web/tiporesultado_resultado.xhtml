@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formTipoCodigoCodigo">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel id="panelTipoCodigoCodigo" header="Asignación Tipo Código Resultado - Código Resultado" style="font-size:10px; font-weight:bold;">
+                    <p:panelGrid id="gridTipoCodigoCodigo" columns="1">
+                        <p:outputLabel value="Tipo Código Resultado"/>
+                        <p:selectOneMenu id="somTipoCodigoResultado" disabled="#{TipoCodigoCodigo.somTipoCodigoResultado}" value="#{TipoCodigoCodigo.tipo_codigo_resultado_d}" style="width: 553px;">
+                            <f:selectItems value="#{TipoCodigoCodigo.lst_tipo_codigo_resultado}"/>
+                            <p:ajax event="valueChange" listener="#{TipoCodigoCodigo.cargar_codigo_resultado}" update="pckCodigoResultado"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Código Resultado"/>
+                        <p:pickList id="pckCodigoResultado" disabled="#{TipoCodigoCodigo.pckCodigoResultado}" value="#{TipoCodigoCodigo.codigo_resultado_d}" var="codigo_resultado" itemLabel="#{codigo_resultado}" itemValue="#{codigo_resultado}"/>
+                        <f:facet name="footer">
+                            <div align="right">
+                                <p:commandButton id="btnGuardar" disabled="#{TipoCodigoCodigo.btnGuardar}" value="Guardar" actionListener="#{TipoCodigoCodigo.guardar}" update="formMenu:mensaje2"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

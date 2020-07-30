@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListBanco">
+                <p:panel id="panelBanco">
+                    <p:dataTable 
+                        id="tblBanco"
+                        var="ban"
+                        widgetVar="dtblWidgetBan"
+                        value="#{Banco.lst_banco}"
+                        selectionMode="single"
+                        selection="#{Banco.selectedBanco}"
+                        rowKey="#{ban.banco}"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+                        <f:facet name="header">
+                            <h:outputText value="LISTADO DE BANCOS"/>
+                        </f:facet>
+                        
+                        <p:ajax event="rowDblselect" listener="#{Banco.carga_info_modificar}" update="DialogCrearBanco, formMenu:mensaje2" global="false"/>
+                        
+                        <p:column headerText="Id" sortBy="#{ban.banco}" filterBy="#{ban.banco}" filterMatchMode="contains">
+                            <h:outputText value="#{ban.banco}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{ban.nombre}" filterBy="#{ban.nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{ban.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{ban.estado}" filterBy="#{ban.estado}" filterMatchMode="contains">
+                            <h:outputText value="#{ban.estado}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
+                            <p:dataExporter id="dataexpExcel" type="xls" target="tblBanco" fileName="Bancos"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCrear" actionListener="#{Banco.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearBanco" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnModificar" actionListener="#{Banco.carga_info_modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="DialogCrearBanco, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnEliminar" actionListener="#{Banco.carga_info_eliminar}" ajax="true" icon="ui-icon-plus" value="Eliminar" update="DialogCrearBanco, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnActivar" actionListener="#{Banco.carga_info_activar}" ajax="true" icon="ui-icon-plus" value="Activar" update="DialogCrearBanco, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnVer" actionListener="#{Banco.carga_info_ver}" ajax="true" icon="ui-icon-plus" value="Ver" update="DialogCrearBanco, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+            
+            <p:dialog id="DialogCrearBanco" header="BANCO" widgetVar="dlg1" modal="true" resizable="true" appendTo="@(body)" closeOnEscape="true" style="font-size:10px; font-weight:bold;">
+                <h:form id="FormCrearBanco">
+                    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="1" style="width: 100%;">
+                        <p:outputLabel value="Nombre"/>
+                        <p:inputText id="txtNombre" disabled="#{Banco.txtNombre}" value="#{Banco.nombre_d}" style="width:400px;"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1" style="width: 100%;">
+                        <p:outputLabel value="Descripción"/>
+                        <p:inputTextarea id="itaDescripcion" disabled="#{Banco.itaDescripcion}" value="#{Banco.descripcion_d}" rows="5" autoResize="false" style="width:98%;"/>
+                    </p:panelGrid>
+                    <div align="right">
+                        <p:commandButton id="btnAceptar" disabled="#{Banco.btnAceptar}" ajax="true" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('dlg1').hide()" update="formMenu:mensaje2, formListBanco" actionListener="#{Banco.aceptar}">
+                            <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" disabled="#{Banco.btnCancelar}" ajax="true" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg1').hide()"/>
+                        
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

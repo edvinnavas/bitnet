@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formPermisosUsuario">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel header="PERMISOS DE USUARIO" style="font-size:10px; font-weight:bold;">
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="Usuario"/>
+                        <p:selectOneMenu id="usuarios" value="#{Permisos_Usuario.user}" style="width:207px;">
+                            <f:selectItems value="#{Permisos_Usuario.lst_user}"/>
+                            <p:ajax event="valueChange" listener="#{Permisos_Usuario.cambia_usuario}" update="pickList"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Permisos de usuario"/>
+                        <p:pickList id="pickList" value="#{Permisos_Usuario.lst_usuario_permisos}" var="permisos" itemLabel="#{permisos}" itemValue="#{permisos}"/>
+                        <f:facet name="footer">
+                            <div align="right">
+                                <p:commandButton id="btnGuardar" value="Guardar" actionListener="#{Permisos_Usuario.guardar}" update="formMenu:mensaje2"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

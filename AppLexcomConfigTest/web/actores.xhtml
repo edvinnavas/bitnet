@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListActor">
+                <p:panel id="panelActor">
+                    <p:dataTable 
+                        id="tblActor"
+                        var="act"
+                        widgetVar="dtblWidgetAct"
+                        value="#{Actor.lst_actor}"
+                        selectionMode="single"
+                        selection="#{Actor.selectedActor}"
+                        rowKey="#{act.actor}"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+                        <f:facet name="header">
+                            <h:outputText value="LISTADO DE ACTORES"/>
+                        </f:facet>
+                        
+                        <p:ajax event="rowDblselect" listener="#{Actor.carga_info_modificar}" update="DialogCrearActor, formMenu:mensaje2" global="false"/>
+                        
+                        <p:column headerText="Id" sortBy="#{act.actor}" filterBy="#{act.actor}" filterMatchMode="contains">
+                            <h:outputText value="#{act.actor}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{act.nombre}" filterBy="#{act.nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{act.nombre}"/>
+                        </p:column>
+                        <p:column headerText="NIT" sortBy="#{act.nit}" filterBy="#{act.nit}" filterMatchMode="contains">
+                            <h:outputText value="#{act.nit}"/>
+                        </p:column>
+                        <p:column headerText="Teléfono" sortBy="#{act.telefono}" filterBy="#{act.telefono}" filterMatchMode="contains">
+                            <h:outputText value="#{act.telefono}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{act.estado}" filterBy="#{act.estado}" filterMatchMode="contains">
+                            <h:outputText value="#{act.estado}"/>
+                        </p:column>
+                        <p:column headerText="Corporación" sortBy="#{act.cooperacion}" filterBy="#{act.cooperacion}" filterMatchMode="contains">
+                            <h:outputText value="#{act.cooperacion}"/>
+                        </p:column>
+                        <p:column headerText="Digitalización" sortBy="#{act.digitalizados}" filterBy="#{act.digitalizados}" filterMatchMode="contains">
+                            <h:outputText value="#{act.digitalizados}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
+                            <p:dataExporter id="dataexpExcel" type="xls" target="tblActor" fileName="Actores"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCrear" actionListener="#{Actor.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearActor" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnModificar" actionListener="#{Actor.carga_info_modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="DialogCrearActor, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnEliminar" actionListener="#{Actor.carga_info_eliminar}" ajax="true" icon="ui-icon-plus" value="Eliminar" update="DialogCrearActor, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnActivar" actionListener="#{Actor.carga_info_activar}" ajax="true" icon="ui-icon-plus" value="Activar" update="DialogCrearActor, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnVer" actionListener="#{Actor.carga_info_ver}" ajax="true" icon="ui-icon-plus" value="Ver" update="DialogCrearActor, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+            
+            <p:dialog id="DialogCrearActor" header="ACTOR" widgetVar="dlg1" modal="true" resizable="true" appendTo="@(body)" closeOnEscape="true" style="font-size:10px; font-weight:bold;">
+                <h:form id="FormCrearActor">
+                    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="2" style="width:100%;">
+                        <p:outputLabel value="Corporación"/>
+                        <p:outputLabel value="Nombre"/>
+                        <p:selectOneMenu id="somCorporacion" disabled="#{Actor.somCorporacion}" value="#{Actor.cooperacion_d}" style="width:207px;">
+                            <f:selectItem itemLabel="Seleccionar uno..."/>
+                            <f:selectItems value="#{Actor.lst_corporacion}"/>
+                        </p:selectOneMenu>
+                        <p:inputText id="txtNombre" disabled="#{Actor.txtNombre}" value="#{Actor.nombre_d}" style="width:200px;"/>
+                        <p:outputLabel value="NIT"/>
+                        <p:outputLabel value="Teléfono"/>
+                        <p:inputText id="txtNit" disabled="#{Actor.txtNit}" value="#{Actor.nit_d}" style="width:200px;"/>
+                        <p:inputText id="txtTelefono" disabled="#{Actor.txtTelefono}" value="#{Actor.telefono_d}" style="width:200px;"/>
+                        <p:outputLabel value="Digitalización"/>
+                        <p:outputLabel value="-"/>
+                        <p:inputText id="txtDigitalizacion" disabled="#{Actor.txtdigitalizados}" value="#{Actor.digitalizados_d}" style="width:200px;"/>
+                        <p:outputLabel value="-"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1" style="width:100%;">
+                        <p:outputLabel value="Descripción"/>
+                        <p:inputTextarea id="itaDescripcion" disabled="#{Actor.itaDescripcion}" value="#{Actor.descripcion_d}" rows="5" autoResize="false" style="width:98%;"/>
+                    </p:panelGrid>
+                    <div align="right">
+                        <p:commandButton id="btnAceptar" disabled="#{Actor.btnAceptar}" ajax="true" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('dlg1').hide()" update="formMenu:mensaje2, formListActor" actionListener="#{Actor.aceptar}">
+                            <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" disabled="#{Actor.btnCancelar}" ajax="true" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg1').hide()"/>
+                        
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

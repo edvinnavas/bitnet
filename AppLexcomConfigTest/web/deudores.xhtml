@@ -1,0 +1,537 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListDeudor">
+                <p:panel id="panelDeudor">
+                    <p:selectBooleanCheckbox id="chkSoloCargados" value="#{Deudor.solo_cargados}" itemLabel="Solo cargados">
+                        <p:ajax update="tblDeudor" listener="#{Deudor.cargar_tabla}"/>
+                    </p:selectBooleanCheckbox>    
+                    <p:dataTable 
+                        id="tblDeudor"
+                        var="deu"
+                        widgetVar="dtblWidgetDeu"
+                        value="#{Deudor.lst_deudor}"
+                        selectionMode="single"
+                        selection="#{Deudor.selectedDeudor}"
+                        rowKey="#{deu.deudor}"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,50,100"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+                        <f:facet name="header">
+                            <h:outputText value="LISTADO DE DEUDORES"/>
+                        </f:facet>
+
+                        <p:ajax event="rowDblselect" listener="#{Deudor.carga_info_modificar}" update="DialogCrearDeudor, formMenu:mensaje2" global="false"/>
+
+                        <p:column headerText="Id" sortBy="#{deu.deudor}" filterBy="#{deu.deudor}" filterMatchMode="contains">
+                            <h:outputText value="#{deu.deudor}"/>
+                        </p:column>
+                        <p:column headerText="Actor" sortBy="#{deu.actor}" filterBy="#{deu.actor}" filterMatchMode="contains">
+                            <h:outputText value="#{deu.actor}"/>
+                        </p:column>
+                        <p:column headerText="Caso" sortBy="#{deu.caso}" filterBy="#{deu.caso}" filterMatchMode="contains">
+                            <h:outputText value="#{deu.caso}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{deu.nombre}" filterBy="#{deu.nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{deu.nombre}"/>
+                        </p:column>
+                        <p:column headerText="No. Cuenta" sortBy="#{deu.no_cuenta}" filterBy="#{deu.no_cuenta}" filterMatchMode="contains">
+                            <h:outputText value="#{deu.no_cuenta}"/>
+                        </p:column>
+                        <p:column headerText="Otro no. Cuenta" sortBy="#{deu.no_cuenta_otro}" filterBy="#{deu.no_cuenta_otro}" filterMatchMode="contains">
+                            <h:outputText value="#{deu.no_cuenta_otro}"/>
+                        </p:column>
+                        <p:column headerText="Cargado" sortBy="#{deu.cargado}" filterBy="#{deu.cargado}" filterMatchMode="contains">
+                            <h:outputText value="#{deu.cargado}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
+                            <p:dataExporter id="dataexpExcel" type="xls" target="tblDeudor" fileName="Deudores"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCrear" actionListener="#{Deudor.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearDeudor" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnModificar" actionListener="#{Deudor.carga_info_modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="DialogCrearDeudor, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnEliminar" actionListener="#{Deudor.carga_info_eliminar}" ajax="true" icon="ui-icon-plus" value="Eliminar" update="DialogCrearDeudor, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnActivar" actionListener="#{Deudor.carga_info_activar}" ajax="true" icon="ui-icon-plus" value="Activar" update="DialogCrearDeudor, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnVer" actionListener="#{Deudor.carga_info_ver}" ajax="true" icon="ui-icon-plus" value="Ver" update="DialogCrearDeudor, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                    </f:facet>
+                </p:panel>
+                <p:blockUI widgetVar="blocker1" block="panelDeudor" trigger="chkSoloCargados">
+                    <h:panelGrid columns="1">
+                        <img src="imagenes/ajax-loader.gif" alt=""/>
+                    </h:panelGrid>
+                </p:blockUI>
+            </h:form>
+
+            <p:dialog id="DialogCrearDeudor" header="DEUDOR" widgetVar="dlg1" modal="true" resizable="false" appendTo="@(body)" closeOnEscape="true" style="font-size:9px; font-weight:bold;">
+                <h:form id="FormCrearDeudor">
+                    <p:scrollPanel mode="native" style="width: auto; height: 500px;">
+                        <p:tabView>
+                            <p:tab title="Datos del cliente">
+                                <p:panelGrid>
+                                    <p:row>
+                                        <p:column colspan="6" styleClass="ui-widget-header">
+                                            <p:outputLabel value="Datos personales"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Nombre deudor"/>
+                                        </p:column>
+                                        <p:column colspan="5">
+                                            <p:inputText id="txtNombre" disabled="#{Deudor.txtNombre}" value="#{Deudor.nombre_d}" style="width: 98%;"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="DPI"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtDpi" disabled="#{Deudor.txtDpi}" value="#{Deudor.dpi_d}" style="width: 200px;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="NIT"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtNit" disabled="#{Deudor.txtNit}" value="#{Deudor.nit_d}" style="width: 200px;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Nacionalidad"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxNacionalidad" disabled="#{Deudor.cbxNacionalidad}" value="#{Deudor.nacionalidad_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_nacionalidad}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Fecha de nacimiento"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:calendar id="dateFechaNacimiento" disabled="#{Deudor.dateFechaNacimiento}" value="#{Deudor.fecha_nacimiento_d}" pattern="dd/MM/yyyy"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Género"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxSexo" disabled="#{Deudor.cbxSexo}" value="#{Deudor.sexo_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_sexo}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Estado civil"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxEstadoCivil" disabled="#{Deudor.cbxEstadoCivil}" value="#{Deudor.estado_civil_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_estado_civil}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="País"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxPais" disabled="#{Deudor.cbxPais}" value="#{Deudor.pais_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_pais}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Departamento"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxDepartamento" disabled="#{Deudor.cbxDepartamento}" value="#{Deudor.departamento_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_departamento}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Zona"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:spinner id="spnZona" disabled="#{Deudor.spnZona}" value="#{Deudor.zona_d}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Teléfono de casa"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtTelefonoCasa" disabled="#{Deudor.txtTelefonoCasa}" value="#{Deudor.telefono_casa_d}" style="width: 200px;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Contacto principal"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtTelefonoCelular" disabled="#{Deudor.txtTelefonoCelular}" value="#{Deudor.telefono_celular_d}" style="width: 200px;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Profesión"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtProfesion" disabled="#{Deudor.txtProfesion}" value="#{Deudor.profesion_d}" style="width: 200px;"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Correo electrónico"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtCorreoElectronico" disabled="#{Deudor.txtCorreoElectronico}" value="#{Deudor.correo_electronico_d}" style="width: 200px;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Teléfono de trabajo"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtTelefonoTrabajo" disabled="#{Deudor.txtTelefonoTrabajo}" value="#{Deudor.telefono_trabajo_d}" style="width: 200px;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Lugar de trabajo"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtLugarTrabajo" disabled="#{Deudor.txtLugarTrabajo}" value="#{Deudor.lugar_trabajo_d}" style="width: 200px;"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Dirección"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputTextarea id="areDireccion" disabled="#{Deudor.txtDireccion}" value="#{Deudor.direccion_d}" style="width: 98%;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Dirección de trabajo"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputTextarea id="areDireccionTrabajo" disabled="#{Deudor.txtDireccionTrabajo}" value="#{Deudor.direccion_trabajo_d}" style="width: 98%;"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="6" styleClass="ui-widget-header">
+                                            <p:outputLabel value="Datos del expediente"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Actor"/>
+                                        </p:column>
+                                        <p:column colspan="3">
+                                            <p:selectOneMenu id="cbxActor" disabled="#{Deudor.cbxActor}" value="#{Deudor.actor_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_actor}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="No. de caso"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:spinner id="spnCaso" disabled="#{Deudor.spnCaso}" value="#{Deudor.caso_d}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="No. de cuenta"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtNoCuenta" disabled="#{Deudor.txtNoCuenta}" value="#{Deudor.no_cuenta_d}" style="width: 200px;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Otro no. de cuenta"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="txtNoCuentaOtro" disabled="#{Deudor.txtNoCuentaOtro}" value="#{Deudor.no_cuenta_otro_d}" style="width: 200px;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Cargado"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxCargado" disabled="#{Deudor.cbxCargado}" value="#{Deudor.cargado_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_cargado}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Moneda"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxMoneda" disabled="#{Deudor.cbxMoneda}" value="#{Deudor.moneda_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_moneda}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Monto inicial"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:spinner id="spnMontoInicial" disabled="#{Deudor.spnMontoInicial}" value="#{Deudor.monto_inicial_d}" min="0.00" stepFactor="0.01"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Monto saldo"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:spinner id="spnSaldo" disabled="#{Deudor.spnSaldo}" value="#{Deudor.saldo_d}" min="0.00" stepFactor="0.01"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Fecha ingreso"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:calendar id="dateFechaIngreso" disabled="#{Deudor.dateFechaIngreso}" value="#{Deudor.fecha_ingreso_d}" pattern="dd/MM/yyyy"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Fecha de recepción"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:calendar id="dateFechaRecepcion" disabled="#{Deudor.dateFechaRecepcion}" value="#{Deudor.fecha_recepcion_d}" pattern="dd/MM/yyyy"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Gestor"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxGestor" disabled="#{Deudor.cbxGestor}" value="#{Deudor.gestor_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_gestor}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Garantía"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxGarantia" disabled="#{Deudor.cbxGarantia}" value="#{Deudor.garantia_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_garantia}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Código de resultado"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxCodigoContactabilidad" disabled="#{Deudor.cbxCodigoContactabilidad}" value="#{Deudor.codigo_contactabilidad_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_codigo_resultado}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Cosecha"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxCosecha" disabled="#{Deudor.cbxCosecha}" value="#{Deudor.cosecha_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_cosecha}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Anticipo"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxAnticipo" disabled="#{Deudor.cbxAnticipo}" value="#{Deudor.anticipo_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_anticipo}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Antigüedad"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxAntiguedad" disabled="#{Deudor.cbxAntiguedad}" value="#{Deudor.antiguedad_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_antiguedad}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Intensión de pago"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxIntencionPago" disabled="#{Deudor.cbxIntencionPago}" value="#{Deudor.intencion_pago_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_intension_pago}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Razón de deuda"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxRazonDeuda" disabled="#{Deudor.cbxRazonDeuda}" value="#{Deudor.razon_deuda_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_razon_deuda}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:selectBooleanCheckbox id="chkCuentaPrincipalRelacion" disabled="#{Deudor.chkCuentaPrincipalRelacion}" value="#{Deudor.cuenta_principal_relacion_d}" itemLabel="Cuenta principal relación">
+                                                <p:ajax update="txtCuentaRelacionada" listener="#{Deudor.activar_desactivar_relacionada}" />
+                                            </p:selectBooleanCheckbox>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Cuenta relacionada"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:spinner id="txtCuentaRelacionada" disabled="#{Deudor.txtCuentaRelacionada}" value="#{Deudor.deudor_cuenta_relacionada_d}" min="0"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:selectBooleanCheckbox id="chkPDF" disabled="#{Deudor.chkPDF}" value="#{Deudor.PDF_d}" itemLabel="PDF"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectBooleanCheckbox id="chkINV" disabled="#{Deudor.chkINV}" value="#{Deudor.INV_d}" itemLabel="INV"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectBooleanCheckbox id="chkMAYCOM" disabled="#{Deudor.chkMAYCOM}" value="#{Deudor.MAYCOM_d}" itemLabel="MAYCOM"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectBooleanCheckbox id="chkNITS" disabled="#{Deudor.chkNITS}" value="#{Deudor.NITS_d}" itemLabel="NIT"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Costas pagadas"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputTextarea id="areCostasPagadas" disabled="#{Deudor.areCostasPagadas}" value="#{Deudor.costas_pagadas_d}" style="width: 98%;"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2" styleClass="ui-widget-header">
+                                            <p:outputLabel value="(Estado-Estatus) Extrajudicial"/>
+                                        </p:column>
+                                        <p:column colspan="2" styleClass="ui-widget-header">
+                                            <p:outputLabel value="(Estado-Estatus) Judicial"/>
+                                        </p:column>
+                                        <p:column colspan="2" styleClass="ui-widget-header">
+                                            <p:outputLabel value="Convenio de pago"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Estado extrajudicial"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxEstadoExtrajudicial" disabled="#{Deudor.cbxEstadoExtrajudicial}" value="#{Deudor.sestado_extra_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_estado_extrajudicial}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Estado judicial"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxEstadoJudicial" disabled="#{Deudor.cbxEstadoJudicial}" value="#{Deudor.sestado_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_estado_judicial}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:selectBooleanCheckbox id="chkOpcionProximoPago" disabled="#{Deudor.chkOpcionProximoPago}" value="#{Deudor.opcion_proximo_pago_d}" itemLabel="Próximo pago"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Estatus extrajudicial"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxEstatusExtrajudicial" disabled="#{Deudor.cbxEstatusExtrajudicial}" value="#{Deudor.estatus_extra_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_estatus_extrajudicial}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Estatus judicial"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectOneMenu id="cbxEstatusJudicial" disabled="#{Deudor.cbxEstatusJudicial}" value="#{Deudor.estatus_d}">
+                                                <f:selectItem itemLabel="Seleccionar..."/>
+                                                <f:selectItems value="#{Deudor.lst_estatus_judicial}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Fecha próximo pago"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:calendar id="dateFechaProximoPago" disabled="#{Deudor.dateFechaProximoPago}" value="#{Deudor.fecha_proximo_pago_d}" pattern="dd/MM/yyyy"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Convenio pactado"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputTextarea id="areConvenioPactado" disabled="#{Deudor.areConvenioPactado}" value="#{Deudor.convenio_pactado_d}" style="width: 98%;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Situación del caso"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputTextarea id="areSituacionCaso" disabled="#{Deudor.areSituacionCaso}" value="#{Deudor.situacion_caso_d}" style="width: 98%;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Cuota convenio"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:spinner id="spnCuotaConvenio" disabled="#{Deudor.spnCuotaConvenio}" value="#{Deudor.cuota_convenio_d}" min="0.00" stepFactor="0.01"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="6" styleClass="ui-widget-header">
+                                            <p:outputLabel value="Descripción del expediente"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Descripción"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputTextarea id="areDescripcion" disabled="#{Deudor.areDescripcion}" value="#{Deudor.descripcion_d}" style="width: 98%;"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:outputLabel value="Información adicional"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputTextarea id="areDescripcionAdicional" disabled="#{Deudor.areDescripcionAdicional}" value="#{Deudor.descripcion_adicional_d}" style="width: 98%;"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:tab>
+                        </p:tabView>
+                    </p:scrollPanel>
+                    <div align="right">
+                        <p:commandButton id="btnAceptar" disabled="#{Deudor.btnAceptar}" ajax="true" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('dlg1').hide()" update="formMenu:mensaje2, formListDeudor" actionListener="#{Deudor.aceptar}">
+                            <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" disabled="#{Deudor.btnCancelar}" ajax="true" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg1').hide()"/>
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

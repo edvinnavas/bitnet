@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formPermisosrol">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel header="PERMISOS POR ROL" style="font-size:10px; font-weight:bold;">
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="Rol"/>
+                        <p:selectOneMenu id="somRol" value="#{Permisos_Rol.rol}" style="width:207px;">
+                            <f:selectItems value="#{Permisos_Rol.lst_Rol}"/>
+                            <p:ajax event="valueChange" listener="#{Permisos_Rol.cambia_usuario()}" update="pickList"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Permisos de Rol"/>
+                        <p:pickList id="pickList" value="#{Permisos_Rol.lst_Rol_permisos}" var="permisos" itemLabel="#{permisos}" itemValue="#{permisos}"/>
+                        <f:facet name="footer">
+                            <div align="right">
+                                <p:commandButton id="btnGuardar" value="Guardar" actionListener="#{Permisos_Rol.guardar}" update="formMenu:mensaje2"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

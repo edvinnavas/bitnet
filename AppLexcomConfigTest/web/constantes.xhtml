@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formConstantes">
+                <p:dataTable id="dtConstantes" var="con" value="#{Constantes.lst_constantes}" editable="true" editMode="cell" style="font-size:10px; font-weight:bold;">
+                    <f:facet name="header">
+                        <p:outputLabel value="CONSTANTES DEL SISTEMA"/>
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{con.constantes}"/>
+                    </p:column>
+                    <p:column headerText="Parametro">
+                        <h:outputText value="#{con.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Valor">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{con.valor}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="txtValor" value="#{con.valor}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton id="btnGuardar" value="Guardar" ajax="true" actionListener="#{Constantes.guardar}" update="formMenu:mensaje2,dtConstantes">
+                                <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                            </p:confirmDialog>
+                        </div>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

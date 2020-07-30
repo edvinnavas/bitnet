@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListFrasePredeterminada">
+                <p:panel id="panelFrasePredeterminada">
+                    <p:dataTable 
+                        id="tblFrasePredeterminada"
+                        var="frp"
+                        widgetVar="dtblWidgetFrp"
+                        value="#{Frase_Predeterminada.lst_frase_predeterminada}"
+                        selectionMode="single"
+                        selection="#{Frase_Predeterminada.selectedFrase_Predeterminada}"
+                        rowKey="#{frp.frase_predeterminada}"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+                        <f:facet name="header">
+                            <h:outputText value="LISTADO DE FRASES PREDETERMINADAS"/>
+                        </f:facet>
+
+                        <p:ajax event="rowDblselect" listener="#{Frase_Predeterminada.carga_info_modificar}" update="DialogCrearFrasePredeterminada, formMenu:mensaje2" global="false"/>
+
+                        <p:column headerText="Id" sortBy="#{frp.frase_predeterminada}" filterBy="#{frp.frase_predeterminada}" filterMatchMode="contains">
+                            <h:outputText value="#{frp.frase_predeterminada}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{frp.nombre}" filterBy="#{frp.nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{frp.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{frp.tipo}" filterBy="#{frp.tipo}" filterMatchMode="contains">
+                            <h:outputText value="#{frp.tipo}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{frp.frase}" filterBy="#{frp.frase}" filterMatchMode="contains">
+                            <h:outputText value="#{frp.frase}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{frp.estado}" filterBy="#{frp.estado}" filterMatchMode="contains">
+                            <h:outputText value="#{frp.estado}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
+                            <p:dataExporter id="dataexpExcel" type="xls" target="tblFrasePredeterminada" fileName="FrasesPredeterminadas"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCrear" actionListener="#{Frase_Predeterminada.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearFrasePredeterminada" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnModificar" actionListener="#{Frase_Predeterminada.carga_info_modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="DialogCrearFrasePredeterminada, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnEliminar" actionListener="#{Frase_Predeterminada.carga_info_eliminar}" ajax="true" icon="ui-icon-plus" value="Eliminar" update="DialogCrearFrasePredeterminada, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnActivar" actionListener="#{Frase_Predeterminada.carga_info_activar}" ajax="true" icon="ui-icon-plus" value="Activar" update="DialogCrearFrasePredeterminada, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnVer" actionListener="#{Frase_Predeterminada.carga_info_ver}" ajax="true" icon="ui-icon-plus" value="Ver" update="DialogCrearFrasePredeterminada, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+
+            <p:dialog id="DialogCrearFrasePredeterminada" header="FRASE PREDETERMINADA" widgetVar="dlg1" modal="true" resizable="true" appendTo="@(body)" closeOnEscape="true" style="font-size:10px; font-weight:bold;">
+                <h:form id="FormCrearFrasePredeterminada">
+                    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="2" style="width:100%;">
+                        <p:outputLabel value="Nombre"/>
+                        <p:outputLabel value="Tipo"/>
+                        <p:inputText id="txtNombre" disabled="#{Frase_Predeterminada.txtNombre}" value="#{Frase_Predeterminada.nombre_d}" style="width:200px;"/>
+                        <p:selectOneMenu id="txtTipo" disabled="#{Frase_Predeterminada.somTipo}" value="#{Frase_Predeterminada.tipo_d}" style="width:207px;">
+                            <f:selectItem itemLabel="Seleccionar uno..."/>
+                            <f:selectItems value="#{Frase_Predeterminada.lst_tipo}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1" style="width:100%;">
+                        <p:outputLabel value="Frase"/>
+                        <p:inputTextarea id="itaFrase" disabled="#{Frase_Predeterminada.itaFrase}" value="#{Frase_Predeterminada.frase_d}" rows="5" autoResize="false" style="width:98%;"/>
+                    </p:panelGrid>
+                    <div align="right">
+                        <p:commandButton id="btnAceptar" disabled="#{Frase_Predeterminada.btnAceptar}" ajax="true" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('dlg1').hide()" update="formMenu:mensaje2, formListFrasePredeterminada" actionListener="#{Frase_Predeterminada.aceptar}">
+                            <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" disabled="#{Frase_Predeterminada.btnCancelar}" ajax="true" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg1').hide()"/>
+
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

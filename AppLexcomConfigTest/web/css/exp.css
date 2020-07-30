@@ -1,0 +1,28 @@
+/* Cambia el listado del los select items de los combobox */
+li.ui-selectonemenu-item {
+    font-size: 10px;
+    font-weight: bold;
+    color: red;
+}
+.ui-growl {
+    font-size: 12px;
+    font-weight: bold;
+    color: red;
+}
+.ui-growl-message {
+    font-size: 12px;
+    font-weight: bold;
+    color: red;
+}
+.AnchoCalendar input {
+    width: 200px !important;
+}
+.foo td {
+    vertical-align: top;
+}
+.AnchoCalendar1 input {
+    width: 150px !important;
+}
+.AnchoSpinner input {
+    width: 135px !important;
+}

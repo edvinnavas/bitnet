@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListPermiteJudicial">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel id="panelPermite">
+                    <p:dataTable 
+                        id="tblPermite"
+                        var="permite"
+                        widgetVar="dtblWidgetPermite"
+                        value="#{estado_status_extrajudicial.lst_estado_status_extrajudicial}"
+                        rowKey="#{permite.index}"
+                        selectionMode="single"
+                        selection="#{estado_status_extrajudicial.selected}"
+                        editable="true" 
+                        editMode="cell"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+                        <f:facet name="header">
+                            <h:outputText value="ESTADOS-STATUS EXTRAJUDICIAL BLOQUEO"/>
+                        </f:facet>
+
+                        <p:column headerText="Id" sortBy="#{permite.index}" filterBy="#{permite.index}" filterMatchMode="contains">
+                            <h:outputText value="#{permite.index}"/>
+                        </p:column>
+                        <p:column headerText="ESTADO" sortBy="#{permite.sestado_nombre}" filterBy="#{permite.sestado_nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{permite.sestado_nombre}"/>
+                        </p:column>
+                        <p:column headerText="ESTATUS" sortBy="#{permite.estatus_nombre}" filterBy="#{permite.estatus_nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{permite.estatus_nombre}"/>
+                        </p:column>
+                        <p:column headerText="PERMITE JUDICIAL">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{permite.permite_nombre}"/></f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu value="#{permite.permite_nombre}" style="width:100%">
+                                        <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                        <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton id="btnGuardar" actionListener="#{estado_status_extrajudicial.modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="formMenu:mensaje2,tblPermite" style="font-size:10px; font-weight:bold;"/> 
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
