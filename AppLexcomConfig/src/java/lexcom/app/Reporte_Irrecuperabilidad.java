@@ -4,12 +4,15 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -23,8 +26,11 @@ public class Reporte_Irrecuperabilidad implements Serializable {
     private String archivo;
     private String usuario;
     private String ambiente;
-
+    
+    private String corporacion;
     private StreamedContent file;
+    
+    private List<SelectItem> Lista_corporacion = new ArrayList<>();
 
     @PostConstruct
     public void init() {
@@ -35,6 +41,11 @@ public class Reporte_Irrecuperabilidad implements Serializable {
         Driver drive = new Driver();
         this.archivo = drive.getPath() + this.usuario + "_reporte_irrecuperabilidad.xls";
         
+        String lista_corporacion_sql = "select c.nombre, c.nombre from cooperacion c where c.estado = 'VIGENTE'";
+        this.Lista_corporacion = drive.lista_SelectItem(lista_corporacion_sql, this.ambiente);
+
+        this.corporacion = "Seleccionar uno...";
+        
         this.file = null;
     }
     
@@ -44,13 +55,52 @@ public class Reporte_Irrecuperabilidad implements Serializable {
 
     public void generar_reporte() {
         try {            
+            if (this.corporacion.equals("TODOS")) {
+                this.corporacion = "%%";
+            }
+            
             Driver drive = new Driver();
-            Integer numero_max_arraigo = drive.getInt("select max(medida.numero) maximo from (select juicio, count(*) numero from juicio_arraigo j group by juicio) medida", this.ambiente);
-            Integer numero_max_banco = drive.getInt("select max(medida.numero) maximo from (select juicio, count(*) numero from juicio_banco j group by juicio) medida", this.ambiente);
-            Integer numero_max_finca = drive.getInt("select max(medida.numero) maximo from (select juicio, count(*) numero from juicio_finca j group by juicio) medida", this.ambiente);
-            Integer numero_max_otros = drive.getInt("select max(medida.numero) maximo from (select juicio, count(*) numero from juicio_otros j group by juicio) medida", this.ambiente);
-            Integer numero_max_salario = drive.getInt("select max(medida.numero) maximo from (select juicio, count(*) numero from juicio_salario j group by juicio) medida", this.ambiente);
-            Integer numero_max_vehiculo = drive.getInt("select max(medida.numero) maximo from (select juicio, count(*) numero from juicio_vehiculo j group by juicio) medida", this.ambiente);
+            Integer numero_max_arraigo = drive.getInt("select "
+                    + "ifnull(max(medida.numero),0) maximo "
+                    + "from (select ja.juicio, count(*) numero "
+                    + "from juicio_arraigo ja left join juicio j on (ja.juicio=j.juicio) left join deudor d on (j.deudor=d.deudor) left join actor a on (d.actor=a.actor) left join cooperacion c on (a.cooperacion=c.cooperacion) "
+                    + "where c.nombre like '" + this.corporacion + "' "
+                    + "group by ja.juicio) medida", this.ambiente);
+            
+            Integer numero_max_banco = drive.getInt("select "
+                    + "ifnull(max(medida.numero),0) maximo "
+                    + "from (select ja.juicio, count(*) numero "
+                    + "from juicio_banco ja left join juicio j on (ja.juicio=j.juicio) left join deudor d on (j.deudor=d.deudor) left join actor a on (d.actor=a.actor) left join cooperacion c on (a.cooperacion=c.cooperacion) "
+                    + "where c.nombre like '" + this.corporacion + "' "
+                    + "group by ja.juicio) medida", this.ambiente);
+            
+            Integer numero_max_finca = drive.getInt("select "
+                    + "ifnull(max(medida.numero),0) maximo "
+                    + "from (select ja.juicio, count(*) numero "
+                    + "from juicio_finca ja left join juicio j on (ja.juicio=j.juicio) left join deudor d on (j.deudor=d.deudor) left join actor a on (d.actor=a.actor) left join cooperacion c on (a.cooperacion=c.cooperacion) "
+                    + "where c.nombre like '" + this.corporacion + "' "
+                    + "group by ja.juicio) medida", this.ambiente);
+            
+            Integer numero_max_otros = drive.getInt("select "
+                    + "ifnull(max(medida.numero),0) maximo "
+                    + "from (select ja.juicio, count(*) numero "
+                    + "from juicio_otros ja left join juicio j on (ja.juicio=j.juicio) left join deudor d on (j.deudor=d.deudor) left join actor a on (d.actor=a.actor) left join cooperacion c on (a.cooperacion=c.cooperacion) "
+                    + "where c.nombre like '" + this.corporacion + "' "
+                    + "group by ja.juicio) medida", this.ambiente);
+            
+            Integer numero_max_salario = drive.getInt("select "
+                    + "ifnull(max(medida.numero),0) maximo "
+                    + "from (select ja.juicio, count(*) numero "
+                    + "from juicio_salario ja left join juicio j on (ja.juicio=j.juicio) left join deudor d on (j.deudor=d.deudor) left join actor a on (d.actor=a.actor) left join cooperacion c on (a.cooperacion=c.cooperacion) "
+                    + "where c.nombre like '" + this.corporacion + "' "
+                    + "group by ja.juicio) medida", this.ambiente);
+            
+            Integer numero_max_vehiculo = drive.getInt("select "
+                    + "ifnull(max(medida.numero),0) maximo "
+                    + "from (select ja.juicio, count(*) numero "
+                    + "from juicio_vehiculo ja left join juicio j on (ja.juicio=j.juicio) left join deudor d on (j.deudor=d.deudor) left join actor a on (d.actor=a.actor) left join cooperacion c on (a.cooperacion=c.cooperacion) "
+                    + "where c.nombre like '" + this.corporacion + "' "
+                    + "group by ja.juicio) medida", this.ambiente);
             
             String cadenasql = "SELECT " +
                     "DEUDOR.ACTOR AS ACTOR, " +
@@ -126,9 +176,11 @@ public class Reporte_Irrecuperabilidad implements Serializable {
                     "left join sestado se on (d.sestado=se.sestado) " +
                     "left join estatus es on (d.estatus=es.estatus) " +
                     "left join juzgado ju on (j.juzgado=ju.juzgado) " +
-                    "left join pago pa on (d.deudor=pa.deudor) " +
+                    "left join pago pa on (d.deudor=pa.deudor) " + 
+                    "left join cooperacion c on (a.cooperacion=c.cooperacion) " +
                     "WHERE " +
-                    "(d.cargado ='CARGADO') " +
+                    "(d.cargado ='CARGADO') and " + 
+                    "(c.nombre like '" + this.corporacion + "') " +
                     "GROUP BY " +
                     "d.deudor) AS DEUDOR " +
                     "LEFT JOIN " +
@@ -240,6 +292,22 @@ public class Reporte_Irrecuperabilidad implements Serializable {
 
     public void setAmbiente(String ambiente) {
         this.ambiente = ambiente;
+    }
+
+    public String getCorporacion() {
+        return corporacion;
+    }
+
+    public void setCorporacion(String corporacion) {
+        this.corporacion = corporacion;
+    }
+
+    public List<SelectItem> getLista_corporacion() {
+        return Lista_corporacion;
+    }
+
+    public void setLista_corporacion(List<SelectItem> Lista_corporacion) {
+        this.Lista_corporacion = Lista_corporacion;
     }
     
 }

@@ -16,6 +16,15 @@
             <h:form id="formReporteIrrecuperabilidad">
                 <link href="css/style.css" rel="stylesheet" type="text/css"/>
                 <p:panel id="panelReporteIrrecuperabilidad" header="Reporte de cartera irrecuperable" style="width:60%; font-size:10px; font-weight:bold;">
+                    <p:panelGrid columns="4" style="width:100%;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Corporación"/>
+                        </f:facet>
+                        <p:selectOneMenu id="somCorporacion" value="#{Reporte_Irrecuperabilidad.corporacion}" style="width:400px;">
+                            <f:selectItem itemLabel="Seleccionar uno..."/>
+                            <f:selectItems value="#{Reporte_Irrecuperabilidad.lista_corporacion}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
                     <h:panelGrid columns="2" style="width:100%;">
                         <p:commandButton id="btnGenerar" value="Generar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{Reporte_Irrecuperabilidad.generar_reporte}" styleClass="ui-priority-primary" icon="ui-icon-arrowthick-1-s">
                             <p:fileDownload value="#{Reporte_Irrecuperabilidad.file}"/>
