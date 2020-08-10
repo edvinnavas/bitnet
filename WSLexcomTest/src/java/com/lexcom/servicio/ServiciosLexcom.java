@@ -28,6 +28,9 @@ import com.lexcom.controlador.Frase_Predeterminada;
 import com.lexcom.controlador.Garantia;
 import com.lexcom.controlador.Intencion_Pago;
 import com.lexcom.controlador.Juicio;
+import com.lexcom.controlador.Juicio_Medida;
+import com.lexcom.controlador.Juicio_Medida_Etapa;
+import com.lexcom.controlador.Juicio_Medida_Etapa_Workflow;
 import com.lexcom.controlador.Juzgado;
 import com.lexcom.controlador.Pago;
 import com.lexcom.controlador.Promesa_Pago;
@@ -4508,4 +4511,232 @@ public class ServiciosLexcom implements Serializable {
         return resultado;
     }
 
+    /**
+     * @param usuario_sys
+     * @param nombre_d
+     * @param reiteracion_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Insertar")
+    public String Juicio_Medida_Insertar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "reiteracion_d") String reiteracion_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        try {
+            Juicio_Medida juicio_medida = new Juicio_Medida();
+            resultado = juicio_medida.juicio_medida_insertar(usuario_sys, nombre_d, reiteracion_d, descripcion_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Insertar): " + ex.toString());
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_juicio_medida_d
+     * @param nombre_d
+     * @param reiteracion_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Modificar")
+    public String Juicio_Medida_Modificar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_juicio_medida_d") Integer id_juicio_medida_d,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "reiteracion_d") String reiteracion_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        try {
+            Juicio_Medida juicio_medida = new Juicio_Medida();
+            resultado = juicio_medida.juicio_medida_modificar(usuario_sys, id_juicio_medida_d, nombre_d, reiteracion_d, descripcion_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Modificar): " + ex.toString());
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_juicio_medida_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Eliminar")
+    public String Juicio_Medida_Eliminar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_juicio_medida_d") Integer id_juicio_medida_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        try {
+            Juicio_Medida juicio_medida = new Juicio_Medida();
+            resultado = juicio_medida.juicio_medida_eliminar(usuario_sys, id_juicio_medida_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Eliminar): " + ex.toString());
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_juicio_medida_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Activar")
+    public String Juicio_Medida_Activar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_juicio_medida_d") Integer id_juicio_medida_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        try {
+            Juicio_Medida juicio_medida = new Juicio_Medida();
+            resultado = juicio_medida.juicio_medida_activar(usuario_sys, id_juicio_medida_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Activar): " + ex.toString());
+        }
+
+        return resultado;
+    }
+    
+    /**
+     * @param usuario_sys
+     * @param nombre_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Etapa_Insertar")
+    public String Juicio_Medida_Etapa_Insertar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        try {
+            Juicio_Medida_Etapa juicio_medida_etapa = new Juicio_Medida_Etapa();
+            resultado = juicio_medida_etapa.juicio_medida_etapa_insertar(usuario_sys, nombre_d, descripcion_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Etapa_Insertar): " + ex.toString());
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_juicio_medida_etapa_d
+     * @param nombre_d
+     * @param descripcion_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Etapa_Modificar")
+    public String Juicio_Medida_Etapa_Modificar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_juicio_medida_etapa_d") Integer id_juicio_medida_etapa_d,
+            @WebParam(name = "nombre_d") String nombre_d,
+            @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        try {
+            Juicio_Medida_Etapa juicio_medida_etapa = new Juicio_Medida_Etapa();
+            resultado = juicio_medida_etapa.juicio_medida_etapa_modificar(usuario_sys, id_juicio_medida_etapa_d, nombre_d, descripcion_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Etapa_Modificar): " + ex.toString());
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_juicio_medida_etapa_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Etapa_Eliminar")
+    public String Juicio_Medida_Etapa_Eliminar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_juicio_medida_etapa_d") Integer id_juicio_medida_etapa_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        try {
+            Juicio_Medida_Etapa juicio_medida_etapa = new Juicio_Medida_Etapa();
+            resultado = juicio_medida_etapa.juicio_medida_etapa_eliminar(usuario_sys, id_juicio_medida_etapa_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Etapa_Eliminar): " + ex.toString());
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @param usuario_sys
+     * @param id_juicio_medida_etapa_d
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Etapa_Activar")
+    public String Juicio_Medida_Etapa_Activar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "id_juicio_medida_etapa_d") Integer id_juicio_medida_etapa_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = "";
+        try {
+            Juicio_Medida_Etapa juicio_medida_etapa = new Juicio_Medida_Etapa();
+            resultado = juicio_medida_etapa.juicio_medida_etapa_activar(usuario_sys, id_juicio_medida_etapa_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Etapa_Activar): " + ex.toString());
+        }
+
+        return resultado;
+    }
+    
+    /**
+     * @param usuario_sys
+     * @param juicio_medida_d
+     * @param juicio_medida_etapa_actual_d,
+     * @param siguiente_desc_d,
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Juicio_Medida_Etapa_Workflow_Actualizar")
+    public String Juicio_Medida_Etapa_Workflow_Actualizar(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "juicio_medida_d") Long juicio_medida_d,
+            @WebParam(name = "juicio_medida_etapa_actual_d") Long juicio_medida_etapa_actual_d,
+            @WebParam(name = "siguiente_desc_d") String[] siguiente_desc_d,
+            @WebParam(name = "poolConexion") String poolConexion) {
+        
+        String resultado = "";
+        try {
+            Juicio_Medida_Etapa_Workflow juicio_medida_etapa_workflow = new Juicio_Medida_Etapa_Workflow();
+            resultado = juicio_medida_etapa_workflow.juicio_medida_etapa_workflow_actualizar(usuario_sys, juicio_medida_d, juicio_medida_etapa_actual_d, siguiente_desc_d, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Juicio_Medida_Etapa_Workflow_Actualizar): " + ex.toString());
+        }
+
+        return resultado;
+        
+    }
+    
 }

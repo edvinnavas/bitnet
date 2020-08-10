@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formListJuicioMedida">
+                <p:panel id="panelJuicioMedida">
+                    <p:dataTable 
+                        id="tblJuicioMedida"
+                        var="juicio_medida"
+                        widgetVar="dtblWidgetJuicioMedida"
+                        value="#{Juicio_Medida.lst_juicio_medida}"
+                        selectionMode="single"
+                        selection="#{Juicio_Medida.selectedJuicio_Medida}"
+                        rowKey="#{juicio_medida.juicio_medida}"
+                        reflow="true"
+                        paginator="true"
+                        rows="10"
+                        rowsPerPageTemplate="10,100,500"
+                        paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        style="font-size:10px; font-weight:bold;">
+                        <f:facet name="header">
+                            <h:outputText value="LISTADO DE JUICIO-MEDIDA."/>
+                        </f:facet>
+
+                        <p:ajax event="rowDblselect" listener="#{Juicio_Medida.carga_info_modificar}" update="DialogCrearJuicioMedida, formMenu:mensaje2" global="false"/>
+
+                        <p:column headerText="Id" sortBy="#{juicio_medida.juicio_medida}" filterBy="#{juicio_medida.juicio_medida}" filterMatchMode="contains">
+                            <h:outputText value="#{juicio_medida.juicio_medida}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{juicio_medida.nombre}" filterBy="#{juicio_medida.nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{juicio_medida.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Reiteración" sortBy="#{juicio_medida.reiteracion}" filterBy="#{juicio_medida.reiteracion}" filterMatchMode="contains">
+                            <h:outputText value="#{juicio_medida.reiteracion}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{juicio_medida.estado}" filterBy="#{juicio_medida.estado}" filterMatchMode="contains">
+                            <h:outputText value="#{juicio_medida.estado}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-plus" style="font-size:10px; font-weight:bold;">
+                            <p:dataExporter id="dataexpExcel" type="xls" target="tblJuicioMedida" fileName="Juicio_Medida"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCrear" actionListener="#{Juicio_Medida.carga_info_insertar}" ajax="true" icon="ui-icon-plus" value="Crear" update="DialogCrearJuicioMedida" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnModificar" actionListener="#{Juicio_Medida.carga_info_modificar}" ajax="true" icon="ui-icon-plus" value="Modificar" update="DialogCrearJuicioMedida, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnEliminar" actionListener="#{Juicio_Medida.carga_info_eliminar}" ajax="true" icon="ui-icon-plus" value="Eliminar" update="DialogCrearJuicioMedida, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnActivar" actionListener="#{Juicio_Medida.carga_info_activar}" ajax="true" icon="ui-icon-plus" value="Activar" update="DialogCrearJuicioMedida, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                        <p:commandButton id="btnVer" actionListener="#{Juicio_Medida.carga_info_ver}" ajax="true" icon="ui-icon-plus" value="Ver" update="DialogCrearJuicioMedida, formMenu:mensaje2" style="font-size:10px; font-weight:bold;"/>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+
+            <p:dialog id="DialogCrearJuicioMedida" header="JUICIO-MEDIDA" widgetVar="dlg1" modal="true" resizable="true" appendTo="@(body)" closeOnEscape="true" style="font-size:10px; font-weight:bold;">
+                <h:form id="FormCrearJuicioMedida">
+                    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                    <p:panelGrid columns="1" style="width:100%;">
+                        <p:outputLabel value="Nombre"/>
+                        <p:inputText id="txtNombre" disabled="#{Juicio_Medida.txtNombre}" value="#{Juicio_Medida.nombre_d}" style="width:200px;"/>
+                        <p:outputLabel value="Reiteración"/>
+                        <p:selectOneMenu id="somReiteracion" disabled="#{Juicio_Medida.somReiteracion}" value="#{Juicio_Medida.reiteracion_d}" style="width:207px;">
+                            <f:selectItems value="#{Juicio_Medida.lst_reiteracion}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:panelGrid columns="1" style="width: 100%;">
+                        <p:outputLabel value="Descripción"/>
+                        <p:inputTextarea id="itaDescripcion" disabled="#{Juicio_Medida.itaDescripcion}" value="#{Juicio_Medida.descripcion_d}" rows="5" autoResize="false" style="width:98%;"/>
+                    </p:panelGrid>
+                    <div align="right">
+                        <p:commandButton id="btnAceptar" disabled="#{Juicio_Medida.btnAceptar}" ajax="true" value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('dlg1').hide()" update="formMenu:mensaje2, formListJuicioMedida" actionListener="#{Juicio_Medida.aceptar}">
+                            <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" disabled="#{Juicio_Medida.btnCancelar}" ajax="true" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('dlg1').hide()"/>
+
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+    </h:body>
+</html>

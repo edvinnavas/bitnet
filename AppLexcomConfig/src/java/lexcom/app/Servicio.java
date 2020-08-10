@@ -873,4 +873,58 @@ public class Servicio implements Serializable {
         return port.getMonitor(poolConexion);
     }
     
+    public String juicioMedidaInsertar(java.lang.Integer usuarioSys, java.lang.String nombreD, java.lang.String reiteracionD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaInsertar(usuarioSys, nombreD, reiteracionD, descripcionD, poolConexion);
+    }
+
+    public String juicioMedidaModificar(java.lang.Integer usuarioSys, java.lang.Integer idJuicioMedidaD, java.lang.String nombreD, java.lang.String reiteracionD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaModificar(usuarioSys, idJuicioMedidaD, nombreD, reiteracionD, descripcionD, poolConexion);
+    }
+
+    public String juicioMedidaEliminar(java.lang.Integer usuarioSys, java.lang.Integer idJuicioMedidaD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaEliminar(usuarioSys, idJuicioMedidaD, poolConexion);
+    }
+
+    public String juicioMedidaActivar(java.lang.Integer usuarioSys, java.lang.Integer idJuicioMedidaD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaActivar(usuarioSys, idJuicioMedidaD, poolConexion);
+    }
+
+    public String juicioMedidaEtapaInsertar(java.lang.Integer usuarioSys, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaEtapaInsertar(usuarioSys, nombreD, descripcionD, poolConexion);
+    }
+
+    public String juicioMedidaEtapaModificar(java.lang.Integer usuarioSys, java.lang.Integer idJuicioMedidaEtapaD, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaEtapaModificar(usuarioSys, idJuicioMedidaEtapaD, nombreD, descripcionD, poolConexion);
+    }
+
+    public String juicioMedidaEtapaEliminar(java.lang.Integer usuarioSys, java.lang.Integer idJuicioMedidaEtapaD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaEtapaEliminar(usuarioSys, idJuicioMedidaEtapaD, poolConexion);
+    }
+
+    public String juicioMedidaEtapaActivar(java.lang.Integer usuarioSys, java.lang.Integer idJuicioMedidaEtapaD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaEtapaActivar(usuarioSys, idJuicioMedidaEtapaD, poolConexion);
+    }
+
+    public String juicioMedidaEtapaWorkflowActualizar(java.lang.Integer usuarioSys, java.lang.Long juicioMedidaD, java.lang.Long juicioMedidaEtapaActualD, java.util.List<java.lang.String> siguienteDescD, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.juicioMedidaEtapaWorkflowActualizar(usuarioSys, juicioMedidaD, juicioMedidaEtapaActualD, siguienteDescD, poolConexion);
+    }
+    
 }

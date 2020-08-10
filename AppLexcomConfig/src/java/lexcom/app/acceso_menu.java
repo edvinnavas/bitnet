@@ -33,11 +33,11 @@ public class acceso_menu implements Serializable {
                     + "menu.menu, "
                     + "menu.nombre, "
                     + "case rol_menu.ver when 'SI' then 'true' else 'false' end "
-                    + "from "
+                    + "FROM "
                     + "rol_menu "
-                    + "LEFT OUTER JOIN usuario ON (rol_menu.rol = usuario.rol) "
-                    + "LEFT OUTER JOIN menu ON (rol_menu.menu = menu.menu) "
-                    + "where usuario.nombre='" + this.usuario + "'";
+                    + "LEFT JOIN usuario ON (rol_menu.rol = usuario.rol) "
+                    + "LEFT JOIN menu ON (rol_menu.menu = menu.menu) "
+                    + "WHERE usuario.nombre='" + this.usuario + "'";
             java.util.List<lexcom.ws.StringArray> resultado = servicio.reporte(cadenasql, this.ambiente);
 
             Integer filas = resultado.size();
@@ -264,6 +264,9 @@ public class acceso_menu implements Serializable {
                     case "Monitor":
                         Monitor = listucha.get(i).getVer();
                         break;
+                    case "Juicio_Medida":
+                        Juicio_Medida = listucha.get(i).getVer();
+                        break;
                     default:
                         System.out.println("Not in 10, 20 or 30 => " + listucha.get(i).getMenu());
                 }
@@ -341,5 +344,6 @@ public class acceso_menu implements Serializable {
     public String Carga_gestion_cobros;
     public String Antiguedades;
     public String Monitor;
+    public String Juicio_Medida;
 
 }

@@ -1124,4 +1124,17 @@ public class Driver implements Serializable {
         return resultado;
     }
     
+    public List<SelectItem> lista_reiteracion() {
+        List<SelectItem> lst_notificado = new ArrayList<>();
+        
+        try {
+            lst_notificado.add(new SelectItem("SI", "SI"));
+            lst_notificado.add(new SelectItem("NO", "NO"));
+        } catch (Exception ex) {
+            lst_notificado.add(new SelectItem("**ERROR**", "**ERROR**"));
+        }
+
+        return lst_notificado;
+    }
+    
 }
