@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:LEXCOM-APP:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formJuicioMedidaEtapaWorkflow">
+                <link href="css/style.css" rel="stylesheet" type="text/css"/>
+                <p:panel header="JUICIO-MEDIDA-ETAPA-WORKFLOW" style="font-size:10px; font-weight:bold;">
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="Medida"/>
+                        <p:selectOneMenu id="somJuicioMedida" value="#{Juicio_Medida_Etapa_Workflow.juicio_medida}" style="width:207px;">
+                            <f:selectItems value="#{Juicio_Medida_Etapa_Workflow.lst_juicio_medida}"/>
+                            <p:ajax event="valueChange" listener="#{Juicio_Medida_Etapa_Workflow.cargar_info}" update="pickList"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Etapa"/>
+                        <p:selectOneMenu id="somJuicioMedidaEtapa" value="#{Juicio_Medida_Etapa_Workflow.juicio_medida_etapa}" style="width:207px;">
+                            <f:selectItems value="#{Juicio_Medida_Etapa_Workflow.lst_juicio_medida_etapa}"/>
+                            <p:ajax event="valueChange" listener="#{Juicio_Medida_Etapa_Workflow.cargar_info}" update="pickList"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Etapas asignadas"/>
+                        <p:pickList id="pickList" value="#{Juicio_Medida_Etapa_Workflow.lst_medida_etapa_asignados}" var="etapas" itemLabel="#{etapas}" itemValue="#{etapas}"/>
+                        <f:facet name="footer">
+                            <div align="right">
+                                <p:commandButton id="btnGuardar" value="Guardar" actionListener="#{Juicio_Medida_Etapa_Workflow.guardar}" update="formMenu:mensaje2"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

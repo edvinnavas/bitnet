@@ -270,6 +270,9 @@ public class acceso_menu implements Serializable {
                     case "Juicio_Medida_Etapa":
                         Juicio_Medida_Etapa = listucha.get(i).getVer();
                         break;
+                    case "Juicio_Medida_Etapa_Workflow":
+                        Juicio_Medida_Etapa_Workflow = listucha.get(i).getVer();
+                        break;
                     default:
                         System.out.println("Not in 10, 20 or 30 => " + listucha.get(i).getMenu());
                 }
@@ -349,5 +352,6 @@ public class acceso_menu implements Serializable {
     public String Monitor;
     public String Juicio_Medida;
     public String Juicio_Medida_Etapa;
+    public String Juicio_Medida_Etapa_Workflow;
 
 }

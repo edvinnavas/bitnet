@@ -2,6 +2,7 @@ package com.lexcom.controlador;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Juicio_Medida_Etapa_Workflow implements Serializable {
@@ -25,20 +26,50 @@ public class Juicio_Medida_Etapa_Workflow implements Serializable {
 
         try {
             conn.setAutoCommit(false);
-
+            
+            String cadenasql = "delete from juicio_medida_etapa_workflow where juicio_medida=" + juicio_medida_d + " and juicio_medida_etapa_actual=" + juicio_medida_etapa_actual_d;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(cadenasql);
+            stmt.close();
+            
             for (Integer i = 0; i < siguiente_desc_d.length; i++) {
-                String[] siguiente_des = siguiente_desc_d[i].split(",");
-
-                String cadenasql = "delete from juicio_medida_etapa_workflow where juicio_medida=" + juicio_medida_d + " and juicio_medida_etapa_actual=" + juicio_medida_etapa_actual_d;
-                Statement stmt = conn.createStatement();
-                stmt.executeUpdate(cadenasql);
+                String nombre_medida = "";
+                cadenasql = "select jm.nombre from juicio_medida jm where jm.juicio_medida=" + juicio_medida_d;
+                stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(cadenasql);
+                while(rs.next()) {
+                    nombre_medida = rs.getString(1);
+                }
+                rs.close();
                 stmt.close();
+                
+                String nombre_etapa = "";
+                cadenasql = "select jme.nombre from juicio_medida_etapa jme where jme.juicio_medida_etapa=" + juicio_medida_etapa_actual_d;
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(cadenasql);
+                while(rs.next()) {
+                    nombre_etapa = rs.getString(1);
+                }
+                rs.close();
+                stmt.close();
+                
+                Long juicio_medida_etapa_siguiente_d = new Long(0);
+                cadenasql = "select jme.juicio_medida_etapa from juicio_medida_etapa jme where jme.nombre='" + siguiente_desc_d[i] + "'";
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(cadenasql);
+                while(rs.next()) {
+                    juicio_medida_etapa_siguiente_d = rs.getLong(1);
+                }
+                rs.close();
+                stmt.close();
+                
+                String descripcion = "Medida " + nombre_medida + " etapa " + nombre_etapa + " siguiente etapa " + siguiente_desc_d[i] + ".";
 
                 cadenasql = "insert into juicio_medida_etapa_workflow (juicio_medida, juicio_medida_etapa_actual, juicio_medida_etapa_siguiente, descripcion) values ("
                         + juicio_medida_d + ","
                         + juicio_medida_etapa_actual_d + ","
-                        + siguiente_des[0] + ",'"
-                        + siguiente_des[1] + "')";
+                        + juicio_medida_etapa_siguiente_d + ",'"
+                        + descripcion + "')";
                 stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
                 stmt.close();
@@ -47,7 +78,7 @@ public class Juicio_Medida_Etapa_Workflow implements Serializable {
                         + usuario_sys + ","
                         + "CURRENT_DATE()" + ","
                         + "CURRENT_TIME()" + ",'"
-                        + "JUICIO_MEDIDA_ETAPA_WORKFLOW_ACTUALIZAR: juicio_medida: " + juicio_medida_d + " | juicio_medida_etapa_actual: " + juicio_medida_etapa_actual_d + " | juicio_medida_etapa_siguiente: " + siguiente_des[0] + " | descripcion: " + siguiente_des[1] + "',"
+                        + "JUICIO_MEDIDA_ETAPA_WORKFLOW_ACTUALIZAR: juicio_medida: " + nombre_medida + " | juicio_medida_etapa_actual: " + nombre_etapa + " | juicio_medida_etapa_siguiente: " + siguiente_desc_d[i] + "',"
                         + "168" + ")";
                 stmt = conn.createStatement();
                 stmt.executeUpdate(cadenasql);
