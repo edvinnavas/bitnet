@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Pagos" language="groovy" pageWidth="3360" pageHeight="540" orientation="Landscape" columnWidth="3320" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="2858"/>
@@ -31,6 +31,9 @@
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="cargado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="corporacion" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -77,13 +80,15 @@ left join actor a on (d.actor = a.actor)
 left join estatus_extra ex on (d.estatus_extra = ex.estatus_extra)
 left join sestado_extra sx on (d.sestado_extra = sx.sestado_extra)
 left join usuario gs on (d.usuario = gs.usuario)
+left join cooperacion co on (a.cooperacion = co.cooperacion)
 where
 d.cargado like '$P!{cargado}' and
 u.nombre like '$P!{procurador}' and
 g.nombre like '$P!{garantia}' and
 e.nombre like '$P!{status}' and
 s.nombre like '$P!{estado}' and
-jg.nombre like '$P!{juzgado}']]>
+jg.nombre like '$P!{juzgado}' and 
+co.nombre like '$P!{corporacion}']]>
 	</queryString>
 	<field name="Caso" class="java.lang.Integer"/>
 	<field name="Cargado" class="java.lang.String"/>

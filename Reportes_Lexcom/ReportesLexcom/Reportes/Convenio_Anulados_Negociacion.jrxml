@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Eventos" pageWidth="1740" pageHeight="792" columnWidth="1700" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c1ed98a-bcdf-4d8e-92e7-42a02a9dca43">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Eventos" pageWidth="1540" pageHeight="792" columnWidth="1500" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c1ed98a-bcdf-4d8e-92e7-42a02a9dca43">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LexcomConn"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="fecha" class="java.util.Date">
 		<defaultValueExpression><![CDATA[NOW( )]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[select
-cor.nombre Corporacion,
-a.nombre Actor,
 ct.convenio Id_Convenio,
 ct.fecha_negociacion Fecha_Negociacion,
 ct.fecha_eliminacion Fecha_Eliminacion,
@@ -36,21 +43,11 @@ left join estatus e on (d.estatus=e.estatus)
 left join garantia g on (d.garantia=g.garantia)
 left join razon_deuda rd on (d.razon_deuda=rd.razon_deuda)
 left join intencion_pago ip on (d.intencion_pago=ip.intencion_pago)
-left join actor a on (d.actor=a.actor)
-left join cooperacion cor on (a.cooperacion=cor.cooperacion)
 where 
 ct.fecha_eliminacion=$P{fecha}
 order by 
 d.deudor]]>
 	</queryString>
-	<field name="Corporacion" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="Corporacion"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cooperacion"/>
-	</field>
-	<field name="Actor" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="Actor"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="actor"/>
-	</field>
 	<field name="Id_Convenio" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="Id_Convenio"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="convenios_terminados"/>
@@ -117,7 +114,7 @@ d.deudor]]>
 	<title>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="1500" height="33" forecolor="#BF2822" uuid="a51488d4-61a1-4d60-a270-ac1a4f0ad49c"/>
+				<reportElement x="0" y="0" width="1300" height="33" forecolor="#BF2822" uuid="a51488d4-61a1-4d60-a270-ac1a4f0ad49c"/>
 				<box leftPadding="10"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="19" isBold="true"/>
@@ -126,7 +123,7 @@ d.deudor]]>
 ]]></text>
 			</staticText>
 			<textField pattern="&apos;Guatemala &apos;MMMM dd, yyyy">
-				<reportElement x="1500" y="0" width="200" height="33" uuid="1c2e584c-816f-4011-a7c0-7e480f5e6118">
+				<reportElement x="1300" y="0" width="200" height="33" uuid="1c2e584c-816f-4011-a7c0-7e480f5e6118">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
@@ -140,7 +137,7 @@ d.deudor]]>
 	<columnHeader>
 		<band height="28" splitType="Prevent">
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="28" uuid="3677eca5-c66e-4b9e-ac00-dac14d4d6d86">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="28" uuid="3677eca5-c66e-4b9e-ac00-dac14d4d6d86">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2ff4a89-2357-4ec1-87f0-dcef48b031b1"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -156,7 +153,7 @@ d.deudor]]>
 				<text><![CDATA[Id Convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="28" uuid="91d27de2-bc6e-4198-a08d-a8dafb028f98">
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="28" uuid="91d27de2-bc6e-4198-a08d-a8dafb028f98">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="750848bf-812e-4c5d-a81a-08889da73684"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -172,7 +169,7 @@ d.deudor]]>
 				<text><![CDATA[Fecha Negociación]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="100" height="28" uuid="fc215b60-c4f7-4599-91da-e691be6e8ef8">
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="28" uuid="fc215b60-c4f7-4599-91da-e691be6e8ef8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ec491408-73d2-4aad-8ca4-2546bdcbad15"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -188,7 +185,7 @@ d.deudor]]>
 				<text><![CDATA[Fecha Eliminación]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="500" y="0" width="100" height="28" uuid="d9e6d8b8-e751-4f86-9891-6ec9ce2b9c71">
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="28" uuid="d9e6d8b8-e751-4f86-9891-6ec9ce2b9c71">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6b7fc71-eef7-4fe4-aa14-31549dc37de6"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -204,7 +201,7 @@ d.deudor]]>
 				<text><![CDATA[No. Días Vencido Negociación]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="100" height="28" uuid="3fd4d1c0-0387-4ddd-a51a-ac9ac5ab6516">
+				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="100" height="28" uuid="3fd4d1c0-0387-4ddd-a51a-ac9ac5ab6516">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9732598a-a679-49c6-b1b1-992329c32a68"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -220,7 +217,7 @@ d.deudor]]>
 				<text><![CDATA[Tipo Convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="700" y="0" width="100" height="28" uuid="d530edc4-815d-45c9-ab33-a8f36e9fa9e2">
+				<reportElement stretchType="RelativeToTallestObject" x="500" y="0" width="100" height="28" uuid="d530edc4-815d-45c9-ab33-a8f36e9fa9e2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79745df5-19ee-41c1-9fb7-3e1a9507e9b2"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -236,7 +233,7 @@ d.deudor]]>
 				<text><![CDATA[Id Deudor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="800" y="0" width="100" height="28" uuid="2d4c9f5d-9bb7-4f9f-983a-d1ee776cb643">
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="100" height="28" uuid="2d4c9f5d-9bb7-4f9f-983a-d1ee776cb643">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b00f8d7c-2786-4d5c-a3b4-ce5108039129"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -252,7 +249,7 @@ d.deudor]]>
 				<text><![CDATA[Caso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="100" height="28" uuid="fec70b1e-db27-43c1-9238-47192126104a">
+				<reportElement stretchType="RelativeToTallestObject" x="700" y="0" width="100" height="28" uuid="fec70b1e-db27-43c1-9238-47192126104a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="076d4c95-f303-4552-a700-ff0753b85e66"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -268,7 +265,7 @@ d.deudor]]>
 				<text><![CDATA[Nombre Deudor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1000" y="0" width="100" height="28" uuid="9c1f971e-a2aa-4bdb-9ab1-9a5aca1f141c">
+				<reportElement stretchType="RelativeToTallestObject" x="800" y="0" width="100" height="28" uuid="9c1f971e-a2aa-4bdb-9ab1-9a5aca1f141c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2af19c6d-4f85-47bb-883a-014fe73758e7"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -284,7 +281,7 @@ d.deudor]]>
 				<text><![CDATA[Estado Extrajudicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1100" y="0" width="100" height="28" uuid="267ecaf1-c7ed-4ca4-9520-bad0a3cf71c9">
+				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="100" height="28" uuid="267ecaf1-c7ed-4ca4-9520-bad0a3cf71c9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9ef9d022-c473-4357-b150-57245fdf4c14"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -300,7 +297,7 @@ d.deudor]]>
 				<text><![CDATA[Estatus Extrajudicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="100" height="28" uuid="ec83f017-dd0b-489e-8d92-992963222ed7">
+				<reportElement stretchType="RelativeToTallestObject" x="1000" y="0" width="100" height="28" uuid="ec83f017-dd0b-489e-8d92-992963222ed7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3696bccb-f75e-40d2-883e-c7ba12164530"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -316,7 +313,7 @@ d.deudor]]>
 				<text><![CDATA[Estado Judicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1300" y="0" width="100" height="28" uuid="e8c11d5f-48fc-43f0-afb3-13c29ee512ee">
+				<reportElement stretchType="RelativeToTallestObject" x="1100" y="0" width="100" height="28" uuid="e8c11d5f-48fc-43f0-afb3-13c29ee512ee">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6cccfb33-aa06-4c94-9849-451ddb508d1d"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -332,7 +329,7 @@ d.deudor]]>
 				<text><![CDATA[Estatus Judicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1400" y="0" width="100" height="28" uuid="139f10bd-6b3c-46d4-9c1e-d22199c5d0fa">
+				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="100" height="28" uuid="139f10bd-6b3c-46d4-9c1e-d22199c5d0fa">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25b05fe3-6a54-4e09-b129-d598005b4bde"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -348,7 +345,7 @@ d.deudor]]>
 				<text><![CDATA[Garantía]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1500" y="0" width="100" height="28" uuid="b2554b7a-fcc9-47a6-953b-4e8464e3387b">
+				<reportElement stretchType="RelativeToTallestObject" x="1300" y="0" width="100" height="28" uuid="b2554b7a-fcc9-47a6-953b-4e8464e3387b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bdb382b3-5127-46ce-ab49-e78ec91d5bf9"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -364,7 +361,7 @@ d.deudor]]>
 				<text><![CDATA[Razón de Deuda]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1600" y="0" width="100" height="28" uuid="89d64bb7-0c06-4945-95be-2c771739b034">
+				<reportElement stretchType="RelativeToTallestObject" x="1400" y="0" width="100" height="28" uuid="89d64bb7-0c06-4945-95be-2c771739b034">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="03d1a4d9-26b5-4c74-918f-f04d829ff746"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -379,45 +376,12 @@ d.deudor]]>
 				</textElement>
 				<text><![CDATA[Intención de Pago]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="100" height="28" uuid="c0499e0c-c1ea-45d6-a67b-b6b735c1ecb0">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6897124-7a26-48e4-999e-c67972e71c2b"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Serif" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Corporación]]></text>
-			</staticText>
-			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="28" uuid="aa400667-d65a-46ad-a919-b4a0655c697c">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ade92458-0793-4217-9b0b-0b62bcc298b2"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Serif" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Actor]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="13" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="13" uuid="6fd76418-9e3a-46bc-981f-a60e199eea26">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="13" uuid="6fd76418-9e3a-46bc-981f-a60e199eea26">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2ff4a89-2357-4ec1-87f0-dcef48b031b1"/>
 				</reportElement>
 				<box leftPadding="0" rightPadding="5">
@@ -432,7 +396,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Id_Convenio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="13" uuid="dee3ea80-1cc1-43d2-a3f8-f42cd0179b04">
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="13" uuid="dee3ea80-1cc1-43d2-a3f8-f42cd0179b04">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="750848bf-812e-4c5d-a81a-08889da73684"/>
 				</reportElement>
 				<box leftPadding="0">
@@ -447,7 +411,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Fecha_Negociacion}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="100" height="13" uuid="c629428b-090a-4c1b-8629-8f98ad7bc7e0">
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="13" uuid="c629428b-090a-4c1b-8629-8f98ad7bc7e0">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ec491408-73d2-4aad-8ca4-2546bdcbad15"/>
 				</reportElement>
 				<box leftPadding="0">
@@ -462,7 +426,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Fecha_Eliminacion}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.###;(#,##0.###-)">
-				<reportElement stretchType="RelativeToTallestObject" x="500" y="0" width="100" height="13" uuid="c0deae1d-ccfc-49be-afe1-3ffa4a633879">
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="13" uuid="c0deae1d-ccfc-49be-afe1-3ffa4a633879">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6b7fc71-eef7-4fe4-aa14-31549dc37de6"/>
 				</reportElement>
 				<box leftPadding="0" rightPadding="5">
@@ -477,7 +441,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{No_Dias_Vencido}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="100" height="13" uuid="7a98ffcb-f5d6-4c95-8508-dd552b6b0836">
+				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="100" height="13" uuid="7a98ffcb-f5d6-4c95-8508-dd552b6b0836">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9732598a-a679-49c6-b1b1-992329c32a68"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -492,7 +456,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Tipo_Convenio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="700" y="0" width="100" height="13" uuid="24d007f3-28e0-4fc0-9a97-368a0ac732f5">
+				<reportElement stretchType="RelativeToTallestObject" x="500" y="0" width="100" height="13" uuid="24d007f3-28e0-4fc0-9a97-368a0ac732f5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79745df5-19ee-41c1-9fb7-3e1a9507e9b2"/>
 				</reportElement>
 				<box leftPadding="0" rightPadding="5">
@@ -507,7 +471,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Id_Deudor}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="800" y="0" width="100" height="13" uuid="9c15db82-5bd9-4284-97da-3f6a0de95796">
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="100" height="13" uuid="9c15db82-5bd9-4284-97da-3f6a0de95796">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b00f8d7c-2786-4d5c-a3b4-ce5108039129"/>
 				</reportElement>
 				<box leftPadding="0" rightPadding="5">
@@ -522,7 +486,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Caso}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="100" height="13" uuid="68479c97-0f23-4d0b-b94a-2ff82af93ebd">
+				<reportElement stretchType="RelativeToTallestObject" x="700" y="0" width="100" height="13" uuid="68479c97-0f23-4d0b-b94a-2ff82af93ebd">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="076d4c95-f303-4552-a700-ff0753b85e66"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -537,7 +501,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Nombre_Deudor}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1000" y="0" width="100" height="13" uuid="c16209bb-7ee8-4972-81ad-9d8cb996e777">
+				<reportElement stretchType="RelativeToTallestObject" x="800" y="0" width="100" height="13" uuid="c16209bb-7ee8-4972-81ad-9d8cb996e777">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2af19c6d-4f85-47bb-883a-014fe73758e7"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -552,7 +516,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Estado_Extrajudicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1100" y="0" width="100" height="13" uuid="198f31fa-a9fc-41fe-a4bd-93287a7d9c4e">
+				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="100" height="13" uuid="198f31fa-a9fc-41fe-a4bd-93287a7d9c4e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9ef9d022-c473-4357-b150-57245fdf4c14"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -567,7 +531,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Estatus_Extrajudicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="100" height="13" uuid="9e29efe9-1f5a-4b48-bb62-f926b76a8c35">
+				<reportElement stretchType="RelativeToTallestObject" x="1000" y="0" width="100" height="13" uuid="9e29efe9-1f5a-4b48-bb62-f926b76a8c35">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3696bccb-f75e-40d2-883e-c7ba12164530"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -582,7 +546,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Estado_Judicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1300" y="0" width="100" height="13" uuid="965e70c8-b2ed-44c1-906c-30ddf62890c3">
+				<reportElement stretchType="RelativeToTallestObject" x="1100" y="0" width="100" height="13" uuid="965e70c8-b2ed-44c1-906c-30ddf62890c3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6cccfb33-aa06-4c94-9849-451ddb508d1d"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -597,7 +561,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Estatus_Judicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1400" y="0" width="100" height="13" uuid="88d6d8bb-a4bc-49ba-8cb0-a777311e002d">
+				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="100" height="13" uuid="88d6d8bb-a4bc-49ba-8cb0-a777311e002d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25b05fe3-6a54-4e09-b129-d598005b4bde"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -612,7 +576,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Garantia}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1500" y="0" width="100" height="13" uuid="2701c3d1-dd7d-417e-863a-17428ec83621">
+				<reportElement stretchType="RelativeToTallestObject" x="1300" y="0" width="100" height="13" uuid="2701c3d1-dd7d-417e-863a-17428ec83621">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bdb382b3-5127-46ce-ab49-e78ec91d5bf9"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -627,7 +591,7 @@ d.deudor]]>
 				<textFieldExpression><![CDATA[$F{Razon_Deuda}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1600" y="0" width="100" height="13" uuid="428bc21d-02e7-4b6a-a8ca-7f8ea72426d5">
+				<reportElement stretchType="RelativeToTallestObject" x="1400" y="0" width="100" height="13" uuid="428bc21d-02e7-4b6a-a8ca-7f8ea72426d5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="03d1a4d9-26b5-4c74-918f-f04d829ff746"/>
 				</reportElement>
 				<box leftPadding="2">
@@ -641,46 +605,12 @@ d.deudor]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Intencion_Pago}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="13" uuid="6d25a2a2-f12f-4cbc-acd8-46a56d9cfa72">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6897124-7a26-48e4-999e-c67972e71c2b"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box leftPadding="2">
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top">
-					<font fontName="Serif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Corporacion}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="13" uuid="c6f1939a-e281-4383-8a58-d26319cf8d63">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ade92458-0793-4217-9b0b-0b62bcc298b2"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box leftPadding="2">
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top">
-					<font fontName="Serif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Actor}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<pageFooter>
 		<band height="11">
 			<textField>
-				<reportElement x="0" y="0" width="1700" height="11" forecolor="#BF2822" uuid="e6ef026a-a201-45c1-a804-d9d0855cb9c3">
+				<reportElement x="0" y="0" width="572" height="11" forecolor="#BF2822" uuid="e6ef026a-a201-45c1-a804-d9d0855cb9c3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
