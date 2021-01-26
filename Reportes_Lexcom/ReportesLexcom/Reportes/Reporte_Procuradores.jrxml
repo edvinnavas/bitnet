@@ -90,36 +90,121 @@ s.nombre like '$P!{estado}' and
 jg.nombre like '$P!{juzgado}' and 
 co.nombre like '$P!{corporacion}']]>
 	</queryString>
-	<field name="Caso" class="java.lang.Integer"/>
-	<field name="Cargado" class="java.lang.String"/>
-	<field name="Actor" class="java.lang.String"/>
-	<field name="No_cuenta" class="java.lang.String"/>
-	<field name="Otro_no_cuenta" class="java.lang.String"/>
-	<field name="Garantia" class="java.lang.String"/>
-	<field name="Nombre_cliente" class="java.lang.String"/>
-	<field name="MontoQQ" class="java.lang.Double"/>
-	<field name="MontoUSD" class="java.lang.Double"/>
-	<field name="Gestor" class="java.lang.String"/>
-	<field name="Estado_judicial" class="java.lang.String"/>
-	<field name="Estatus_judicial" class="java.lang.String"/>
-	<field name="Estado_extrajudicial" class="java.lang.String"/>
-	<field name="Estatus_extrajudicial" class="java.lang.String"/>
-	<field name="Situacion_juicio" class="java.lang.String"/>
-	<field name="Juzgado" class="java.lang.String"/>
-	<field name="No_juicio" class="java.lang.String"/>
-	<field name="Notificador" class="java.lang.Integer"/>
-	<field name="Procurador" class="java.lang.String"/>
-	<field name="Procuracion" class="java.lang.String"/>
-	<field name="Razon_notificacion" class="java.lang.String"/>
-	<field name="Presentacion_demanda" class="java.sql.Date"/>
-	<field name="Admision_demanda" class="java.sql.Date"/>
-	<field name="Sumario" class="java.lang.String"/>
-	<field name="Memorial" class="java.sql.Date"/>
-	<field name="Notificado" class="java.lang.String"/>
-	<field name="Fecha_notificado" class="java.sql.Date"/>
-	<field name="Fecha_proximo_pago" class="java.sql.Date"/>
-	<field name="Monto_proximo_pago" class="java.lang.String"/>
-	<field name="Fecha_ultimo_pago" class="java.sql.Date"/>
+	<field name="Caso" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Caso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Cargado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Cargado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Actor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Actor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="actor"/>
+	</field>
+	<field name="No_cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="No_cuenta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Otro_no_cuenta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Otro_no_cuenta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Garantia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Garantia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="garantia"/>
+	</field>
+	<field name="Nombre_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="MontoQQ" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="MontoQQ"/>
+	</field>
+	<field name="MontoUSD" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="MontoUSD"/>
+	</field>
+	<field name="Gestor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Gestor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+	</field>
+	<field name="Estado_judicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estado_judicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sestado"/>
+	</field>
+	<field name="Estatus_judicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estatus_judicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estatus"/>
+	</field>
+	<field name="Estado_extrajudicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estado_extrajudicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sestado_extra"/>
+	</field>
+	<field name="Estatus_extrajudicial" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Estatus_extrajudicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estatus_extra"/>
+	</field>
+	<field name="Situacion_juicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Situacion_juicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="Juzgado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Juzgado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juzgado"/>
+	</field>
+	<field name="No_juicio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="No_juicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Notificador" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Notificador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Procurador" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Procurador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+	</field>
+	<field name="Procuracion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Procuracion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Razon_notificacion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Razon_notificacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Presentacion_demanda" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Presentacion_demanda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Admision_demanda" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Admision_demanda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Sumario" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Sumario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Memorial" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Memorial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Notificado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Notificado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Fecha_notificado" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha_notificado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="Fecha_proximo_pago" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha_proximo_pago"/>
+	</field>
+	<field name="Monto_proximo_pago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Monto_proximo_pago"/>
+	</field>
+	<field name="Fecha_ultimo_pago" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Fecha_ultimo_pago"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
