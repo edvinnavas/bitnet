@@ -66,7 +66,7 @@ ifnull((select j.no_juicio from juicio j where j.deudor=deu.deudor),'-') no_juic
 trim(deu.telefono_celular) Contacto_principal,
 ifnull((select p.fecha from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),date('1900-01-01')) fecha_ultimo_pagpo,
 ifnull((select p.monto from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),0.00) monto_ultimo_pagpo,
-ifnull((select j.fecha_admision_demanda from juicio j where j.deudor=deu.deudor),'-') juicio_fecha_presentacion,
+ifnull((select date(j.fecha_admision_demanda) from juicio j where j.deudor=deu.deudor),date('1900-01-01')) juicio_fecha_presentacion,
 ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(current_date) and month(p.fecha) = month(current_date)),  0.00) q_pago_mes_actual,
 ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -11 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -11 MONTH))),  0.00) q_pago_mes_1,
 ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -10 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -10 MONTH))),  0.00) q_pago_mes_2,
@@ -257,7 +257,7 @@ deu.cargado='$P!{cargado}']]>
 	<field name="monto_ultimo_pagpo" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="monto_ultimo_pagpo"/>
 	</field>
-	<field name="juicio_fecha_presentacion" class="java.lang.String">
+	<field name="juicio_fecha_presentacion" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="juicio_fecha_presentacion"/>
 	</field>
 	<field name="q_pago_mes_actual" class="java.lang.Double">
