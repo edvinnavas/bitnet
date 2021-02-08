@@ -68,17 +68,17 @@ ifnull((select p.fecha from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),
 ifnull((select p.monto from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),0.00) monto_ultimo_pagpo,
 ifnull((select date(j.fecha_admision_demanda) from juicio j where j.deudor=deu.deudor),date('1900-01-01')) juicio_fecha_presentacion,
 ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(current_date) and month(p.fecha) = month(current_date)),  0.00) q_pago_mes_actual,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -11 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -11 MONTH))),  0.00) q_pago_mes_1,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -10 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -10 MONTH))),  0.00) q_pago_mes_2,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -9 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -9 MONTH))),  0.00) q_pago_mes_3,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -8 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -8 MONTH))),  0.00) q_pago_mes_4,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -7 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -7 MONTH))),  0.00) q_pago_mes_5,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -1 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -1 MONTH))),  0.00) q_pago_mes_1,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -2 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -2 MONTH))),  0.00) q_pago_mes_2,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -3 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -3 MONTH))),  0.00) q_pago_mes_3,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -4 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -4 MONTH))),  0.00) q_pago_mes_4,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -5 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -5 MONTH))),  0.00) q_pago_mes_5,
 ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -6 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -6 MONTH))),  0.00) q_pago_mes_6,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -5 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -5 MONTH))),  0.00) q_pago_mes_7,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -4 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -4 MONTH))),  0.00) q_pago_mes_8,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -3 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -3 MONTH))),  0.00) q_pago_mes_9,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -2 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -2 MONTH))),  0.00) q_pago_mes_10,
-ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -1 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -1 MONTH))),  0.00) q_pago_mes_11
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -7 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -7 MONTH))),  0.00) q_pago_mes_7,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -8 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -8 MONTH))),  0.00) q_pago_mes_8,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -9 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -9 MONTH))),  0.00) q_pago_mes_9,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -10 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -10 MONTH))),  0.00) q_pago_mes_10,
+ifnull((select sum(p.monto) from pago p where p.deudor=deu.deudor and year(p.fecha) = year(date_add(current_date, INTERVAL -11 MONTH)) and month(p.fecha) = month(date_add(current_date, INTERVAL -11 MONTH))),  0.00) q_pago_mes_11
 from
 deudor deu
 left join garantia gar on (deu.garantia=gar.garantia)
