@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Connection;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -121,11 +123,8 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         spnDescuentos = new javax.swing.JSpinner();
         jLayeredPane5 = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
-        spnPagos = new javax.swing.JSpinner();
         jLabel35 = new javax.swing.JLabel();
-        dccFechaUltimoPago = new datechooser.beans.DateChooserCombo();
         jLabel36 = new javax.swing.JLabel();
-        spnMontoUltimoPago = new javax.swing.JSpinner();
         chkProximoPago = new javax.swing.JCheckBox();
         jLabel37 = new javax.swing.JLabel();
         dccFechaProximoPago = new datechooser.beans.DateChooserCombo();
@@ -137,6 +136,9 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         jLabel46 = new javax.swing.JLabel();
         txtTipoConvenio = new javax.swing.JTextField();
         jLabel43 = new javax.swing.JLabel();
+        txtPagos = new javax.swing.JTextField();
+        txtFechaUltimoPago = new javax.swing.JTextField();
+        txtMontoUltimoPago = new javax.swing.JTextField();
         jPanel26 = new javax.swing.JPanel();
         jLayeredPane6 = new javax.swing.JLayeredPane();
         jLabel15 = new javax.swing.JLabel();
@@ -434,27 +436,13 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         jLabel2.setBounds(20, 23, 29, 14);
         jLayeredPane5.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        spnPagos.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
-        spnPagos.setBounds(140, 20, 150, 20);
-        jLayeredPane5.add(spnPagos, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         jLabel35.setText("Fecha Último Pago");
         jLabel35.setBounds(20, 48, 88, 14);
         jLayeredPane5.add(jLabel35, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        dccFechaUltimoPago.setNothingAllowed(false);
-        dccFechaUltimoPago.setLocale(new java.util.Locale("es", "GT", ""));
-        dccFechaUltimoPago.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
-        dccFechaUltimoPago.setBounds(140, 45, 150, 20);
-        jLayeredPane5.add(dccFechaUltimoPago, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         jLabel36.setText("Monto Último Pago");
         jLabel36.setBounds(20, 73, 89, 14);
         jLayeredPane5.add(jLabel36, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        spnMontoUltimoPago.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(1.0d)));
-        spnMontoUltimoPago.setBounds(140, 70, 150, 20);
-        jLayeredPane5.add(spnMontoUltimoPago, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         chkProximoPago.setText("Próximo Pago");
         chkProximoPago.addItemListener(new java.awt.event.ItemListener() {
@@ -517,6 +505,18 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         jLabel43.setText("Convenio pactado");
         jLabel43.setBounds(20, 210, 87, 14);
         jLayeredPane5.add(jLabel43, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        txtPagos.setText("Q. 0.00");
+        txtPagos.setBounds(140, 16, 150, 20);
+        jLayeredPane5.add(txtPagos, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        txtFechaUltimoPago.setText("-");
+        txtFechaUltimoPago.setBounds(140, 43, 150, 20);
+        jLayeredPane5.add(txtFechaUltimoPago, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        txtMontoUltimoPago.setText("Q. 0.00");
+        txtMontoUltimoPago.setBounds(140, 70, 150, 20);
+        jLayeredPane5.add(txtMontoUltimoPago, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -4172,7 +4172,7 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
         com.lexcom.driver.Convenio convenio_resultado = DConvenio.obtener(id_convenio);
         
         //Habilitar componentes de fechas para poder cargar la fecha.
-        this.dccFechaUltimoPago.setEnabled(true);
+        this.txtFechaUltimoPago.setEditable(false);
         this.dccMemorial.setEnabled(true);
 
         //Cargar información a los componentes.
@@ -4211,16 +4211,22 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
 
         this.dccFechaNac.setSelectedDate(resultado.fecha_nacimiento);
         this.dccFechaRecepcion.setSelectedDate(resultado.fecha_recepcion);
-        this.dccFechaUltimoPago.setSelectedDate(DExpediente.fecha_ultimo_pago(this.deudor));
+        SimpleDateFormat dateFortam = new SimpleDateFormat("dd/MM/yyyy");
+        if(DExpediente.monto_ultimo_pago(this.deudor) == 0.00) {
+            this.txtFechaUltimoPago.setText("-");
+        } else {
+            this.txtFechaUltimoPago.setText(dateFortam.format(DExpediente.fecha_ultimo_pago(this.deudor).getTime()));
+        }
         this.dccFechaProximoPago.setEnabled(true);
         this.dccFechaProximoPago.setSelectedDate(resultado.fecha_proximo_pago);
         
         this.spnMontoInicial.setValue(resultado.monto_inicial);
         this.spnAumentos.setValue(DExpediente.calcular_aumentos(this.deudor));
         this.spnDescuentos.setValue(DExpediente.calcular_descuentos(this.deudor));
-        this.spnPagos.setValue(DExpediente.calcular_pagos(this.deudor));
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###,###.00");
+        this.txtPagos.setText("Q." + decimalFormat.format(DExpediente.calcular_pagos(this.deudor)));
         this.spnSaldo.setValue(resultado.saldo);
-        this.spnMontoUltimoPago.setValue(DExpediente.monto_ultimo_pago(this.deudor));
+        this.txtMontoUltimoPago.setText("Q." + decimalFormat.format(DExpediente.monto_ultimo_pago(this.deudor)));
         this.txtCaso.setText(resultado.caso.toString());
         this.spnCuotaConvenio.setValue(resultado.cuota_convenio);
 
@@ -4358,11 +4364,11 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
             this.dccFechaAdmision.setEnabled(false);
         }
 
-        this.dccFechaUltimoPago.setEnabled(false);
+        this.txtFechaUltimoPago.setEditable(false);
         this.spnAumentos.setEnabled(false);
         this.spnDescuentos.setEnabled(false);
-        this.spnPagos.setEnabled(false);
-        this.spnMontoUltimoPago.setEnabled(false);
+        this.txtPagos.setEditable(false);
+        this.txtMontoUltimoPago.setEditable(false);
 
         com.lexcom.driver.Expediente drive = new com.lexcom.driver.Expediente(this.conn, this.usuario);
         if (drive.es_gestor(usuario) && !(drive.es_procurador(usuario) || drive.es_asistente(usuario) || drive.es_digitador(usuario) || drive.es_investigador(usuario))) {
@@ -4528,7 +4534,6 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
     private datechooser.beans.DateChooserCombo dccFechaNotificacion;
     private datechooser.beans.DateChooserCombo dccFechaProximoPago;
     private datechooser.beans.DateChooserCombo dccFechaRecepcion;
-    private datechooser.beans.DateChooserCombo dccFechaUltimoPago;
     private datechooser.beans.DateChooserCombo dccMemorial;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -4647,21 +4652,22 @@ public class Expediente extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSpinner spnDescuentos;
     private javax.swing.JSpinner spnMontoDemanda;
     private javax.swing.JSpinner spnMontoInicial;
-    private javax.swing.JSpinner spnMontoUltimoPago;
     private javax.swing.JSpinner spnNotificador;
-    private javax.swing.JSpinner spnPagos;
     private javax.swing.JSpinner spnSaldo;
     private javax.swing.JTextField txtAbogadoDeudor;
     private javax.swing.JTextField txtCaso;
     private javax.swing.JTextField txtCorreoElectronico;
     private javax.swing.JTextField txtDireccionTrabajo;
     private javax.swing.JTextField txtDpi;
+    private javax.swing.JTextField txtFechaUltimoPago;
     private javax.swing.JTextField txtLugarTrabajo;
+    private javax.swing.JTextField txtMontoUltimoPago;
     private javax.swing.JTextField txtNit;
     private javax.swing.JTextField txtNoCuenta;
     private javax.swing.JTextField txtNoJuicio;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtOtroNoCuenta;
+    private javax.swing.JTextField txtPagos;
     private javax.swing.JTextField txtSumario;
     private javax.swing.JTextField txtTelefonoCasa;
     private javax.swing.JTextField txtTelefonoCelular;
