@@ -89,6 +89,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 
         desktopPane = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         MenuPrincipal = new javax.swing.JMenu();
         SubMenuUsuarios = new javax.swing.JMenuItem();
@@ -167,6 +168,12 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
         jLabel1.setText("AMBIENTE DE PRUEBAS.");
         jLabel1.setBounds(10, 10, 600, 24);
         desktopPane.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(-65536,true));
+        jLabel2.setText("Versión 1.0.");
+        jLabel2.setBounds(10, 40, 600, 24);
+        desktopPane.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         MenuPrincipal.setMnemonic('p');
         MenuPrincipal.setText("Principal");
@@ -1357,6 +1364,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
     private javax.swing.JMenuItem SubMenuUsuarios;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
