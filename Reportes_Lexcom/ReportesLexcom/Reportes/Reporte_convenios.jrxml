@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Convenios" language="groovy" pageWidth="3715" pageHeight="541" orientation="Landscape" columnWidth="3675" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Convenios" language="groovy" pageWidth="3790" pageHeight="541" orientation="Landscape" columnWidth="3750" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="1174"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="corporacion" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -13,6 +22,9 @@
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="cargado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="estado_convenio" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -65,7 +77,8 @@ ifnull((select dhc.contacto from deudor_historial_cobros dhc where dhc.deudor_hi
 ifnull((select j.no_juicio from juicio j where j.deudor=deu.deudor),'-') no_juicio,
 trim(deu.telefono_celular) Contacto_principal,
 ifnull((select p.fecha from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),date('1900-01-01')) fecha_ultimo_pagpo,
-ifnull((select p.monto from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),0.00) monto_ultimo_pagpo
+ifnull((select p.monto from pago p where p.pago=get_id_ultimo_pago(deu.deudor)),0.00) monto_ultimo_pagpo,
+deu.no_cuenta_otro
 from
 deudor deu
 left join garantia gar on (deu.garantia=gar.garantia)
@@ -81,7 +94,9 @@ left join (select (select c.deudor from convenio c where c.convenio=pp4.convenio
 where
 cor.nombre like '$P!{corporacion}' and
 act.nombre like '$P!{actor}' and
-deu.cargado='$P!{cargado}']]>
+con.estado like '$P!{estado_convenio}' and
+deu.cargado = '$P!{cargado}'
+]]>
 	</queryString>
 	<field name="actor" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="actor"/>
@@ -244,13 +259,17 @@ deu.cargado='$P!{cargado}']]>
 	<field name="monto_ultimo_pagpo" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="monto_ultimo_pagpo"/>
 	</field>
+	<field name="no_cuenta_otro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="no_cuenta_otro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="3375" height="33" forecolor="#BF2822" uuid="f58fb834-bef0-4c98-b8b4-aed0818805a6"/>
+				<reportElement x="0" y="0" width="3450" height="33" forecolor="#851817" uuid="f58fb834-bef0-4c98-b8b4-aed0818805a6"/>
 				<box leftPadding="10"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="26" isBold="true"/>
@@ -258,7 +277,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Reporte revisión convenios]]></text>
 			</staticText>
 			<textField pattern="MMMM d, yyyy">
-				<reportElement x="3375" y="0" width="300" height="33" uuid="1de63854-28bc-4c99-ab57-f05d4bda9a3f">
+				<reportElement x="3450" y="0" width="298" height="33" uuid="1de63854-28bc-4c99-ab57-f05d4bda9a3f">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
@@ -272,7 +291,7 @@ deu.cargado='$P!{cargado}']]>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="75" height="22" uuid="6c540ebf-1d23-442e-accd-951661a3497f">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="6c540ebf-1d23-442e-accd-951661a3497f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5eae8a5-22af-4733-8cb7-48a8ede12e27"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -288,7 +307,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Actor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="75" y="0" width="75" height="22" uuid="0dbea6f2-abf0-4a45-8584-5431b7e2c120">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="75" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="0dbea6f2-abf0-4a45-8584-5431b7e2c120">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9c5b5b61-e04c-4e97-b1cc-9a9b41ea1984"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -304,7 +323,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[No. caso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="150" y="0" width="75" height="22" uuid="c41c6727-141d-4e9c-bf55-7a704966c2cb">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="150" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="c41c6727-141d-4e9c-bf55-7a704966c2cb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="76b6847c-8fdd-45be-943b-a19e4f650f51"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -320,7 +339,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[F. recepción]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="225" y="0" width="75" height="22" uuid="8452055f-2cd0-417a-9eb9-fc4a978d6eb7">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="225" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="8452055f-2cd0-417a-9eb9-fc4a978d6eb7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="839eeebf-54e6-4e2d-9bf4-10a70b8ea3ce"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -336,7 +355,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Antigüedad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="75" height="22" uuid="ad7a0f2d-a711-441f-9392-93d9969ecd27">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="300" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="ad7a0f2d-a711-441f-9392-93d9969ecd27">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9505dfe-d503-4828-b8bd-ccf2db503797"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -352,7 +371,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Garantía]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="375" y="0" width="75" height="22" uuid="76f160f6-b94d-4ac4-a0c7-845f8085f1f9">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="375" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="76f160f6-b94d-4ac4-a0c7-845f8085f1f9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7821667-13aa-44fd-a10b-c3f3be9b16c0"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -368,7 +387,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Gestor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="450" y="0" width="75" height="22" uuid="41cc5751-10e5-4eb7-8a5f-d3b8ff34152e">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="450" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="41cc5751-10e5-4eb7-8a5f-d3b8ff34152e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d57b4369-7228-4daa-98fa-33749831140e"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -384,7 +403,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[No. cuenta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="525" y="0" width="75" height="22" uuid="cba05d12-c740-44b7-a846-891219d822fc">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="525" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="cba05d12-c740-44b7-a846-891219d822fc">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3c0c9006-4a82-44db-b1db-f338b0e50fd1"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -400,7 +419,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Nombre deudor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="75" height="22" uuid="27ea8514-abf1-48be-ae75-2be07c362d40">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="675" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="27ea8514-abf1-48be-ae75-2be07c362d40">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5873f001-b3f2-4110-a1bd-a88e45dc4ef0"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -416,7 +435,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. monto inicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="675" y="0" width="75" height="22" uuid="3bc245f4-b2f9-4e59-aebc-3a3d96544fd2">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="750" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="3bc245f4-b2f9-4e59-aebc-3a3d96544fd2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="44bcdc7f-f442-43a3-a35b-2cc1f9545280"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -432,7 +451,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. saldo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="750" y="0" width="75" height="22" uuid="cfa7b0f0-4fe0-42dc-b8ca-74e8d1e1e565">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="825" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="cfa7b0f0-4fe0-42dc-b8ca-74e8d1e1e565">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3925313-8337-4bab-bc9f-b7c576023874"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -448,7 +467,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. pagos acumulados]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1125" y="0" width="75" height="22" uuid="ec15e8c7-169d-440c-a399-7b9c848efce1">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1200" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="ec15e8c7-169d-440c-a399-7b9c848efce1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5909aec1-6f84-4580-b85f-54c684a1cc79"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -464,7 +483,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Tipo convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="75" height="22" uuid="657ad172-53f1-4377-aa5d-79976feb516e">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1275" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="657ad172-53f1-4377-aa5d-79976feb516e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bcf5ce3a-4ac1-4aae-9e2b-074aa73526cd"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -480,7 +499,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Estado convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1275" y="0" width="75" height="22" uuid="da58399a-4def-4f04-9767-4dd8d0ccdcd9">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1350" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="da58399a-4def-4f04-9767-4dd8d0ccdcd9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df7166fb-87a4-4738-b126-0ecc3fbee998"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -497,7 +516,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[F. creación convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1350" y="0" width="75" height="22" uuid="d0ecb03e-81db-4e5b-98f7-db68d356e8a8">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1425" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="d0ecb03e-81db-4e5b-98f7-db68d356e8a8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17e92a7d-bc3f-48da-be7c-3efa66ac3ae4"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -514,7 +533,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[F. activación convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1425" y="0" width="75" height="22" uuid="7c127f20-1cfa-40c0-83ed-512922abbc27">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1500" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="7c127f20-1cfa-40c0-83ed-512922abbc27">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6e326481-e80b-41b8-bedd-aca039abea9c"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -531,7 +550,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[F. terminación convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1500" y="0" width="75" height="22" uuid="a1ed1fa1-e304-4682-a6f1-d626445f947e">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1575" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="a1ed1fa1-e304-4682-a6f1-d626445f947e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67a6468d-5e49-4fa6-86d6-1a964d4f66ba"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -548,7 +567,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. saldo convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1575" y="0" width="75" height="22" uuid="46522c04-bee0-4dc5-b48a-f2838440726f">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1650" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="46522c04-bee0-4dc5-b48a-f2838440726f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ccb033c7-32e2-43e8-af12-6950cd274927"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -565,7 +584,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. interés]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1650" y="0" width="75" height="22" uuid="d580522b-2bc5-48d2-b4ee-1cfe1c120571">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1725" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="d580522b-2bc5-48d2-b4ee-1cfe1c120571">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="764de791-ce77-48b7-b6fd-4bdf121e96b5"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -582,7 +601,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. mora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1725" y="0" width="75" height="22" uuid="b0b1a615-0f26-4f8a-8fb2-4bde027b35c4">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1800" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="b0b1a615-0f26-4f8a-8fb2-4bde027b35c4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b17a3dfc-ca1a-4119-9af8-ead004522203"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -599,7 +618,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. otros gastos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1800" y="0" width="75" height="22" uuid="2e011764-f080-470c-87da-6bd7641ac342">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1875" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="2e011764-f080-470c-87da-6bd7641ac342">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f189f96b-31bd-4f5b-9e7b-6d47fa67a778"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -616,7 +635,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[% costas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1875" y="0" width="75" height="22" uuid="f06e9439-ec3e-495a-bef2-fb7be2ce67e4">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1950" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="f06e9439-ec3e-495a-bef2-fb7be2ce67e4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaf0cd97-79c9-4ae2-b6fc-9714ca5cca14"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -633,7 +652,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. monto costas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1950" y="0" width="75" height="22" uuid="8b64b0fe-1f14-4ad7-9a9a-97ec247c57b2">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2025" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="8b64b0fe-1f14-4ad7-9a9a-97ec247c57b2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c9a51107-4553-40ca-828c-6d7e2e168f81"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -649,7 +668,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. rebaja interés]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2025" y="0" width="75" height="22" uuid="078ae3bb-6576-47f7-b713-382aeff50eff">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2100" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="078ae3bb-6576-47f7-b713-382aeff50eff">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2fdf0136-5651-43a4-85ae-4699791c81a5"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -665,7 +684,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. total convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2100" y="0" width="75" height="22" uuid="dc17e3df-81fd-4ba0-9feb-8b15df2d54d6">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2175" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="dc17e3df-81fd-4ba0-9feb-8b15df2d54d6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2e8dcd06-a424-4a3a-bddc-83822d4d78b5"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -681,7 +700,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. pago inicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2175" y="0" width="75" height="22" uuid="0f73df88-3164-49da-bda3-07b34839567f">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2250" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="0f73df88-3164-49da-bda3-07b34839567f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3c072e70-5da5-4932-a630-684ef5a9c162"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -697,7 +716,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. total a pagar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2250" y="0" width="75" height="22" uuid="17af1cf1-e044-423e-9a1a-24d71dc38c7e">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2325" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="17af1cf1-e044-423e-9a1a-24d71dc38c7e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="102b73ff-6540-44f6-8a0a-3f9422cd45bb"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -713,7 +732,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Cant. cuotas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2325" y="0" width="75" height="22" uuid="a4e54eae-7a5c-430f-86d1-02afce8d21ab">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2400" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="a4e54eae-7a5c-430f-86d1-02afce8d21ab">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="caefad2c-3d2f-48f2-af71-5013d3394aa4"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -729,7 +748,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Frecuencia cuotas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2400" y="0" width="75" height="22" uuid="f466393c-8ddf-4453-b714-dd9ac6c2639b">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2475" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="f466393c-8ddf-4453-b714-dd9ac6c2639b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4b40989-898c-48c6-9461-efe10bc36ef0"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -745,7 +764,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. monto cuota]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2475" y="0" width="150" height="22" uuid="b9c58e11-b036-474b-8daf-d6ee77e99598">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2550" y="0" width="150" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="b9c58e11-b036-474b-8daf-d6ee77e99598">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f8859588-ab4c-4492-8554-afa76e0dca01"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -761,7 +780,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Convenio pactado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2625" y="0" width="75" height="22" uuid="8e78f24b-cf2f-432e-bdf3-15ac226ca6e7">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2700" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="8e78f24b-cf2f-432e-bdf3-15ac226ca6e7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae75acc5-a297-4ed7-a7c5-fb5d0a00523c"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -777,7 +796,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[F. pago inicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="75" height="22" uuid="1e2af43c-8148-4c50-9d91-014d28543276">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2775" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="1e2af43c-8148-4c50-9d91-014d28543276">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46b6d02c-83ac-421e-99cf-af286dbbaacd"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -793,7 +812,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Estado PP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2775" y="0" width="75" height="22" uuid="a896f692-ad15-49d2-aa4b-4e1cf02180b5">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2850" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="a896f692-ad15-49d2-aa4b-4e1cf02180b5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c68cec84-c806-4935-8b70-52749d3b5cdd"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -810,7 +829,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[F. próxima cuota]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2850" y="0" width="75" height="22" uuid="7b5b9bdd-9047-4674-ae3c-df45df93d707">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="2925" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="7b5b9bdd-9047-4674-ae3c-df45df93d707">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="710eeeb0-0381-4362-b4c6-8303bdb2df6e"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -827,7 +846,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. próxima cuota]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2925" y="0" width="75" height="22" uuid="4e7fbd42-9f1e-40f8-835b-aa2df60e0ca5">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3000" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="4e7fbd42-9f1e-40f8-835b-aa2df60e0ca5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3089a307-401f-43ec-b30a-3c26dcdd64c7"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -844,7 +863,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[No. promesas cumplidas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3000" y="0" width="75" height="22" uuid="6ea65a33-2a4c-4176-8265-ca80ec51a27b">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3075" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="6ea65a33-2a4c-4176-8265-ca80ec51a27b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c91d00df-b5fd-45ab-9f37-4e79f1893c6e"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -861,7 +880,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[No. promesas incumplidas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3225" y="0" width="75" height="22" uuid="8d8ee2c6-1185-4462-a09c-07e8ef2b45b9">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3300" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="8d8ee2c6-1185-4462-a09c-07e8ef2b45b9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07d5358a-8012-4d7e-87c7-2afc372dbc38"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -878,7 +897,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Cant. pagos convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3300" y="0" width="75" height="22" uuid="70f7a970-5cd2-410c-800a-50a065871f99">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3375" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="70f7a970-5cd2-410c-800a-50a065871f99">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="449bbe7c-75f3-47e9-8224-68147a8a5733"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -895,7 +914,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Q. pagos convenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3375" y="0" width="75" height="22" uuid="2d9715af-619b-4e7c-854f-d03afc20d97a">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3450" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="2d9715af-619b-4e7c-854f-d03afc20d97a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ee8e29da-6853-4221-8f5b-45ce327c1fb9"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -912,7 +931,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Cuotas pendientes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="975" y="0" width="75" height="22" uuid="a1eb017f-3d69-4d74-9e78-207f8257c71b">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1050" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="a1eb017f-3d69-4d74-9e78-207f8257c71b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bec21b5f-db33-425b-a7e8-e617ed054f63"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -928,7 +947,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Estado judicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1050" y="0" width="75" height="22" uuid="8000cfbb-e4a2-4131-ac5b-aedfff11af24">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="1125" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="8000cfbb-e4a2-4131-ac5b-aedfff11af24">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3b975bd8-b530-4ad0-a440-faff08d7acfb"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -944,7 +963,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Estatus judicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="825" y="0" width="75" height="22" uuid="c4b2449a-b090-4013-86c0-790bb9e2b62d">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="900" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="c4b2449a-b090-4013-86c0-790bb9e2b62d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62b989a0-5ee6-4008-a6e9-4353e3dec74b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -960,7 +979,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Estado extrajudicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="75" height="22" uuid="f82b92b7-86df-4604-91ae-769f68442929">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="975" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="f82b92b7-86df-4604-91ae-769f68442929">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0899565-5b95-4f68-9ac3-0308194c86b6"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -976,7 +995,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Estatus extrajudicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3450" y="0" width="75" height="22" uuid="a90242f7-f1e1-41e6-821d-d4a15889faa0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3525" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="a90242f7-f1e1-41e6-821d-d4a15889faa0">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaa69394-5786-4c40-a049-89bbe8f5b2bc"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -992,7 +1011,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Contacto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3525" y="0" width="75" height="22" uuid="f764aa76-be0d-4512-be8f-84354dc88021">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3600" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="f764aa76-be0d-4512-be8f-84354dc88021">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c24caef8-48a8-4be2-b9d9-edddc6f0a15c"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1008,7 +1027,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[No. juicio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3600" y="0" width="75" height="22" uuid="45bfaad3-cc0d-4d48-a1a1-7c72d9254456">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3675" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="45bfaad3-cc0d-4d48-a1a1-7c72d9254456">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4ada7898-22e5-4de6-8c2d-ae266fcc02b9"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1024,7 +1043,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Contacto principal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3075" y="0" width="75" height="22" uuid="f3e679d9-2cf5-4d5a-b53f-bb0051a3d799">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3150" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="f3e679d9-2cf5-4d5a-b53f-bb0051a3d799">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3355fb2-0f7d-432e-88c0-fb606adf3ec8"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1041,7 +1060,7 @@ deu.cargado='$P!{cargado}']]>
 				<text><![CDATA[Fecha último pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3150" y="0" width="75" height="22" uuid="6c5e77da-77a2-4c7f-a56c-f83499bc7f28">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="3225" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="6c5e77da-77a2-4c7f-a56c-f83499bc7f28">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48a41a19-4ceb-42a5-940e-e6006b50b0a2"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1056,6 +1075,22 @@ deu.cargado='$P!{cargado}']]>
 					<font fontName="Serif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Q. último pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="600" y="0" width="75" height="22" forecolor="#FFFFFF" backcolor="#851817" uuid="81812345-1f26-4eba-9613-10a2085c34a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d57b4369-7228-4daa-98fa-33749831140e"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Otro no. cuenta]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -1190,7 +1225,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{nombre_deudor}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="75" height="13" uuid="b2b35280-6826-42db-b2d5-25089e915614">
+				<reportElement stretchType="RelativeToTallestObject" x="675" y="0" width="75" height="13" uuid="b2b35280-6826-42db-b2d5-25089e915614">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5873f001-b3f2-4110-a1bd-a88e45dc4ef0"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1206,7 +1241,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{monto_inicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="675" y="0" width="75" height="13" uuid="06208e26-78a9-429a-a38c-12e4b62c52b2">
+				<reportElement stretchType="RelativeToTallestObject" x="750" y="0" width="75" height="13" uuid="06208e26-78a9-429a-a38c-12e4b62c52b2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="44bcdc7f-f442-43a3-a35b-2cc1f9545280"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1222,7 +1257,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="750" y="0" width="75" height="13" uuid="f536fb1d-99ee-44b1-9e7b-e1050c00080a">
+				<reportElement stretchType="RelativeToTallestObject" x="825" y="0" width="75" height="13" uuid="f536fb1d-99ee-44b1-9e7b-e1050c00080a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3925313-8337-4bab-bc9f-b7c576023874"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1238,7 +1273,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{pagos_acumulados}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1125" y="0" width="75" height="13" uuid="112f5960-bac5-4d84-add9-ac45249d6004">
+				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="75" height="13" uuid="112f5960-bac5-4d84-add9-ac45249d6004">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5909aec1-6f84-4580-b85f-54c684a1cc79"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1254,7 +1289,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{tipo_convenio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="75" height="13" uuid="c68dbffa-f9d2-4eaa-866c-918adcdefaff">
+				<reportElement stretchType="RelativeToTallestObject" x="1275" y="0" width="75" height="13" uuid="c68dbffa-f9d2-4eaa-866c-918adcdefaff">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bcf5ce3a-4ac1-4aae-9e2b-074aa73526cd"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1270,7 +1305,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{estado_convenio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="1275" y="0" width="75" height="13" uuid="200aa484-a0eb-48a3-9991-b0320646427b">
+				<reportElement stretchType="RelativeToTallestObject" x="1350" y="0" width="75" height="13" uuid="200aa484-a0eb-48a3-9991-b0320646427b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df7166fb-87a4-4738-b126-0ecc3fbee998"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1287,7 +1322,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{fecha_creacion}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="1350" y="0" width="75" height="13" uuid="0d5d9451-7524-4731-804c-1df97e475821">
+				<reportElement stretchType="RelativeToTallestObject" x="1425" y="0" width="75" height="13" uuid="0d5d9451-7524-4731-804c-1df97e475821">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17e92a7d-bc3f-48da-be7c-3efa66ac3ae4"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1304,7 +1339,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{fecha_activacion}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="1425" y="0" width="75" height="13" uuid="122e0de6-ff21-415c-9847-f425eefe5e92">
+				<reportElement stretchType="RelativeToTallestObject" x="1500" y="0" width="75" height="13" uuid="122e0de6-ff21-415c-9847-f425eefe5e92">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6e326481-e80b-41b8-bedd-aca039abea9c"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1321,7 +1356,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{fecha_terminacion}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="1500" y="0" width="75" height="13" uuid="2cdc38ca-fb3b-4b9f-a260-d5ec55479f4f">
+				<reportElement stretchType="RelativeToTallestObject" x="1575" y="0" width="75" height="13" uuid="2cdc38ca-fb3b-4b9f-a260-d5ec55479f4f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67a6468d-5e49-4fa6-86d6-1a964d4f66ba"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1338,7 +1373,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{saldo_convenio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="1575" y="0" width="75" height="13" uuid="581cf578-4cae-4f38-938c-2af75bf8e075">
+				<reportElement stretchType="RelativeToTallestObject" x="1650" y="0" width="75" height="13" uuid="581cf578-4cae-4f38-938c-2af75bf8e075">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ccb033c7-32e2-43e8-af12-6950cd274927"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1355,7 +1390,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{interes}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="1650" y="0" width="75" height="13" uuid="96b7ee42-7581-493c-934c-ccf2c518b805">
+				<reportElement stretchType="RelativeToTallestObject" x="1725" y="0" width="75" height="13" uuid="96b7ee42-7581-493c-934c-ccf2c518b805">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="764de791-ce77-48b7-b6fd-4bdf121e96b5"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1372,7 +1407,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{mora}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="1725" y="0" width="75" height="13" uuid="b790b72c-67df-45cf-bea1-047d0993d14c">
+				<reportElement stretchType="RelativeToTallestObject" x="1800" y="0" width="75" height="13" uuid="b790b72c-67df-45cf-bea1-047d0993d14c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b17a3dfc-ca1a-4119-9af8-ead004522203"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1389,7 +1424,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{gastos_otros}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="1800" y="0" width="75" height="13" uuid="3c9bf803-a341-4ce5-92c0-098a21374672">
+				<reportElement stretchType="RelativeToTallestObject" x="1875" y="0" width="75" height="13" uuid="3c9bf803-a341-4ce5-92c0-098a21374672">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f189f96b-31bd-4f5b-9e7b-6d47fa67a778"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1406,7 +1441,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{porcentaje_costas}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="1875" y="0" width="75" height="13" uuid="a3ceba17-d053-408c-a504-c48e497ca537">
+				<reportElement stretchType="RelativeToTallestObject" x="1950" y="0" width="75" height="13" uuid="a3ceba17-d053-408c-a504-c48e497ca537">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaf0cd97-79c9-4ae2-b6fc-9714ca5cca14"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1423,7 +1458,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{q_monto_costas}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="1950" y="0" width="75" height="13" uuid="b9985c6f-7edb-409a-948f-f471ec4b79f3">
+				<reportElement stretchType="RelativeToTallestObject" x="2025" y="0" width="75" height="13" uuid="b9985c6f-7edb-409a-948f-f471ec4b79f3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c9a51107-4553-40ca-828c-6d7e2e168f81"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1439,7 +1474,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{rebaja_interes}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="2025" y="0" width="75" height="13" uuid="ca21e85b-1e31-4cc9-a7d6-52d4d5cda090">
+				<reportElement stretchType="RelativeToTallestObject" x="2100" y="0" width="75" height="13" uuid="ca21e85b-1e31-4cc9-a7d6-52d4d5cda090">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2fdf0136-5651-43a4-85ae-4699791c81a5"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1455,7 +1490,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{total_convenio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="2100" y="0" width="75" height="13" uuid="ab8d1841-bcad-4acd-aa17-098eabac3610">
+				<reportElement stretchType="RelativeToTallestObject" x="2175" y="0" width="75" height="13" uuid="ab8d1841-bcad-4acd-aa17-098eabac3610">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2e8dcd06-a424-4a3a-bddc-83822d4d78b5"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1471,7 +1506,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{q_pago_inicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="2175" y="0" width="75" height="13" uuid="c5337f5e-96b2-4298-bf99-859ac0973096">
+				<reportElement stretchType="RelativeToTallestObject" x="2250" y="0" width="75" height="13" uuid="c5337f5e-96b2-4298-bf99-859ac0973096">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3c072e70-5da5-4932-a630-684ef5a9c162"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1487,7 +1522,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{total_pagar}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2250" y="0" width="75" height="13" uuid="d0ae8532-a57f-4d7c-a3bd-1307e543eee5">
+				<reportElement stretchType="RelativeToTallestObject" x="2325" y="0" width="75" height="13" uuid="d0ae8532-a57f-4d7c-a3bd-1307e543eee5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="102b73ff-6540-44f6-8a0a-3f9422cd45bb"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1503,7 +1538,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{cantidad_cuotas}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2325" y="0" width="75" height="13" uuid="e793b35a-c24a-483b-b7c6-0f978702e430">
+				<reportElement stretchType="RelativeToTallestObject" x="2400" y="0" width="75" height="13" uuid="e793b35a-c24a-483b-b7c6-0f978702e430">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="caefad2c-3d2f-48f2-af71-5013d3394aa4"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1519,7 +1554,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{frecuencia_cuotas}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="2400" y="0" width="75" height="13" uuid="dcda794a-a2b2-4acb-b527-70b8e7b106c7">
+				<reportElement stretchType="RelativeToTallestObject" x="2475" y="0" width="75" height="13" uuid="dcda794a-a2b2-4acb-b527-70b8e7b106c7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4b40989-898c-48c6-9461-efe10bc36ef0"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1535,7 +1570,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{monto_cuota}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2475" y="0" width="150" height="13" uuid="e0324168-b561-43c5-bfef-fc7de2be6464">
+				<reportElement stretchType="RelativeToTallestObject" x="2550" y="0" width="150" height="13" uuid="e0324168-b561-43c5-bfef-fc7de2be6464">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f8859588-ab4c-4492-8554-afa76e0dca01"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1551,7 +1586,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{convenio_pactado}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="2625" y="0" width="75" height="13" uuid="55c60dfb-d6fd-4886-86b5-013dfe3bc81b">
+				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="75" height="13" uuid="55c60dfb-d6fd-4886-86b5-013dfe3bc81b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae75acc5-a297-4ed7-a7c5-fb5d0a00523c"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1567,7 +1602,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{fecha_pago_inicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="75" height="13" uuid="90a91c78-2ab0-41ac-896f-33ad28df9a89">
+				<reportElement stretchType="RelativeToTallestObject" x="2775" y="0" width="75" height="13" uuid="90a91c78-2ab0-41ac-896f-33ad28df9a89">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46b6d02c-83ac-421e-99cf-af286dbbaacd"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1583,7 +1618,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{estado_pp}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="2775" y="0" width="75" height="13" uuid="d9b95a09-abfe-4b79-875c-2d7c6664e73d">
+				<reportElement stretchType="RelativeToTallestObject" x="2850" y="0" width="75" height="13" uuid="d9b95a09-abfe-4b79-875c-2d7c6664e73d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c68cec84-c806-4935-8b70-52749d3b5cdd"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1600,7 +1635,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{f_prox_cuota}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="2850" y="0" width="75" height="13" uuid="93479681-7cc0-4fbd-ac3a-fd395026a55b">
+				<reportElement stretchType="RelativeToTallestObject" x="2925" y="0" width="75" height="13" uuid="93479681-7cc0-4fbd-ac3a-fd395026a55b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="710eeeb0-0381-4362-b4c6-8303bdb2df6e"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1617,7 +1652,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{q_prox_cuota}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2925" y="0" width="75" height="13" uuid="965c53c7-e657-4c57-ae38-61698a7e3592">
+				<reportElement stretchType="RelativeToTallestObject" x="3000" y="0" width="75" height="13" uuid="965c53c7-e657-4c57-ae38-61698a7e3592">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3089a307-401f-43ec-b30a-3c26dcdd64c7"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1634,7 +1669,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{promesas_cumplidas}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3000" y="0" width="75" height="13" uuid="2d55b228-2dd7-48b1-9f7f-139cf8637fde">
+				<reportElement stretchType="RelativeToTallestObject" x="3075" y="0" width="75" height="13" uuid="2d55b228-2dd7-48b1-9f7f-139cf8637fde">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c91d00df-b5fd-45ab-9f37-4e79f1893c6e"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1651,7 +1686,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{promesas_incumplidas}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3225" y="0" width="75" height="13" uuid="988cc89b-aed8-49d7-9ac5-05bb75d72848">
+				<reportElement stretchType="RelativeToTallestObject" x="3300" y="0" width="75" height="13" uuid="988cc89b-aed8-49d7-9ac5-05bb75d72848">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07d5358a-8012-4d7e-87c7-2afc372dbc38"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1668,7 +1703,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{cant_pagos_convenio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="3300" y="0" width="75" height="13" uuid="afbfc576-0b0a-4a1c-b0c3-ce54ee0be736">
+				<reportElement stretchType="RelativeToTallestObject" x="3375" y="0" width="75" height="13" uuid="afbfc576-0b0a-4a1c-b0c3-ce54ee0be736">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="449bbe7c-75f3-47e9-8224-68147a8a5733"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1685,7 +1720,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{q_pagos_convenio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3375" y="0" width="75" height="13" uuid="7b0d3e80-8aa0-4fcb-8d0a-a33b49f8009b">
+				<reportElement stretchType="RelativeToTallestObject" x="3450" y="0" width="75" height="13" uuid="7b0d3e80-8aa0-4fcb-8d0a-a33b49f8009b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ee8e29da-6853-4221-8f5b-45ce327c1fb9"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1702,7 +1737,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{cuotas_pendientes}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="975" y="0" width="75" height="13" uuid="0507b270-75b1-4428-8ac8-0f0e570b5749">
+				<reportElement stretchType="RelativeToTallestObject" x="1050" y="0" width="75" height="13" uuid="0507b270-75b1-4428-8ac8-0f0e570b5749">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bec21b5f-db33-425b-a7e8-e617ed054f63"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1718,7 +1753,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{estado_judicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1050" y="0" width="75" height="13" uuid="5d13a66d-815e-4690-877c-0430bbaa4b13">
+				<reportElement stretchType="RelativeToTallestObject" x="1125" y="0" width="75" height="13" uuid="5d13a66d-815e-4690-877c-0430bbaa4b13">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3b975bd8-b530-4ad0-a440-faff08d7acfb"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1734,7 +1769,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{estatus_judicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="825" y="0" width="75" height="13" uuid="7abe16f4-d20d-4579-bb5c-9bd9170fec81">
+				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="75" height="13" uuid="7abe16f4-d20d-4579-bb5c-9bd9170fec81">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62b989a0-5ee6-4008-a6e9-4353e3dec74b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1750,7 +1785,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{estado_extrajudicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="75" height="13" uuid="9b5202d5-240f-4b1c-9d92-b662182cfd75">
+				<reportElement stretchType="RelativeToTallestObject" x="975" y="0" width="75" height="13" uuid="9b5202d5-240f-4b1c-9d92-b662182cfd75">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0899565-5b95-4f68-9ac3-0308194c86b6"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1766,7 +1801,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{estatus_extrajudicial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3450" y="0" width="75" height="13" uuid="a7f55078-6bda-4f4e-b233-13406849ef5a">
+				<reportElement stretchType="RelativeToTallestObject" x="3525" y="0" width="75" height="13" uuid="a7f55078-6bda-4f4e-b233-13406849ef5a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eaa69394-5786-4c40-a049-89bbe8f5b2bc"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1782,7 +1817,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{contacto}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3525" y="0" width="75" height="13" uuid="0f091e4d-c3fa-49f1-8082-422e4c805a36">
+				<reportElement stretchType="RelativeToTallestObject" x="3600" y="0" width="75" height="13" uuid="0f091e4d-c3fa-49f1-8082-422e4c805a36">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c24caef8-48a8-4be2-b9d9-edddc6f0a15c"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1798,7 +1833,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{no_juicio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3600" y="0" width="75" height="13" uuid="3c7942d5-c7ed-4e6d-9fb0-665108a8e188">
+				<reportElement stretchType="RelativeToTallestObject" x="3675" y="0" width="75" height="13" uuid="3c7942d5-c7ed-4e6d-9fb0-665108a8e188">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4ada7898-22e5-4de6-8c2d-ae266fcc02b9"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1814,7 +1849,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{Contacto_principal}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="3075" y="0" width="75" height="13" uuid="8abca900-8dd4-4298-953f-62d82eb1da0f">
+				<reportElement stretchType="RelativeToTallestObject" x="3150" y="0" width="75" height="13" uuid="8abca900-8dd4-4298-953f-62d82eb1da0f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3355fb2-0f7d-432e-88c0-fb606adf3ec8"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1831,7 +1866,7 @@ deu.cargado='$P!{cargado}']]>
 				<textFieldExpression><![CDATA[$F{fecha_ultimo_pagpo}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="3150" y="0" width="75" height="13" uuid="46011018-eb91-46dd-a412-9109dd1f5dfe">
+				<reportElement stretchType="RelativeToTallestObject" x="3225" y="0" width="75" height="13" uuid="46011018-eb91-46dd-a412-9109dd1f5dfe">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48a41a19-4ceb-42a5-940e-e6006b50b0a2"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -1846,6 +1881,22 @@ deu.cargado='$P!{cargado}']]>
 					<font fontName="Serif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{monto_ultimo_pagpo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="75" height="13" uuid="c5fe3aab-96a0-4013-b0c4-62bc57ef6a5c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d57b4369-7228-4daa-98fa-33749831140e"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_cuenta_otro}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
