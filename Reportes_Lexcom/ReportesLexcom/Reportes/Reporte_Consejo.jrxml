@@ -1,226 +1,275 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Consejo" language="groovy" pageWidth="3024" pageHeight="1080" orientation="Landscape" columnWidth="2984" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Consejo" language="groovy" pageWidth="3040" pageHeight="1080" orientation="Landscape" columnWidth="3000" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="fecha" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="319"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="675"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="672"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="318"/>
+	<parameter name="fecha_anteriores_acciones_inicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[NOW( )]]></defaultValueExpression>
 	</parameter>
-	<parameter name="fechafin" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	<parameter name="fecha_anteriores_acciones_final" class="java.util.Date">
+		<defaultValueExpression><![CDATA[NOW( )]]></defaultValueExpression>
 	</parameter>
-	<parameter name="corporacion" class="java.lang.String"/>
-	<parameter name="fechac" class="java.lang.String">
-		<defaultValueExpression><![CDATA[($P{fecha}==null?"01/01/13":(new SimpleDateFormat("dd/MM/yy")).format(( new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH)).parse($P{fecha}.toString())))]]></defaultValueExpression>
+	<parameter name="fecha_ultimas_acciones_inicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[NOW( )]]></defaultValueExpression>
 	</parameter>
-	<parameter name="fechafinc" class="java.lang.String">
-		<defaultValueExpression><![CDATA[($P{fechafin}==null?"01/01/15":(new SimpleDateFormat("dd/MM/yy")).format(( new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH)).parse($P{fechafin}.toString())))]]></defaultValueExpression>
+	<parameter name="fecha_ultimas_acciones_final" class="java.util.Date">
+		<defaultValueExpression><![CDATA[NOW( )]]></defaultValueExpression>
 	</parameter>
-	<parameter name="fechac_1" class="java.lang.String">
-		<defaultValueExpression><![CDATA[($P{fecha_1}==null?"01/01/13":(new SimpleDateFormat("dd/MM/yy")).format(( new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH)).parse($P{fecha_1}.toString())))]]></defaultValueExpression>
-	</parameter>
-	<parameter name="fechafinc_1" class="java.lang.String">
-		<defaultValueExpression><![CDATA[($P{fechafin_1}==null?"01/01/15":(new SimpleDateFormat("dd/MM/yy")).format(( new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH)).parse($P{fechafin_1}.toString())))]]></defaultValueExpression>
-	</parameter>
-	<parameter name="fecha_1" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="fechafin_1" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	<parameter name="corporacion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-                        d.caso AS CASO,
-                        u.nombre AS GESTOR,
-                        d.no_cuenta_otro AS OTRO_NO_CUENTA,
-                        d.cargado AS CARGADO,
-                        a.nombre AS ACTOR,
-                        s.nombre AS ESTADO,
-                        d.fecha_recepcion AS FECHA_RECEPCION,
-                        j.fecha AS PRESENTACION_DEMANDA,
-                        j.tiempo_estimado AS TIEMPO_ESTIMADO,
-                        ju.nombre AS JUZGADO,
-                        j.no_juicio AS NUMERO_JUICIO,
-                        d.no_cuenta AS NUMERO_CREDITO,
-                        d.nombre AS NOMBRE_DEUDOR,
-                        d.moneda AS TIPO_MONEDA,
-                        d.monto_inicial AS MONTO,
-                        d.saldo AS SALDO,
-                        g.nombre AS GARANTIA,
-                        d.convenio_pactado AS CONVENIO,
-                        CONCAT(IFNULL(M_ANT.ANTERIORES_ACCIONES,'-'),IFNULL(J_ANT.ANTERIORES_ACCIONES,'-'),IFNULL(P_ANT.ANTERIORES_ACCIONES,'-'),IFNULL(JU_ANT.ANTERIORES_ACCIONES,'-'))  AS ANTERIORES_ACCIONES,
-                        CONCAT(IFNULL(M_SIG.ULTIMAS_ACCIONES,'-'),IFNULL(J_SIG.ULTIMAS_ACCIONES,'-'),IFNULL(P_SIG.ULTIMAS_ACCIONES,'-'),IFNULL(JU_SIG.ULTIMAS_ACCIONES,'-')) AS ULTIMAS_ACCIONES,
-                        d.situacion_caso AS SITUACION_CASO
-                        FROM
-                        deudor d
-                        LEFT JOIN actor a ON (d.actor=a.actor)
-                        LEFT JOIN cooperacion cor ON (a.cooperacion=cor.cooperacion)
-                        LEFT JOIN sestado s ON (d.sestado=s.sestado)
-                        LEFT JOIN juicio j ON (d.deudor=j.deudor)
-                        LEFT JOIN juzgado ju ON (j.juzgado=ju.juzgado)
-                        LEFT JOIN garantia g ON (d.garantia=g.garantia)
-                        LEFT JOIN usuario u on (d.usuario=u.usuario)
-                        LEFT JOIN (SELECT
-                        dhc.deudor AS COD_DEUDOR,
-                        GROUP_CONCAT('-',dhc.descripcion,'\n') AS ANTERIORES_ACCIONES
-                        FROM
-                        deudor_historial_cobros dhc
-                        WHERE
-						( dhc.fecha >=  STR_TO_DATE($P{fechac}, '%d/%m/%Y')  and dhc.fecha <= STR_TO_DATE($P{fechafinc}, 'd%/%m/%Y') )
-                        GROUP BY
-                        dhc.deudor
-                        ORDER BY
-                        dhc.fecha) M_ANT ON (d.deudor=M_ANT.COD_DEUDOR)
-                        LEFT JOIN (SELECT
-                        dhc.deudor AS COD_DEUDOR,
-                        GROUP_CONCAT('-',dhc.descripcion,'\n') AS ULTIMAS_ACCIONES
-                        FROM
-                        deudor_historial_cobros dhc
-                        WHERE
-						( dhc.fecha >=  STR_TO_DATE($P{fechac_1}, '%d/%m/%Y')  and dhc.fecha <= STR_TO_DATE($P{fechafinc_1}, 'd%/%m/%Y') )
-
-                        GROUP BY
-                        dhc.deudor
-                        ORDER BY
-                        dhc.fecha) M_SIG ON (d.deudor=M_SIG.COD_DEUDOR)
-                        LEFT JOIN (SELECT
-                        dhj.deudor AS COD_DEUDOR,
-                        GROUP_CONCAT('-',dhj.descripcion,'\n') AS ANTERIORES_ACCIONES
-                        FROM
-                        deudor_historial_juridico dhj
-                        WHERE
-						( dhj.fecha >=  STR_TO_DATE($P{fechac}, '%d/%m/%Y')  and dhj.fecha <= STR_TO_DATE($P{fechafinc}, 'd%/%m/%Y') )
-
-                        GROUP BY
-                        dhj.deudor
-                        ORDER BY
-                        dhj.fecha) J_ANT ON (d.deudor=J_ANT.COD_DEUDOR)
-                        LEFT JOIN (SELECT
-                        dhj.deudor AS COD_DEUDOR,
-                        GROUP_CONCAT('-',dhj.descripcion,'\n') AS ULTIMAS_ACCIONES
-                        FROM
-                        deudor_historial_juridico dhj
-                        WHERE
-						( dhj.fecha >=  STR_TO_DATE($P{fechac_1}, '%d/%m/%Y')  and dhj.fecha <= STR_TO_DATE($P{fechafinc_1}, 'd%/%m/%Y') )
-
-                        GROUP BY
-                        dhj.deudor
-                        ORDER BY
-                        dhj.fecha) J_SIG ON (d.deudor=J_SIG.COD_DEUDOR)
-                        LEFT JOIN (SELECT
-                        p.deudor AS COD_DEUDOR,
-                        GROUP_CONCAT('- Pago realizado ', p.fecha_registro, ' Q.', p.monto, '\n') AS ANTERIORES_ACCIONES
-                        FROM
-                        pago p
-                        WHERE
-
-						( p.fecha_registro >=  STR_TO_DATE($P{fechac}, '%d/%m/%Y')  and p.fecha_registro <= STR_TO_DATE($P{fechafinc}, 'd%/%m/%Y') )
-
-                        GROUP BY
-                        p.deudor
-                        ORDER BY
-                        p.fecha_registro) P_ANT ON (d.deudor=P_ANT.COD_DEUDOR)
-                        LEFT JOIN (SELECT
-                        p.deudor AS COD_DEUDOR,
-                        GROUP_CONCAT('- Pago realizado ', p.fecha_registro, ' Q.', p.monto, '\n') AS ULTIMAS_ACCIONES
-                        FROM
-                        pago p
-                        WHERE
-						( p.fecha_registro >=  STR_TO_DATE($P{fechac_1}, '%d/%m/%Y')  and p.fecha_registro <= STR_TO_DATE($P{fechafinc_1}, 'd%/%m/%Y') )
-
-                        GROUP BY
-                        p.deudor
-                        ORDER BY
-                        p.fecha_registro) P_SIG ON (d.deudor=P_SIG.COD_DEUDOR)
-                        LEFT JOIN (SELECT
-                        ju.deudor AS COD_DEUDOR,
-                        GROUP_CONCAT('- Presentación Demanda ', ju.fecha, ' Numero Juicio: ', ju.no_juicio, ' ',ju.procuracion, '\n') AS ANTERIORES_ACCIONES
-                        FROM
-                        juicio ju
-                        WHERE
-						( ju.fecha >=  STR_TO_DATE($P{fechac}, '%d/%m/%Y')  and ju.fecha <= STR_TO_DATE($P{fechafinc}, 'd%/%m/%Y') )
-
-
-                        GROUP BY
-                        ju.deudor
-                        ORDER BY
-                        ju.fecha) JU_ANT ON (d.deudor=JU_ANT.COD_DEUDOR)
-                        LEFT JOIN (SELECT
-                        ju.deudor AS COD_DEUDOR,
-                        GROUP_CONCAT('- Presentación Demanda ', ju.fecha, ' Numero Juicio: ', ju.no_juicio, ' ',ju.procuracion, '\n') AS ULTIMAS_ACCIONES
-                        FROM
-                        juicio ju
-                        WHERE
-                        ( ju.fecha >=  STR_TO_DATE($P{fechac_1}, '%d/%m/%Y')  and ju.fecha <= STR_TO_DATE($P{fechafinc_1}, 'd%/%m/%Y') )
-
-                        GROUP BY
-                        ju.deudor
-                        ORDER BY
-                        ju.fecha) JU_SIG ON (d.deudor=JU_SIG.COD_DEUDOR)
-                        WHERE
-                        cor.nombre like '%$P!{corporacion}%']]>
+d.caso CASO,
+u.nombre GESTOR,
+d.no_cuenta_otro OTRO_NO_CUENTA,
+d.cargado CARGADO,
+a.nombre ACTOR,
+s.nombre ESTADO_JURIDICO,
+e.nombre ESTATUS_JURIDICO,
+d.fecha_recepcion FECHA_RECEPCION,
+j.fecha PRESENTACION_DEMANDA,
+j.tiempo_estimado TIEMPO_ESTIMADO,
+ju.nombre JUZGADO,
+j.no_juicio NUMERO_JUICIO,
+d.no_cuenta NUMERO_CREDITO,
+d.nombre NOMBRE_DEUDOR,
+d.moneda TIPO_MONEDA,
+d.monto_inicial MONTO,
+d.saldo SALDO,
+g.nombre GARANTIA,
+d.convenio_pactado CONVENIO,
+CONCAT(IFNULL(M_ANT.ANTERIORES_ACCIONES,'-'),IFNULL(J_ANT.ANTERIORES_ACCIONES,'-'),IFNULL(P_ANT.ANTERIORES_ACCIONES,'-'),IFNULL(JU_ANT.ANTERIORES_ACCIONES,'-')) ANTERIORES_ACCIONES,
+CONCAT(IFNULL(M_SIG.ULTIMAS_ACCIONES,'-'),IFNULL(J_SIG.ULTIMAS_ACCIONES,'-'),IFNULL(P_SIG.ULTIMAS_ACCIONES,'-'),IFNULL(JU_SIG.ULTIMAS_ACCIONES,'-')) ULTIMAS_ACCIONES,
+d.situacion_caso SITUACION_CASO
+FROM
+deudor d
+LEFT JOIN actor a ON (d.actor=a.actor)
+LEFT JOIN cooperacion cor ON (a.cooperacion=cor.cooperacion)
+LEFT JOIN sestado s ON (d.sestado=s.sestado)
+LEFT JOIN estatus e ON (d.estatus=e.estatus)
+LEFT JOIN juicio j ON (d.deudor=j.deudor)
+LEFT JOIN juzgado ju ON (j.juzgado=ju.juzgado)
+LEFT JOIN garantia g ON (d.garantia=g.garantia)
+LEFT JOIN usuario u on (d.usuario=u.usuario)
+LEFT JOIN (SELECT
+dhc.deudor COD_DEUDOR,
+GROUP_CONCAT('- Historial cobros: ',dhc.descripcion,'\n') ANTERIORES_ACCIONES
+FROM
+deudor_historial_cobros dhc
+WHERE
+(dhc.fecha >= $P{fecha_anteriores_acciones_inicial} and dhc.fecha <= $P{fecha_anteriores_acciones_final})
+GROUP BY
+dhc.deudor
+ORDER BY
+dhc.fecha) M_ANT ON (d.deudor=M_ANT.COD_DEUDOR)
+LEFT JOIN (SELECT
+dhc.deudor COD_DEUDOR,
+GROUP_CONCAT('- Historial cobros: ',dhc.descripcion,'\n') ULTIMAS_ACCIONES
+FROM
+deudor_historial_cobros dhc
+WHERE
+(dhc.fecha >= $P{fecha_ultimas_acciones_inicial} and dhc.fecha <= $P{fecha_ultimas_acciones_final})
+GROUP BY
+dhc.deudor
+ORDER BY
+dhc.fecha) M_SIG ON (d.deudor=M_SIG.COD_DEUDOR)
+LEFT JOIN (SELECT
+dhj.deudor COD_DEUDOR,
+GROUP_CONCAT('- Historial jurídico: ',dhj.descripcion,'\n') ANTERIORES_ACCIONES
+FROM
+deudor_historial_juridico dhj
+WHERE
+(dhj.fecha >= $P{fecha_anteriores_acciones_inicial} and dhj.fecha <= $P{fecha_anteriores_acciones_final})
+GROUP BY
+dhj.deudor
+ORDER BY
+dhj.fecha) J_ANT ON (d.deudor=J_ANT.COD_DEUDOR)
+LEFT JOIN (SELECT
+dhj.deudor COD_DEUDOR,
+GROUP_CONCAT('- Historial jurídico: ',dhj.descripcion,'\n') ULTIMAS_ACCIONES
+FROM
+deudor_historial_juridico dhj
+WHERE
+(dhj.fecha >= $P{fecha_ultimas_acciones_inicial} and dhj.fecha <= $P{fecha_ultimas_acciones_final})
+GROUP BY
+dhj.deudor
+ORDER BY
+dhj.fecha) J_SIG ON (d.deudor=J_SIG.COD_DEUDOR)
+LEFT JOIN (SELECT
+p.deudor COD_DEUDOR,
+GROUP_CONCAT('- Pago realizado ', p.fecha_registro, ' Q.', p.monto, '\n') ANTERIORES_ACCIONES
+FROM
+pago p
+WHERE
+(p.fecha_registro >= $P{fecha_anteriores_acciones_inicial} and p.fecha_registro <= $P{fecha_anteriores_acciones_final})
+GROUP BY
+p.deudor
+ORDER BY
+p.fecha_registro) P_ANT ON (d.deudor=P_ANT.COD_DEUDOR)
+LEFT JOIN (SELECT
+p.deudor COD_DEUDOR,
+GROUP_CONCAT('- Pago realizado ', p.fecha_registro, ' Q.', p.monto, '\n') ULTIMAS_ACCIONES
+FROM
+pago p
+WHERE
+(p.fecha_registro >= $P{fecha_ultimas_acciones_inicial} and p.fecha_registro <= $P{fecha_ultimas_acciones_final})
+GROUP BY
+p.deudor
+ORDER BY
+p.fecha_registro) P_SIG ON (d.deudor=P_SIG.COD_DEUDOR)
+LEFT JOIN (SELECT
+ju.deudor COD_DEUDOR,
+GROUP_CONCAT('- Presentación Demanda ', ju.fecha, ' Numero Juicio: ', ju.no_juicio, ' ',ju.procuracion, '\n') ANTERIORES_ACCIONES
+FROM
+juicio ju
+WHERE
+(ju.fecha >= $P{fecha_anteriores_acciones_inicial} and ju.fecha <= $P{fecha_anteriores_acciones_final})
+GROUP BY
+ju.deudor
+ORDER BY
+ju.fecha) JU_ANT ON (d.deudor=JU_ANT.COD_DEUDOR)
+LEFT JOIN (SELECT
+ju.deudor COD_DEUDOR,
+GROUP_CONCAT('- Presentación Demanda ', ju.fecha, ' Numero Juicio: ', ju.no_juicio, ' ',ju.procuracion, '\n') ULTIMAS_ACCIONES
+FROM
+juicio ju
+WHERE
+(ju.fecha >= $P{fecha_ultimas_acciones_inicial} and ju.fecha <= $P{fecha_ultimas_acciones_final})
+GROUP BY
+ju.deudor
+ORDER BY
+ju.fecha) JU_SIG ON (d.deudor=JU_SIG.COD_DEUDOR)
+WHERE
+cor.nombre like '%$P!{corporacion}%']]>
 	</queryString>
 	<field name="CASO" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="CASO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="GESTOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="GESTOR"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="OTRO_NO_CUENTA" class="java.lang.String"/>
+	<field name="OTRO_NO_CUENTA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OTRO_NO_CUENTA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
 	<field name="CARGADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CARGADO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ACTOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ACTOR"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="actor"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="ESTADO" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
+	<field name="ESTADO_JURIDICO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESTADO_JURIDICO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sestado"/>
+	</field>
+	<field name="ESTATUS_JURIDICO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESTATUS_JURIDICO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estatus"/>
 	</field>
 	<field name="FECHA_RECEPCION" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_RECEPCION"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PRESENTACION_DEMANDA" class="java.sql.Date"/>
+	<field name="PRESENTACION_DEMANDA" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="PRESENTACION_DEMANDA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
 	<field name="TIEMPO_ESTIMADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIEMPO_ESTIMADO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="JUZGADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="JUZGADO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juzgado"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="NUMERO_JUICIO" class="java.lang.String"/>
-	<field name="NUMERO_CREDITO" class="java.lang.String"/>
-	<field name="NOMBRE_DEUDOR" class="java.lang.String"/>
-	<field name="TIPO_MONEDA" class="java.lang.String"/>
-	<field name="MONTO" class="java.lang.Double"/>
+	<field name="NUMERO_JUICIO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMERO_JUICIO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juicio"/>
+	</field>
+	<field name="NUMERO_CREDITO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMERO_CREDITO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="NOMBRE_DEUDOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_DEUDOR"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="TIPO_MONEDA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_MONEDA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="MONTO" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="MONTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
 	<field name="SALDO" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="SALDO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="GARANTIA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="GARANTIA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="garantia"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="CONVENIO" class="java.lang.String"/>
-	<field name="ANTERIORES_ACCIONES" class="java.lang.String"/>
-	<field name="ULTIMAS_ACCIONES" class="java.lang.String"/>
+	<field name="CONVENIO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CONVENIO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
+	</field>
+	<field name="ANTERIORES_ACCIONES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ANTERIORES_ACCIONES"/>
+	</field>
+	<field name="ULTIMAS_ACCIONES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ULTIMAS_ACCIONES"/>
+	</field>
 	<field name="SITUACION_CASO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SITUACION_CASO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
-		<band splitType="Stretch"/>
+		<band splitType="Prevent"/>
 	</background>
 	<title>
-		<band height="20" splitType="Stretch">
+		<band height="11" splitType="Prevent">
 			<staticText>
-				<reportElement x="0" y="0" width="2984" height="20" uuid="fc0e8fe6-f947-41cc-829e-746308f1b592"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+				<reportElement x="0" y="0" width="3000" height="11" uuid="fc0e8fe6-f947-41cc-829e-746308f1b592">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reporte de Consejo]]></text>
 			</staticText>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="20" splitType="Stretch">
+		<band height="11" splitType="Prevent">
 			<staticText>
-				<reportElement x="0" y="0" width="114" height="20" uuid="112e2b37-bdf6-4fc2-8792-b46653ad456a"/>
+				<reportElement x="0" y="0" width="100" height="11" uuid="112e2b37-bdf6-4fc2-8792-b46653ad456a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -228,10 +277,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[CASO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="114" y="0" width="114" height="20" uuid="ff25f5f8-4d4f-4ff6-838d-f958b6d57ec1"/>
+				<reportElement x="100" y="0" width="100" height="11" uuid="ff25f5f8-4d4f-4ff6-838d-f958b6d57ec1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -239,10 +294,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[GESTOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="228" y="0" width="114" height="20" uuid="e6719d40-9e66-4f02-9e8d-ccc020422bff"/>
+				<reportElement x="200" y="0" width="100" height="11" uuid="e6719d40-9e66-4f02-9e8d-ccc020422bff">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -250,10 +311,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[OTRO_NO_CUENTA]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OTRO NO. CUENTA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="342" y="0" width="114" height="20" uuid="9d8196f6-2e5d-417a-b7e1-242f83abc392"/>
+				<reportElement x="300" y="0" width="100" height="11" uuid="9d8196f6-2e5d-417a-b7e1-242f83abc392">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -261,10 +328,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[CARGADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="456" y="0" width="114" height="20" uuid="1864c60c-8be3-4edd-80e0-9cc97e7415af"/>
+				<reportElement x="400" y="0" width="100" height="11" uuid="1864c60c-8be3-4edd-80e0-9cc97e7415af">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -272,10 +345,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[ACTOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="570" y="0" width="114" height="20" uuid="22e1f416-8d5b-4711-a993-37dcb104d07b"/>
+				<reportElement x="500" y="0" width="100" height="11" uuid="22e1f416-8d5b-4711-a993-37dcb104d07b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -283,10 +362,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[ESTADO]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO JUDICIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="684" y="0" width="114" height="20" uuid="99853a87-b152-4c06-9d37-6c5ca5141f75"/>
+				<reportElement x="700" y="0" width="100" height="11" uuid="99853a87-b152-4c06-9d37-6c5ca5141f75">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -294,10 +379,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[FECHA_RECEPCION]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA RECEPCIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="798" y="0" width="146" height="20" uuid="ea00655a-873e-4ddf-bed1-35203c216573"/>
+				<reportElement x="800" y="0" width="100" height="11" uuid="ea00655a-873e-4ddf-bed1-35203c216573">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -305,10 +396,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[PRESENTACION_DEMANDA]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESENTACIÓN DEMANDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="944" y="0" width="114" height="20" uuid="dcad5977-8568-41bb-a797-342acf98cd84"/>
+				<reportElement x="900" y="0" width="100" height="11" uuid="dcad5977-8568-41bb-a797-342acf98cd84">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -316,10 +413,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[TIEMPO_ESTIMADO]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIEMPO ESTIMADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1058" y="0" width="114" height="20" uuid="17d4dcf7-5908-45d1-98b8-877d95bd96c9"/>
+				<reportElement x="1000" y="0" width="100" height="11" uuid="17d4dcf7-5908-45d1-98b8-877d95bd96c9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -327,10 +430,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[JUZGADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1172" y="0" width="114" height="20" uuid="5b7e99fb-17c7-4c2d-a68f-830618d1ec14"/>
+				<reportElement x="1100" y="0" width="100" height="11" uuid="5b7e99fb-17c7-4c2d-a68f-830618d1ec14">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -338,10 +447,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[NUMERO_JUICIO]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NÚMERO JUICIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1286" y="0" width="114" height="20" uuid="f7da7ae7-45ed-4bcc-bad6-28e9a1b4e58d"/>
+				<reportElement x="1200" y="0" width="100" height="11" uuid="f7da7ae7-45ed-4bcc-bad6-28e9a1b4e58d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -349,10 +464,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[NUMERO_CREDITO]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NÚMERO CRÉDITO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1400" y="0" width="114" height="20" uuid="7e01a889-3b47-4190-ae92-b3f6a293e4f6"/>
+				<reportElement x="1300" y="0" width="100" height="11" uuid="7e01a889-3b47-4190-ae92-b3f6a293e4f6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -360,10 +481,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[NOMBRE_DEUDOR]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DEUDOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1514" y="0" width="114" height="20" uuid="4c263525-f70c-4889-8054-7edae3ede7d9"/>
+				<reportElement x="1400" y="0" width="100" height="11" uuid="4c263525-f70c-4889-8054-7edae3ede7d9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -371,10 +498,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[TIPO_MONEDA]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO MONEDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1628" y="0" width="114" height="20" uuid="2214fb5e-38ac-4404-b888-657738d186be"/>
+				<reportElement x="1500" y="0" width="100" height="11" uuid="2214fb5e-38ac-4404-b888-657738d186be">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -382,10 +515,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[MONTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1742" y="0" width="114" height="20" uuid="9fcfc77e-fa12-4a73-a52d-2a14a54cc5ad"/>
+				<reportElement x="1600" y="0" width="100" height="11" uuid="9fcfc77e-fa12-4a73-a52d-2a14a54cc5ad">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -393,10 +532,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[SALDO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1856" y="0" width="114" height="20" uuid="46f815b2-59b7-4f14-8c38-94f4910fd648"/>
+				<reportElement x="1700" y="0" width="100" height="11" uuid="46f815b2-59b7-4f14-8c38-94f4910fd648">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -404,10 +549,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[GARANTIA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1970" y="0" width="240" height="20" uuid="a282ecc9-c84c-4174-a81c-76fde8f98741"/>
+				<reportElement x="1800" y="0" width="300" height="11" uuid="a282ecc9-c84c-4174-a81c-76fde8f98741">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -415,10 +566,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
 				<text><![CDATA[CONVENIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2210" y="0" width="179" height="20" uuid="6651f6e1-398c-4045-a3fe-7c939bc23e81"/>
+				<reportElement x="2100" y="0" width="300" height="11" uuid="6651f6e1-398c-4045-a3fe-7c939bc23e81">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -426,10 +583,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[ANTERIORES_ACCIONES]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACCIONES ANTERIORES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2389" y="0" width="193" height="20" uuid="e0c87d93-7419-48ce-8b5f-cf080cc34962"/>
+				<reportElement x="2400" y="0" width="300" height="11" uuid="e0c87d93-7419-48ce-8b5f-cf080cc34962">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -437,10 +600,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[ULTIMAS_ACCIONES]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ÚLTIMAS ACCIONES ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2582" y="0" width="402" height="20" uuid="0186f1e5-04b1-4ca3-b86c-158af048db6b"/>
+				<reportElement x="2700" y="0" width="300" height="11" uuid="0186f1e5-04b1-4ca3-b86c-158af048db6b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -448,14 +617,37 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<text><![CDATA[SITUACION_CASO]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SITUACIÓN CASO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="0" width="100" height="11" uuid="bb2cb0b5-4050-4d2b-acb5-c257afda4e07">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTATUS JUDICIAL]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="11" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="114" height="20" uuid="b189b7f2-7ac2-4c4e-9fd4-23cf13ce1577"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="11" uuid="b189b7f2-7ac2-4c4e-9fd4-23cf13ce1577">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -463,10 +655,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{CASO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="114" y="0" width="114" height="20" uuid="e51eb3b7-52d3-48bf-ad32-c5abacc7f023"/>
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="11" uuid="e51eb3b7-52d3-48bf-ad32-c5abacc7f023">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -474,10 +672,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{GESTOR}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="228" y="0" width="114" height="20" uuid="8c25ad90-20a0-4bd2-b389-e6edfe522c88"/>
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="11" uuid="8c25ad90-20a0-4bd2-b389-e6edfe522c88">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -485,10 +689,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{OTRO_NO_CUENTA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="342" y="0" width="114" height="20" uuid="35b1f07f-04ce-442a-8e72-babd470b51ae"/>
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="11" uuid="35b1f07f-04ce-442a-8e72-babd470b51ae">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -496,10 +706,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{CARGADO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="456" y="0" width="114" height="20" uuid="a2aed196-20df-4d5e-901f-bc20dc59e93b"/>
+				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="100" height="11" uuid="a2aed196-20df-4d5e-901f-bc20dc59e93b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -507,10 +723,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ACTOR}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="570" y="0" width="114" height="20" uuid="653e348e-7121-47f5-b2ac-6f04a24f28ff"/>
+				<reportElement stretchType="RelativeToTallestObject" x="500" y="0" width="100" height="11" uuid="653e348e-7121-47f5-b2ac-6f04a24f28ff">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -518,10 +740,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{ESTADO}]]></textFieldExpression>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ESTADO_JURIDICO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="684" y="0" width="114" height="20" uuid="dcfb1831-78ff-4d9a-9bf3-2795c1ac65fd"/>
+				<reportElement stretchType="RelativeToTallestObject" x="700" y="0" width="100" height="11" uuid="dcfb1831-78ff-4d9a-9bf3-2795c1ac65fd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -529,10 +757,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{FECHA_RECEPCION}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="798" y="0" width="146" height="20" uuid="d2fead41-7de1-45a7-a6ac-2280451ae306"/>
+				<reportElement stretchType="RelativeToTallestObject" x="800" y="0" width="100" height="11" uuid="d2fead41-7de1-45a7-a6ac-2280451ae306">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -540,10 +774,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{PRESENTACION_DEMANDA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="944" y="0" width="114" height="20" uuid="4dfcd598-c410-410c-adf6-8f58e516e5c7"/>
+				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="100" height="11" uuid="4dfcd598-c410-410c-adf6-8f58e516e5c7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -551,10 +791,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{TIEMPO_ESTIMADO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1058" y="0" width="114" height="20" uuid="9a772bec-c50e-4c12-b406-5a6687c592ce"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1000" y="0" width="100" height="11" uuid="9a772bec-c50e-4c12-b406-5a6687c592ce">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -562,10 +808,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{JUZGADO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1172" y="0" width="114" height="20" uuid="9198e304-667b-4d84-bbb4-c6bf2693b091"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1100" y="0" width="100" height="11" uuid="9198e304-667b-4d84-bbb4-c6bf2693b091">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -573,10 +825,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{NUMERO_JUICIO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1286" y="0" width="114" height="20" uuid="1c1b5780-7d52-4bcf-af7c-594794c2ef22"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="100" height="11" uuid="1c1b5780-7d52-4bcf-af7c-594794c2ef22">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -584,10 +842,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{NUMERO_CREDITO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1400" y="0" width="114" height="20" uuid="0e60b42f-23ce-47dd-8ec7-46dcfd573627"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1300" y="0" width="100" height="11" uuid="0e60b42f-23ce-47dd-8ec7-46dcfd573627">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -595,10 +859,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{NOMBRE_DEUDOR}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1514" y="0" width="114" height="20" uuid="e5b2ff3f-bfc1-4bb9-b3ce-c0a75f25aeaa"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1400" y="0" width="100" height="11" uuid="e5b2ff3f-bfc1-4bb9-b3ce-c0a75f25aeaa">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -606,10 +876,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_MONEDA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1628" y="0" width="114" height="20" uuid="33584916-8c6f-4887-bae6-48685db66df7"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1500" y="0" width="100" height="11" uuid="33584916-8c6f-4887-bae6-48685db66df7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -617,10 +893,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{MONTO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1742" y="0" width="114" height="20" uuid="ced02366-5356-4e6b-b6a1-c64e19698c44"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1600" y="0" width="100" height="11" uuid="ced02366-5356-4e6b-b6a1-c64e19698c44">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -628,10 +910,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{SALDO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1856" y="0" width="114" height="20" uuid="9acf2cbb-f803-4cd3-8b69-26a49334c6f6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1700" y="0" width="100" height="11" uuid="9acf2cbb-f803-4cd3-8b69-26a49334c6f6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -639,10 +927,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{GARANTIA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="1970" y="0" width="240" height="20" uuid="5051932d-98da-4642-a8f3-447ff53a3b18"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1800" y="0" width="300" height="11" uuid="5051932d-98da-4642-a8f3-447ff53a3b18">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -650,10 +944,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{CONVENIO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2210" y="0" width="179" height="20" uuid="b96d8c20-88d9-49ff-8928-7cf5fe83d58d"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2100" y="0" width="300" height="11" uuid="b96d8c20-88d9-49ff-8928-7cf5fe83d58d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -661,10 +961,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ANTERIORES_ACCIONES}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2389" y="0" width="193" height="20" uuid="dd1e0067-2cd1-4aa5-99c4-f40f293a9a97"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2400" y="0" width="300" height="11" uuid="dd1e0067-2cd1-4aa5-99c4-f40f293a9a97">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -672,10 +978,16 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ULTIMAS_ACCIONES}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2582" y="0" width="402" height="20" uuid="8adf95db-3bf6-43aa-8867-aae3dc64fa8e"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="300" height="11" uuid="8adf95db-3bf6-43aa-8867-aae3dc64fa8e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -683,7 +995,27 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{SITUACION_CASO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="100" height="11" uuid="9cb3632e-ca97-4a9f-8eb1-4916df6cc269">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ESTATUS_JURIDICO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
