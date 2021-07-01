@@ -781,6 +781,19 @@ public class Driver implements Serializable {
         return lst_periodo_rotacion;
     }
     
+    public List<SelectItem> lista_tipo_registro() {
+        List<SelectItem> lst_tipo_registro = new ArrayList<>();
+        
+        try {
+            lst_tipo_registro.add(new SelectItem("MANUAL", "MANUAL"));
+            lst_tipo_registro.add(new SelectItem("MASIVO", "MASIVO"));
+        } catch (Exception ex) {
+            lst_tipo_registro.add(new SelectItem("**ERROR**", "**ERROR**"));
+        }
+
+        return lst_tipo_registro;
+    }
+    
     public List<SelectItem> lista_ambientes() {
         List<SelectItem> lst_ambientes = new ArrayList<>();
         

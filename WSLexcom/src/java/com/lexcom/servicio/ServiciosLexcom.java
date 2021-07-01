@@ -1947,6 +1947,7 @@ public class ServiciosLexcom implements Serializable {
      * @param codigo_d
      * @param nombre_d
      * @param descripcion_d
+     * @param tipo_registro_d
      * @param poolConexion
      * @return
      */
@@ -1956,12 +1957,13 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "codigo_d") String codigo_d,
             @WebParam(name = "nombre_d") String nombre_d,
             @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "tipo_registro_d") String tipo_registro_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
         String resultado = "";
         try {
             Codigo_Resultado codigo_resultado = new Codigo_Resultado();
-            resultado = codigo_resultado.codigo_resultado_insertar(usuario_sys, codigo_d, nombre_d, descripcion_d, poolConexion);
+            resultado = codigo_resultado.codigo_resultado_insertar(usuario_sys, codigo_d, nombre_d, descripcion_d, tipo_registro_d, poolConexion);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Insertar): " + ex.toString());
         }
@@ -1975,6 +1977,7 @@ public class ServiciosLexcom implements Serializable {
      * @param codigo_d
      * @param nombre_d
      * @param descripcion_d
+     * @param tipo_registro_d
      * @param poolConexion
      * @return
      */
@@ -1985,12 +1988,13 @@ public class ServiciosLexcom implements Serializable {
             @WebParam(name = "codigo_d") String codigo_d,
             @WebParam(name = "nombre_d") String nombre_d,
             @WebParam(name = "descripcion_d") String descripcion_d,
+            @WebParam(name = "tipo_registro_d") String tipo_registro_d,
             @WebParam(name = "poolConexion") String poolConexion) {
 
         String resultado = "";
         try {
             Codigo_Resultado codigo_resultado = new Codigo_Resultado();
-            resultado = codigo_resultado.codigo_resultado_modificar(usuario_sys, id_codigo_contactabilidad, codigo_d, nombre_d, descripcion_d, poolConexion);
+            resultado = codigo_resultado.codigo_resultado_modificar(usuario_sys, id_codigo_contactabilidad, codigo_d, nombre_d, descripcion_d, tipo_registro_d, poolConexion);
         } catch (Exception ex) {
             System.out.println("ERROR => WS-ServiciosLexcom(Codigo_Contactabilidad_Modificar): " + ex.toString());
         }

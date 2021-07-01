@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
@@ -25,14 +26,18 @@ public class Codigo_Contactabilidad implements Serializable {
     private List<Codigo_Contactabilidad_List> lst_codigo_contactabilidad;
     
     //Variables para registrar la información del usuario.
-    public String codigo_d;
-    public String nombre_d;
-    public String descripcion_d;
+     private String codigo_d;
+    private String nombre_d;
+    private String descripcion_d;
+    private String tipo_registro_d;
+    
+    private List<SelectItem> lst_tipo_registro;
     
     //Habilitar los campos del formulario Usuario. 
     private Boolean txtCodigo;
     private Boolean txtNombre;
     private Boolean itaDescripcion;
+    private Boolean cbxTipoRegistro;
     private Boolean btnAceptar;
     private Boolean btnCancelar;
 
@@ -43,11 +48,14 @@ public class Codigo_Contactabilidad implements Serializable {
             this.usuario = session.getAttribute("id_usuario").toString();
             this.ambiente = session.getAttribute("ambiente").toString();
          
+            Driver drive = new Driver();
+            this.lst_tipo_registro = drive.lista_tipo_registro();
+         
             String cadenasql = "select "
-                    + "c.codigo_contactabilidad as codigo_contactabilidad, "
-                    + "c.codigo as codigo, "
-                    + "c.nombre as nombre, "
-                    + "c.estado as estado "
+                    + "c.codigo_contactabilidad codigo_contactabilidad, "
+                    + "c.codigo codigo, "
+                    + "c.nombre nombre, "
+                    + "c.estado estado "
                     + "from "
                     + "codigo_contactabilidad c";
             
@@ -79,11 +87,14 @@ public class Codigo_Contactabilidad implements Serializable {
     
     public void constructor() {
         try {
+            Driver drive = new Driver();
+            this.lst_tipo_registro = drive.lista_tipo_registro();
+            
             String cadenasql = "select "
-                    + "c.codigo_contactabilidad as codigo_contactabilidad, "
-                    + "c.codigo as codigo, "
-                    + "c.nombre as nombre, "
-                    + "c.estado as estado "
+                    + "c.codigo_contactabilidad codigo_contactabilidad, "
+                    + "c.codigo codigo, "
+                    + "c.nombre nombre, "
+                    + "c.estado estado "
                     + "from "
                     + "codigo_contactabilidad c";
             
@@ -117,11 +128,13 @@ public class Codigo_Contactabilidad implements Serializable {
         this.codigo_d = "";
         this.nombre_d = "";
         this.descripcion_d = "";
+        this.tipo_registro_d = "MANUAL";
 
         //Habilitar los campos del formulario Usuario. 
         this.txtCodigo = false;
         this.txtNombre = false;
         this.itaDescripcion = false;
+        this.cbxTipoRegistro = false;
         this.btnAceptar = false;
         this.btnCancelar = false;
             
@@ -133,9 +146,10 @@ public class Codigo_Contactabilidad implements Serializable {
     public void carga_info_modificar() {
         if(this.selectedCodigo_Contactabilidad != null) {
             String cadenasql = "select "
-                    + "c.codigo as codigo, "
-                    + "c.nombre as nombre, "
-                    + "c.descripcion as descripcion "
+                    + "c.codigo codigo, "
+                    + "c.nombre nombre, "
+                    + "c.descripcion descripcion, "
+                    + "c.tipo_registro tipo_registro "
                     + "from "
                     + "codigo_contactabilidad c "
                     + "where "
@@ -155,11 +169,13 @@ public class Codigo_Contactabilidad implements Serializable {
                 this.codigo_d = vector_result[i][0];
                 this.nombre_d = vector_result[i][1];
                 this.descripcion_d = vector_result[i][2];
+                this.tipo_registro_d = vector_result[i][3];
             }
             
             this.txtCodigo = false;
             this.txtNombre = false;
             this.itaDescripcion = false;
+            this.cbxTipoRegistro = false;
             this.btnAceptar = false;
             this.btnCancelar = false;
             
@@ -174,9 +190,10 @@ public class Codigo_Contactabilidad implements Serializable {
     public void carga_info_eliminar() {
         if(this.selectedCodigo_Contactabilidad != null) {
             String cadenasql = "select "
-                    + "c.codigo as codigo, "
-                    + "c.nombre as nombre, "
-                    + "c.descripcion as descripcion "
+                    + "c.codigo codigo, "
+                    + "c.nombre nombre, "
+                    + "c.descripcion descripcion, "
+                    + "c.tipo_registro tipo_registro "
                     + "from "
                     + "codigo_contactabilidad c "
                     + "where "
@@ -196,11 +213,13 @@ public class Codigo_Contactabilidad implements Serializable {
                 this.codigo_d = vector_result[i][0];
                 this.nombre_d = vector_result[i][1];
                 this.descripcion_d = vector_result[i][2];
+                this.tipo_registro_d = vector_result[i][3];
             }
             
             this.txtCodigo = true;
             this.txtNombre = true;
             this.itaDescripcion = true;
+            this.cbxTipoRegistro = true;
             this.btnAceptar = false;
             this.btnCancelar = false;
             
@@ -215,9 +234,10 @@ public class Codigo_Contactabilidad implements Serializable {
     public void carga_info_activar() {
         if(this.selectedCodigo_Contactabilidad != null) {
             String cadenasql = "select "
-                    + "c.codigo as codigo, "
-                    + "c.nombre as nombre, "
-                    + "c.descripcion as descripcion "
+                    + "c.codigo codigo, "
+                    + "c.nombre nombre, "
+                    + "c.descripcion descripcion, "
+                    + "c.tipo_registro tipo_registro "
                     + "from "
                     + "codigo_contactabilidad c "
                     + "where "
@@ -237,11 +257,13 @@ public class Codigo_Contactabilidad implements Serializable {
                 this.codigo_d = vector_result[i][0];
                 this.nombre_d = vector_result[i][1];
                 this.descripcion_d = vector_result[i][2];
+                this.tipo_registro_d = vector_result[i][3];
             }
             
             this.txtCodigo = true;
             this.txtNombre = true;
             this.itaDescripcion = true;
+            this.cbxTipoRegistro = true;
             this.btnAceptar = false;
             this.btnCancelar = false;
             
@@ -256,9 +278,10 @@ public class Codigo_Contactabilidad implements Serializable {
     public void carga_info_ver() {
         if(this.selectedCodigo_Contactabilidad != null) {
             String cadenasql = "select "
-                    + "c.codigo as codigo, "
-                    + "c.nombre as nombre, "
-                    + "c.descripcion as descripcion "
+                    + "c.codigo codigo, "
+                    + "c.nombre nombre, "
+                    + "c.descripcion descripcion, "
+                    + "c.tipo_registro tipo_registro "
                     + "from "
                     + "codigo_contactabilidad c "
                     + "where "
@@ -278,11 +301,13 @@ public class Codigo_Contactabilidad implements Serializable {
                 this.codigo_d = vector_result[i][0];
                 this.nombre_d = vector_result[i][1];
                 this.descripcion_d = vector_result[i][2];
+                this.tipo_registro_d = vector_result[i][3];
             }
             
             this.txtCodigo = true;
             this.txtNombre = true;
             this.itaDescripcion = true;
+            this.cbxTipoRegistro = true;
             this.btnAceptar = true;
             this.btnCancelar = false;
             
@@ -323,6 +348,7 @@ public class Codigo_Contactabilidad implements Serializable {
                             this.codigo_d,
                             this.nombre_d,
                             this.descripcion_d,
+                            this.tipo_registro_d,
                             this.ambiente);
                     this.constructor();
                     RequestContext.getCurrentInstance().execute("PF('dtblWidgetCoc').clearFilters();");
@@ -353,7 +379,8 @@ public class Codigo_Contactabilidad implements Serializable {
                             this.selectedCodigo_Contactabilidad.getCodigo_contactabilidad(),
                             this.codigo_d,
                             this.nombre_d,
-                            this.descripcion_d, 
+                            this.descripcion_d,
+                            this.tipo_registro_d,
                             this.ambiente);
                     this.constructor();
                     RequestContext.getCurrentInstance().execute("PF('dtblWidgetCoc').clearFilters();");
@@ -512,6 +539,30 @@ public class Codigo_Contactabilidad implements Serializable {
 
     public void setAmbiente(String ambiente) {
         this.ambiente = ambiente;
+    }
+    
+    public String getTipo_registro_d() {
+        return tipo_registro_d;
+    }
+
+    public void setTipo_registro_d(String tipo_registro_d) {
+        this.tipo_registro_d = tipo_registro_d;
+    }
+
+    public Boolean getCbxTipoRegistro() {
+        return cbxTipoRegistro;
+    }
+
+    public void setCbxTipoRegistro(Boolean cbxTipoRegistro) {
+        this.cbxTipoRegistro = cbxTipoRegistro;
+    }
+
+    public List<SelectItem> getLst_tipo_registro() {
+        return lst_tipo_registro;
+    }
+
+    public void setLst_tipo_registro(List<SelectItem> lst_tipo_registro) {
+        this.lst_tipo_registro = lst_tipo_registro;
     }
     
 }

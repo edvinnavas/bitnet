@@ -159,16 +159,16 @@ public class Servicio implements Serializable {
         return port.codigoContactabilidadEliminar(usuarioSys, idTipoAumento, poolConexion);
     }
 
-    public String codigoContactabilidadInsertar(java.lang.Integer usuarioSys, java.lang.String codigoD, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+    public String codigoContactabilidadInsertar(java.lang.Integer usuarioSys, java.lang.String codigoD, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String tipoRegistroD, java.lang.String poolConexion) {
         lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
-        return port.codigoContactabilidadInsertar(usuarioSys, codigoD, nombreD, descripcionD, poolConexion);
+        return port.codigoContactabilidadInsertar(usuarioSys, codigoD, nombreD, descripcionD, tipoRegistroD, poolConexion);
     }
 
-    public String codigoContactabilidadModificar(java.lang.Integer usuarioSys, java.lang.Integer idCodigoContactabilidad, java.lang.String codigoD, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String poolConexion) {
+    public String codigoContactabilidadModificar(java.lang.Integer usuarioSys, java.lang.Integer idCodigoContactabilidad, java.lang.String codigoD, java.lang.String nombreD, java.lang.String descripcionD, java.lang.String tipoRegistroD, java.lang.String poolConexion) {
         lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
-        return port.codigoContactabilidadModificar(usuarioSys, idCodigoContactabilidad, codigoD, nombreD, descripcionD, poolConexion);
+        return port.codigoContactabilidadModificar(usuarioSys, idCodigoContactabilidad, codigoD, nombreD, descripcionD, tipoRegistroD, poolConexion);
     }
 
     public String constantesModificar(java.lang.Integer usuarioSys, java.util.List<java.lang.String> constantes, java.lang.String poolConexion) {

@@ -17,6 +17,7 @@ public class Codigo_Resultado implements Serializable {
             String codigo_d,
             String nombre_d,
             String descripcion_d,
+            String tipo_registro_d,
             String poolConexion) {
 
         Driver driver = new Driver();
@@ -26,11 +27,12 @@ public class Codigo_Resultado implements Serializable {
         try {
             conn.setAutoCommit(false);
 
-            String cadenasql = "insert into codigo_contactabilidad (codigo,nombre,estado,descripcion) values ('"
+            String cadenasql = "insert into codigo_contactabilidad (codigo,nombre,estado,descripcion,tipo_registro) values ('"
                     + codigo_d + "','"
                     + nombre_d + "','"
                     + "VIGENTE" + "','"
-                    + descripcion_d + "')";
+                    + descripcion_d + "','"
+                    + tipo_registro_d + "')";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);
             stmt.close();
@@ -72,6 +74,7 @@ public class Codigo_Resultado implements Serializable {
             String codigo_d,
             String nombre_d,
             String descripcion_d,
+            String tipo_registro_d,
             String poolConexion) {
 
         Driver driver = new Driver();
@@ -84,7 +87,8 @@ public class Codigo_Resultado implements Serializable {
             String cadenasql = "update codigo_contactabilidad set "
                     + "codigo='" + codigo_d + "', "
                     + "nombre='" + nombre_d + "', "
-                    + "descripcion='" + descripcion_d + "' "
+                    + "descripcion='" + descripcion_d + "', "
+                    + "tipo_registro='" + tipo_registro_d + "' "
                     + "where codigo_contactabilidad=" + id_codigo_contactabilidad;
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cadenasql);

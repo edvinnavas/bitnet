@@ -69,6 +69,12 @@
                         <p:outputLabel value="Nombre"/>
                         <p:inputText id="txtNombre" disabled="#{Codigo_Contactabilidad.txtCodigo}" value="#{Codigo_Contactabilidad.codigo_d}" style="width:200px;"/>
                         <p:inputText id="txtNit" disabled="#{Codigo_Contactabilidad.txtNombre}" value="#{Codigo_Contactabilidad.nombre_d}" style="width:200px;"/>
+                        <p:outputLabel value="Tipo de registro"/>
+                        <p:spacer/>
+                        <p:selectOneMenu id="cbxTipoRegistro" disabled="#{Codigo_Contactabilidad.cbxTipoRegistro}" value="#{Codigo_Contactabilidad.tipo_registro_d}" style="width:207px;">
+                            <f:selectItems value="#{Codigo_Contactabilidad.lst_tipo_registro}"/>
+                        </p:selectOneMenu>
+                        <p:spacer/>
                     </p:panelGrid>
                     <p:panelGrid columns="1" style="width:100%;">
                         <p:outputLabel value="Descripción"/>
