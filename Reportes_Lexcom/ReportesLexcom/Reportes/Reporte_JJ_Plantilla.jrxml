@@ -13,9 +13,9 @@ d.caso Caso,
 (select p.fecha from pago p where p.deudor=d.deudor and (p.deudor, p.fecha) in (select pa.deudor, max(pa.fecha) from pago pa where pa.deudor=d.deudor group by pa.deudor) group by p.fecha) Fecha_banco_ultimo_pago,
 if(d.opcion_proximo_pago='SI', d.fecha_proximo_pago, null) Fecha_proximo_pago,
 if(d.opcion_proximo_pago='SI', d.cuota_convenio, null) Monto_proximo_pago,
-(select cc.codigo from codigo_contactabilidad cc where cc.codigo_contactabilidad in (select dhc.codigo_contactabilidad from deudor_historial_cobros dhc where dhc.deudor_historial_cobros=get_id_ultima_gestion_contacto(d.deudor))) Codigo_ultima_gestion_contacto,
-(select dhc.fecha from deudor_historial_cobros dhc where dhc.deudor_historial_cobros=get_id_ultima_gestion_contacto(d.deudor)) Fecha_ultima_gestion_contacto,
-(select dh1.fecha from deudor_historial_cobros dh1 where dh1.deudor=d.deudor and (dh1.deudor, dh1.deudor_historial_cobros) in (select dh.deudor deudor, max(dh.deudor_historial_cobros) ultima_gestion from deudor_historial_cobros dh where dh.deudor=d.deudor group by dh.deudor)) Fecha_ultima_gestion
+(select cc.codigo from codigo_contactabilidad cc where cc.codigo_contactabilidad in (select dhc.codigo_contactabilidad from deudor_historial_cobros dhc left join codigo_contactabilidad cc1 on (dhc.codigo_contactabilidad=cc1.codigo_contactabilidad) where cc1.tipo_registro='MANUAL' and dhc.deudor_historial_cobros=get_id_ultima_gestion_contacto(d.deudor))) Codigo_ultima_gestion_contacto,
+(select dhc.fecha from deudor_historial_cobros dhc left join codigo_contactabilidad cc1 on (dhc.codigo_contactabilidad=cc1.codigo_contactabilidad) where cc1.tipo_registro='MANUAL' and dhc.deudor_historial_cobros=get_id_ultima_gestion_contacto(d.deudor)) Fecha_ultima_gestion_contacto,
+(select dh1.fecha from deudor_historial_cobros dh1 where dh1.deudor=d.deudor and (dh1.deudor, dh1.deudor_historial_cobros) in (select dh.deudor deudor, max(dh.deudor_historial_cobros) ultima_gestion from deudor_historial_cobros dh left join codigo_contactabilidad cc1 on (dh.codigo_contactabilidad=cc1.codigo_contactabilidad) where cc1.tipo_registro='MANUAL' and dh.deudor=d.deudor group by dh.deudor)) Fecha_ultima_gestion
 from
 deudor d
 left join actor a on (d.actor=a.actor)
