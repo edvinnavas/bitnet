@@ -3,15 +3,6 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Dictamen_Irrecuperabilidad" pageWidth="612" pageHeight="792" columnWidth="442" leftMargin="85" rightMargin="85" topMargin="70" bottomMargin="70" uuid="920268f5-c68c-43a0-a5a4-883fc46aad8f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="lista_casos" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -40,11 +31,7 @@ CONCAT(s.nombre, ' - ', e.nombre) Estatus,
 (select j.no_juicio from juicio j where j.deudor=d.deudor) No_De_Juicio,
 (select DATE_FORMAT(j.fecha_admision_demanda, '%d/%m/%Y') from juicio j where j.deudor=d.deudor) Fecha_Demanda,
 (select CONCAT('Q.', FORMAT(j.monto,2)) from juicio j where j.deudor=d.deudor) Monto_Demandado,
-TRIM(d.situacion_caso) Situacion_Caso,
-dhc.fecha Fecha,
-dhc.hora Hora,
-cc.codigo Cod_Resultado,
-TRIM(dhc.descripcion) Gestion
+TRIM(d.situacion_caso) Situacion_Caso
 from
 deudor d
 left join sestado_extra se on (d.sestado_extra=se.sestado_extra)
@@ -53,17 +40,12 @@ left join intencion_pago ip on (d.intencion_pago=ip.intencion_pago)
 left join razon_deuda rd on (d.razon_deuda=rd.razon_deuda)
 left join sestado s on (d.sestado=s.sestado)
 left join estatus e on (d.estatus=e.estatus)
-left join deudor_historial_cobros dhc on (d.deudor=dhc.deudor)
 left join actor a on (d.actor=a.actor)
 left join cooperacion c on (a.cooperacion=c.cooperacion)
-left join codigo_contactabilidad cc on (dhc.codigo_contactabilidad=cc.codigo_contactabilidad)
 where
 (c.nombre like '$P!{corporacion}') and 
 (a.nombre like '$P!{actor}') and
-(d.caso in ($P!{lista_casos}))
-order by
-dhc.fecha desc,
-dhc.hora desc;]]>
+(d.caso in ($P!{lista_casos}))]]>
 	</queryString>
 	<field name="Corporacion" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Corporacion"/>
@@ -129,458 +111,322 @@ dhc.hora desc;]]>
 		<property name="com.jaspersoft.studio.field.label" value="Situacion_Caso"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="deudor"/>
 	</field>
-	<field name="Fecha" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="Fecha"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="deudor_historial_cobros"/>
-	</field>
-	<field name="Hora" class="java.sql.Time">
-		<property name="com.jaspersoft.studio.field.label" value="Hora"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="deudor_historial_cobros"/>
-	</field>
-	<field name="Cod_Resultado" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="Cod_Resultado"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="codigo_contactabilidad"/>
-	</field>
-	<field name="Gestion" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="Gestion"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="deudor_historial_cobros"/>
-	</field>
-	<group name="Group1" isStartNewPage="true">
-		<groupExpression><![CDATA[$F{id_deudor}]]></groupExpression>
-		<groupHeader>
-			<band height="338" splitType="Prevent">
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="0" width="442" height="13" uuid="33199891-6c0a-4a23-bed3-270a47974efb">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["DICTAMEN DE IRRECUPERABILIDAD"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="13" width="442" height="13" uuid="0c3d4eb9-5306-4847-b448-98349f06fdd7">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="26" width="442" height="13" uuid="1d203e97-1662-4028-bf2e-c5a11f5b17b3">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Caso:</b> " + $F{Caso}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="39" width="442" height="13" uuid="9f7edb17-196b-4501-bb83-4594cc1eb1c6">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Nombre deudor:</b> " + $F{Nombre_Deudor}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="52" width="442" height="13" uuid="1413cd67-0f20-4f7f-872b-e8cd03a2cf8f">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>NIT:</b> " + $F{Nit}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="65" width="442" height="13" uuid="3af2f87f-5306-403e-b002-1243d674b01c">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Fecha asignación:</b> " + $F{Fecha_Asignacion}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="78" width="442" height="13" uuid="dc0a2b55-e6bc-4d0c-b7f9-6608ef879be2">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Monto deuda:</b> " + $F{Monto_Deuda}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="91" width="442" height="13" uuid="51229ddf-40b4-4300-a49c-c2a9a8a22a39">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="104" width="442" height="13" uuid="aa59b9b9-b920-4b77-8762-7f7638581975">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true" isUnderline="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["DICTAMEN"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="117" width="442" height="13" uuid="ad3dc44d-2ade-40fe-8b1f-a254e02eda4c">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Recuperabilidad:</b> " + $F{Recuperabilidad}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="130" width="442" height="13" uuid="9a6d8c67-6ef6-412c-8d6b-b224c232604d">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Intención de pago:</b> " + $F{Intencion_De_Pago}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="143" width="442" height="13" uuid="b582c524-ee49-4513-bb42-0df3f99b10e0">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Razón de deuda:</b> " + $F{Razon_De_Deuda}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="169" width="442" height="13" uuid="6b26c9f3-9293-46e9-b2d7-a7c1285c62ff">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="none">
-						<font fontName="Calibri" size="10" isBold="true" isUnderline="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Observaciones:"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="195" width="442" height="13" uuid="f6cbc2fe-2541-4f73-99d5-be0bde14a51a">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="208" width="442" height="13" uuid="b9813962-bda2-452c-adac-ba6a68a5cd12">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true" isUnderline="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["INFORMACIÓN JUDICIAL"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="286" width="442" height="13" uuid="92447970-cd43-4226-bf0d-e1224d2cebdc">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="299" width="442" height="13" uuid="6eb7a4c0-afe6-4ea4-b29b-096c3934a88a">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true" isUnderline="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["DETALLE DE GESTIONES"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="221" width="442" height="13" uuid="76e31951-5a66-4435-b931-bb7f1c9f0762">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Estatus:</b> " + $F{Estatus}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="234" width="442" height="13" uuid="963c9ba5-af22-4928-9644-7e70c80f8be8">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>No. de juicio:</b> " + $F{No_De_Juicio}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="247" width="442" height="13" uuid="ebf6fbac-193e-44a6-879b-e009ae5d9dd0">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Fecha demanda:</b> " + $F{Fecha_Demanda}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="260" width="442" height="13" uuid="00a92f0f-8e4b-43e5-b959-9dd5b30e7fa7">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Monto demanda:</b> " + $F{Monto_Demandado}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="273" width="442" height="13" uuid="67c72152-639d-4b01-b468-6ac05c106534">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>Situación caso:</b> " + $F{Situacion_Caso}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="75" y="312" width="75" height="26" uuid="f84eb959-bd5f-452a-95db-f5d3969feaf6">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ecf57d6-e07e-452f-adf1-ca478ec43ee7"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["HORA"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="312" width="75" height="26" uuid="3cb4fd4a-1e6f-41ef-bba9-f295f0fe34ee">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b2c2f73-71de-466e-9574-e7adc3354bb0"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["FECHA"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="156" width="442" height="13" uuid="09ca86e1-fdaa-485c-8c3d-d084ed4eda99">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<box leftPadding="0"/>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="none">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA["PAGOS REALIZADOS: " + $F{Pagos_Realizados}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="225" y="312" width="216" height="26" uuid="1508de62-7e5d-4719-82e5-8ba71024e99c">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ecf57d6-e07e-452f-adf1-ca478ec43ee7"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["GESTIÓN"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="150" y="312" width="75" height="26" uuid="01699d4f-8d14-4571-91a0-dbe7b62e6705">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ecf57d6-e07e-452f-adf1-ca478ec43ee7"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["COD RESULTADO"]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement positionType="Float" x="0" y="182" width="442" height="13" uuid="b7f0e8e9-4f34-4bbd-b291-5d2500f35d11">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top" markup="none">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{Observaciones}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="130">
-				<textField>
-					<reportElement positionType="Float" x="0" y="52" width="442" height="13" uuid="d096a2c7-059b-4f0c-a61c-0bf7e70857b6"/>
-					<textElement verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="0" y="13" width="442" height="13" uuid="78f321d9-d3cc-4718-8c4d-71d06b6654ff"/>
-					<textElement verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="0" y="26" width="442" height="13" uuid="20a5e439-4199-4a0b-a339-8048b9f149f6"/>
-					<textElement verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField pattern="&apos;En la ciudad de Guatemala, &apos;dd &apos;de&apos; MMMM &apos;de&apos; yyyy">
-					<reportElement positionType="Float" x="0" y="39" width="442" height="13" uuid="01c04872-d80a-491d-8568-da8d340746d7">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="0" y="65" width="442" height="13" uuid="97b4e13a-16c5-40cd-9c39-fa5760ead1cb"/>
-					<textElement verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="0" y="78" width="442" height="13" uuid="4892727d-e717-469f-b0a5-2fc5a670c89d"/>
-					<textElement verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="0" y="91" width="442" height="13" uuid="52566004-31f7-409e-bb67-6c6c3eac74e4"/>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["_______________________________"]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="0" y="104" width="442" height="13" uuid="f54286b6-e047-4b19-a05f-eea5e419e366"/>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Lic.  (Firmante)"]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="0" y="117" width="442" height="13" uuid="3d35bbdc-8c0e-4113-811a-337ae982f727"/>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["LEXCOM, S.A."]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="0" y="0" width="442" height="13" uuid="9ecd54ea-bcbf-4b1b-b34c-ce90cab72190"/>
-					<textElement verticalAlignment="Top">
-						<font fontName="Calibri" size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupFooter>
-	</group>
 	<detail>
-		<band height="13" splitType="Prevent">
-			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="75" height="13" uuid="9e39af73-d2a5-4480-83a5-6df4871e39db">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b2c2f73-71de-466e-9574-e7adc3354bb0"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Calibri" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" pattern="HH:mm a">
-				<reportElement positionType="Float" stretchType="ContainerHeight" x="75" y="0" width="75" height="13" uuid="d4af7c76-8fa2-42dc-86b1-66f9431ee0ae">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ecf57d6-e07e-452f-adf1-ca478ec43ee7"/>
+		<band height="469" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="0" width="442" height="13" uuid="33199891-6c0a-4a23-bed3-270a47974efb">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<box leftPadding="0" rightPadding="0">
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Calibri" size="10"/>
+					<font fontName="Calibri" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Hora}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["DICTAMEN DE IRRECUPERABILIDAD"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="ContainerHeight" x="150" y="0" width="75" height="13" uuid="f7863249-2c3f-4ce8-b2fe-cdf62aa51a00">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ecf57d6-e07e-452f-adf1-ca478ec43ee7"/>
+				<reportElement positionType="Float" x="0" y="13" width="442" height="13" uuid="0c3d4eb9-5306-4847-b448-98349f06fdd7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="26" width="442" height="13" uuid="1d203e97-1662-4028-bf2e-c5a11f5b17b3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<box leftPadding="0" rightPadding="0">
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Caso:</b> " + $F{Caso}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="39" width="442" height="13" uuid="9f7edb17-196b-4501-bb83-4594cc1eb1c6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Nombre deudor:</b> " + $F{Nombre_Deudor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="52" width="442" height="13" uuid="1413cd67-0f20-4f7f-872b-e8cd03a2cf8f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>NIT:</b> " + $F{Nit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="65" width="442" height="13" uuid="3af2f87f-5306-403e-b002-1243d674b01c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Fecha asignación:</b> " + $F{Fecha_Asignacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="78" width="442" height="13" uuid="dc0a2b55-e6bc-4d0c-b7f9-6608ef879be2">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Monto deuda:</b> " + $F{Monto_Deuda}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="91" width="442" height="13" uuid="51229ddf-40b4-4300-a49c-c2a9a8a22a39">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="104" width="442" height="13" uuid="aa59b9b9-b920-4b77-8762-7f7638581975">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DICTAMEN"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="117" width="442" height="13" uuid="ad3dc44d-2ade-40fe-8b1f-a254e02eda4c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Recuperabilidad:</b> " + $F{Recuperabilidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="130" width="442" height="13" uuid="9a6d8c67-6ef6-412c-8d6b-b224c232604d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Intención de pago:</b> " + $F{Intencion_De_Pago}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="143" width="442" height="13" uuid="b582c524-ee49-4513-bb42-0df3f99b10e0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Razón de deuda:</b> " + $F{Razon_De_Deuda}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="182" width="442" height="13" uuid="6b26c9f3-9293-46e9-b2d7-a7c1285c62ff">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="none">
+					<font fontName="Calibri" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["OBSERVACIONES"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="208" width="442" height="13" uuid="f6cbc2fe-2541-4f73-99d5-be0bde14a51a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="221" width="442" height="13" uuid="b9813962-bda2-452c-adac-ba6a68a5cd12">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["INFORMACIÓN JUDICIAL"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="299" width="442" height="13" uuid="92447970-cd43-4226-bf0d-e1224d2cebdc">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="312" width="442" height="13" uuid="6eb7a4c0-afe6-4ea4-b29b-096c3934a88a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DETALLE DE GESTIONES"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="234" width="442" height="13" uuid="76e31951-5a66-4435-b931-bb7f1c9f0762">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Estatus:</b> " + $F{Estatus}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="247" width="442" height="13" uuid="963c9ba5-af22-4928-9644-7e70c80f8be8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>No. de juicio:</b> " + $F{No_De_Juicio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="260" width="442" height="13" uuid="ebf6fbac-193e-44a6-879b-e009ae5d9dd0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Fecha demanda:</b> " + $F{Fecha_Demanda}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="273" width="442" height="13" uuid="00a92f0f-8e4b-43e5-b959-9dd5b30e7fa7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Monto demanda:</b> " + $F{Monto_Demandado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="286" width="442" height="13" uuid="67c72152-639d-4b01-b468-6ac05c106534">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Situación caso:</b> " + $F{Situacion_Caso}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="156" width="442" height="13" uuid="09ca86e1-fdaa-485c-8c3d-d084ed4eda99">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="none">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagos Realizados: " + $F{Pagos_Realizados}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="195" width="442" height="13" uuid="b7f0e8e9-4f34-4bbd-b291-5d2500f35d11">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="none">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Observaciones}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="169" width="442" height="13" uuid="fab8aae7-4ef0-4a72-9376-caf5c60fb73a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="390" width="442" height="13" uuid="d096a2c7-059b-4f0c-a61c-0bf7e70857b6"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="351" width="442" height="13" uuid="78f321d9-d3cc-4718-8c4d-71d06b6654ff"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="364" width="442" height="13" uuid="20a5e439-4199-4a0b-a339-8048b9f149f6"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField pattern="&apos;En la ciudad de Guatemala, &apos;dd &apos;de&apos; MMMM &apos;de&apos; yyyy">
+				<reportElement positionType="Float" x="0" y="377" width="442" height="13" uuid="01c04872-d80a-491d-8568-da8d340746d7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Calibri" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Cod_Resultado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="ContainerHeight" x="225" y="0" width="216" height="13" uuid="a56a47c0-b555-4148-b94c-ea80b41e4e80">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ecf57d6-e07e-452f-adf1-ca478ec43ee7"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box leftPadding="5" rightPadding="5">
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Justified" verticalAlignment="Top">
-					<font fontName="Calibri" size="10"/>
+			<textField>
+				<reportElement positionType="Float" x="0" y="403" width="442" height="13" uuid="97b4e13a-16c5-40cd-9c39-fa5760ead1cb"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Gestion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="416" width="442" height="13" uuid="4892727d-e717-469f-b0a5-2fc5a670c89d"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="429" width="442" height="13" uuid="52566004-31f7-409e-bb67-6c6c3eac74e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["_______________________________"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="442" width="442" height="13" uuid="f54286b6-e047-4b19-a05f-eea5e419e366"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Lic.  (Firmante)"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="455" width="442" height="13" uuid="3d35bbdc-8c0e-4113-811a-337ae982f727"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["LEXCOM, S.A."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="338" width="442" height="13" uuid="9ecd54ea-bcbf-4b1b-b34c-ce90cab72190"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<subreport overflowType="Stretch">
+				<reportElement positionType="Float" x="0" y="325" width="442" height="13" uuid="7d39d1bf-3e76-44fd-9c3b-7dca92b47a76">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<subreportParameter name="deudor">
+					<subreportParameterExpression><![CDATA[$F{id_deudor}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["repo:/Reportes_Lexcom/Reportes/Subreporte_Dictamen_Irrecuperabilidad.jrxml"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="468" width="442" height="1" uuid="fab4ae0e-12e9-47d7-be67-65acf25852d4"/>
+			</break>
 		</band>
 	</detail>
 </jasperReport>
