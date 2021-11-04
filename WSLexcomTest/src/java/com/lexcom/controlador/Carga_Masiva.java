@@ -2118,7 +2118,16 @@ public class Carga_Masiva implements Serializable {
                 stmt.executeUpdate(cadenasql);
                 stmt.close();
 
-                Date fecha_actual = new Date();
+                Date fecha_actual = null;
+                cadenasql = "select CURRENT_DATE()";
+                stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(cadenasql);
+                while(rs.next()) {
+                    fecha_actual = rs.getDate(1);
+                }
+                rs.close();
+                stmt.close();
+                
                 DecimalFormat df = new DecimalFormat("#,###,##0.00");
                 cadenasql = "insert into deudor_historial_cobros ("
                         + "deudor, "
