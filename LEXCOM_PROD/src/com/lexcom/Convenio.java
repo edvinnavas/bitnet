@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,14 +31,14 @@ public class Convenio extends javax.swing.JDialog {
         this.accion = accion;
         this.deudor = deudor;
         initComponents();
-        
+
         this.txtSubTotal.setEditable(false);
         this.txtMontoCostas.setEditable(false);
         this.txtTotal.setEditable(false);
         this.txtTotalPagar.setEditable(false);
         this.txtCuota.setEditable(false);
-        
-        if(accion == 2) {
+
+        if (accion == 2) {
             this.cbxTipoConvenio.setEnabled(false);
             this.cbxEstado.setEnabled(false);
             this.spnSaldo.setEnabled(false);
@@ -56,7 +57,7 @@ public class Convenio extends javax.swing.JDialog {
         }
         this.cbxTipoConvenio.requestFocus();
         this.conta_promesas = 0;
-        
+
         this.btnQuitar.setEnabled(false);
     }
 
@@ -292,23 +293,23 @@ public class Convenio extends javax.swing.JDialog {
                     .addComponent(jLabel1))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxFrecuencia, javax.swing.GroupLayout.Alignment.TRAILING, 0, 339, Short.MAX_VALUE)
-                    .addComponent(txtCuota, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(spnNoCuotas, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(txtTotalPagar, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(spnCuotaInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(txtMontoCostas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(spnCostas, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(txtSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(spnIntereses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(spnSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(cbxEstado, 0, 339, Short.MAX_VALUE)
-                    .addComponent(cbxTipoConvenio, 0, 339, Short.MAX_VALUE)
-                    .addComponent(spnGastosOtros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(spnRebajaInteres, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(spnMora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(dccFechaPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))
+                    .addComponent(cbxFrecuencia, javax.swing.GroupLayout.Alignment.TRAILING, 0, 519, Short.MAX_VALUE)
+                    .addComponent(txtCuota, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(spnNoCuotas, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(txtTotalPagar, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(spnCuotaInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(txtMontoCostas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(spnCostas, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(txtSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(spnIntereses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(spnSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(cbxEstado, 0, 519, Short.MAX_VALUE)
+                    .addComponent(cbxTipoConvenio, 0, 519, Short.MAX_VALUE)
+                    .addComponent(spnGastosOtros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(spnRebajaInteres, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(spnMora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(dccFechaPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -392,11 +393,11 @@ public class Convenio extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Promesa", "Fecha", "Hora", "Estado", "Monto"
+                "Promesa", "Fecha", "Hora", "Estado", "Monto", "F. Creación", "F. Anulación", "F. Cumplimiento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -434,12 +435,12 @@ public class Convenio extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labResPro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 440, Short.MAX_VALUE)
                 .addComponent(btnAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnQuitar)
                 .addContainerGap())
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +474,7 @@ public class Convenio extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
                     .addComponent(jLabel3))
                 .addContainerGap())
         );
@@ -510,7 +511,7 @@ public class Convenio extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -570,31 +571,31 @@ public class Convenio extends javax.swing.JDialog {
             if (fila_posicion != -1) {
                 Integer no_promesa = Integer.parseInt(this.TblPromesasPago.getValueAt(fila_posicion, 0).toString());
                 int index_lst = 0;
-                for(Integer i=0; i<this.promesas.size(); i++) {
-                    if(this.promesas.get(i).getPromesa_pago() == no_promesa) {
+                for (Integer i = 0; i < this.promesas.size(); i++) {
+                    if (this.promesas.get(i).getPromesa_pago() == no_promesa) {
                         index_lst = i;
                     }
                 }
                 Convenio_Detalle a = new Convenio_Detalle(new javax.swing.JFrame(), true, conn, usuario);
                 Integer modificar = 0;
-                
-                if(this.cbxEstado.getSelectedItem().toString().equals("TERMINADO") || this.cbxEstado.getSelectedItem().toString().equals("ANULADO")) {
+
+                if (this.cbxEstado.getSelectedItem().toString().equals("TERMINADO") || this.cbxEstado.getSelectedItem().toString().equals("ANULADO")) {
                     modificar = 2;
                 }
-                
+
                 a.cargar_datos(
-                        this.promesas.get(index_lst).getFecha_pago(), 
-                        this.promesas.get(index_lst).getHora_pago(), 
-                        this.promesas.get(index_lst).getEstado_promesa(), 
-                        this.promesas.get(index_lst).getMonto(), 
+                        this.promesas.get(index_lst).getFecha_pago(),
+                        this.promesas.get(index_lst).getHora_pago(),
+                        this.promesas.get(index_lst).getEstado_promesa(),
+                        this.promesas.get(index_lst).getMonto(),
                         this.promesas.get(index_lst).getObservacion(),
                         modificar);
                 Dimension ventana = a.getSize();
                 Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
                 a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
                 a.setVisible(true);
-                
-                if(a.fecha != null && a.hora != null && a.estado != null && a.monto != null && a.observacion != null) {
+
+                if (a.fecha != null && a.hora != null && a.estado != null && a.monto != null && a.observacion != null) {
                     this.promesas.get(index_lst).setFecha_pago(a.fecha);
                     this.promesas.get(index_lst).setHora_pago(a.hora);
                     this.promesas.get(index_lst).setEstado_promesa(a.estado);
@@ -609,20 +610,20 @@ public class Convenio extends javax.swing.JDialog {
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         Integer fila_posicion = this.TblPromesasPago.getSelectedRow();
-        
+
         if (fila_posicion != -1) {
-            if(this.TblPromesasPago.getValueAt(fila_posicion, 3).toString().equals("PENDIENTE")) {
+            if (this.TblPromesasPago.getValueAt(fila_posicion, 3).toString().equals("PENDIENTE")) {
                 Integer no_promesa = Integer.parseInt(this.TblPromesasPago.getValueAt(fila_posicion, 0).toString());
                 int index_lst = 0;
-                for(Integer i=0; i<this.promesas.size(); i++) {
-                    if(this.promesas.get(i).getPromesa_pago() == no_promesa) {
+                for (Integer i = 0; i < this.promesas.size(); i++) {
+                    if (this.promesas.get(i).getPromesa_pago() == no_promesa) {
                         index_lst = i;
                     }
                 }
                 this.promesas.remove(index_lst);
 
                 this.cargar_promesas_tabla();
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(this, "No se puede eliminar promesas de pago cumplidas o incumplidas.");
             }
         } else {
@@ -632,21 +633,31 @@ public class Convenio extends javax.swing.JDialog {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         Boolean promesa_pendiente = false;
-        for(Integer i=0; i<this.promesas.size(); i++) {
-            if(this.promesas.get(i).getEstado_promesa().equals("PENDIENTE")) {
+        for (Integer i = 0; i < this.promesas.size(); i++) {
+            if (this.promesas.get(i).getEstado_promesa().equals("PENDIENTE")) {
                 promesa_pendiente = true;
             }
         }
-        
-        if(!promesa_pendiente) {
+
+        if (!promesa_pendiente) {
             Convenio_Detalle a = new Convenio_Detalle(new javax.swing.JFrame(), true, conn, usuario);
             a.cargar(false);
             Dimension ventana = a.getSize();
             Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
             a.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
             a.setVisible(true);
-            if(a.fecha != null && a.hora != null && a.estado != null && a.monto != null && a.observacion != null) {
-                Nodo_Convenio_Detalle nodo = new Nodo_Convenio_Detalle(this.conta_promesas, a.fecha, a.hora, a.estado, a.monto, a.observacion);
+            if (a.fecha != null && a.hora != null && a.estado != null && a.monto != null && a.observacion != null) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Nodo_Convenio_Detalle nodo = new Nodo_Convenio_Detalle(
+                        this.conta_promesas,
+                        a.fecha,
+                        a.hora,
+                        a.estado,
+                        a.monto,
+                        a.observacion,
+                        dateFormat.format(new Date()),
+                        "-",
+                        "-");
                 this.conta_promesas++;
                 this.promesas.add(nodo);
 
@@ -690,7 +701,7 @@ public class Convenio extends javax.swing.JDialog {
     }//GEN-LAST:event_cbxFrecuenciaActionPerformed
 
     private void cbxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEstadoActionPerformed
-        if(this.cbxEstado.getSelectedItem().toString().equals("ANULADO") || this.cbxEstado.getSelectedItem().toString().equals("TERMINADO")) {
+        if (this.cbxEstado.getSelectedItem().toString().equals("ANULADO") || this.cbxEstado.getSelectedItem().toString().equals("TERMINADO")) {
             this.btnAgregar.setEnabled(false);
         } else {
             this.btnAgregar.setEnabled(true);
@@ -704,37 +715,41 @@ public class Convenio extends javax.swing.JDialog {
 
     private void cargar_promesas_tabla() {
         DefaultTableModel modelo = (DefaultTableModel) this.TblPromesasPago.getModel();
+        
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-        
-        for(Integer i=0; i < this.promesas.size(); i++) {
+
+        for (Integer i = 0; i < this.promesas.size(); i++) {
             Integer dia = this.promesas.get(i).getFecha_pago().get(Calendar.DATE);
             Integer mes = this.promesas.get(i).getFecha_pago().get(Calendar.MONTH) + 1;
             Integer ano = this.promesas.get(i).getFecha_pago().get(Calendar.YEAR);
             String fecha_promesa = ano.toString() + "/" + mes.toString() + "/" + dia.toString();
-            Object[] fila = new Object[5];
+
+            Object[] fila = new Object[8];
             fila[0] = this.promesas.get(i).getPromesa_pago();
             fila[1] = fecha_promesa;
             fila[2] = this.promesas.get(i).getHora_pago();
             fila[3] = this.promesas.get(i).getEstado_promesa();
             fila[4] = this.promesas.get(i).getMonto();
+            fila[5] = this.promesas.get(i).getFecha_creacion();
+            fila[6] = this.promesas.get(i).getFecha_anulacion();
+            fila[7] = this.promesas.get(i).getFecha_cumplimiento();
             modelo.addRow(fila);
         }
         this.TblPromesasPago.setModel(modelo);
-        
+
         Integer promesas_pendientes = 0;
         Integer promesas_cumplidas = 0;
         Integer promesas_incumplidas = 0;
-        
-        for(Integer i=0; i<modelo.getRowCount(); i++) {
-            if(modelo.getValueAt(i, 3).toString().equals("PENDIENTE")) {
+        for (Integer i = 0; i < modelo.getRowCount(); i++) {
+            if (modelo.getValueAt(i, 3).toString().equals("PENDIENTE")) {
                 promesas_pendientes++;
             }
-            if(modelo.getValueAt(i, 3).toString().equals("CUMPLIDO")) {
+            if (modelo.getValueAt(i, 3).toString().equals("CUMPLIDO")) {
                 promesas_cumplidas++;
             }
-            if(modelo.getValueAt(i, 3).toString().equals("INCUMPLIDO")) {
+            if (modelo.getValueAt(i, 3).toString().equals("INCUMPLIDO")) {
                 promesas_incumplidas++;
             }
         }
@@ -744,73 +759,73 @@ public class Convenio extends javax.swing.JDialog {
     private void calcular_saldos() {
         Double saldo = Double.parseDouble(spnSaldo.getValue().toString());
         Double interes = Double.parseDouble(spnIntereses.getValue().toString());
-        Double mora = Double.parseDouble(spnMora .getValue().toString());
+        Double mora = Double.parseDouble(spnMora.getValue().toString());
         Double gastos_otros = Double.parseDouble(spnGastosOtros.getValue().toString());
         Double rebaja_interes = Double.parseDouble(spnRebajaInteres.getValue().toString());
         Double costas = Double.parseDouble(spnCostas.getValue().toString());
         Double cuota_inicial = Double.parseDouble(spnCuotaInicial.getValue().toString());
         Integer numero_cuotas = Integer.parseInt(spnNoCuotas.getValue().toString());
-        
+
         Double sub_total = saldo + interes + mora + gastos_otros - rebaja_interes;
         Double monto_costas = sub_total * (costas / 100);
         Double total = sub_total + monto_costas;
         Double total_pagar = total - cuota_inicial;
         Double cuota = total_pagar / numero_cuotas;
-        if(cuota.floatValue() > cuota.intValue()) {
+        if (cuota.floatValue() > cuota.intValue()) {
             Integer temp = cuota.intValue();
             cuota = temp + 1.00;
         }
-        
+
         DecimalFormat formatter = new DecimalFormat("#,###,##0.00");
         this.txtSubTotal.setText("Q. " + formatter.format(sub_total));
         this.txtMontoCostas.setText("Q. " + formatter.format(monto_costas));
         this.txtTotal.setText("Q. " + formatter.format(total));
         this.txtTotalPagar.setText("Q. " + formatter.format(total_pagar));
         this.txtCuota.setText("Q. " + formatter.format(cuota));
-        
+
         Integer dia = this.dccFechaPago.getSelectedDate().get(Calendar.DATE);
         Integer mes = this.dccFechaPago.getSelectedDate().get(Calendar.MONTH) + 1;
         Integer anio = this.dccFechaPago.getSelectedDate().get(Calendar.YEAR);
         String fecha_pago = dia.toString() + "/" + mes.toString() + "/" + anio.toString();
-        
+
         Date actual = new Date();
         String fecha_actual = "";
-        if(this.accion == 0) {
+        if (this.accion == 0) {
             dia = actual.getDate();
             mes = actual.getMonth() + 1;
             anio = actual.getYear() + 1900;
             fecha_actual = dia.toString() + "/" + mes.toString() + "/" + anio.toString();
         } else {
-            if(this.cbxEstado.getSelectedItem().equals("ACTIVO")) {
+            if (this.cbxEstado.getSelectedItem().equals("ACTIVO")) {
                 dia = actual.getDate();
                 mes = actual.getMonth() + 1;
                 anio = actual.getYear() + 1900;
                 fecha_actual = dia.toString() + "/" + mes.toString() + "/" + anio.toString();
             } else {
                 try {
-                com.lexcom.driver.Convenio drive = new com.lexcom.driver.Convenio(this.conn, this.usuario);
-                drive.obtener(this.seleccion);
-                Calendar fecha_creacion_t = drive.fecha_activacion;
-                actual  = fecha_creacion_t.getTime();
-                dia = actual.getDate();
-                mes = actual.getMonth() + 1;
-                anio = actual.getYear() + 1900;
-                fecha_actual = dia.toString() + "/" + mes.toString() + "/" + anio.toString();
-                } catch(Exception ex) {
+                    com.lexcom.driver.Convenio drive = new com.lexcom.driver.Convenio(this.conn, this.usuario);
+                    drive.obtener(this.seleccion);
+                    Calendar fecha_creacion_t = drive.fecha_activacion;
+                    actual = fecha_creacion_t.getTime();
+                    dia = actual.getDate();
+                    mes = actual.getMonth() + 1;
+                    anio = actual.getYear() + 1900;
+                    fecha_actual = dia.toString() + "/" + mes.toString() + "/" + anio.toString();
+                } catch (Exception ex) {
                     System.out.println(ex.toString());
                 }
             }
         }
-        
+
         String observacion = "";
-        if(this.cbxTipoConvenio.getSelectedItem().equals("NORMAL")) {
+        if (this.cbxTipoConvenio.getSelectedItem().equals("NORMAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
                     + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Se pactó pago inicial de Q. " + formatter.format(cuota_inicial) + " y \n"
                     + numero_cuotas + " cuotas " + this.cbxFrecuencia.getSelectedItem().toString() + " de Q. " + formatter.format(cuota) + ". \n"
                     + "Se inician pagos el " + fecha_pago + ".";
         }
-        if(this.cbxTipoConvenio.getSelectedItem().equals("CANCELACION TOTAL")) {
+        if (this.cbxTipoConvenio.getSelectedItem().equals("CANCELACION TOTAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
                     + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Saldo Q. " + formatter.format(saldo) + " \n"
@@ -819,7 +834,7 @@ public class Convenio extends javax.swing.JDialog {
                     + "Cancelación Total Autorizada por Q. " + formatter.format(total) + " \n"
                     + "Pago el " + fecha_pago + ".";
         }
-        if(this.cbxTipoConvenio.getSelectedItem().equals("TRANSACCION")) {
+        if (this.cbxTipoConvenio.getSelectedItem().equals("TRANSACCION")) {
             observacion = fecha_actual + " CONVENIO: \n"
                     + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Cancelación Total Transacción Judicial por Q. " + formatter.format(total) + " por medio \n"
@@ -827,15 +842,15 @@ public class Convenio extends javax.swing.JDialog {
                     + "Restante Transacción Q. " + formatter.format(cuota) + " \n"
                     + "Pago el " + fecha_pago + ".";
         }
-        if(this.cbxTipoConvenio.getSelectedItem().equals("TEMPORAL")) {
+        if (this.cbxTipoConvenio.getSelectedItem().equals("TEMPORAL")) {
             observacion = fecha_actual + " CONVENIO: \n"
                     + "Total Convenio Q. " + formatter.format(total) + ". \n"
-                    + "Se pactaron Cuota Inicial de Q. " + formatter.format(cuota_inicial) + " y \n" 
+                    + "Se pactaron Cuota Inicial de Q. " + formatter.format(cuota_inicial) + " y \n"
                     + numero_cuotas + " cuotas temporales de Q. " + formatter.format(cuota) + " y pagos " + this.cbxFrecuencia.getSelectedItem().toString() + " \n"
                     + "Se inician pagos el " + fecha_pago + ". \n"
                     + "Al finalizar estos pagos se realizará convenio normal.";
         }
-        if(this.cbxTipoConvenio.getSelectedItem().equals("PAGOS SIN CONVENIO")) {
+        if (this.cbxTipoConvenio.getSelectedItem().equals("PAGOS SIN CONVENIO")) {
             observacion = fecha_actual + " Pagos Sin Convenio. \n"
                     + "Total Convenio Q. " + formatter.format(total) + ". \n"
                     + "Caso con gestiones Anteriores, \n"
@@ -844,33 +859,36 @@ public class Convenio extends javax.swing.JDialog {
                     + "pero no pacto forma de pago.";
         }
         this.areObservacion.setText(observacion);
-        
-        if(this.cbxEstado.getSelectedItem().toString().equals("ACTIVO")) {
+
+        if (this.cbxEstado.getSelectedItem().toString().equals("ACTIVO")) {
             this.promesas = new ArrayList<>();
             this.conta_promesas = 0;
             
-            if(this.promesas.isEmpty()) {
-                if(Double.parseDouble(this.spnCuotaInicial.getValue().toString()) > 0.00) {
+            if (this.promesas.isEmpty()) {
+                if (Double.parseDouble(this.spnCuotaInicial.getValue().toString()) > 0.00) {
                     dia = this.dccFechaPago.getSelectedDate().get(Calendar.DATE);
                     mes = this.dccFechaPago.getSelectedDate().get(Calendar.MONTH);
                     anio = this.dccFechaPago.getSelectedDate().get(Calendar.YEAR);
-                    
+
                     Calendar fecha1 = Calendar.getInstance();
                     fecha1.set(anio, mes, dia);
-                    
+
                     Calendar fecha2 = Calendar.getInstance();
                     fecha2.set(anio, mes, dia);
                     fecha2 = sumar_frecuencia(fecha2);
                     
-                    Nodo_Convenio_Detalle nodo = new Nodo_Convenio_Detalle(this.conta_promesas, fecha1, "8:00", "PENDIENTE", Double.parseDouble(this.spnCuotaInicial.getValue().toString()), "CUOTA INICIAL.");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                    Nodo_Convenio_Detalle nodo = new Nodo_Convenio_Detalle(this.conta_promesas, fecha1, "8:00", "PENDIENTE", Double.parseDouble(this.spnCuotaInicial.getValue().toString()), "CUOTA INICIAL.", dateFormat.format(new Date()), "-", "-");
                     this.conta_promesas++;
                     this.promesas.add(nodo);
 
-                    Nodo_Convenio_Detalle nodo1 = new Nodo_Convenio_Detalle(this.conta_promesas, fecha2, "8:00", "PENDIENTE", Double.parseDouble(this.quitar_currency(this.txtCuota.getText())), "PRIMERA CUOTA.");
+                    Nodo_Convenio_Detalle nodo1 = new Nodo_Convenio_Detalle(this.conta_promesas, fecha2, "8:00", "PENDIENTE", Double.parseDouble(this.quitar_currency(this.txtCuota.getText())), "PRIMERA CUOTA.", dateFormat.format(new Date()), "-", "-");
                     this.conta_promesas++;
                     this.promesas.add(nodo1);
                 } else {
-                    Nodo_Convenio_Detalle nodo = new Nodo_Convenio_Detalle(this.conta_promesas, this.dccFechaPago.getSelectedDate(), "8:00", "PENDIENTE", Double.parseDouble(this.quitar_currency(this.txtCuota.getText())), "PRIMERA CUOTA.");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Nodo_Convenio_Detalle nodo = new Nodo_Convenio_Detalle(this.conta_promesas, this.dccFechaPago.getSelectedDate(), "8:00", "PENDIENTE", Double.parseDouble(this.quitar_currency(this.txtCuota.getText())), "PRIMERA CUOTA.", dateFormat.format(new Date()), "-", "-");
                     this.conta_promesas++;
                     this.promesas.add(nodo);
                 }
@@ -883,26 +901,26 @@ public class Convenio extends javax.swing.JDialog {
     private Calendar sumar_frecuencia(Calendar fecha_param) {
         Calendar resultado = Calendar.getInstance();
         Integer dias = 0;
-        
-        if(this.cbxFrecuencia.getSelectedItem().toString().equals("MENSUAL")) {
+
+        if (this.cbxFrecuencia.getSelectedItem().toString().equals("MENSUAL")) {
             dias = 30;
         }
-        if(this.cbxFrecuencia.getSelectedItem().toString().equals("QUINCENAL")) {
+        if (this.cbxFrecuencia.getSelectedItem().toString().equals("QUINCENAL")) {
             dias = 15;
         }
-        if(this.cbxFrecuencia.getSelectedItem().toString().equals("SEMANAL")) {
+        if (this.cbxFrecuencia.getSelectedItem().toString().equals("SEMANAL")) {
             dias = 7;
         }
-        if(this.cbxFrecuencia.getSelectedItem().toString().equals("DIARIO")) {
+        if (this.cbxFrecuencia.getSelectedItem().toString().equals("DIARIO")) {
             dias = 1;
         }
-        if(this.cbxFrecuencia.getSelectedItem().toString().equals("MISMO DIA")) {
+        if (this.cbxFrecuencia.getSelectedItem().toString().equals("MISMO DIA")) {
             dias = 0;
         }
-        
+
         fecha_param.add(Calendar.DAY_OF_YEAR, dias);
         resultado = fecha_param;
-        
+
         return resultado;
     }
     

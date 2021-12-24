@@ -23,6 +23,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
     Integer usuario;
     Thread hilo;
     Boolean hilo_corriendo;
+    String version_app = "Versión 1.0.1.";
 
     public MenuPrincipal() {
         try {
@@ -47,6 +48,24 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 //            DMantenimiento.insertar_juicios_AA_No_Demandado();
 //            DMantenimiento.actualizar_deudor_contactabilidad_ultimo();
 //            DMantenimiento.agregar_convenio_promesa_pago();
+            
+            // VALIDAR VERSION.
+            Boolean version = false;
+            String cadenasql = "select c.valor from constantes c where c.constantes=3";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(cadenasql);
+            while (rs.next()) {
+                if(rs.getString(1).trim().equals(this.version_app)) {
+                    version = true;
+                }
+            }
+            rs.close();
+            stmt.close();
+            
+            if(!version) {
+                JOptionPane.showMessageDialog(null, "VERSIÓN DE LA APLICACIÓN INCORRECTA.");
+                System.exit(0);
+            }
 
             //Ventana de login.
             Login a = new Login(new javax.swing.JFrame(), true, conn);
@@ -62,6 +81,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
             com.lexcom.driver.Usuario DUsuario = new com.lexcom.driver.Usuario(conn, this.usuario);
             this.setTitle("APP-LEXCOM-DESKTOP-PRUEBAS - " + DUsuario.obtener_nombre(this.usuario));
             this.jLabel1.setText("AMBIENTE DE PRUEBAS.");
+            this.jLabel3.setText(this.version_app);
 
             this.MenuEntidades.setVisible(false);
             this.MenuReportes.setVisible(false);
@@ -77,7 +97,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
             
             hilo = new Thread(this);
             hilo.start();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.toString());
             System.exit(0);
         }
@@ -90,6 +110,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
         desktopPane = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         MenuPrincipal = new javax.swing.JMenu();
         SubMenuUsuarios = new javax.swing.JMenuItem();
@@ -171,9 +192,17 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(-65536,true));
-        jLabel2.setText("Versión 1.0.");
-        jLabel2.setBounds(10, 40, 600, 24);
+        jLabel2.setText("Fecha despliegue: 23/12/2021.");
+        jLabel2.setBounds(10, 70, 600, 24);
         desktopPane.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLabel2.getAccessibleContext().setAccessibleName("Fecha despliegue: 23/12/2021.");
+        jLabel2.getAccessibleContext().setAccessibleDescription("");
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(-65536,true));
+        jLabel3.setText("Versión 1.0.1.");
+        jLabel3.setBounds(10, 40, 600, 24);
+        desktopPane.add(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         MenuPrincipal.setMnemonic('p');
         MenuPrincipal.setText("Principal");
@@ -1365,6 +1394,7 @@ public class MenuPrincipal extends javax.swing.JFrame implements Runnable {
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
