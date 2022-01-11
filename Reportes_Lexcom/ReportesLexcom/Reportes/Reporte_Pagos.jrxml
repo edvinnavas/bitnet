@@ -36,8 +36,8 @@ g.nombre Garantia,
 d.antiguedad Antiguedad,
 s.nombre Estado_Judicial,
 e.nombre Estatus_Judicial,
-ee.nombre Estado_Extrajudicial,
-se.nombre Estatus_Extrajudicial,
+se.nombre Estado_Extrajudicial,
+ee.nombre Estatus_Extrajudicial,
 u.nombre Gestor,
 d.no_cuenta No_credito,
 d.no_cuenta_otro Otro_no_credito,
@@ -114,11 +114,11 @@ where
 	</field>
 	<field name="Estado_Extrajudicial" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Estado_Extrajudicial"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="estatus_extra"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sestado_extra"/>
 	</field>
 	<field name="Estatus_Extrajudicial" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Estatus_Extrajudicial"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="sestado_extra"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estatus_extra"/>
 	</field>
 	<field name="Gestor" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Gestor"/>
