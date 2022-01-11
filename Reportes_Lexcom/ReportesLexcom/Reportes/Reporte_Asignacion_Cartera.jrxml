@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Asignacion_Cartera" language="groovy" pageWidth="2650" pageHeight="612" orientation="Landscape" columnWidth="2610" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Asignacion_Cartera" language="groovy" pageWidth="2720" pageHeight="612" orientation="Landscape" columnWidth="2680" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="2144"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LexcomConn"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Lexcom_Conn"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="145"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="850"/>
 	<parameter name="corporacion" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select
 d.caso CASO,
 d.fecha_recepcion FECHA_RECEPCION,
 d.antiguedad ANTIGUEDAD,
-ifnull((select dh1.descripcion from deudor_historial_cobros dh1 where dh1.deudor=d.deudor and (dh1.deudor,dh1.deudor_historial_cobros) in (select dh.deudor deudor, max(dh.deudor_historial_cobros) ultima_gestion from deudor_historial_cobros dh where dh.deudor=d.deudor group by dh.deudor)),'-') ULTIMA_GESTION,
+(select dh1.descripcion from deudor_historial_cobros dh1 where dh1.deudor=d.deudor and (dh1.deudor,dh1.deudor_historial_cobros) in (select dh.deudor deudor, max(dh.deudor_historial_cobros) ultima_gestion from deudor_historial_cobros dh where dh.deudor=d.deudor)) ULTIMA_GESTION,
 CAST(d.no_cuenta AS CHAR) NO_CREDITO,
 d.nombre NOMBRE_DEUDOR,
 e.nombre STATUS_JUDICIAL,
@@ -30,11 +23,12 @@ ee.nombre STATUS_EXTRAJUDICIAL,
 se.nombre ESTADO_EXTRAJUDICIAL,
 d.moneda MONEDA,
 d.monto_inicial MONTO_INICIAL,
-if(d.opcion_proximo_pago='SI',d.cuota_convenio,0.00) CUOTA,
-ifnull((select p.fecha_registro from pago p where p.deudor=d.deudor and (p.deudor, p.fecha_registro) in (select pa.deudor, max(pa.fecha_registro) from pago pa where pa.deudor=d.deudor group by pa.deudor) group by p.fecha_registro),date('1900-01-01')) ULTIMO_PAGO_REGISTRO,
-ifnull((select p.fecha from pago p where p.deudor=d.deudor and (p.deudor, p.fecha) in (select pa.deudor, max(pa.fecha) from pago pa where pa.deudor=d.deudor group by pa.deudor) group by p.fecha),date('1900-01-01')) ULTIMO_PAGO_BANCO,
-(select ifnull(sum(pag.monto),0.00) from pago pag where pag.deudor=d.deudor) PAGO_MES,
-ifnull(if(d.opcion_proximo_pago='SI',d.fecha_proximo_pago,date('1900-01-01')),date('1900-01-01')) FECHA_PROXIMO_PAGO,
+if(d.opcion_proximo_pago='SI', d.cuota_convenio, null) CUOTA,
+(select p.fecha_registro from pago p where p.deudor=d.deudor and (p.deudor, p.fecha_registro) in (select pa.deudor, max(pa.fecha_registro) from pago pa where pa.deudor=d.deudor group by pa.deudor) group by p.fecha_registro) ULTIMO_PAGO_REGISTRO,
+(select p.fecha from pago p where p.deudor=d.deudor and (p.deudor, p.fecha) in (select pa.deudor, max(pa.fecha) from pago pa where pa.deudor=d.deudor group by pa.deudor) group by p.fecha) ULTIMO_PAGO_BANCO,
+(select sum(pag.monto) from pago pag where pag.deudor=d.deudor) PAGO_MES,
+if(pro.estado_promesa='PENDIENTE', pro.fecha_creacion, null) FECHA_CREACION_PROX_CUOTA,
+if(d.opcion_proximo_pago='SI', d.fecha_proximo_pago, null) FECHA_PROXIMO_PAGO,
 g.nombre GARANTIA,
 u.nombre GESTOR,
 cc.codigo CODIGO_RESULTADO,
@@ -53,6 +47,8 @@ left join codigo_contactabilidad cc on (d.codigo_contactabilidad=cc.codigo_conta
 left join actor a on (d.actor=a.actor)
 left join cooperacion cor on (a.cooperacion=cor.cooperacion)
 left join intencion_pago i on (d.intencion_pago=i.intencion_pago)
+left join (select c3.deudor, c3.convenio, c3.tipo_convenio, c3.estado, c3.fecha_creacion, c3.fecha_activacion, c3.fecha_terminacion, c3.total_pagar, c3.cuota_inicial, c3.numero_cuotas, c3.frecuencia, c3.monto_cuota, c3.observacion, c3.interes, c3.mora, c3.gasto_otros, c3.rebaja_interes, c3.costas, c3.monto_costas, c3.total, c3.fecha_pago_inicial, c3.saldo from convenio c3 where (c3.deudor, c3.fecha_creacion, c3.convenio) in (select c2.deudor deudor, c2.fecha_creacion fecha_creacion, max(c2.convenio) convenio from convenio c2 where (c2.deudor,c2.fecha_creacion) in (select c1.deudor, max(c1.fecha_creacion) from convenio c1 group by c1.deudor) group by c2.deudor, c2.fecha_creacion)) con on (d.deudor=con.deudor)
+left join (select (select c.deudor from convenio c where c.convenio=pp4.convenio) deudor, pp4.convenio, pp4.promesa_pago, pp4.estado_promesa, pp4.fecha_pago, pp4.fecha_creacion, pp4.fecha_anulacion, pp4.fecha_cumplimiento, pp4.monto from convenio_detalle pp4 where (pp4.convenio, pp4.fecha_pago, pp4.hora_pago, pp4.promesa_pago) in (select pp3.convenio, pp3.fecha_pago, pp3.hora_pago, max(pp3.promesa_pago) numero from convenio_detalle pp3 where (pp3.convenio, pp3.fecha_pago, pp3.hora_pago) in (select pp2.convenio, pp2.fecha_pago, max(pp2.hora_pago) from convenio_detalle pp2 where (pp2.convenio, pp2.fecha_pago) in (select pp1.convenio, max(pp1.fecha_pago) from convenio_detalle pp1 group by pp1.convenio) group by pp2.convenio, pp2.fecha_pago) group by pp3.convenio, pp3.fecha_pago, pp3.hora_pago) group by pp4.convenio, pp4.fecha_pago, pp4.hora_pago, pp4.promesa_pago) pro on (con.deudor=pro.deudor and con.convenio=pro.convenio)
 where
 (d.cargado='CARGADO') and
 (cor.nombre like '$P!{corporacion}')]]>
@@ -115,6 +111,9 @@ where
 	<field name="PAGO_MES" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="PAGO_MES"/>
 	</field>
+	<field name="FECHA_CREACION_PROX_CUOTA" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_CREACION_PROX_CUOTA"/>
+	</field>
 	<field name="FECHA_PROXIMO_PAGO" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="FECHA_PROXIMO_PAGO"/>
 	</field>
@@ -148,7 +147,7 @@ where
 	<title>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="2240" height="33" forecolor="#BF2822" uuid="fc0e8fe6-f947-41cc-829e-746308f1b592"/>
+				<reportElement x="0" y="0" width="2380" height="33" forecolor="#BF2822" uuid="fc0e8fe6-f947-41cc-829e-746308f1b592"/>
 				<box leftPadding="10"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="26" isBold="true"/>
@@ -156,7 +155,7 @@ where
 				<text><![CDATA[Reporte asignación de cartera]]></text>
 			</staticText>
 			<textField pattern="MMMM d, yyyy">
-				<reportElement x="2240" y="0" width="370" height="33" uuid="00239da9-f6af-495a-b5c0-b4f9e33ef68a">
+				<reportElement x="2380" y="0" width="300" height="33" uuid="00239da9-f6af-495a-b5c0-b4f9e33ef68a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
@@ -404,7 +403,7 @@ where
 				<text><![CDATA[Pago mes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1700" y="0" width="70" height="45" uuid="97897ce0-c62c-4e36-86e5-f05047dcf915">
+				<reportElement stretchType="RelativeToTallestObject" x="1770" y="0" width="70" height="45" uuid="97897ce0-c62c-4e36-86e5-f05047dcf915">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
@@ -419,7 +418,7 @@ where
 				<text><![CDATA[Fecha próximo pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1770" y="0" width="100" height="45" uuid="96c29653-3d04-4503-a605-72cd993567d0">
+				<reportElement stretchType="RelativeToTallestObject" x="1840" y="0" width="100" height="45" uuid="96c29653-3d04-4503-a605-72cd993567d0">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
@@ -434,7 +433,7 @@ where
 				<text><![CDATA[Garantía]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1870" y="0" width="70" height="45" uuid="0619a1d4-f905-445e-9679-425a94c790f0">
+				<reportElement stretchType="RelativeToTallestObject" x="1940" y="0" width="70" height="45" uuid="0619a1d4-f905-445e-9679-425a94c790f0">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
@@ -449,7 +448,7 @@ where
 				<text><![CDATA[Gestor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="1940" y="0" width="100" height="45" uuid="02907fbd-a099-4842-a4b4-b122fc116f20">
+				<reportElement stretchType="RelativeToTallestObject" x="2010" y="0" width="100" height="45" uuid="02907fbd-a099-4842-a4b4-b122fc116f20">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
@@ -464,7 +463,7 @@ where
 				<text><![CDATA[Codigo resultado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2040" y="0" width="200" height="45" uuid="007abdf8-13a1-4db6-8f23-cda1aa3432c7">
+				<reportElement stretchType="RelativeToTallestObject" x="2110" y="0" width="200" height="45" uuid="007abdf8-13a1-4db6-8f23-cda1aa3432c7">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
@@ -479,7 +478,7 @@ where
 				<text><![CDATA[Actor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2240" y="0" width="70" height="45" uuid="09ca2762-78e6-42f4-9818-3e719b0f2209">
+				<reportElement stretchType="RelativeToTallestObject" x="2310" y="0" width="70" height="45" uuid="09ca2762-78e6-42f4-9818-3e719b0f2209">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
@@ -494,7 +493,7 @@ where
 				<text><![CDATA[Saldo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2310" y="0" width="300" height="45" uuid="7429aeba-eb6b-47eb-adb1-d7719a5a0381"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2380" y="0" width="300" height="45" uuid="7429aeba-eb6b-47eb-adb1-d7719a5a0381"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -505,6 +504,21 @@ where
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Convenio pactado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1700" y="0" width="70" height="45" uuid="13c87213-3012-4e32-af89-1b732297035a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha creación Prox. Cuota]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -523,7 +537,7 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CASO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CASO} == null ? '-' : $F{CASO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
 				<reportElement stretchType="RelativeToTallestObject" x="60" y="0" width="70" height="30" uuid="398bf93a-e232-4375-acfe-464cd86d9edb"/>
@@ -536,7 +550,7 @@ where
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{FECHA_RECEPCION}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{FECHA_RECEPCION} == null ? '-' : $F{FECHA_RECEPCION}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement stretchType="RelativeToTallestObject" x="130" y="0" width="70" height="30" uuid="abd14646-f9fe-45c1-beab-cd14a051f53c"/>
@@ -549,7 +563,7 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ANTIGUEDAD}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ANTIGUEDAD} == null ? '-' : $F{ANTIGUEDAD}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
 				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="280" height="30" uuid="c0d33512-bde2-428f-9566-a91b721bb249"/>
@@ -562,7 +576,7 @@ where
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ULTIMA_GESTION}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ULTIMA_GESTION} == null ? '-' : $F{ULTIMA_GESTION}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement stretchType="RelativeToTallestObject" x="480" y="0" width="200" height="30" uuid="edcb179e-ed8d-4b49-be14-2a0a5db7a4cb"/>
@@ -575,7 +589,7 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NO_CREDITO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NO_CREDITO} == null ? '-' : $F{NO_CREDITO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement stretchType="RelativeToTallestObject" x="680" y="0" width="200" height="30" uuid="c16f61ac-46e3-4161-bc52-16755b8e9bb6"/>
@@ -588,7 +602,7 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NOMBRE_DEUDOR}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NOMBRE_DEUDOR} == null ? '-' : $F{NOMBRE_DEUDOR}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement stretchType="RelativeToTallestObject" x="880" y="0" width="100" height="30" uuid="afb05422-730e-44a7-80bf-4ddde3c8888b"/>
@@ -601,7 +615,7 @@ where
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{STATUS_JUDICIAL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{STATUS_JUDICIAL} == null ? '-' : $F{STATUS_JUDICIAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement stretchType="RelativeToTallestObject" x="980" y="0" width="100" height="30" uuid="27d944f3-5bea-406c-95ec-edc457ccf836"/>
@@ -614,7 +628,7 @@ where
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ESTADO_JUDICIAL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ESTADO_JUDICIAL} == null ? '-' : $F{ESTADO_JUDICIAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement stretchType="RelativeToTallestObject" x="1080" y="0" width="100" height="30" uuid="57e91ef3-5ac7-4ef3-9f30-a45419eb5161"/>
@@ -627,7 +641,7 @@ where
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{STATUS_EXTRAJUDICIAL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{STATUS_EXTRAJUDICIAL} == null ? '-' : $F{STATUS_EXTRAJUDICIAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement stretchType="RelativeToTallestObject" x="1180" y="0" width="100" height="30" uuid="617d333b-4212-45ba-88c2-908c26f27421"/>
@@ -640,7 +654,7 @@ where
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ESTADO_EXTRAJUDICIAL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ESTADO_EXTRAJUDICIAL} == null ? '-' : $F{ESTADO_EXTRAJUDICIAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement stretchType="RelativeToTallestObject" x="1280" y="0" width="70" height="30" uuid="12417500-01d7-418b-b119-bccbe69f5781"/>
@@ -653,7 +667,7 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{MONEDA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MONEDA} == null ? '-' : $F{MONEDA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
 				<reportElement stretchType="RelativeToTallestObject" x="1350" y="0" width="70" height="30" uuid="1136bfd0-ad90-45fb-994c-129ff11d1873"/>
@@ -666,7 +680,7 @@ where
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{MONTO_INICIAL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MONTO_INICIAL} == null ? '-' : $F{MONTO_INICIAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
 				<reportElement stretchType="RelativeToTallestObject" x="1420" y="0" width="70" height="30" uuid="20fe2e8d-3f32-4b44-a1c9-1cffbb508bd7"/>
@@ -679,7 +693,7 @@ where
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CUOTA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CUOTA} == null ? '-' : $F{CUOTA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
 				<reportElement stretchType="RelativeToTallestObject" x="1490" y="0" width="70" height="30" uuid="3a56f886-7bad-4322-9af5-6ab8370dc612"/>
@@ -692,7 +706,7 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ULTIMO_PAGO_REGISTRO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ULTIMO_PAGO_REGISTRO} == null ? '-' : $F{ULTIMO_PAGO_REGISTRO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
 				<reportElement stretchType="RelativeToTallestObject" x="1560" y="0" width="70" height="30" uuid="bdb460bc-06c5-4825-a909-976b84ced812"/>
@@ -705,7 +719,7 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ULTIMO_PAGO_BANCO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ULTIMO_PAGO_BANCO} == null ? '-' : $F{ULTIMO_PAGO_BANCO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
 				<reportElement stretchType="RelativeToTallestObject" x="1630" y="0" width="70" height="30" uuid="e5333942-9753-4b5d-882f-4388a7ed689a"/>
@@ -718,10 +732,10 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PAGO_MES}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PAGO_MES} == null ? '-' : $F{PAGO_MES}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="1700" y="0" width="70" height="30" uuid="f2c4164b-7542-4a2e-bfd9-6744576b0bdd"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1770" y="0" width="70" height="30" uuid="f2c4164b-7542-4a2e-bfd9-6744576b0bdd"/>
 				<box leftPadding="0">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -731,10 +745,10 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{FECHA_PROXIMO_PAGO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{FECHA_PROXIMO_PAGO} == null ? '-' : $F{FECHA_PROXIMO_PAGO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
-				<reportElement stretchType="RelativeToTallestObject" x="1770" y="0" width="100" height="30" uuid="ead82ea9-8847-4e51-94db-dd0917999003"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1840" y="0" width="100" height="30" uuid="ead82ea9-8847-4e51-94db-dd0917999003"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -744,10 +758,10 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{GARANTIA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{GARANTIA} == null ? '-' : $F{GARANTIA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
-				<reportElement stretchType="RelativeToTallestObject" x="1870" y="0" width="70" height="30" uuid="145be287-cf87-42e1-898b-610f9bddced9"/>
+				<reportElement stretchType="RelativeToTallestObject" x="1940" y="0" width="70" height="30" uuid="145be287-cf87-42e1-898b-610f9bddced9"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -757,10 +771,10 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{GESTOR}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{GESTOR} == null ? '-' : $F{GESTOR}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
-				<reportElement stretchType="RelativeToTallestObject" x="1940" y="0" width="100" height="30" uuid="ba8547c2-2a52-4ed5-ace3-6c1594ffa85a"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2010" y="0" width="100" height="30" uuid="ba8547c2-2a52-4ed5-ace3-6c1594ffa85a"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -770,10 +784,10 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CODIGO_RESULTADO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CODIGO_RESULTADO} == null ? '-' : $F{CODIGO_RESULTADO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
-				<reportElement stretchType="RelativeToTallestObject" x="2040" y="0" width="200" height="30" uuid="f2286159-ed4c-457c-875b-2c5d3035650d"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2110" y="0" width="200" height="30" uuid="f2286159-ed4c-457c-875b-2c5d3035650d"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -783,10 +797,10 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ACTOR}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ACTOR} == null ? '-' : $F{ACTOR}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
-				<reportElement stretchType="RelativeToTallestObject" x="2240" y="0" width="70" height="30" uuid="923e5d1a-7a00-46be-a6d5-7eec5ac902d2"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2310" y="0" width="70" height="30" uuid="923e5d1a-7a00-46be-a6d5-7eec5ac902d2"/>
 				<box leftPadding="0" rightPadding="5">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -796,10 +810,10 @@ where
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{SALDO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{SALDO} == null ? '-' : $F{SALDO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
-				<reportElement stretchType="RelativeToTallestObject" x="2310" y="0" width="300" height="30" uuid="a3a4d52d-c215-4790-a3ef-969405eaf0bf"/>
+				<reportElement stretchType="RelativeToTallestObject" x="2380" y="0" width="300" height="30" uuid="a3a4d52d-c215-4790-a3ef-969405eaf0bf"/>
 				<box leftPadding="5">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -809,7 +823,20 @@ where
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CONVENIO_PACTADO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CONVENIO_PACTADO} == null ? '-' : $F{CONVENIO_PACTADO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement stretchType="RelativeToTallestObject" x="1700" y="0" width="70" height="30" uuid="6d2a7632-c4c8-4cd5-a529-c3e2706e7c5f"/>
+				<box leftPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_CREACION_PROX_CUOTA} == null ? '-' : $F{FECHA_CREACION_PROX_CUOTA}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
