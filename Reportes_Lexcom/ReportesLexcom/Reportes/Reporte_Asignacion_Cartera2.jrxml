@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Asignacion_Cartera" language="groovy" pageWidth="3440" pageHeight="612" orientation="Landscape" columnWidth="3400" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Asignacion_Cartera" language="groovy" pageWidth="3540" pageHeight="612" orientation="Landscape" columnWidth="3500" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc1de70-6ae4-40b9-9501-b4ff65731382">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="2144"/>
 	<property name="ireport.y" value="0"/>
@@ -8,7 +8,14 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="149"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="846"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="corporacion" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -46,6 +53,7 @@ d.saldo SALDO,
 if(pro.estado_promesa='PENDIENTE', pro.fecha_creacion, null) FECHA_CREACION_PROX_CUOTA,
 if(d.opcion_proximo_pago='SI', d.fecha_proximo_pago, null) FECHA_PROXIMO_PAGO,
 if(d.opcion_proximo_pago='SI', d.cuota_convenio, null) Q_PROXIMO_PAGO,
+if(pro.estado_promesa='INCUMPLIDO', pro.fecha_anulacion, null) FECHA_ANULACION_PROX_CUOTA,
 se.nombre ESTADO_EXTRAJUDICIAL,
 ee.nombre STATUS_EXTRAJUDICIAL,
 i.nombre INTENSION_PAGO,
@@ -159,6 +167,9 @@ where
 	<field name="Q_PROXIMO_PAGO" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="Q_PROXIMO_PAGO"/>
 	</field>
+	<field name="FECHA_ANULACION_PROX_CUOTA" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_ANULACION_PROX_CUOTA"/>
+	</field>
 	<field name="ESTADO_EXTRAJUDICIAL" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="ESTADO_EXTRAJUDICIAL"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sestado_extra"/>
@@ -204,7 +215,7 @@ where
 		<groupHeader>
 			<band height="13">
 				<textField isStretchWithOverflow="true">
-					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="3400" height="13" forecolor="#BF2822" uuid="1b25d9b6-07d3-42fa-8a1a-b2b3ea11402b">
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="3500" height="13" forecolor="#BF2822" uuid="1b25d9b6-07d3-42fa-8a1a-b2b3ea11402b">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -236,7 +247,7 @@ where
 				<text><![CDATA[Reporte asignación de cartera 2]]></text>
 			</staticText>
 			<textField pattern="MMMM d, yyyy">
-				<reportElement x="3100" y="0" width="300" height="33" uuid="00239da9-f6af-495a-b5c0-b4f9e33ef68a">
+				<reportElement x="3100" y="0" width="400" height="33" uuid="00239da9-f6af-495a-b5c0-b4f9e33ef68a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
@@ -587,7 +598,7 @@ where
 				<text><![CDATA[Monto próximo pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2300" y="0" width="100" height="33" uuid="0b6da104-a482-4cc8-9faf-7f3d7f2589e8">
+				<reportElement stretchType="RelativeToTallestObject" x="2400" y="0" width="100" height="33" uuid="0b6da104-a482-4cc8-9faf-7f3d7f2589e8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="809c5cea-a7dd-44e8-86d2-3a75e82c9f42"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -603,7 +614,7 @@ where
 				<text><![CDATA[Estado extrajudicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2400" y="0" width="100" height="33" uuid="a4a5a90b-6dae-4943-89d2-7f22a07f0967">
+				<reportElement stretchType="RelativeToTallestObject" x="2500" y="0" width="100" height="33" uuid="a4a5a90b-6dae-4943-89d2-7f22a07f0967">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18d8e7aa-9f1d-49db-a453-1597fd313aec"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -619,7 +630,7 @@ where
 				<text><![CDATA[Estatus extrajudicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2500" y="0" width="100" height="33" uuid="4d42e175-b465-4bdc-8731-a9b841f2a885">
+				<reportElement stretchType="RelativeToTallestObject" x="2600" y="0" width="100" height="33" uuid="4d42e175-b465-4bdc-8731-a9b841f2a885">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="15ea68a4-e10e-4046-bd0b-d0b0fd2f3c25"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -635,7 +646,7 @@ where
 				<text><![CDATA[Intensión de pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2600" y="0" width="100" height="33" uuid="8104e55d-d04c-448e-94c5-d04332346e37">
+				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="100" height="33" uuid="8104e55d-d04c-448e-94c5-d04332346e37">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="daa55890-5183-4ae2-98ae-a7018ec9d065"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -651,7 +662,7 @@ where
 				<text><![CDATA[Usuario última gestión de contacto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="100" height="33" uuid="1dbed0f7-c151-47a2-9635-e33301eb17d3">
+				<reportElement stretchType="RelativeToTallestObject" x="2800" y="0" width="100" height="33" uuid="1dbed0f7-c151-47a2-9635-e33301eb17d3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6430fdb5-9d98-4ca7-9cce-3dda0cc05d6b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -667,7 +678,7 @@ where
 				<text><![CDATA[Código última gestión de contacto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2800" y="0" width="100" height="33" uuid="e6c1cc49-628b-4a64-9082-c94347771bd5">
+				<reportElement stretchType="RelativeToTallestObject" x="2900" y="0" width="100" height="33" uuid="e6c1cc49-628b-4a64-9082-c94347771bd5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00032d59-f339-4095-b930-a3bd9cd12e9a"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -683,7 +694,7 @@ where
 				<text><![CDATA[Fecha última gestión de contacto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="2900" y="0" width="100" height="33" uuid="008c5c08-541b-448c-ac41-ce61db78cd16">
+				<reportElement stretchType="RelativeToTallestObject" x="3000" y="0" width="100" height="33" uuid="008c5c08-541b-448c-ac41-ce61db78cd16">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8bd31bc-2e0f-4043-a2af-a67a82d1706d"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -699,7 +710,7 @@ where
 				<text><![CDATA[Descripción última gestión de contacto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3000" y="0" width="100" height="33" uuid="f825809a-98a6-45eb-81ec-9634f02717a8">
+				<reportElement stretchType="RelativeToTallestObject" x="3100" y="0" width="100" height="33" uuid="f825809a-98a6-45eb-81ec-9634f02717a8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0a06d89f-7aed-4e74-8f17-0d8bcccb848d"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -715,7 +726,7 @@ where
 				<text><![CDATA[Usuario última gestión]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3100" y="0" width="100" height="33" uuid="5e323687-f6ef-486d-abc4-a2e8f121780a">
+				<reportElement stretchType="RelativeToTallestObject" x="3200" y="0" width="100" height="33" uuid="5e323687-f6ef-486d-abc4-a2e8f121780a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71f60908-63ff-412e-8aaf-30ca9c1330b4"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -731,7 +742,7 @@ where
 				<text><![CDATA[Código última gestión]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3200" y="0" width="100" height="33" uuid="53c4108b-c307-4406-9aed-44993e900bbd">
+				<reportElement stretchType="RelativeToTallestObject" x="3300" y="0" width="100" height="33" uuid="53c4108b-c307-4406-9aed-44993e900bbd">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="23e17e75-3f0b-4e1a-a9dd-8093a92e195a"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -747,7 +758,7 @@ where
 				<text><![CDATA[Fecha última gestión]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="3300" y="0" width="100" height="33" uuid="819716d8-a1e7-4926-b290-1ddaa697ffa6">
+				<reportElement stretchType="RelativeToTallestObject" x="3400" y="0" width="100" height="33" uuid="819716d8-a1e7-4926-b290-1ddaa697ffa6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="840cb4c8-d282-411e-99fa-fddb9dd57718"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -793,6 +804,22 @@ where
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha creación Prox. cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="2300" y="0" width="100" height="33" uuid="b4f1205e-289b-4cef-a83a-f73bf1690521">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c99853f6-5994-4795-9cdf-2bfdea52d8d3"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha anulación Prox. cuota]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -1135,7 +1162,7 @@ where
 				<textFieldExpression><![CDATA[$F{Q_PROXIMO_PAGO} == null ? '-' : $F{Q_PROXIMO_PAGO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2300" y="0" width="100" height="11" uuid="1761ca80-3f80-41f8-a2ac-44024a475ef9">
+				<reportElement stretchType="RelativeToTallestObject" x="2400" y="0" width="100" height="11" uuid="1761ca80-3f80-41f8-a2ac-44024a475ef9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="809c5cea-a7dd-44e8-86d2-3a75e82c9f42"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1151,7 +1178,7 @@ where
 				<textFieldExpression><![CDATA[$F{ESTADO_EXTRAJUDICIAL} == null ? '-' : $F{ESTADO_EXTRAJUDICIAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2400" y="0" width="100" height="11" uuid="4aa76268-2ef3-49c8-9548-3781057d9fef">
+				<reportElement stretchType="RelativeToTallestObject" x="2500" y="0" width="100" height="11" uuid="4aa76268-2ef3-49c8-9548-3781057d9fef">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18d8e7aa-9f1d-49db-a453-1597fd313aec"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1167,7 +1194,7 @@ where
 				<textFieldExpression><![CDATA[$F{STATUS_EXTRAJUDICIAL} == null ? '-' : $F{STATUS_EXTRAJUDICIAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2500" y="0" width="100" height="11" uuid="0d269b8e-3852-4fc8-a618-ed0d4807a908">
+				<reportElement stretchType="RelativeToTallestObject" x="2600" y="0" width="100" height="11" uuid="0d269b8e-3852-4fc8-a618-ed0d4807a908">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="15ea68a4-e10e-4046-bd0b-d0b0fd2f3c25"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1183,7 +1210,7 @@ where
 				<textFieldExpression><![CDATA[$F{INTENSION_PAGO} == null ? '-' : $F{INTENSION_PAGO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2600" y="0" width="100" height="11" uuid="82a1cc88-63f5-44e9-ab32-49dad8420bae">
+				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="100" height="11" uuid="82a1cc88-63f5-44e9-ab32-49dad8420bae">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="daa55890-5183-4ae2-98ae-a7018ec9d065"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1199,7 +1226,7 @@ where
 				<textFieldExpression><![CDATA[$F{ULTIMO_USUARIO_GESTION_CONTACTO} == null ? '-' : $F{ULTIMO_USUARIO_GESTION_CONTACTO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2700" y="0" width="100" height="11" uuid="e805a2b6-ea3a-4ce3-a5b4-529f1acd014a">
+				<reportElement stretchType="RelativeToTallestObject" x="2800" y="0" width="100" height="11" uuid="e805a2b6-ea3a-4ce3-a5b4-529f1acd014a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6430fdb5-9d98-4ca7-9cce-3dda0cc05d6b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1215,7 +1242,7 @@ where
 				<textFieldExpression><![CDATA[$F{ULTIMO_CODIGO_GESTION_CONTACTO} == null ? '-' : $F{ULTIMO_CODIGO_GESTION_CONTACTO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="2800" y="0" width="100" height="11" uuid="8cdfb1cb-c8fa-44d7-be37-0939e661f50a">
+				<reportElement stretchType="RelativeToTallestObject" x="2900" y="0" width="100" height="11" uuid="8cdfb1cb-c8fa-44d7-be37-0939e661f50a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00032d59-f339-4095-b930-a3bd9cd12e9a"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1231,7 +1258,7 @@ where
 				<textFieldExpression><![CDATA[$F{ULTIMO_FECHA_GESTION_CONTACTO} == null ? '-' : $F{ULTIMO_FECHA_GESTION_CONTACTO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="2900" y="0" width="100" height="11" uuid="1d3f2289-db32-4e6d-bd14-c4a164dcfd98">
+				<reportElement stretchType="RelativeToTallestObject" x="3000" y="0" width="100" height="11" uuid="1d3f2289-db32-4e6d-bd14-c4a164dcfd98">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8bd31bc-2e0f-4043-a2af-a67a82d1706d"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1247,7 +1274,7 @@ where
 				<textFieldExpression><![CDATA[$F{ULTIMO_DESCRIPCION_GESTION_CONTACTO} == null ? '-' : $F{ULTIMO_DESCRIPCION_GESTION_CONTACTO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3000" y="0" width="100" height="11" uuid="8f5d7c78-a1cb-4b0e-bb03-d16eb65cf148">
+				<reportElement stretchType="RelativeToTallestObject" x="3100" y="0" width="100" height="11" uuid="8f5d7c78-a1cb-4b0e-bb03-d16eb65cf148">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0a06d89f-7aed-4e74-8f17-0d8bcccb848d"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1263,7 +1290,7 @@ where
 				<textFieldExpression><![CDATA[$F{ULTIMO_USUARIO_GESTION} == null ? '-' : $F{ULTIMO_USUARIO_GESTION}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3100" y="0" width="100" height="11" uuid="4944d54c-35fd-4a2f-9707-10f691f2c016">
+				<reportElement stretchType="RelativeToTallestObject" x="3200" y="0" width="100" height="11" uuid="4944d54c-35fd-4a2f-9707-10f691f2c016">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71f60908-63ff-412e-8aaf-30ca9c1330b4"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1279,7 +1306,7 @@ where
 				<textFieldExpression><![CDATA[$F{ULTIMO_CODIGO_GESTION} == null ? '-' : $F{ULTIMO_CODIGO_GESTION}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement stretchType="RelativeToTallestObject" x="3200" y="0" width="100" height="11" uuid="2ccdf8f0-07b4-4f6f-8bf7-511358179f0f">
+				<reportElement stretchType="RelativeToTallestObject" x="3300" y="0" width="100" height="11" uuid="2ccdf8f0-07b4-4f6f-8bf7-511358179f0f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="23e17e75-3f0b-4e1a-a9dd-8093a92e195a"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1295,7 +1322,7 @@ where
 				<textFieldExpression><![CDATA[$F{ULTIMO_FECHA_GESTION} == null ? '-' : $F{ULTIMO_FECHA_GESTION}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="3300" y="0" width="100" height="11" uuid="0975317f-f2d8-48c2-9db8-937e01a0a30d">
+				<reportElement stretchType="RelativeToTallestObject" x="3400" y="0" width="100" height="11" uuid="0975317f-f2d8-48c2-9db8-937e01a0a30d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="840cb4c8-d282-411e-99fa-fddb9dd57718"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1341,6 +1368,22 @@ where
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FECHA_CREACION_PROX_CUOTA} == null ? '-' : $F{FECHA_CREACION_PROX_CUOTA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement stretchType="RelativeToTallestObject" x="2300" y="0" width="100" height="11" uuid="bbb24caf-d525-4482-b038-bdff0b864744">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9a26cddf-ef62-49c2-a444-a06c04290908"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_ANULACION_PROX_CUOTA} == null ? '-' : $F{FECHA_ANULACION_PROX_CUOTA}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
