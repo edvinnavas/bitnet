@@ -38,6 +38,12 @@ public class Servicio implements Serializable {
         lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
         return port.actualizacionMasivaDeudores(usuarioSys, archivo, poolConexion);
     }
+    
+    public String actualizacionMasivaDeudoresDatosPersonales(java.lang.Integer usuarioSys, java.lang.String archivo, java.lang.String poolConexion) {
+        lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();
+        lexcom.ws.ServiciosLexcom port = service.getServiciosLexcomPort();
+        return port.actualizacionMasivaDeudoresDatosPersonales(usuarioSys, archivo, poolConexion);
+    }
 
     public String aumentoEliminar(java.lang.Integer usuarioSys, java.lang.Integer idAumento, java.lang.String poolConexion) {
         lexcom.ws.ServiciosLexcom_Service service = new lexcom.ws.ServiciosLexcom_Service();

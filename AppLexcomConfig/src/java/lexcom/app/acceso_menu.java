@@ -180,6 +180,9 @@ public class acceso_menu implements Serializable {
                     case "Carga actualización masiva deudores":
                         Carga_actualizacion_masiva_deudores = listucha.get(i).getVer();
                         break;
+                    case "Carga actualización masiva deudores datos personales":
+                        Carga_actualizacion_masiva_deudores_datos_personales = listucha.get(i).getVer();
+                        break;
                     case "Carga rotación de cartera":
                         Carga_rotacion_de_cartera = listucha.get(i).getVer();
                         break;
@@ -322,6 +325,7 @@ public class acceso_menu implements Serializable {
     public String Archivo_diligenciar_medidas;
     public String Carga_masiva_deudores;
     public String Carga_actualizacion_masiva_deudores;
+    public String Carga_actualizacion_masiva_deudores_datos_personales;
     public String Carga_rotacion_de_cartera;
     public String Carga_de_pagos_masivos;
     public String Carga_masiva_presentar_demanda;

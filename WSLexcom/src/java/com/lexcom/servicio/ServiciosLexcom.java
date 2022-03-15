@@ -171,6 +171,29 @@ public class ServiciosLexcom implements Serializable {
 
         return resultado;
     }
+    
+    /**
+     * @param usuario_sys
+     * @param archivo
+     * @param poolConexion
+     * @return
+     */
+    @WebMethod(operationName = "Actualizacion_Masiva_Deudores_Datos_Personales")
+    public String Actualizacion_Masiva_Deudores_Datos_Personales(
+            @WebParam(name = "usuario_sys") Integer usuario_sys,
+            @WebParam(name = "archivo") String archivo,
+            @WebParam(name = "poolConexion") String poolConexion) {
+
+        String resultado = null;
+        try {
+            Carga_Masiva carga_masiva = new Carga_Masiva();
+            resultado = carga_masiva.actualizacion_masiva_deudores_datos_personales(usuario_sys, archivo, poolConexion);
+        } catch (Exception ex) {
+            System.out.println("ERROR => WS-ServiciosLexcom(Actualizacion_Masiva_Deudores_Datos_Personales): " + ex.toString());
+        }
+
+        return resultado;
+    }
 
     /**
      * @param usuario_sys

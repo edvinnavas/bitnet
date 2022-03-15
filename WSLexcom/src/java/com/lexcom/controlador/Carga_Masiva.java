@@ -1897,6 +1897,360 @@ public class Carga_Masiva implements Serializable {
 
         return resultado;
     }
+    
+    public String actualizacion_masiva_deudores_datos_personales(
+            Integer usuario_sys,
+            String archivo,
+            String poolConexion) {
+
+        String resultado = null;
+        Integer linea_error = 1;
+        Integer filas;
+
+        Driver driver = new Driver();
+        Connection conn = driver.getConn(poolConexion);
+
+        try {
+            DecimalFormat formatoInteger = new DecimalFormat("#");
+            SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoDate1 = new SimpleDateFormat("yyyy-MM-dd");
+            formatoDate.setLenient(false);
+            formatoDate1.setLenient(false);
+
+            conn.setAutoCommit(false);
+
+            File excel = new File(archivo);
+            FileInputStream fis = new FileInputStream(excel);
+            XSSFWorkbook wb = new XSSFWorkbook(fis);
+            XSSFSheet ws = wb.getSheetAt(0);
+
+            filas = ws.getLastRowNum() + 1;
+
+            for (Integer i = 1; i < filas; i++) {
+                linea_error = i + 1;
+
+                XSSFRow row = ws.getRow(i);
+
+                XSSFCell Id_Deudor = row.getCell(0);
+                XSSFCell Corporacion = row.getCell(1);
+                XSSFCell Actor = row.getCell(2);
+                XSSFCell Garantia = row.getCell(3);
+                XSSFCell No_Cuenta = row.getCell(4);
+                XSSFCell Caso = row.getCell(5);
+                XSSFCell Otro_No_Cuenta = row.getCell(6);
+                XSSFCell Cargado = row.getCell(7);
+                XSSFCell Nombre_Deudor = row.getCell(8);
+                XSSFCell DPI = row.getCell(9);
+                XSSFCell NIT = row.getCell(10);
+                XSSFCell Fecha_Nacimiento = row.getCell(11);
+                XSSFCell Telefono_Principal = row.getCell(12);
+                XSSFCell Correo_Electronico = row.getCell(13);
+                XSSFCell Telefono_Casa = row.getCell(14);
+                XSSFCell Telefono_Trabajo = row.getCell(15);
+                XSSFCell Direccion = row.getCell(16);
+                XSSFCell Zona = row.getCell(17);
+                XSSFCell Departamento = row.getCell(18);
+                XSSFCell Lugar_Trabajo = row.getCell(19);
+                XSSFCell Direccion_Trabajo = row.getCell(20);
+                XSSFCell Notas = row.getCell(21);
+
+                Integer db_deudor = 0;
+                try {
+                    db_deudor = Integer.parseInt(formatoInteger.format(Double.parseDouble(Id_Deudor.toString().trim())));
+                } catch (Exception ex) {
+                    throw new Exception("Error al calcular el campo Id_Deudor en la linea: " + linea_error + " Exception: " + ex.toString());
+                }
+                
+                String db_Corporacion = "";
+                if (Corporacion != null) {
+                    db_Corporacion = Corporacion.toString().trim();
+                    if (db_Corporacion.equals("")) {
+                        db_Corporacion = "-";
+                    }
+                } else {
+                    db_Corporacion = "-";
+                }
+                
+                String db_Actor = "";
+                if (Actor != null) {
+                    db_Actor = Actor.toString().trim();
+                    if (db_Actor.equals("")) {
+                        db_Actor = "-";
+                    }
+                } else {
+                    db_Actor = "-";
+                }
+                
+                String db_Caso = "";
+                if (Caso != null) {
+                    db_Caso = Caso.toString().trim();
+                    if (db_Caso.equals("")) {
+                        db_Caso = "-";
+                    }
+                } else {
+                    db_Caso = "-";
+                }
+                
+                String db_DPI = "";
+                if (DPI != null) {
+                    db_DPI = DPI.toString().trim();
+                    if (db_DPI.equals("")) {
+                        db_DPI = "-";
+                    }
+                } else {
+                    db_DPI = "-";
+                }
+                
+                String db_NIT = "";
+                if (NIT != null) {
+                    db_NIT = NIT.toString().trim();
+                    if (db_NIT.equals("")) {
+                        db_NIT = "-";
+                    }
+                } else {
+                    db_NIT = "-";
+                }
+                
+                Date db_Fecha_Nacimiento = new Date();
+                if (Fecha_Nacimiento != null) {
+                    try {
+                        db_Fecha_Nacimiento = Fecha_Nacimiento.getDateCellValue();
+                        formatoDate.format(db_Fecha_Nacimiento);
+                    } catch (Exception ex) {
+                        throw new Exception("Error al calcular el campo Fecha Nacimiento en la linea: " + linea_error + " Exception: " + ex.toString());
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Fecha Nacimiento en la linea: " + linea_error);
+                }
+                
+                String db_Telefono_Principal = "";
+                if (Telefono_Principal != null) {
+                    try {
+                        Long db_Telefono_Principal_long = Long.parseLong(Telefono_Principal.toString().trim());
+                        if (db_Telefono_Principal_long == 0 || (db_Telefono_Principal_long >= 10000000 && db_Telefono_Principal_long <= 99999999)) {
+                            db_Telefono_Principal = db_Telefono_Principal_long.toString();
+                        } else {
+                            throw new Exception("Error al calcular el campo TelefonoPrincipal en la linea: " + linea_error);
+                        }
+                    } catch (Exception ex) {
+                        throw new Exception("Error al calcular el campo Telefono Principal en la linea: " + linea_error + " Exception: " + ex.toString());
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Telefono Principal en la linea: " + linea_error);
+                }
+                
+                String db_Correo_Electronico = "";
+                Integer esCorreo = 0;
+                if (Correo_Electronico != null) {
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select lower('" + Correo_Electronico.toString().trim() + "') regexp '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\\\.[a-zA-Z]{2,63}$' EsCorreo");
+                    while (rs.next()) {
+                        esCorreo = rs.getInt(1);
+                    }
+                    rs.close();
+                    stmt.close();
+
+                    if (Correo_Electronico.toString().trim().equals("-") || esCorreo == 1) {
+                        db_Correo_Electronico = Correo_Electronico.toString().trim();
+                    } else {
+                        throw new Exception("Error al calcular el campo Correo Electrónico en la linea: " + linea_error);
+                    }
+                } else {
+                    throw new Exception("Error al calcular el campo Correo Electrónico en la linea: " + linea_error);
+                }
+                
+                String db_Telefono_Casa = "";
+                if (Telefono_Casa != null) {
+                    db_Telefono_Casa = Telefono_Casa.toString().trim();
+                    if (db_Telefono_Casa.equals("")) {
+                        db_Telefono_Casa = "-";
+                    }
+                } else {
+                    db_Telefono_Casa = "-";
+                }
+                
+                String db_Telefono_Trabajo = "";
+                if (Telefono_Trabajo != null) {
+                    db_Telefono_Trabajo = Telefono_Trabajo.toString().trim();
+                    if (db_Telefono_Trabajo.equals("")) {
+                        db_Telefono_Trabajo = "-";
+                    }
+                } else {
+                    db_Telefono_Trabajo = "-";
+                }
+                
+                String db_Direccion = "";
+                if (Direccion != null) {
+                    db_Direccion = Direccion.toString().trim();
+                    if (db_Direccion.equals("")) {
+                        db_Direccion = "-";
+                    }
+                } else {
+                    db_Direccion = "-";
+                }
+                
+                Integer db_Zona = 0;
+                try {
+                    db_Zona = Integer.parseInt(formatoInteger.format(Double.parseDouble(Zona.toString().trim())));
+                } catch (Exception ex) {
+                    db_Zona = 0;
+                }
+                
+                String db_Departamento = "";
+                if (Departamento != null) {
+                    db_Departamento = Departamento.toString().trim();
+                    if (db_Departamento.equals("")) {
+                        db_Departamento = "Guatemala";
+                    }
+                } else {
+                    db_Departamento = "Guatemala";
+                }
+                
+                String db_Lugar_Trabajo = "";
+                if (Lugar_Trabajo != null) {
+                    db_Lugar_Trabajo = Lugar_Trabajo.toString().trim();
+                    if (db_Lugar_Trabajo.equals("")) {
+                        db_Lugar_Trabajo = "-";
+                    }
+                } else {
+                    db_Lugar_Trabajo = "-";
+                }
+                
+                String db_Contacto_Trabajo = "";
+                if (Direccion_Trabajo != null) {
+                    db_Contacto_Trabajo = Direccion_Trabajo.toString().trim();
+                    if (db_Contacto_Trabajo.equals("")) {
+                        db_Contacto_Trabajo = "-";
+                    }
+                } else {
+                    db_Contacto_Trabajo = "-";
+                }
+                
+                String db_Notas = "";
+                if (Notas != null) {
+                    db_Notas = Notas.toString().trim();
+                    if (db_Notas.equals("")) {
+                        db_Notas = "-";
+                    }
+                } else {
+                    db_Notas = "-";
+                }
+                
+                Deudores_Actualizacion_Masiva deu_act_mas = new Deudores_Actualizacion_Masiva(
+                        db_deudor,
+                        0,
+                        "",
+                        db_DPI,
+                        db_NIT,
+                        db_Fecha_Nacimiento,
+                        "",
+                        "",
+                        db_Telefono_Casa,
+                        db_Telefono_Principal,
+                        db_Direccion,
+                        db_Zona,
+                        "",
+                        "",
+                        "",
+                        "",
+                        new Date(),
+                        "",
+                        db_Correo_Electronico,
+                        db_Lugar_Trabajo,
+                        db_Contacto_Trabajo,
+                        db_Telefono_Trabajo,
+                        0.00,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        "",
+                        0,
+                        "",
+                        "",
+                        db_Notas,
+                        0,
+                        0,
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        new Date(),
+                        "",
+                        "",
+                        new Date(),
+                        0.00,
+                        0.00,
+                        "",
+                        0.00,
+                        "",
+                        "",
+                        "",
+                        "",
+                        new Date(),
+                        0,
+                        0,
+                        "",
+                        0,
+                        0.00,
+                        0,
+                        0);
+                
+                String cadenasql = "update deudor set "
+                        + "dpi='" + deu_act_mas.getDpi() + "', "
+                        + "nit='" + deu_act_mas.getNit() + "', "
+                        + "fecha_nacimiento='" + formatoDate1.format(deu_act_mas.getFecha_nacimiento()) + "', "
+                        + "telefono_celular='" + deu_act_mas.getTelefono_celular() + "', "
+                        + "correo_electronico='" + deu_act_mas.getCorreo_electronico() + "', "
+                        + "telefono_casa='" + deu_act_mas.getTelefono_casa() + "', "
+                        + "telefono_trabajo='" + deu_act_mas.getTelefono_trabajo() + "', "
+                        + "direccion='" + deu_act_mas.getDireccion() + "', "
+                        + "zona=" + deu_act_mas.getZona() + ", "
+                        + "departamento='" + deu_act_mas.getDepartamento() + "', "
+                        + "lugar_trabajo='" + deu_act_mas.getLugar_trabajo() + "', "
+                        + "direccion_trabajo='" + deu_act_mas.getContacto_trabajo() + "', "
+                        + "descripcion='" + deu_act_mas.getNotas() + "' "
+                        + "where deudor=" + deu_act_mas.getDeudor();
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+                
+                cadenasql = "insert into evento (usuario, fecha, hora, descripcion, tipo_evento) values ("
+                        + usuario_sys + ","
+                        + "CURRENT_DATE()" + ","
+                        + "CURRENT_TIME()" + ",'"
+                        + "Actualización masiva DATOS PERSONALES: ID-DEUDOR: " + deu_act_mas.getDeudor() + " CORPORACIÓN: " + db_Corporacion + " ACTOR: " + db_Actor + " CASO: " + db_Caso + "',"
+                        + "169" + ")";
+                stmt = conn.createStatement();
+                stmt.executeUpdate(cadenasql);
+                stmt.close();
+            }
+
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            resultado = "Se actualizaron correctamente los datos personales de los deudores.";
+        } catch (Exception ex) {
+            try {
+                System.out.println("ERROR => WS-ServiciosLexcom(actualizacion_masiva_deudores_datos_personales): " + ex.toString());
+                conn.rollback();
+                resultado = "Error linea(" + linea_error + "): " + ex.toString();
+            } catch (Exception ex1) {
+                System.out.println("ERROR => WS-ServiciosLexcom(actualizacion_masiva_deudores_datos_personales - rollback): " + ex1.toString());
+                resultado = "ERROR ROLLBACK: " + ex1.toString();
+            }
+        } finally {
+            conn = driver.closeConn();
+            driver = null;
+        }
+
+        return resultado;
+    }
 
     public String carga_rotacion_cartera(
             Integer usuario_sys,
