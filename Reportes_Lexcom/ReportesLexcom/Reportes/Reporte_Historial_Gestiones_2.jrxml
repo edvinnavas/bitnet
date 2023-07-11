@@ -15,10 +15,10 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<parameter name="fecha_inicial" class="java.util.Date">
+	<parameter name="fecha_inicial" class="java.sql.Timestamp">
 		<defaultValueExpression><![CDATA[NOW( )]]></defaultValueExpression>
 	</parameter>
-	<parameter name="fecha_final" class="java.util.Date">
+	<parameter name="fecha_final" class="java.sql.Timestamp">
 		<defaultValueExpression><![CDATA[NOW( )]]></defaultValueExpression>
 	</parameter>
 	<parameter name="corporacion" class="java.lang.Integer">
@@ -67,7 +67,7 @@ left join juzgado ju on (j.juzgado=ju.juzgado)
 left join garantia g on (d.garantia=g.garantia)
 left join razon_deuda rd on (d.razon_deuda=rd.razon_deuda)
 where
-(dhc.fecha>= $P{fecha_inicial} and dhc.fecha<= $P{fecha_final}) and
+(timestamp(concat(dhc.fecha, ' ', dhc.hora)) between $P{fecha_inicial} and $P{fecha_final}) and
 (a.cooperacion =  $P{corporacion} ) and
 (u.nombre like '$P!{gestor}')
 order by
